@@ -1,4 +1,4 @@
-# cme211-notes
+# CME 211 Notes
 
 # License
 
