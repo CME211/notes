@@ -117,4 +117,117 @@ $
 ```
 
 This just removes the username, server name, and directory path from the command
-line prompt.
+line prompt.  Note that the `ls` command lists the files and directories
+contained in the "working directory".  The "working directory" is where your
+shell is currently focued.  To see what your "working directory" is:
+
+```
+$ pwd
+/afs/ir/users/n/w/nwh
+```
+
+### Python as a calculator
+
+The Python interpreter uses `>>>` as a command prompt (by default).  It is often
+useful to use the Python interpreter as a simple calculator:
+
+```
+>>> 4+7
+11
+>>> 55*2
+110
+>>> 9-1.4
+7.6
+>>> 2/4
+0
+>>> 2//4
+0
+>>> 2.0/4
+0.5
+>>> 2.0//4
+0.0
+>>> 
+```
+
+## Integers and floating point
+
+In CME 212, we will discuss in detail the computer representation of integers
+and floating point numbers.  For now:
+
+- It is best to think of integers as being represented exactly over a fixed
+  range.  (This is not really true in current versions of Python, but will be
+  true in C++)
+
+- Floating point numbers are *approximations* of real numbers over a limited
+  range.
+
+- Floating point number range is not continuous.  There are gaps between
+  floating point numbers that depend on the scale.  The gap between `1.0` and
+  the next representable floating point number is smaller than the gap between
+  `1.0e50` and the next representable floating point number.
+
+- These things matter and bad numerical computing has resulted in a number of
+  disasters: https://www.ima.umn.edu/~arnold/disasters/
+
+### Some more examples
+
+```
+>>> 1.0
+1.0
+>>> 3/5
+0
+>>> 3./5
+0.6
+>>> 3/5.
+0.6
+>>> 3%5
+3
+>>> 
+```
+
+The `%` operator is called the *modulus* operator and returns the remainder for
+integer division.
+
+## More math
+
+If you are familiar with Matlab, you may come to Python and be confused by:
+
+```
+>>> sqrt(3)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'sqrt' is not defined
+>>> 
+```
+
+The Python languange does not have a built in `sqrt` function.  `sqrt` exists in
+the Python `math` module:
+
+```python
+>>> import math
+>>> math.sqrt(9)
+3.0
+```
+
+## Modules
+
+* A module is a collection of Python resources (functions, variables, objects,
+  classes) that can be easily loaded into Python via `import` statements
+
+* Modules allow for easy code reuse and organization
+
+* Modules allow the programmer to keep various functionality in different
+  namespaces.
+
+* There are a large number of modules in the Python Standard Library:
+  https://docs.python.org/2/library/index.html
+
+* It is often useful to explore the Python documentation in the interpreter:
+
+```py
+>>> import math
+>>> help(math)
+# pager opened
+>>> help(math.sqrt)
+# pager opened
+```
