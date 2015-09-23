@@ -439,6 +439,25 @@ Concatenate strings with +
 >>> 
 ```
 
+## Note on Python syntax
+
+Python uses syntatic indenting.  This means that indenting code has a meaning in
+the programming language.  In languages like C, C++, and Java, loop bodies are
+enclosed in braces, but good coding style suggests that statements in a loop or
+conditional body are indented:
+
+```
+for (int i = 0; i < 10; i++) {
+    printf("i = %d\n",i);
+}
+```
+
+Python takes this a step further and requires the indenting of loop and
+conditional bodies.  We recommend that you use 4 spaces to indent python code
+([so does the python community](https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces)).
+Please tell your text editors to insert spaces instead of tab characters when
+you hit the tab key on the keyboard.
+
 ## `for` loop 	
 
 * `range()` generates a sequence of integers	
