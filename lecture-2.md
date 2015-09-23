@@ -273,3 +273,26 @@ been defined?
 * Names are case sensitive
     * `case_sensitive`, `CASE_SENSITIVE`, and `Case_Sensitive` are each a
       different variable.
+
+## Variable naming style
+
+* too short: `a`, `b`, `c`
+* too long: `number_of_particles_in_target_region`
+* better: `num_target_particles`
+* CamelCase: `numTargetParticles`
+
+This is quite important for code readability.  People think about this a lot.
+See: <https://www.python.org/dev/peps/pep-0008/#naming-conventions>
+
+## Important: don't override built-in names
+
+```py
+>>> abs(-7)
+7
+>>> abs = 'must do sit-ups'
+>>> abs(-4)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: 'str' object is not callable
+>>> 
+```
