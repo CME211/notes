@@ -264,13 +264,13 @@ been defined?
 
 * The name associated with a variable is refered to as an *identifier*
 
-* Variables names must start with a letter or an underscore, such as:
+* Variables names must start with a letter or an underscore, such as
     * `_underscore`
     * `underscore_`
-* The remainder of your variable name may consist of letters, numbers and underscores.
+* The remainder of your variable name may consist of letters, numbers and underscores
     * `password1`
     * `n00b`
     * `un_der_scores`
-* Names are case sensitive.
+* Names are case sensitive
     * `case_sensitive`, `CASE_SENSITIVE`, and `Case_Sensitive` are each a
       different variable.
