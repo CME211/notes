@@ -231,3 +231,46 @@ the Python `math` module:
 >>> help(math.sqrt)
 # pager opened
 ```
+
+## Variables
+
+Variables may be assigned to data and may also come from modules:
+
+```py
+>>> math.pi
+3.141592653589793
+>>> radius = 4.82
+>>> circ = 2*math.pi*radius
+>>> print(circ)
+30.2849531806
+>>> 
+```
+
+Please note that we will be using the function call syntax for `print`.  Python
+2 allows:
+
+```py
+>>> print circ
+30.2849531806
+```
+
+but Python 3 does not.  There are some other differences in the `print`
+keyword/function between 2 and 3 that we will discuss later.
+
+**Question:** what happens when you attempt to reference a variable that has not
+been defined?
+
+## Variable naming
+
+* The name associated with a variable is refered to as an *identifier*
+
+* Variables names must start with a letter or an underscore, such as:
+    * `_underscore`
+    * `underscore_`
+* The remainder of your variable name may consist of letters, numbers and underscores.
+    * `password1`
+    * `n00b`
+    * `un_der_scores`
+* Names are case sensitive.
+    * `case_sensitive`, `CASE_SENSITIVE`, and `Case_Sensitive` are each a
+      different variable.
