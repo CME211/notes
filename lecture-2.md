@@ -296,3 +296,479 @@ Traceback (most recent call last):
 TypeError: 'str' object is not callable
 >>> 
 ```
+
+## Printing
+
+The Python interpreter will echo the output of (non-assignment) statements:
+
+```py
+>>> 5 + 5
+10
+>>> for i in range(4):
+...     i
+... 
+0
+1
+2
+3
+```
+
+You can also use the `print()` function:
+
+```py
+>>> a = 99
+>>> print(a)
+99
+```
+
+We will also learn about string formatting:
+
+```py
+>>> print("the area of a circle of radius 1 is {}.".format(2*math.pi))
+the area of a circle of radius 1 is 6.28318530718.
+```
+
+## Strings
+
+Strings are a very important data type in all languages.  In Python, strings may
+be quoted several ways:
+
+```py
+>>> inputfile = "data.txt"
+>>> outputfule = 'output.txt'
+>>> triplequotes = """woah!
+... split lines"""
+>>> print(triplequotes)
+woah!
+split lines
+>>> 
+```
+
+## Strings versus numbers
+
+```py
+>>> a = 5
+>>> b = '5'
+>>> a
+5
+>>> b
+'5'
+>>> print b
+5
+>>> a + b
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+>>> type(a)
+<type 'int'>
+>>> type(b)
+<type 'str'>
+>>>
+```
+
+## String slicing
+
+```py
+>>> quote = """That's all folks!"""
+>>> quote[2]
+'a'
+>>> quote[7:10]
+'all'
+>>> quote[:4]
+'That'
+>>> quote[7:]
+'all folks!'
+>>> quote[:-7]
+"That's all"
+>>>
+```
+
+## Strings are immutable
+
+```py
+>>> a = 'hello'
+>>> a[0]
+
+'h'
+>>> a[0] = 'j'
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+TypeError: 'str' object does not support item assignment
+>>> 
+```
+
+Concatenate strings with +
+
+```py
+>>> b = 'j' + a[1:]
+>>> b
+'jello'
+```
+
+## String functions / methods 	
+
+```py
+>>> name = 'Leland'
+>>> len(name)
+6
+>>> name.lower()
+'leland'
+>>> name.upper()
+'LELAND'
+>>> name.find('lan')
+2
+>>> name.find('lan', 1, 4)
+-1
+>>>
+```
+
+## Looping
+
+```py
+>>> for i in range(5):
+...     # loop body
+...     print(i)
+... 
+0
+1
+2
+3
+4
+>>> i
+4
+>>> 
+```
+
+## `for` loop 	
+
+* `range()` generates a sequence of integers	
+
+```py
+>>> range(6) 
+[0, 1, 2, 3, 4, 5]
+>>> 
+```
+
+* The `for i in <sequence>:` can be interpreted as doing the following:	
+    * assign the loop counter, `n`, the first value in `<sequence>`	
+    * execute the body of the loop	
+    * assign the loop counter variable the next value in the sequence and repeat
+
+## `range()`
+
+`range()` returns a sequence of integers and can be used in a few different
+ways:
+
+```py
+>>> range(7)
+[0, 1, 2, 3, 4, 5, 6]
+>>> range(4,11)
+[4, 5, 6, 7, 8, 9, 10]
+>>> range(4,16,3)
+[4, 7, 10, 13]
+```
+
+## Summing numbers
+
+```py
+>>> summation = 0
+>>> for n in range(1,101):
+...
+summation += n
+... 
+>>> print(summation)
+5050
+>>>
+```
+
+## Conditional statments
+
+We might want to test the summation example:
+
+```py
+if summation != 100*(100+1)/2:
+    print("Sorry, wrong answer!")
+```
+
+```py
+if summation != 100*(100+1)/2:
+    print("Sorry, wrong answer!")
+else:
+    print "Congratulations!"
+```
+
+## Boolean logic 	
+
+```py
+>>> 2 == 2
+True
+>>> 2 == 3
+False
+>>> 2 != 3
+True
+>>> a = 2
+>>> b = 3
+>>> a == 2 and b == 3
+True
+>>> a == 2 or b == 4
+True
+>>>
+```
+
+## Boolean logic and numbers 	
+
+```py
+>>> a = 2
+>>> b = 0
+>>> if a:
+...     print("True")
+... 
+True
+>>> if b:
+...     print("True")
+... 
+>>>
+```
+
+## Boolean logic and strings 	
+
+```py
+>>> msg = "Hello!"
+>>> if msg:
+...     print("Evaluated True")
+... 
+Evaluated True
+>>> msg = ""
+>>> if msg:
+...     print("Evaluated True")
+... 
+>>>
+```
+
+## else if: `elif`
+
+If you need to handle more than an `if` and `else` case use one or more `elif`:
+
+```py
+if summation < 5050:
+    print("Too low")
+elif summation > 5050:
+    print("Too high")
+else:
+    print("Just right")
+```
+
+## `while` loop 	
+
+* The `for` loop is associated with executing a loop body a known number of times
+
+* What if we’re unsure how many times we’ll need to execute the loop?
+
+```py
+while condition:
+    # loop body
+```
+
+## Bisection
+
+```py
+tol = 1e-4
+fa = f(a)
+fb = f(b)
+while abs(a-b) >= tol:
+    c = 0.5*(a+b)
+    fc = f(c)
+    if math.copysign(1,fa) == math.copysign(1,fc):
+        a = c
+        fa = fc
+    else:
+        b = c
+        fb = fc
+```
+
+## Better design
+
+It is a good idea to set a max on the trip count through a while loop:
+
+```py
+tol = 1e-4
+fa = f(a)
+fb = f(b)
+niter = 0
+while abs(a-b) >= tol and niter < maxiter:
+    c = 0.5*(a+b)
+    fc = f(c)
+    if math.copysign(1,fa) == math.copysign(1,fc):
+        a = c
+        fa = fc
+    else:
+        b = c
+        fb = fc
+    niter += 1
+```
+
+## Infinite loops
+
+```py
+>>> while True:
+...     pass
+... 
+^CTraceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+KeyboardInterrupt
+```
+
+Use `ctrl-c` to interrupt the interpreter!
+
+## Nesting loops 	
+
+```py
+>>> for i in range(5):
+...     for j in range(i):
+...         print(j),
+...     print()
+... 
+
+0
+0 1
+0 1 2
+0 1 2 3
+>>>
+```
+
+## Nesting loops and logic
+
+```py
+>>> for i in range(8):
+...     for j in range(i):
+...         print(j),
+...     print()
+
+0 1
+0 1 2 3
+0 1 2 3 4 5
+>>>
+```
+
+## `continue`
+
+The continue statement allows you to skip the remainder of a loop body and
+continue with the next iteration:
+
+>>> for n in range(10):!
+...
+if n > 3:
+!
+...
+continue!
+...
+print n!
+... !
+0!
+1!
+2!
+3!
+>>> !
+
+## `break`
+
+The break statement allows one to immediately
+exit from a for or while loop	
+
+
+>>> for n in range(10):!
+...
+if n > 3:!
+...
+break!
+...
+print n!
+... !
+0!
+1!
+2!
+3!
+>>>
+
+## Innermost loop
+
+`continue` and `break` only apply to the innermost loop being executed:
+
+```py
+for i in range(2):
+    print("i = {}".format(i))
+    for j in range(2):
+        break
+        print("j = {}".format(j))
+        for k in range(2):
+            print("k = {}".format(k))
+```
+
+Output:
+
+```
+i = 0
+i = 1
+```
+
+## Loop `else`
+
+* An `else` can be used with a `for` or `while` loop
+
+* The `else` is only executed if the loop runs to completion, not when a `break`
+statement is executed
+
+Code:
+
+```py
+for i in range(4):
+    print(i)
+else:
+print("all done")
+```
+
+Output:
+
+```
+0
+1
+2
+3
+all done
+```
+
+Code:
+
+```py
+for i in range(7):
+    print(i)
+    if i > 3:
+        break
+else:
+    print("all done")
+```
+
+Output:
+
+```
+0
+1
+2
+3
+4
+```
+
+## Exiting the interpreter
+
+* use `ctrl-d`
+
+* use `exit()$`
+
+```
+nwh@corn30:~$ python
+Python 2.7.6 (default, Mar 22 2014, 22:59:56) 
+[GCC 4.8.2] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+>>> exit()
+nwh@corn30:~$ 
+```
