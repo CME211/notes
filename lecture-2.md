@@ -20,7 +20,7 @@
 
 Open `Terminal.app` on Max OS X.  Execute the following:
 
-```
+```py
 [nwh@icme-nwh cme211-notes] $ ssh nwh@corn.stanford.edu
 Warning: Permanently added the RSA host key for IP address '171.67.216.95' to the list of known hosts.
 nwh@corn.stanford.edu's password: 
@@ -82,7 +82,7 @@ nwh@corn30:~$
 1. see where `python` executable (program) is located with the `which` command
 2. launch the `python` interpreter
 
-```
+```py
 nwh@corn30:~$ which python
 /usr/bin/python
 nwh@corn30:~$ python
@@ -99,7 +99,7 @@ Hello CME 211, how are you today?
 When you see a `$` in quoted code, it typically indicates a shell command.  For
 example:
 
-```
+```py
 nwh@corn30:~$ ls
 Downloads  bin	    config  gurobi.log	projects  tmp
 WWW	   cme213b  cs107   jobs	test.txt  work
@@ -109,7 +109,7 @@ nwh@corn30:~$
 The `nwh@corn30:~$ ls` means that I've executed the `ls` command in the shell
 program (Bash).  Sometimes, I will simplify the output to:
 
-```
+```py
 $ ls
 Downloads  bin	    config  gurobi.log	projects  tmp
 WWW	   cme213b  cs107   jobs	test.txt  work
@@ -121,7 +121,7 @@ line prompt.  Note that the `ls` command lists the files and directories
 contained in the "working directory".  The "working directory" is where your
 shell is currently focued.  To see what your "working directory" is:
 
-```
+```py
 $ pwd
 /afs/ir/users/n/w/nwh
 ```
@@ -131,7 +131,7 @@ $ pwd
 The Python interpreter uses `>>>` as a command prompt (by default).  It is often
 useful to use the Python interpreter as a simple calculator:
 
-```
+```py
 >>> 4+7
 11
 >>> 55*2
@@ -171,7 +171,7 @@ and floating point numbers.  For now:
 
 ### Some more examples
 
-```
+```py
 >>> 1.0
 1.0
 >>> 3/5
@@ -192,7 +192,7 @@ integer division.
 
 If you are familiar with Matlab, you may come to Python and be confused by:
 
-```
+```py
 >>> sqrt(3)
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -203,7 +203,7 @@ NameError: name 'sqrt' is not defined
 The Python languange does not have a built in `sqrt` function.  `sqrt` exists in
 the Python `math` module:
 
-```python
+```py
 >>> import math
 >>> math.sqrt(9)
 3.0
