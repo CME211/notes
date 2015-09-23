@@ -263,7 +263,6 @@ been defined?
 ## Variable naming
 
 * The name associated with a variable is refered to as an *identifier*
-
 * Variables names must start with a letter or an underscore, such as
     * `_underscore`
     * `underscore_`
