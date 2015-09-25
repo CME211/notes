@@ -7,7 +7,7 @@ Friday, September 25, 2015
 * Homework 1 is out today.  It will require material covered in this weeks
   class.  You will not need version control (`git`) for this assignment.  We
   will start using `git` in homework 2 or 3, so start getting comfortable with
-  it.  This assignment will be submited via a script on `corn.stanford.edu`.
+  it.  This assignment will be submitted via a script on `corn.stanford.edu`.
   See the homework PDF for details.  Please alert us on Piazza if there are any
   issues.
 
@@ -31,7 +31,7 @@ Friday, September 25, 2015
 
     * 1 assignment per week, unless there is a quiz
     * 6 assignments
-    * 2 quizes (1 Python, 1 C++)
+    * 2 quizzes (1 Python, 1 C++)
     * 2-part final project in C++
 
 ## Last time
@@ -80,7 +80,7 @@ Other important types are:
 
 To perform useful tasks more efficiently, we need to combine the above types in
 various ways.  For this, Python allows us to store data in various
-*contrainers*.  In simple terms, *containers* contain data and there are various
+*containers*.  In simple terms, *containers* contain data and there are various
 sorts.
 
 **Sequential containers** store data items in a specified order.  Think elements
@@ -208,7 +208,7 @@ simple example to demonstrate this property:
 
 In this example, we assigned `a` to `b` via `b = a`.  This did not copy the
 data, it only copied the reference to the list object in memory.  Thus
-modifiying the list through `b` also changes the data that you will see when
+modifying the list through `b` also changes the data that you will see when
 accessing from `a`.  You can inspect object ids in Python with:
 
 ```py
@@ -250,7 +250,7 @@ example if your list contains a list, this will happen when using `copy.copy()`:
 ```
 
 Here, the element for the sub-list `[55, 2, 3]` is actually a memory reference.
-So, when we copy the outter list, only references for the cointained objects are
+So, when we copy the outer list, only references for the contained objects are
 copied.  Thus in this case modifying the copy (`b`) modifies the original
 (`a`).  Thus, we may need the function `copy.deepcopy()`:
 
@@ -274,7 +274,7 @@ constructs:
 * Conditional execution: `if` statements
 
 * Functions to encapsulate code, defined in python with the keyword `def`.
-  Python is an object-oriented langauge and objects often have associated
+  Python is an object-oriented language and objects often have associated
   *methods*.  *Methods* are just functions that operate on a specific object.
 
 Note that `while` loops are a combination repeated and conditional execution.
@@ -471,3 +471,174 @@ i = 99
 ```
 
 ## File input output
+
+Files are one way to get data into Python for process and out of python for
+saving or sending (over a network).  In CME 211, we will mostly work with text
+files.  This set of lecture notes is written in a text file `lecture-3.md` in
+[Markdown format](https://daringfireball.net/projects/markdown/).  As a
+side note, Markdown is a format that makes it easy to write text and convert it
+to other formats.  If you are viewing this file via GitHub, you will likely be
+looking at an HTML render of the file.  Python scripts are text files and by
+convention have a `.py` extension.  On unix systems we can dump a text file to
+the terminal with:
+
+```
+$ cat hello.py 
+# run me from the command line with
+# $ python hello.py
+
+print("hello sweet world!")
+```
+
+For run, try dumping a binary file to the terminal with `$ cat /bin/ls`.  What
+happens?
+
+In Python it is very easy to open, read from, and write to a text file.  Let's
+see how it works.
+
+See Chapter 9 in **Learning Python** for information on accessing files with
+Python.  The relevant information starts on page 282.
+
+### Open a file
+
+We open a file with the built-in `open` function:
+
+```py
+>>> f = open("humpty-dumpty.txt","r")
+>>> f
+<open file 'humpty-dumpty.txt', mode 'r' at 0x7f475ec18390>
+```
+
+The syntax is `open(filename,mode)` where `filename` is a string with the
+filename to open and `mode` is the mode to open the file.  For now, the mode
+should be `'r'` for reading a file and `'w'` for writing a file.  The `open`
+function returns a *file object*, which we will use to read and write data.
+
+Note what happens if you try to open a file that does not exist:
+
+```py
+>>> bad_file = open("no-file.txt","r")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IOError: [Errno 2] No such file or directory: 'no-file.txt'
+>>> 
+```
+
+### Reading from files
+
+Use the `readline()` method to read lines from a file:
+
+```py
+>>> f = open("humpty-dumpty.txt","r")
+>>> f.readline()
+'Humpty Dumpty sat on a wall,\n'
+>>> f.readline()
+'Humpty Dumpty had a great fall.\n'
+>>> f.close()
+```
+
+It is always a good idea to close a file when you are done with it.  We will
+take off points if you neglect to do this.
+
+You can read an entire file at once with the `read()` method:
+
+```py
+>>> f = open("humpty-dumpty.txt","r")
+>>> poem = f.read()
+>>> print(poem)
+Humpty Dumpty sat on a wall,
+Humpty Dumpty had a great fall.
+All the king's horses and all the king's men
+Couldn't put Humpty together again.
+
+>>> f.close()
+```
+
+You can very easily iterate over lines in a file with:
+
+```py
+>>> f = open("humpty-dumpty.txt","r")
+>>> for line in f:
+...     print(line)
+... 
+Humpty Dumpty sat on a wall,
+
+Humpty Dumpty had a great fall.
+
+All the king's horses and all the king's men
+
+Couldn't put Humpty together again.
+
+>>> f.close()
+```
+
+Note, on your own, try to suppress the extra newline character generated.  You
+can do with with adding a comment after print: `print(line),` or slicing `line`
+with `print(line[:-1])`.  Note that `line` is a variable name.  The following
+works in the same manner:
+
+```py
+>>> f = open("humpty-dumpty.txt","r")
+>>> for my_line in f:
+...     print(my_line)
+... 
+Humpty Dumpty sat on a wall,
+
+Humpty Dumpty had a great fall.
+
+All the king's horses and all the king's men
+
+Couldn't put Humpty together again.
+
+>>> f.close()
+```
+
+Let's say we wanted to process all words in a file.  The following example would
+get us started:
+
+```py
+f = open("humpty-dumpty.txt","r")
+for line in f:
+    for word in line.split():
+        # use strip() method to remove extra newline characters
+        print(word.strip())
+f.close()
+```
+
+### Writing to files
+
+To open a file for writing and write a single line:
+
+```py
+>>> f = open("output.txt","w")
+>>> f.write("blah blah blah\n")
+>>> f.close()
+>>> exit()
+$ cat output.txt 
+blah blah blah
+```
+
+Note that the `write` method will not insert a newline character.  To get a new
+line, you must add `'\n'` in the string that is passed to `write`.
+
+To write multiple lines to a file at once, use the `writelines` method:
+
+```py
+>>> f = open("output.txt","w")
+>>> f.writelines(["a mighty fine day\n","ends with a great big party\n","thank you, it's friday\n"])
+>>> f.close()
+>>> exit()
+$ cat output.txt 
+a mighty fine day
+ends with a great big party
+thank you, it's friday
+```
+
+Note, the `\n` is still required in the strings that make up the list passed to
+`writelines`.  The `"w"` file mode will overwrite the file you open, deleting
+all of the old data.  Be careful!  If you would like to append to an existing
+file use the `"a"` mode.
+
+### Buffering
+
+Be mindful of file buffering.  We will see a demo in class.
