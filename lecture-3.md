@@ -72,14 +72,402 @@ Python has many built-in types.  The ones that we have seen so far are:
 * Floating point numbers
 * Strings
 
-Other important (more fundamental) are:
+Other important types are:
 
+* Files!
 * Complex numbers
 * Unicode strings (which can represent text from ALL languages)
 
 To perform useful tasks more efficiently, we need to combine the above types in
-various ways.  For this, Python allows us to store data in various *contrainers*
+various ways.  For this, Python allows us to store data in various
+*contrainers*.  In simple terms, *containers* contain data and there are various
+sorts.
+
+**Sequential containers** store data items in a specified order.  Think elements
+of a vector, names in a list of people that you want to invite to your
+birthday party.  The most fundamental Python data type for this is called a
+`list`.  Later in the course we will learn about containers that are more
+appropriate (and faster) for numerical data that come from NumPy.
+
+Example Python code:
+
+```py
+cme211_tas = ["josh", "evan", "oliver", "swaroop"]
+cme211_tas.append("loek")
+print(cme211_tas)
+for ta in cme211_tas:
+    print("{} is an awesome ta".format(ta))
+print("cme211 has {} tas".format(len(cme211_tas)))
+```
+
+Output:
+
+```
+['josh', 'evan', 'oliver', 'swaroop', 'loek']
+josh is an awesome ta
+evan is an awesome ta
+oliver is an awesome ta
+swaroop is an awesome ta
+loek is an awesome ta
+cme211 has 5 tas
+```
+
+**Associative container** store data, organized by a unique *key*.  Think of a
+dictionary of word definitions.  They unique *key* is a word, the value
+associated with the key is the definition.  In Python, this is represented with
+the built-in `dict` or Dictionary type.  You will soon learn the greatness of
+dictionaries in Python.
+
+```py
+emails = dict()
+emails['loek'] = 'loek@mail.com'
+emails['nick'] = 'nwh@stanford.net'
+print(emails)
+```
+
+```
+{'nick': 'nwh@stanford.net', 'loek': 'loek@mail.com'}
+```
+
+**Set containers** store unique data items.  They are related to dictionaries,
+because dictionaries require the keys to be unique.
+
+```py
+dinos = set()
+dinos.add('triceratops')
+dinos.add('t-rex')
+dinos.add('raptor')
+print(dinos)
+dinos.add('pterodactyl')
+dinos.add('t-rex')
+print(dinos)
+```
+
+```
+set(['triceratops', 'raptor', 't-rex'])
+set(['pterodactyl', 'triceratops', 'raptor', 't-rex'])
+```
 
 ## Lists
 
+Python lists are a very useful data container.  They may contain any python
+object.  Here is a list containing some numbers and strings:
 
+```py
+>>> my_list = [4, 9.4, 'some text', 55]
+```
+
+Python lists (and other sequential data types) use 0-base indexing.  Data in a
+list may be accessed via a slice:
+
+```py
+>>> my_list[0]
+4
+>>> my_list[1:2]
+[9.4]
+>>> my_list[1:3]
+[9.4, 'some text']
+>>> my_list[1:4]
+[9.4, 'some text', 55]
+>>> my_list[1:]
+[9.4, 'some text', 55]
+```
+
+Lists are mutable.  You may change the elements in a list:
+
+```py
+>>> my_list[2] = 'some different text'
+>>> my_list
+[4, 9.4, 'some different text', 55]
+```
+
+You can get the length of a list with:
+
+```py
+>>> len(my_list)
+4
+```
+
+See `help(list)` from the Python interpreter for summary of methods that can
+operate on a list.
+
+## Python's data model
+
+Variables in Python are actually a reference to an object in memory.  Here is a
+simple example to demonstrate this property:
+
+```py
+>>> a = [1,2,3,4]
+>>> b = a
+>>> b[1] = 55
+>>> print(b)
+[1, 55, 3, 4]
+>>> print(a)
+[1, 55, 3, 4]
+```
+
+In this example, we assigned `a` to `b` via `b = a`.  This did not copy the
+data, it only copied the reference to the list object in memory.  Thus
+modifiying the list through `b` also changes the data that you will see when
+accessing from `a`.  You can inspect object ids in Python with:
+
+```py
+>>> id(a)
+140672544197304
+>>> id(b)
+140672544197304
+```
+
+Those numbers refer to memory addresses.
+
+## Copying data
+
+If you need to make a new copy of a list you may use the `copy` function in the
+`copy` module:
+
+```py
+>>> import copy
+>>> a = [5,2,7,0,'abc']
+>>> b = copy.copy(a)
+>>> b[4] = 'xyz'
+>>> print(b)
+[5, 2, 7, 0, 'xyz']
+>>> print(a)
+[5, 2, 7, 0, 'abc']
+```
+
+Note that elements in a list are also references to memory location.  For
+example if your list contains a list, this will happen when using `copy.copy()`:
+
+```py
+>>> a = [2, 'string', [1,2,3]]
+>>> b = copy.copy(a)
+>>> b[2][0] = 55
+>>> print(b)
+[2, 'string', [55, 2, 3]]
+>>> print(a)
+[2, 'string', [55, 2, 3]]
+```
+
+Here, the element for the sub-list `[55, 2, 3]` is actually a memory reference.
+So, when we copy the outter list, only references for the cointained objects are
+copied.  Thus in this case modifying the copy (`b`) modifies the original
+(`a`).  Thus, we may need the function `copy.deepcopy()`:
+
+```py
+>>> a = [2, 'string', [1,2,3]]
+>>> b = copy.deepcopy(a)
+>>> b[2][0] = 99
+>>> print(b)
+[2, 'string', [99, 2, 3]]
+>>> print(a)
+[2, 'string', [1, 2, 3]]
+```
+
+## Control flow
+
+Control flow in imperative programming languages boils down to 3 main
+constructs:
+
+* Repeated execution or iteration: `for` and `while` loops
+
+* Conditional execution: `if` statements
+
+* Functions to encapsulate code, defined in python with the keyword `def`.
+  Python is an object-oriented langauge and objects often have associated
+  *methods*.  *Methods* are just functions that operate on a specific object.
+
+Note that `while` loops are a combination repeated and conditional execution.
+
+See Chapter 13 in learning Python.  I expect you to understand the full looping
+syntax, including loop `else` blocks.  Be sure to read pages 387-402.
+
+### Python `if` statements
+
+`if` statements control the flow of code execution based on a conditional
+statement.  Here are some examples:
+
+```py
+>>> a = 1
+>>> if a == 1:
+...     print("a is equal to one")
+... 
+a is equal to one
+```
+
+```py
+>>> b = 4
+>>> if b == 1:
+...     print("b is equal to one")
+... 
+```
+
+```py
+>>> c = 55
+>>> if c == 20:
+...     print('c is equal to twenty')
+... else:
+...     print('c is not equal to twenty')
+... 
+c is not equal to twenty
+```
+
+```py
+>>> d = 99
+>>> if d == 1:
+...     print("d is 1")
+... elif d == 99:
+...     print("d is 99")
+... else:
+...     print("I have no idea what d is")
+... 
+d is 99
+```
+
+Read Chapter 12 of **Learning Python** for a complete picture of Python's `if`
+statement.  Specifically, look at page 381, which specifies all of the rules on
+how Python statements evaluate to `True` and `False`.
+
+```py
+>>> if "":
+...     print('an empty string evaluates to False')
+... 
+>>> if "hi nick":
+...     print('a non-empty string evaluates to True')
+... 
+a non-empty string evaluates to True
+```
+
+### Python `for` loops
+
+Let's start with an example:
+
+```py
+>>> for i in range(5):
+...     print("i = {}".format(i))
+... 
+i = 0
+i = 1
+i = 2
+i = 3
+i = 4
+```
+
+The anatomy of a `for` loop is:
+
+```py
+for loop_var in sequence:
+    loop_body()
+```
+
+Components:
+
+1. a loop starts with the `for` keyword
+2. followed by the loop variable, `loop_var` in this case
+3. followed by the `in` keyword
+4. followed by some form of sequence
+5. followed by a `:`
+6. followed by an **indented** loop body.  (Please use 4 spaces here)
+
+In Python 2, the `range` function returns a list:
+
+```py
+>>> range(5)
+[0, 1, 2, 3, 4]
+>>> range(4,8)
+[4, 5, 6, 7]
+>>> range(4,20,3)
+[4, 7, 10, 13, 16, 19]
+```
+
+Likewise, we can use a list as the sequence to iterate (loop) over:
+
+```py
+>>> languages = ['python', 'c', 'c++', 'r', 'java', 'matlab', 'julia']
+>>> for lang in languages:
+...     print('{} is a pretty good language'.format(lang))
+... 
+python is a pretty good language
+c is a pretty good language
+c++ is a pretty good language
+r is a pretty good language
+java is a pretty good language
+matlab is a pretty good language
+julia is a pretty good language
+```
+
+### Python `while` loops
+
+Let's start with an example:
+
+```py
+>>> i = 0
+>>> while i <= 10:
+...     i += 1
+... 
+>>> print("i = {}".format(i))
+i = 11
+```
+
+The anatomy of a Python `while` loop is:
+
+```py
+while conditional:
+    loop_body()
+```
+
+Components:
+
+1. starts with the `while` keyword
+
+2. followed by a conditional statement
+
+    * a conditional statement is something that Python knows to be true or false
+
+3. followed by a colon `:`
+
+4. followed by an indented loop body
+
+### `continue` and `break` statements
+
+The `continue` and `break` control execution of a loop from within the loop
+body.  Here is an example with `break`:
+
+```py
+>>> i = 0
+>>> while i < 10:
+...     print("in loop, i = {}".format(i))
+...     i += 1
+...     if i == 4:
+...             break
+... 
+in loop, i = 0
+in loop, i = 1
+in loop, i = 2
+in loop, i = 3
+>>> print(i)
+4
+```
+
+If a loop body encounters a `break` statement, the loop is terminated.
+
+If a loop body encounters a `continue` statement, control moves to the next
+iteration.  For example:
+
+```py
+>>> for i in range(100):
+...     if i < 92:
+...             continue
+...     print("i = {}".format(i))
+... 
+i = 92
+i = 93
+i = 94
+i = 95
+i = 96
+i = 97
+i = 98
+i = 99
+```
+
+## File input output
