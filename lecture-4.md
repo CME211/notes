@@ -5,7 +5,9 @@ Monday, September 28, 2015
 ## Announcements
 
 - Screencasts posted to Piazza
-
+- Course schedule posted
+- 11 spots in the class now open (waiting for registrar to update)
+- Will update on open spots Wednesday, Friday as well
 
 ## Container review
 
@@ -56,7 +58,7 @@ Monday, September 28, 2015
 ## List methods
 
 See `>>> help(list)` to get a list of the list methods.  This should open a
-"pager" in your python iterpreter.  The "pager" allows you to view the help text
+"pager" in your python interpreter.  The "pager" allows you to view the help text
 one page at a time.  On my computer the pager is the `less` program.  Hitting
 the key `g` goes back to the top of the help text.  Hitting the space bar moves
 one page forward in the help documentation.  For reference here are the built-in
@@ -109,7 +111,7 @@ The `__add__` method is called when the `+` operator is called on lists:
 
 ## Dictionaries
 
-- Dictionaries are an *associateive container*.  They contain *keys* with
+- Dictionaries are an *associative container*.  They contain *keys* with
   associated *values*
 
 - Dictionaries in Python are denoted by curly braces
@@ -121,7 +123,7 @@ The `__add__` method is called when the `+` operator is called on lists:
 - Values can be any python object: numbers, strings, lists, other dictionaries
 
 - Keys can be any immutable object: numbers, strings, tuples (containing
-  immutabled data)
+  immutable data)
 
 - No sense of order in a python dictionary.  When used in a loop, the key-value
   pairs may come out in any order.
@@ -346,4 +348,346 @@ TypeError: 'tuple' object does not support item assignment
 
 ![tuple diagram](fig/tuple-modifiability.png)
 
+### Tuple-list conversion
 
+```py
+>>> days_list = list(days)
+>>> days_list
+['Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa']
+>>> days_tup = tuple(days_list)
+>>> days_tup
+('Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa')
+>>>
+```
+
+### A note on (im)mutability
+
+It is natural to wonder why have immutable objects at all.  One answer to this
+is practical: in Python, only immutable objects are allowed as keys in a
+dictionary or items in a set.
+
+The more detailed answer requires knowledge of the underlying data structure
+behind Python dictionary and set objects.  In the context of a Python
+dictionary, the memory location for a key-value pair is computed from a *hash*
+of the key.  If the key were modified, the *hash* would change, likely requiring
+a move of the data in memory.  Thus, Python requires immutable keys to prevent
+unnecessary movement of data.
+
+It is possible to associate a value with a new key with the following code:
+
+```py
+>>> ages
+{'bruce': 60, 'angelina': 40, 'leo': 40, 'brad': 51}
+>>> ages['mike'] = ages['bruce']
+>>> del ages['bruce']
+>>> ages
+{'mike': 60, 'angelina': 40, 'leo': 40, 'brad': 51}
+>>> 
+```
+
+## Python sets
+
+- A `set` is an unordered, mutable collection of unique items
+- Items in Python set must be immutable (for the same reason keys in a
+  dictionary must be immutable)
+- Create a set with: `>>> my_set = set([1, 2, 3])`
+- We can test for existence in a set and perform set operations
+
+### Set examples
+
+```
+>>> myclasses = set()
+>>> myclasses.add("math")
+>>> myclasses.add("chemistry")
+>>> myclasses.add("literature")
+>>> 
+>>> yourclasses = set()
+>>> yourclasses.add("physics")
+>>> yourclasses.add("gym")
+>>> yourclasses.add("math")
+>>>
+>>> "gym" in myclasses
+False
+>>> "gym" in yourclasses
+True
+>>> 
+>>> myclasses & yourclasses # intersection
+set(['math'])
+>>> myclasses | yourclasses # union
+set(['literature', 'gym', 'chemistry', 'physics', 'math'])
+>>>
+```
+
+### Set methods
+
+See `help(set)`:
+
+```
+add(...)
+    Add an element to a set.
+    
+    This has no effect if the element is already present.
+
+clear(...)
+    Remove all elements from this set.
+
+copy(...)
+    Return a shallow copy of a set.
+
+difference(...)
+    Return the difference of two or more sets as a new set.
+    
+    (i.e. all elements that are in this set but not the others.)
+
+difference_update(...)
+    Remove all elements of another set from this set.
+
+discard(...)
+    Remove an element from a set if it is a member.
+    
+    If the element is not a member, do nothing.
+
+intersection(...)
+    Return the intersection of two or more sets as a new set.
+    
+    (i.e. elements that are common to all of the sets.)
+
+intersection_update(...)
+    Update a set with the intersection of itself and another.
+
+isdisjoint(...)
+    Return True if two sets have a null intersection.
+
+issubset(...)
+    Report whether another set contains this set.
+
+issuperset(...)
+    Report whether this set contains another set.
+
+pop(...)
+    Remove and return an arbitrary set element.
+    Raises KeyError if the set is empty.
+
+remove(...)
+    Remove an element from a set; it must be a member.
+    
+    If the element is not a member, raise a KeyError.
+
+symmetric_difference(...)
+    Return the symmetric difference of two sets as a new set.
+    
+    (i.e. all elements that are in exactly one of the sets.)
+
+symmetric_difference_update(...)
+    Update a set with the symmetric difference of itself and another.
+
+union(...)
+    Return the union of sets as a new set.
+    
+    (i.e. all elements that are in either set.)
+
+update(...)
+    Update a set with the union of itself and others.
+```
+
+http://www.stanford.edu/~plegresl/CME211/Lecture04.tar
+
+## Example looking at 1990 first name data from US Census
+
+Thanks to Patrick LeGresley for this example.
+
+Goal: write program to predict *male* or *female* given name
+
+Algorithm:
+
+1. If input name is in list of males, return `"M"`
+2. Else if input name is in list of females, return `"F"`
+3. Otherwise, return `"NA"`
+
+### Look at the files
+
+```
+[nwh@icme-nwh cme211-notes] $ pwd
+/home/nwh/git/cme211-notes
+[nwh@icme-nwh cme211-notes] $ cd lecture-4/
+[nwh@icme-nwh lecture-4] $ ls -1
+dist.female.first
+dist.male.first
+name1a.py
+name1b.py
+name2.py
+[nwh@icme-nwh lecture-4] $ head dist.female.first 
+MARY           2.629  2.629      1
+PATRICIA       1.073  3.702      2
+LINDA          1.035  4.736      3
+BARBARA        0.980  5.716      4
+ELIZABETH      0.937  6.653      5
+JENNIFER       0.932  7.586      6
+MARIA          0.828  8.414      7
+SUSAN          0.794  9.209      8
+MARGARET       0.768  9.976      9
+DOROTHY        0.727 10.703     10
+```
+
+Notes:
+
+- the unix `head` command prints out the first 10 lines of a text file
+- first column of the data file contains the name in uppercase
+- following columns contain frequency data and rank, which we won't use today.
+
+### Using sets
+
+See `lecture-4/name1a.py`:
+
+```py
+# Create sets for female and male names
+female = set()
+f = open("dist.female.first")
+for line in f:
+    female.add(line.split()[0])
+f.close()
+
+male = set()
+f = open("dist.male.first")
+for line in f:
+    male.add(line.split()[0])
+f.close()
+
+# Summarize information about the reference data
+print("There are {} female names and {} male names.".format(len(female),len(male)))
+print("There are {} names that appear in both sets.".format(len(female & male)))
+
+# Test data
+names = ["PETER", "LOIS", "STEWIE", "BRIAN", "MEG", "CHRIS"]
+
+# Try our algorithm
+for name in names:
+    if name in male:
+        ret = "M"
+    elif name in female:
+        ret = "F"
+    else:
+        ret = "NA"
+    print("{}: {}".format(name, ret))
+```
+
+Run the code:
+
+```
+[nwh@icme-nwh lecture-4] $ python name1a.py 
+There are 4275 female names and 1219 male names.
+There are 331 names that appear in both sets.
+PETER: M
+LOIS: F
+STEWIE: NA
+BRIAN: M
+MEG: F
+CHRIS: M
+```
+
+Run the code and get interpreter after completion:
+
+```
+[nwh@icme-nwh lecture-4] $ python -i name1a.py 
+There are 4275 female names and 1219 male names.
+There are 331 names that appear in both sets.
+PETER: M
+LOIS: F
+STEWIE: NA
+BRIAN: M
+MEG: F
+CHRIS: M
+>>> names
+['PETER', 'LOIS', 'STEWIE', 'BRIAN', 'MEG', 'CHRIS']
+>>> len(male)
+1219
+>>> len(female)
+4275
+>>> 
+```
+
+### Using lists
+
+See `lecture-4/name1b.py`
+
+```py
+# Create sets for female and male names
+female = list()
+f = open("dist.female.first")
+for line in f:
+    female.append(line.split()[0])
+f.close()
+
+male = list()
+f = open("dist.male.first")
+for line in f:
+    male.append(line.split()[0])
+f.close()
+
+# Summarize information about the reference data
+print("There are {} female names and {} male names.".format(len(female),len(male)))
+
+# need to implement intersection
+nboth = 0
+for name in female:
+    if name in male:
+        nboth = nboth + 1
+
+print("There are {} names that appear in both sets.".format(nboth))
+```
+
+### Second algorithm
+
+Some names appear in both **male** and **female** lists.  Some names might not
+appear in either list.  Let's write a new algorithm to handle this uncertainty:
+
+Given an input name:
+- return `0.0` if male
+- return `1.0` if female
+- return `0.5` if uncertain or name does not appear in dataset
+
+### Solution
+
+Use a Python dictionary with keys as first names and values as specified above.
+
+See `lecture-4/name2.py`:
+
+```py
+# Create dictionary with name data
+names = {}
+f = open("dist.female.first")
+for line in f:
+    names[line.split()[0]] = 1.
+f.close()
+
+f = open("dist.male.first")
+for line in f:
+    name = line.split()[0]
+    if name in names:
+        # Just assume a 50/50 distribution for names on both lists
+        names[name] = 0.5 
+    else:
+        names[name] = 0.
+f.close()
+
+# Summary information about our reference data
+print("There are {} names in our reference data.".format(len(names)))
+
+# Test data
+testdata = ["PETER", "LOIS", "STEWIE", "BRIAN", "MEG", "CHRIS", "NICK"]
+
+# Try our algorithm
+for name in testdata:
+    if name in names:
+        ret = names[name]
+    else:
+        ret = 0.5
+    print("{}: {}".format(name, ret))
+```
+
+## Coming up this week:
+
+- Wednesday: complexity analysis
+- Friday: python data model, functions
+- Assignment due Friday @ 2:30pm
+- Next assignment out on Friday also
