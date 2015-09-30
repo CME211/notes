@@ -395,7 +395,7 @@ testing has some drawbacks, namely:
 
 
 * Typically characterized in terms of Big O notation, e.g. an algorithm is
-  $O(n log n)$ or $O(n^2)$.
+  `O(n log n)` or `O(n^2)`.
 
 O(1)
 
@@ -418,8 +418,8 @@ Linearithmitic time
 
 Quadratic time
 
-7
-
+| a | b |
+| c | d  |
 
 ## Visualization
 
