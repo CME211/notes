@@ -247,7 +247,81 @@ version                            Show SFTP version
 sftp> 
 ```
 
-http://linuxcommand.org/lc3_learning_the_shell.php
+### Other software
+
+See <https://itservices.stanford.edu/service/ess/> for Mac and Windows SFTP and
+AFS clients.
+
+Text editors:
+
+* emacs
+* vim
+* [TextWrangler](http://www.barebones.com/products/textwrangler/)
+* [Sublime Text](http://www.sublimetext.com/)
+* [Atom](https://atom.io/)
+
+Key: learn a tool, learn it well
+
+Note: very helpful to become comfortable with a text editor you can use from the
+termial.
+
+### Learn more about unix systems and interacting with the shell
+
+William E. Shotts, Jr. has a very nice online book called **The Linux Command
+Line**.  See the book online:
+
+* <http://linuxcommand.org/lc3_learning_the_shell.php>
+
+Only need to focus on "Learning the Shell".  In CME 211, we are not concerned
+with writing shell scripts.
+
+## A note on Python variables
+
+It is bad practice to define a variable inside of a conditional or loop body and
+then reference it outside:
+
+```py
+>>> name = "Nick"
+>>> if name == "Nick":
+...     age = 45
+... 
+>>> print("Nick's age is {}".format(age))
+Nick's age is 45
+>>>
+```
+
+If `name` holds a different name, the following will happen:
+
+```py
+>>> name = "Bob"
+>>> if name == "Nick":
+...     age = 45
+... 
+>>> print("Nick's age is {}".format(age))
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'age' is not defined
+>>> 
+```
+
+Good practice to define/initialize variables at the same level they will be
+used:
+
+```py
+>>> name = "Bob"
+>>> age = None
+>>> if name == "Nick":
+...     age = 45
+... 
+>>> print("Nick's age is {}".format(age))
+Nick's age is None
+>>> 
+```
+
+Note in the above example, it may be more appropriate to initialize the `age`
+variable to a more meaningful value.
+
+We will learn about *scope* when we talk about functions on Friday.
 
 ## Analysis of algorithms
 
