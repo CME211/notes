@@ -875,22 +875,21 @@ Which container is better for insertion and existence testing?
 
 ## Documentation
 
-![time complexity](time-complexity.png)
+![time complexity](lecture-5/time-complexity.png)
 
 <https://wiki.python.org/moin/TimeComplexity>
 
 ### List operations
 
-![list](list.png)
-
+![list](lecture-5/list.png)
 
 ### Set operations
 
-![set](set.png)
+![set](lecture-5/set.png)
 
 ## Dictionary operations
 
-![dict](dict.png)
+![dict](lecture-5/dict.png)
 
 ## Space complexity
 
