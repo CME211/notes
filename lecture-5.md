@@ -461,7 +461,7 @@ for i in xrange(n):
 ```
 
 
-![matmul](matrix.png)
+![matmul](lecture-5/matrix.png)
 
 Computing one value in the output matrix requires `O(n)`
 operations, and there are `n^2` values in the output matrix.
