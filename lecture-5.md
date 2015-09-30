@@ -6,6 +6,25 @@ Wednesday, September 30, 2015
 
 ## Announcements
 
+* We will be using [GitHub][GitHub] for version control and managing assignment
+  submissions in this course. If you haven't already done so, please create a
+  personal Github account at <https://github.com/>. Feel free to link the
+  account to whatever email that you prefer (i.e. it does not need to be your
+  `stanford.edu` email). Afterward, please fill out the [Google form][gh-form].
+
+* Note: *SUNetID* refers to the first part of your stanford email address.  My
+  SUNetID is `nwh`.  Please do not put your student ID number in the above form.
+
+* Goal: we need to associate your GitHub username with your stanford username
+  (SUNetID)
+
+[GitHub]: https://github.com/
+[gh-form]: https://docs.google.com/forms/d/1JyNmmn2Ur6WTwUrI4jvCSpDNv6jph48mFUXu6lF-G2Q/viewform
+
+## Terminal
+
+http://linuxcommand.org/lc3_learning_the_shell.php
+
 ## Analysis of algorithms
 
 * Time complexity: How does the
