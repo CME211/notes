@@ -29,7 +29,7 @@ Wednesday, September 30, 2015
 
 ## Farmshare review
 
-Your first assignment must run on and be submitted throught the farmshare
+Your first assignment must run on and be submitted through the farmshare
 servers.  Let's walk through the process of creating a Python script and data
 file locally then move it over to farmshare.  We will use the same conventions
 as homework 1.
@@ -261,7 +261,7 @@ Text editors:
 Key: learn a tool, learn it well
 
 Note: very helpful to become comfortable with a text editor you can use from the
-termial.
+terminal.
 
 ### Learn more about unix systems and interacting with the shell
 
@@ -406,7 +406,7 @@ testing has some drawbacks, namely:
   `O(n log n)` or `O(n^2)`.
 
 ```
-| order notation | in english          |
+| order notation | in English          |
 |----------------+---------------------|
 | O(1)           | Constant time       |
 | O(log n)       | Logarithmic time    |
@@ -463,13 +463,13 @@ for i in xrange(n):
 
 ![matmul](matrix.png)
 
-Computing one value in the output matrix requires O(n)
-operations, and there are n2 values in the output matrix.
+Computing one value in the output matrix requires `O(n)`
+operations, and there are `n^2` values in the output matrix.
 
 ## Linear search
 
 *Linear search* is searching through a sequential data container for a specified
-item.  An example of this is finding the start index of a given substring in a
+item.  An example of this is finding the start index of a given sub-string in a
 longer string.
 
 Exercise: Find the number `x` in your data:
@@ -762,7 +762,7 @@ consider:
 
 * the length of the list `n`
 
-* number number of largerst values that we want `m`
+* number number of largest values that we want `m`
 
 Thus, it may not be appropriate to characterize an algorithm in terms of one
 parameter `n`:
@@ -775,7 +775,7 @@ Question:
 
 * For what m is it better just to sort the list?
 
-## Finding substrings
+## Finding sub-strings
 
 Important procedure.  We are using it in homework 1.
 
@@ -789,7 +789,7 @@ TGTAGAATCACTTGAAAGGCGCGCAGTCTGGGGCGCTAGTCGTGGT
 ```
 
 
-* String has length `m`, and substring has length `n`
+* String has length `m`, and sub-string has length `n`
 
 * Different algorithms:
 
