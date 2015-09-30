@@ -132,19 +132,19 @@ nwh-mbpro:lec5 nwh$ python count_words.py
 Log into <https://afs.stanford.edu/>.  You will see your farmshare files.  With
 this interface you can create directories and upload files.
 
-![web afs interface](web-afs.png)
+![web afs interface](lecture-5/web-afs.png)
 
 Create a new folder:
 
-![web afs new folder](web-afs-new-folder.png)
+![web afs new folder](lecture-5/web-afs-new-folder.png)
 
 Upload files:
 
-![web afs upload](web-afs-upload.png)
+![web afs upload](lecture-5/web-afs-upload.png)
 
 Final result:
 
-![files uploaded](web-afs-files-uploaded.png)
+![files uploaded](lecture-5/web-afs-files-uploaded.png)
 
 ### Test the program on Farmshare
 
