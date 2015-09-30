@@ -176,6 +176,77 @@ nwh@corn26:~/CME211/lec5$ python count_words.py
 nwh@corn26:~/CME211/lec5$
 ```
 
+### Other method to copy files: `scp`
+
+```
+nwh-mbpro:lec5 nwh$ scp test.txt nwh@corn.stanford.edu:~/CME211/lec5/
+Warning: Permanently added the RSA host key for IP address '171.67.215.107' to the listAuthenticated with partial success.
+Duo two-factor login for nwh
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-2441
+ 2. Phone call to XXX-XXX-2441
+ 3. SMS passcodes to XXX-XXX-2441
+
+Passcode or option (1-3): 1
+test.txt                                              100%   50     0.1KB/s   00:00    
+nwh-mbpro:lec5 nwh$
+```
+
+See `$ man scp`
+
+### Other method to copy files: `sftp`
+
+```
+nwh-mbpro:lec5 nwh$ sftp nwh@corn.stanford.edu
+nwh@corn.stanford.edu's password: 
+Authenticated with partial success.
+Duo two-factor login for nwh
+
+Enter a passcode or select one of the following options:
+
+ 1. Duo Push to XXX-XXX-2441
+ 2. Phone call to XXX-XXX-2441
+ 3. SMS passcodes to XXX-XXX-2441
+
+Passcode or option (1-3): 1
+Connected to corn.stanford.edu.
+sftp> help
+Available commands:
+bye                                Quit sftp
+cd path                            Change remote directory to 'path'
+chgrp grp path                     Change group of file 'path' to 'grp'
+chmod mode path                    Change permissions of file 'path' to 'mode'
+chown own path                     Change owner of file 'path' to 'own'
+df [-hi] [path]                    Display statistics for current directory or
+                                   filesystem containing 'path'
+exit                               Quit sftp
+get [-Ppr] remote [local]          Download file
+help                               Display this help text
+lcd path                           Change local directory to 'path'
+lls [ls-options [path]]            Display local directory listing
+lmkdir path                        Create local directory
+ln [-s] oldpath newpath            Link remote file (-s for symlink)
+lpwd                               Print local working directory
+ls [-1afhlnrSt] [path]             Display remote directory listing
+lumask umask                       Set local umask to 'umask'
+mkdir path                         Create remote directory
+progress                           Toggle display of progress meter
+put [-Ppr] local [remote]          Upload file
+pwd                                Display remote working directory
+quit                               Quit sftp
+rename oldpath newpath             Rename remote file
+rm path                            Delete remote file
+rmdir path                         Remove remote directory
+symlink oldpath newpath            Symlink remote file
+version                            Show SFTP version
+!command                           Execute 'command' in local shell
+!                                  Escape to local shell
+?                                  Synonym for help
+sftp> 
+```
+
 http://linuxcommand.org/lc3_learning_the_shell.php
 
 ## Analysis of algorithms
