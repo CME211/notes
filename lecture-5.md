@@ -116,7 +116,7 @@ for word, count in word_dict.items():
 ### Test the script locally:
 
 ```
-nwh-mbpro:lec5 nwh$ python count_words.py 
+nwh-mbpro:lec5 nwh$ python count_words.py
 'a' appeared 2 time(s)
 'rainy' appeared 1 time(s)
 'short' appeared 1 time(s)
@@ -153,7 +153,7 @@ nwh-mbpro:lec5 nwh$ ssh nwh@corn.stanford.edu
 nwh@corn26:~$ cd CME211/lec5/
 nwh@corn26:~/CME211/lec5$ ls
 count_words.py	words.txt
-nwh@corn26:~/CME211/lec5$ python count_words.py 
+nwh@corn26:~/CME211/lec5$ python count_words.py
 'a' appeared 2 time(s)
 'rainy' appeared 1 time(s)
 'short' appeared 1 time(s)
@@ -163,8 +163,8 @@ nwh@corn26:~/CME211/lec5$ python count_words.py
 'file' appeared 1 time(s)
 'day' appeared 1 time(s)
 # edit the data file
-nwh@corn26:~/CME211/lec5$ emacs words.txt 
-nwh@corn26:~/CME211/lec5$ python count_words.py 
+nwh@corn26:~/CME211/lec5$ emacs words.txt
+nwh@corn26:~/CME211/lec5$ python count_words.py
 'a' appeared 2 time(s)
 'rainy' appeared 4 time(s)
 'short' appeared 1 time(s)
@@ -190,7 +190,7 @@ Enter a passcode or select one of the following options:
  3. SMS passcodes to XXX-XXX-2441
 
 Passcode or option (1-3): 1
-test.txt                                              100%   50     0.1KB/s   00:00    
+test.txt                                              100%   50     0.1KB/s   00:00
 nwh-mbpro:lec5 nwh$
 ```
 
@@ -200,7 +200,7 @@ See `$ man scp`
 
 ```
 nwh-mbpro:lec5 nwh$ sftp nwh@corn.stanford.edu
-nwh@corn.stanford.edu's password: 
+nwh@corn.stanford.edu's password:
 Authenticated with partial success.
 Duo two-factor login for nwh
 
@@ -244,7 +244,7 @@ version                            Show SFTP version
 !command                           Execute 'command' in local shell
 !                                  Escape to local shell
 ?                                  Synonym for help
-sftp> 
+sftp>
 ```
 
 ### Other software
@@ -284,7 +284,7 @@ then reference it outside:
 >>> name = "Nick"
 >>> if name == "Nick":
 ...     age = 45
-... 
+...
 >>> print("Nick's age is {}".format(age))
 Nick's age is 45
 >>>
@@ -296,12 +296,12 @@ If `name` holds a different name, the following will happen:
 >>> name = "Bob"
 >>> if name == "Nick":
 ...     age = 45
-... 
+...
 >>> print("Nick's age is {}".format(age))
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 NameError: name 'age' is not defined
->>> 
+>>>
 ```
 
 Good practice to define/initialize variables at the same level they will be
@@ -312,10 +312,10 @@ used:
 >>> age = None
 >>> if name == "Nick":
 ...     age = 45
-... 
+...
 >>> print("Nick's age is {}".format(age))
 Nick's age is None
->>> 
+>>>
 ```
 
 Note in the above example, it may be more appropriate to initialize the `age`
@@ -362,7 +362,7 @@ print "Sorting %d values took %.3f seconds." % (n, t1-t0)
 Let's run the script with increasing list length:
 
 ```
-[nwh@icme-nwh lecture-5] $ python listsort.py 
+[nwh@icme-nwh lecture-5] $ python listsort.py
 Usage:
  listsort.py nvalues
 [nwh@icme-nwh lecture-5] $ python listsort.py 1000000
@@ -391,41 +391,35 @@ testing has some drawbacks, namely:
 ## Time complexity
 
 * Estimate of the number of operations as a function of the input size (usually
-  denoted as $n$)
+  denoted as `n`)
 
+* Input size examples:
+
+    * length of list
+
+    * for an `m` by `m` matrix, we say the input size is `m` even though the
+      matrix as `m^2` entries
+    
+    * number of non-zero entries in a sparse matrix
+
+    * number of nodes in a graph or network structure
 
 * Typically characterized in terms of Big O notation, e.g. an algorithm is
   `O(n log n)` or `O(n^2)`.
 
-O(1)
-
-O(log n)
-
-O(n)
-
-O(n log n)
-
-O(n2)
-
-
-Constant time
-
-Logarithmic time
-
-Linear time
-
-Linearithmitic time
-
-Quadratic time
-
-| a | b |
-| c | d  |
+```
+| order notation | in english          |
+|----------------+---------------------|
+| O(1)           | Constant time       |
+| O(log n)       | Logarithmic time    |
+| O(n)           | Linear time         |
+| O(n log n)     | Linearithmitic time |
+| O(n^2)         | Quadratic time      |
+```
 
 ## Visualization
 
-
-8
-
+![order chart](lecture-5/order-chart.png)
 
 ## Big O notation
 
@@ -1123,7 +1117,7 @@ CTTGAAAGG
 >>> a.insert(1, 19)
 >>> a
 [7, 19, 42]
->>> 
+>>>
 28
 
 
@@ -1192,16 +1186,16 @@ names_list.append(name)
 names_set.add(name)
 f.close()
 loadnames.py
-plegresl@corn16:~/CME211/Lecture05$ python -i loadnames.py 
+plegresl@corn16:~/CME211/Lecture05$ python -i loadnames.py
 >>> 'JANE' in names_list
 True
 >>> 'LELAND' in names_list
 False
->>> 'JANE' in names_set 
+>>> 'JANE' in names_set
 True
 >>> 'LELAND' in names_set
 False
->>> 
+>>>
 32
 
 
@@ -1282,4 +1276,4 @@ May make assumptions about dataset (random distribution, etc.)
 38
 
 
-## 
+##
