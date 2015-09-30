@@ -325,88 +325,77 @@ We will learn about *scope* when we talk about functions on Friday.
 
 ## Analysis of algorithms
 
-* Time complexity: How does the
+Key questions when considering the performance of algorithms:
 
-number of operations in an algorithm scale
-with the size of the input?
+* **Time complexity**: How does the number of operations in an algorithm scale with
+the size of the input?
 
-
-* Space complexity: How do the storage
-requirements of the algorithm scale?
-
-
-3
-
+* **Space complexity**: How do the storage requirements of the algorithm scale?
 
 ## Empirical approach
 
-import random!
-import sys!
-import time!
-!
-if len(sys.argv) < 2:!
-print 'Usage:'!
-print ' %s nvalues' % sys.argv[0]!
-!
-n = int(sys.argv[1])!
-!
-# Setup a list of random values and record the time required to sort it!
-v = random.sample(xrange(n), n)!
-t0 = time.time()!
-v.sort()!
-t1 = time.time()!
-!
-print "Sorting %d values took %.3f seconds." % (n, t1-t0)!
+Let's measure the running time of Pythons `sort` method on a random list of
+integers.  See `lecture-5/listsort.py`:
 
-listsort.py!
+```py
+import random
+import sys
+import time
 
-4
+if len(sys.argv) < 2:
+print 'Usage:'
+print ' %s nvalues' % sys.argv[0]
 
+n = int(sys.argv[1])
+
+# Setup a list of random values and record the time required to sort it
+v = random.sample(xrange(n), n)
+t0 = time.time()
+v.sort()
+t1 = time.time()
+
+print "Sorting %d values took %.3f seconds." % (n, t1-t0)
+```
 
 ## Empirical approach
 
-plegresl@corn16:~/CME211/Lecture05$ python listsort.py
-Sorting 1000000 values took 0.794 seconds.!
-plegresl@corn16:~/CME211/Lecture05$ python listsort.py
-Sorting 2000000 values took 1.854 seconds.!
-plegresl@corn16:~/CME211/Lecture05$ python listsort.py
-Sorting 4000000 values took 4.334 seconds.!
-plegresl@corn16:~/CME211/Lecture05$ python listsort.py
-Sorting 8000000 values took 9.695 seconds.!
-plegresl@corn16:~/CME211/Lecture05$ python listsort.py
-Sorting 16000000 values took 22.484 seconds.!
-plegresl@corn16:~/CME211/Lecture05$ !
+Let's run the script with increasing list length:
 
-5
-
-
-1000000!
-2000000!
-4000000!
-8000000!
-16000000!
+```
+[nwh@icme-nwh lecture-5] $ python listsort.py 
+Usage:
+ listsort.py nvalues
+[nwh@icme-nwh lecture-5] $ python listsort.py 1000000
+Sorting %d values took %.3f seconds.
+[nwh@icme-nwh lecture-5] $ python listsort.py 2000000
+Sorting 2000000 values took 1.12 seconds.
+[nwh@icme-nwh lecture-5] $ python listsort.py 4000000
+Sorting 4000000 values took 2.49 seconds.
+[nwh@icme-nwh lecture-5] $ python listsort.py 8000000
+Sorting 8000000 values took 5.41 seconds.
+[nwh@icme-nwh lecture-5] $ python listsort.py 16000000
+Sorting 16000000 values took 11.9 seconds.
+[nwh@icme-nwh lecture-5] $
+```
 
 ## Problems with empirical
 
+Empirical performance testing is an important endeavor.  It is an apect of
+"profiling" your code to see what parts take longer.  Empirical performance
+testing has some drawbacks, namely:
+
 * Results are computer dependent
 
-* You need to have the code before you can
-do the analysis
-
-
-6
-
+* You need to have the code before you can do the analysis
 
 ## Time complexity
 
-* Estimate of the number of operations as a
+* Estimate of the number of operations as a function of the input size (usually
+  denoted as $n$)
 
-function of the input size (usually denoted as n)
 
-
-* Typically characterized in terms of Big O
-
-notation, e.g. an algorithm is O(n log n) or O(n2)
+* Typically characterized in terms of Big O notation, e.g. an algorithm is
+  $O(n log n)$ or $O(n^2)$.
 
 O(1)
 
@@ -1124,45 +1113,45 @@ CTTGAAAGG
 
 ## List operations
 
->>> a = []!
->>> a.append(42)!
->>> a!
-[42]!
->>> a.insert(0, 7)!
->>> a!
-[7, 42]!
->>> a.insert(1, 19)!
->>> a!
-[7, 19, 42]!
->>> !
+>>> a = []
+>>> a.append(42)
+>>> a
+[42]
+>>> a.insert(0, 7)
+>>> a
+[7, 42]
+>>> a.insert(1, 19)
+>>> a
+[7, 19, 42]
+>>> 
 28
 
 
 ## Python lists use contiguous storage
 
-42!
+42
 
-?!
+?
 
-?!
+?
 
-?!
+?
 
-7!
+7
 
-42!
+42
 
-?!
+?
 
-?!
+?
 
-7!
+7
 
-19!
+19
 
-42!
+42
 
-?!
+?
 
 29
 
@@ -1194,28 +1183,28 @@ element is independent of n, so O(1)
 
 ## Which is better? And why?
 
-names_list = []!
-names_set = set([])!
-f = open('dist.female.first')!
-for line in f:!
-name = line.split()[0]!
-names_list.append(name)!
-names_set.add(name)!
-f.close()!
-loadnames.py!
-plegresl@corn16:~/CME211/Lecture05$ python -i loadnames.py !
->>> 'JANE' in names_list!
-True!
->>> 'LELAND' in names_list!
-False!
->>> 'JANE' in names_set !
-True!
->>> 'LELAND' in names_set!
-False!
->>> !
+names_list = []
+names_set = set([])
+f = open('dist.female.first')
+for line in f:
+name = line.split()[0]
+names_list.append(name)
+names_set.add(name)
+f.close()
+loadnames.py
+plegresl@corn16:~/CME211/Lecture05$ python -i loadnames.py 
+>>> 'JANE' in names_list
+True
+>>> 'LELAND' in names_list
+False
+>>> 'JANE' in names_set 
+True
+>>> 'LELAND' in names_set
+False
+>>> 
 32
 
-!
+
 
 ## Documentation
 
