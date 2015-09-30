@@ -18,10 +18,163 @@ Wednesday, September 30, 2015
 * Goal: we need to associate your GitHub username with your stanford username
   (SUNetID)
 
+* In class I've shown IPython (Jupyter) notebooks and recommended the install of
+  Anaconda Python.  We recommend that you use the web and each other for tech
+  support related to these packages.  Computers and software are complicated
+  things.  In this class, we must standardize and can only support your code
+  running on the Farmshare systems.  Feel free to ask us for help, but we may
+  decline based on time or requests from other students.  We will help you with
+  farmshare issues.
+
 [GitHub]: https://github.com/
 [gh-form]: https://docs.google.com/forms/d/1JyNmmn2Ur6WTwUrI4jvCSpDNv6jph48mFUXu6lF-G2Q/viewform
 
-## Terminal
+## Farmshare review
+
+Your first assignment must run on and be submitted throught the farmshare
+servers.  Let's walk through the process of creating a Python script and data
+file locally then move it over to farmshare.  We will use the same conventions
+as homework 1.
+
+Please note that these instructions will work best on Mac OS X.  If you are on
+Windows, you will need to follow the spirit of the instructions.
+
+### Create a local directory structure for the class
+
+1. Open your terminal program (`Terminal.app` on OSX).
+
+2. Follow the sequence of commands:
+
+```
+nwh-mbpro:~ nwh$ cd
+nwh-mbpro:~ nwh$ pwd
+/Users/nwh
+nwh-mbpro:~ nwh$ mkdir CME211
+nwh-mbpro:~ nwh$ cd CME211/
+nwh-mbpro:CME211 nwh$ mkdir lec5
+nwh-mbpro:CME211 nwh$ cd lec5/
+nwh-mbpro:lec5 nwh$ pwd
+/Users/nwh/CME211/lec5
+```
+
+Notes:
+
+* `cd` by itself moves to your home directory
+* `~` is an alias for your home directory
+* Homework 1 requires that your files be placed in `~/CME211/hw1` on farmshare
+
+### Exercise
+
+Let's write a short python script to count unique words in a data file.  The
+data file will have one word per line.
+
+### Create a data file
+
+Open your favorite text editor and create the file `~/CME211/lec5/words.txt`.
+Enter the following contents:
+
+```
+this
+is
+a
+short
+file
+this
+is
+also
+a
+rainy
+day
+```
+### Create a python script to count words
+
+```py
+# file name uses relative path
+data_file = "words.txt"
+
+f = open(data_file,"r")
+
+# dictionary to store unique words as keys and counts as values
+word_dict = dict()
+
+# count the words
+for line in f:
+    # remove the new line character
+    word = line.strip()
+    if word in word_dict:
+        # word is in dictionary, increment count
+        word_dict[word] += 1
+    else:
+        # word is not yet in dictionary, set count to 1
+        word_dict[word] = 1
+
+# print the word counts
+for word, count in word_dict.items():
+    print("'{}' appeared {} time(s)".format(word,count))
+```
+
+### Test the script locally:
+
+```
+nwh-mbpro:lec5 nwh$ python count_words.py 
+'a' appeared 2 time(s)
+'rainy' appeared 1 time(s)
+'short' appeared 1 time(s)
+'this' appeared 2 time(s)
+'is' appeared 2 time(s)
+'also' appeared 1 time(s)
+'file' appeared 1 time(s)
+'day' appeared 1 time(s)
+```
+
+### Move onto Farmshare with WebAFS
+
+Log into <https://afs.stanford.edu/>.  You will see your farmshare files.  With
+this interface you can create directories and upload files.
+
+![web afs interface](web-afs.png)
+
+Create a new folder:
+
+![web afs new folder](web-afs-new-folder.png)
+
+Upload files:
+
+![web afs upload](web-afs-upload.png)
+
+Final result:
+
+![files uploaded](web-afs-files-uploaded.png)
+
+### Test the program on Farmshare
+
+```
+nwh-mbpro:lec5 nwh$ ssh nwh@corn.stanford.edu
+nwh@corn26:~$ cd CME211/lec5/
+nwh@corn26:~/CME211/lec5$ ls
+count_words.py	words.txt
+nwh@corn26:~/CME211/lec5$ python count_words.py 
+'a' appeared 2 time(s)
+'rainy' appeared 1 time(s)
+'short' appeared 1 time(s)
+'this' appeared 2 time(s)
+'is' appeared 2 time(s)
+'also' appeared 1 time(s)
+'file' appeared 1 time(s)
+'day' appeared 1 time(s)
+# edit the data file
+nwh@corn26:~/CME211/lec5$ emacs words.txt 
+nwh@corn26:~/CME211/lec5$ python count_words.py 
+'a' appeared 2 time(s)
+'rainy' appeared 4 time(s)
+'short' appeared 1 time(s)
+'this' appeared 2 time(s)
+'is' appeared 2 time(s)
+'also' appeared 1 time(s)
+'file' appeared 1 time(s)
+'day' appeared 1 time(s)
+nwh@corn26:~/CME211/lec5$
+```
 
 http://linuxcommand.org/lc3_learning_the_shell.php
 
