@@ -4,6 +4,9 @@ Wednesday, September 30, 2015
 
 ## Announcements
 
+* If you are on the wait list: submit homework by deadline.  We will grade
+  if/when you make it into the class.
+
 * We will be using [GitHub][GitHub] for version control and managing assignment
   submissions in this course. If you haven't already done so, please create a
   personal Github account at <https://github.com/>. Feel free to link the
