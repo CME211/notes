@@ -2,8 +2,6 @@
 
 Wednesday, September 30, 2015
 
-# Warning: these notes are not complete
-
 ## Announcements
 
 * We will be using [GitHub][GitHub] for version control and managing assignment
@@ -423,259 +421,163 @@ testing has some drawbacks, namely:
 
 ## Big O notation
 
-* Big O notation represents growth rate of a
-
-function in the limit of argument going to infinity
-
+* Big O notation represents growth rate of a function in the limit of argument
+  going to infinity
 
 * Excludes coefficients and lower order terms
 
-2n2 + 64n
+```
+2n^22 + 64n -> O(n^2)
+```
 
-e
-
-O(n2)
-
-
-
-
-* Often some simplifying assumptions will need to
-be made about the nature of the input data
-
-
-9
-
+* Often some simplifying assumptions will need to be made about the nature of
+  the input data in order to carry out analysis
 
 ## Linear algebra examples
 
-* Adding two vectors? O(n)
+* Adding two vectors? `O(n)`
 
-* Multiplying two matrices? Assuming the
-matrices are both n x n, it's O(n3)
+```py
+# c = a + b
+# assume all the same length
+n = len(a)
+for i in xrange(n):
+    c[i] = a[i] + b[i]
+```
+
+* Multiplying two matrices? Assuming the matrices are both `n x n`, it's
+  `O(n^3)`
+
+```py
+# assume all matrices are n x n
+# indexing notation below comes from numpy
+# this will not work with standard python
+# C = A*B
+for i in xrange(n):
+    for j in xrange(n):
+        C[i,j] = 0
+        for k in xrange(n):
+            C[i,j] += A[i,k]*B[k,j]
+```
 
 
-[][] []
-=
-
-
-n x n
-
-
-n x n
-
-
-n x n
-
+![matmul](matrix.png)
 
 Computing one value in the output matrix requires O(n)
 operations, and there are n2 values in the output matrix.
 
-10
-
-
 ## Linear search
 
-Find the number x in your data:
+*Linear search* is searching through a sequential data container for a specified
+item.  An example of this is finding the start index of a given substring in a
+longer string.
 
+Exercise: Find the number `x` in your data:
 
-4
+```
+|---+----+-----+----+-----+----+-----+-----|
+| 4 | 17 | 100 | 73 | 120 | 42 | 999 | -17 |
+|---+----+-----+----+-----+----+-----+-----|
+```
 
-
-17
-
-
-100
-
-
-73
-
-
-120
-
-
-42
-
-
-999
-
-
--17
-
-
-Is it O(1), or O(n), or something else?
-
-
-11
-
+Is it `O(1)`, or `O(n)`, or something else?
 
 ## Linear search: best and worst case
 
+```
+|---+----+-----+----+-----+----+-----+-----|
+| 4 | 17 | 100 | 73 | 120 | 42 | 999 | -17 |
+|---+----+-----+----+-----+----+-----+-----|
 
-4
+  ^                                     ^
+  |                                     |
+ O(1)                                  O(n)
+```
 
+* Best case: `x = 4` and we find the index with only one comparison
 
-17
-
-
-100
-
-
-73
-
-
-120
-
-
-Best case: O(1)
-
-
-42
-
-
-999
-
-
--17
-
-
-Worst case: O(n)
-
-
-12
-
+* Worst case: `x = -17` and we scan the entire list to find the last element
 
 ## Linear search: average case
 
+```
+|---+----+-----+----+-----+----+-----+-----|
+| 4 | 17 | 100 | 73 | 120 | 42 | 999 | -17 |
+|---+----+-----+----+-----+----+-----+-----|
+             
+                    ^
+                    |
+                  O(n/2)
+```
 
-4
-
-
-17
-
-
-100
-
-
-73
-
-
-120
-
-
-Average case: O(n/2)
-
-13
-
-
-42
-
-
-e
-
-999
-
-
-O(n)
-
-
--17
-
+Given random data and a random input (in the range of the data) we can **on
+average** expect to search through half of the list.  This would be `O(n/2)`.
+Remember that Big O notation is not concerned with constant terms, so this
+becomes `O(n)`.
 
 ## Binary search algorithm
 
-Find 17:
+I we know that the list is sorted, we can apply binary search.  Let's look at an example
 
--17
+**Goal**: Find the index of `17` in the following list:
 
+```
+|-----+---+----+----+----+-----+-----+-----|
+| -17 | 4 | 17 | 42 | 73 | 100 | 120 | 999 |
+|-----+---+----+----+----+-----+-----+-----|
+```
 
-4
+Start by looking half way through the list:
 
+```
+|-----+---+----+----+----+-----+-----+-----|
+| -17 | 4 | 17 | 42 | 73 | 100 | 120 | 999 |
+|-----+---+----+----+----+-----+-----+-----|
+                  ^
+                  U
+```
 
-17
+`42` is not `17`, but `42` is greater than `17` so continue searching the left
+(lower) part of the list.  The index associated with `42` becomes an upper bound
+on the search.
 
+```
+|-----+---+----+----+----+-----+-----+-----|
+| -17 | 4 | 17 | 42 | 73 | 100 | 120 | 999 |
+|-----+---+----+----+----+-----+-----+-----|
+        ^         ^
+        L         U
+```
 
-42
+`4` is not `17`, but `4` is less than `17` so continue searching to the right
+part of the list up to the upper bound.  Turns out in this example that we only
+have one entry to inspect:
 
+```
+|-----+---+----+----+----+-----+-----+-----|
+| -17 | 4 | 17 | 42 | 73 | 100 | 120 | 999 |
+|-----+---+----+----+----+-----+-----+-----|
+        ^   ^     ^
+        L   *     U
+```
 
-73
+We have found `17`.  It is time to celebrate and return the index of `2`.
+(Remember Python uses 0-based indexing.)
 
+## Summary: Binary search
 
-100
+* Requires that the data first be sorted, but then:
 
+    * Best case: `O(1)`
 
-120
+    * Average case: `O(log n)`
 
-
-999
-
-
--17
-
-
-4
-
-
-17
-
-
-42
-
-
-73
-
-
-100
-
-
-120
-
-
-999
-
-
--17
-
-
-4
-
-
-17
-
-
-42
-
-
-73
-
-
-100
-
-
-120
-
-
-999
-
-
-14
-
-
-## Binary search
-
-* Requires that the data first be sorted, but
-then:
-
-
-* Best case: O(1)
-
-* Average case: O(log n)
-
-* Worst case: O(log n)
-
-15
-
+    * Worst case: `O(log n)`
 
 ## Sorting algorithms
+
+There are many sorting algorithms and this is a worthy area of study.  Here are
+few examples of names of sorting algorithms:
 
 * Quicksort
 
@@ -691,422 +593,215 @@ then:
 
 * Etc.
 
-16
+The internet is full of examples of how sorting algorithms work
 
+* <http://www.youtube.com/watch?v=lyZQPjUT5B4>
 
-## Bubble sort
-
-http://www.youtube.com/watch?v=lyZQPjUT5B4
-
-
-For more examples:
-
-http://www.youtube.com/user/AlgoRythmics
-
-
-17
+* <http://www.youtube.com/user/AlgoRythmics>
 
 
 ## Sorting algorithms
 
-Name
+![sorting algo table](lecture-5/sorting-algo-table.png)
 
-
-Best
-
-
-Average
-
-
-Worst
-
-
-Memory
-
-
-Stable
-
-
-Quicksort
-
-
-n log n
-
-
-n log n
-
-
-n2
-
-
-Average log n,
-worst n
-
-
-Usually not
-
-
-
-
-Merge sort
-
-
-n log n
-
-
-n log n
-
-
-n log n
-
-
-Worst n
-
-
-Yes
-
-
-Heapsort
-
-
-n log n
-
-
-n log n
-
-
-n log n
-
-
-1
-
-
-No
-
-
-Bubble sort
-
-
-n
-
-
-n2
-
-
-n2
-
-
-1
-
-
-Yes
-
-
-http://en.wikipedia.org/wiki/Sorting_algorithms#Comparison_of_algorithms
-
-18
-
+See: <https://en.wikipedia.org/wiki/Sorting_algorithm#Comparison_of_algorithms>
 
 ## Finding the maximum
 
-What's the order of the algorithm to find
-the maximum value in an unordered list?
-
-
-17
-
-
-1325
-
-
--3
-
-
-346
-
-
-73
-
-
-19
-
-
-999
-
-
-120
-
-
-0
-
-
-## Maximum via sorting
-
-* Sort the list ascending / descending and take
-the last / first value
-
-
-* Cost of the algorithm will be the cost of the
-
-sorting plus one more operation to take the
-last / first value
-
-
-* Sorting algorithms are typically O(n log n) or
-O(n2)
-
-
-* Overall order of algorithm will clearly be the
-order of the sorting algorithm
-
-20
-
-
-## Maximum via linear search
-
-17
-
-
-1325
-
-
--3
-
-
-346
-
-
-73
-
-
-999
-
-
-120
-
-
-0
-
-
-Is this the maximum value I've seen so far?
-
-17
-
-
-1325
-
-
--3
-
-
-346
-
-
-73
-
-
-999
-
-
-120
-
-
-0
-
-
-Is this the maximum value I've seen so far?
-
-17
-
-
-1325
-
-
--3
-
-
-346
-
-
-73
-
-
-999
-
-
-120
-
-
-0
-
-
-Is this the maximum value I've seen so far?
-
-21
-
+What's the order of the algorithm to find the maximum value in an *unordered*
+list?
+
+```
+|----+------+----+-----+----+----+-----+-----+---|
+| 17 | 1325 | -3 | 346 | 73 | 19 | 999 | 120 | 0 |
+|----+------+----+-----+----+----+-----+-----+---|
+```
+
+### Idea: let's sort
+
+* Sort the list ascending / descending and take the last / first value
+
+* Cost of the algorithm will be the cost of the sorting plus one more operation
+to take the last / first value
+
+* Sorting algorithms are typically `O(n log n)` or `O(n^2)`
+
+* Overall order of algorithm will clearly be the order of the sorting algorithm
+
+### Idea: linear search
+
+Algorithm:
+
+* scan through the list sequentially
+* keep track of max element seen so far
+* compare each element and update if needed
+
+Step 1:
+
+```
+|----+------+----+-----+----+----+-----+-----+---|
+| 17 | 1325 | -3 | 346 | 73 | 19 | 999 | 120 | 0 |
+|----+------+----+-----+----+----+-----+-----+---|
+  ^
+  |
+ 17
+```
+
+Step 2: move to next element, compare and update
+
+```
+|----+------+----+-----+----+----+-----+-----+---|
+| 17 | 1325 | -3 | 346 | 73 | 19 | 999 | 120 | 0 |
+|----+------+----+-----+----+----+-----+-----+---|
+         ^
+         |
+       1325
+```
+
+Repeat:
+
+```
+|----+------+----+-----+----+----+-----+-----+---|
+| 17 | 1325 | -3 | 346 | 73 | 19 | 999 | 120 | 0 |
+|----+------+----+-----+----+----+-----+-----+---|
+              ^
+              |
+            1325
+```
+
+And so on:
+
+```
+|----+------+----+-----+----+----+-----+-----+---|
+| 17 | 1325 | -3 | 346 | 73 | 19 | 999 | 120 | 0 |
+|----+------+----+-----+----+----+-----+-----+---|
+                                               ^
+                                               |
+                                             1325
+```
+
+Question: what is the order of this algorithm?
 
 ## Two largest values
 
-* What's the complexity to find the two largest
-values in an unordered list of n values?
-
-
-22
-
+* What's the complexity to find the two largest values in an *unordered* list of `n`
+values?
 
 ## Two largest values
 
-17
+Now we need to keep track of two values during the traverse of the list.  We
+will also need to sort the pair of numbers that we keep along the way.
 
+Start by looking at the first two elements:
 
-73
+```
+|----+----+-----+-----+----+------+-----+---|
+| 17 | 73 | 417 | 346 | 73 | 1325 | 120 | 0 |
+|----+----+-----+-----+----+------+-----+---|
+ ^    ^
+ |    |
+(17,  73)
+(73,  17) <- sorted
+```
 
+Move down by one:
 
-417
+```
+|----+----+-----+-----+----+------+-----+---|
+| 17 | 73 | 417 | 346 | 73 | 1325 | 120 | 0 |
+|----+----+-----+-----+----+------+-----+---|
+      ^    ^
+      |    |
+     (73,  417)
+     (417,  73) <- sorted
+```
 
- 346
+Repeat:
 
+```
+|----+----+-----+-----+----+------+-----+---|
+| 17 | 73 | 417 | 346 | 73 | 1325 | 120 | 0 |
+|----+----+-----+-----+----+------+-----+---|
+           ^     ^
+           |     |
+          (417,  346)
+          (417,  346) <- sorted
+```
 
-73
+Repeat (in this case no update is needed):
 
- 1325
+```
+|----+----+-----+-----+----+------+-----+---|
+| 17 | 73 | 417 | 346 | 73 | 1325 | 120 | 0 |
+|----+----+-----+-----+----+------+-----+---|
+                 ^     ^
+                 |     |
+                (417,  346)
+                (417,  346) <- sorted
+```
 
- 120
+Notes:
 
+* For each of n input elements you will do a comparison, potentially a
+replacement, and a sort
 
-0
+* Time complexity is `O(n)`
 
+Question:
 
-17
+* Does that mean that finding the two largest values will take the same amount
+of time as finding the single largest value?
 
+## `m` largest values
 
-73
+What if I want to find the `m` largest values in an unordered list of `n`
+elements?
 
+This is an example of a more complicated algorithm.  We have two components to
+consider:
 
-Sort
+* the length of the list `n`
 
+* number number of largerst values that we want `m`
 
-> ?
+Thus, it may not be appropriate to characterize an algorithm in terms of one
+parameter `n`:
 
-17
+* Time complexity for finding the `m` largest values in an unordered list of `n`
+elements could be characterized as `O(n m log m)` for a sorting algorithm that
+is `O(m log m)`
 
-
-73
-
-
-417
-
- 346
-
-
-73
-
- 1325
-
- 120
-
-
-0
-
-
-73
-
-
-17
-
-
-73
-
-
-417
-
-
-Sort
-
-417
-
-
-73
-
-
-...
-
-1325
-
- 417
-
-23
-
-
-## Two largest values
-
-* For each of n input elements you will do a
-
-comparison, potentially a replacement, and a sort
-
-
-* Time complexity is O(n)
-
-
-* Does that mean that finding the two largest
-values will take the same amount of time as
-finding the single largest value?
-
-
-24
-
-
-## m largest values
-
-* What if I want to find the m largest values
-in an unordered list of n elements?
-
-
-25
-
-
-## More complicated algorithms
-
-
-* May not be appropriate to characterize an
-algorithm in terms of one parameter n
-
-
-* Time complexity for finding the m largest
-
-values in an unordered list of n elements
-could be characterized as O(n m log m) for
-a sorting algorithm that is O(m log m)
-
+Question:
 
 * For what m is it better just to sort the list?
 
-26
-
-
 ## Finding substrings
 
+Important procedure.  We are using it in homework 1.
+
+Example:
+
+```
 TGTAGAATCACTTGAAAGGCGCGCAGTCTGGGGCGCTAGTCGTGGT
-
-CTTGAAAGG
-
-
-* String has length m, and substring has length n
-
-* Algorithms could vary
-
-* O(mn) for a naive implementation
-
-* O(m) for typical algorithms
-
-* O(n) for a search that uses the BurrowsWheeler transform
+          CTTGAAAGG
+          ^       ^
+          |       |
+```
 
 
-27
+* String has length `m`, and substring has length `n`
 
+* Different algorithms:
 
-## List operations
+    * `O(mn)` for a naive implementation
 
+    * `O(m)` for typical algorithms
+
+    * `O(n)` for a search that uses the Burrows-Wheeler transform
+
+## List operations in Python
+
+```
 >>> a = []
 >>> a.append(42)
 >>> a
@@ -1118,75 +813,53 @@ CTTGAAAGG
 >>> a
 [7, 19, 42]
 >>>
-28
+```
 
+Python lists use contiguous storage.  As we are inserting into the list, the
+memory layout will look something like:
 
-## Python lists use contiguous storage
+```
+>>> a.append(42)
 
-42
+|----+---+---+---|
+| 42 | ? | ? | ? |
+|----+---+---+---|
 
-?
+>>> a.insert(0, 7)
 
-?
+|---+----+---+---|
+| 7 | 42 | ? | ? |
+|---+----+---+---|
 
-?
+>>> a.insert(1, 19)
 
-7
+|---+----+----+---|
+| 7 | 19 | 42 | ? |
+|---+----+----+---|
 
-42
+```
 
-?
+## List vs Set in python
 
-?
+Let's compare Python's list and set objects for a few operations:
 
-7
+Create a file `loadnames.py`
 
-19
-
-42
-
-?
-
-29
-
-
-## List access
-
-* What is the time complexity to access the
-ith element of a list with n elements?
-
-
-30
-
-
-## List access
-
-
-Start
-
-
-Location of ith element
-
-
-Computing the location of the ith
-element is independent of n, so O(1)
-
-
-31
-
-
-## Which is better? And why?
-
+```
 names_list = []
 names_set = set([])
 f = open('dist.female.first')
 for line in f:
-name = line.split()[0]
-names_list.append(name)
-names_set.add(name)
+    name = line.split()[0]
+    names_list.append(name)
+    names_set.add(name)
 f.close()
-loadnames.py
-plegresl@corn16:~/CME211/Lecture05$ python -i loadnames.py
+```
+
+Run the script and enter into the interpreter:
+
+```
+$ python -i loadnames.py
 >>> 'JANE' in names_list
 True
 >>> 'LELAND' in names_list
@@ -1196,84 +869,56 @@ True
 >>> 'LELAND' in names_set
 False
 >>>
-32
+```
 
-
+Which container is better for insertion and existence testing?
 
 ## Documentation
 
+![time complexity](time-complexity.png)
 
-https://wiki.python.org/moin/TimeComplexity
+<https://wiki.python.org/moin/TimeComplexity>
 
-33
+### List operations
 
-
-## List operations
-
-
-34
+![list](list.png)
 
 
-## Set operations
+### Set operations
 
-
-35
-
+![set](set.png)
 
 ## Dictionary operations
 
-
-36
-
+![dict](dict.png)
 
 ## Space complexity
 
-* What additional storage will I need during
-execution of the algorithm?
-
+* What additional storage will I need during execution of the algorithm?
 
 * Doesn't include the input or output data
 
-* Really just refers to temporary data structures
-which have the life of the algorithm
+* Really just refers to temporary data structures which have the life of the
+algorithm
 
-
-* Process for determining the space complexity
-is analogous to determining time complexity
-
-
-37
-
+* Process for determining the space complexity is analogous to determining time
+complexity
 
 ## Complexity analysis
 
+* Good framework for comparing *algorithms*
 
-* Good framework for comparing algorithms
-
-* Understanding individual algorithms will help you
-
-understand performance of an application made up of
-multiple algorithms
-
+* Understanding individual algorithms will help you understand performance of an
+application made up of multiple algorithms
 
 * Also important for understanding data structures
 
 * Caveats:
 
-*
-*
-*
-*
+    * There is no standard definition of what constitutes an operation
 
-There is no standard definition of what constitutes an operation
+    * It's an asymptotic limit for large n
 
-It's an asymptotic limit for large n
+    * Says nothing about the constants
 
-Says nothing about the constants
-
-May make assumptions about dataset (random distribution, etc.)
-
-38
-
-
-##
+    * May make assumptions about dataset (random distribution, etc.)
