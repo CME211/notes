@@ -605,8 +605,6 @@ def add(a, b):
     return a + b
 ```
 
-## Python Object Model (if there's time)
-
 ## Recommended Reading
 
 From **Learning Python, Fifth Edition** by Mark Lutz
