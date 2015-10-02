@@ -316,72 +316,71 @@ Pull down remote changes
 
 * Analogous to mathematical functions
 
-## Defining a function in Python
+### Defining a function in Python
 
-Start of
-function
-definition
+Let's start with an example:
 
-
-Function
-(identifier)
-name
-
-
-Function
-arguments
-
-
+```
 >>> def PrintHello(name):
-...
-print "Hello, %s" % name Function body
-
+...     print("Hello, {}".format(name))
 ... 
 >>> PrintHello
-
 <function PrintHello at 0x14d21b8>
 >>> PrintHello("CME 211 students")
 Hello, CME 211 students
 >>> 
+```
 
-32
+Anatomy of a Python function:
 
+```py
+def function_name(input_argument):
+    # function body
+    print("you guys rock")
+```
 
-## Return a value
+1. start with `def` keyword
 
+2. give the function name
+
+3. followed by comma separated list of input arguments, surrounded by
+   parentheses
+
+    * just use `()` for no inputs
+
+4. followed by a colon `:`
+
+5. followed by **indented** function body
+
+### Return a value
+
+Use the `return` keyword to return object from a function:
+
+```py
 >>> def summation(a, b):
-...
-total = 0
-...
-for n in range(a,b+1):
-...
-total += n
-...
-return total
+...     total = 0
+...     for n in range(a,b+1):
+...         total += n
+...     return total
 ... 
 >>> c = summation(1, 100)
 >>> c
 5050
 >>>
+```
 
-33
+### Return multiple values
 
+Separate multiple return values with a comma:
 
-## Return multiple values
-
+```py
 >>> def SummationAndProduct(a,b):
-...
-total = 0
-...
-prod = 1
-...
-for n in range(a,b+1):
-...
-total += n
-...
-prod *= n
-...
-return total, prod
+...     total = 0
+...     prod = 1
+...     for n in range(a,b+1):
+...         total += n
+...         prod *= n
+...     return total, prod
 ... 
 >>> a = SummationAndProduct(1,10)
 >>> a
@@ -393,23 +392,22 @@ return total, prod
 3628800
 >>>
 34
+```
 
+The `return` keyword packs multiple outputs into a tuple.  You can use Python's
+tuple unpacking to nicely get the return values in calling code.
 
-## Variable scope
+### Variable scope
 
+Let's look at an example to start discussing variable scope:
+
+```py
 >>> total = 42
 >>> def summation(a, b):
-...
-total = 0
-Local namespace
-...
-for n in range(a, b+1):
-within the function
-
-...
-total += n
-...
-return total
+...     total = 0
+...     for n in range(a, b+1):
+...         total += n
+...     return total
 ... 
 >>> a = summation(1, 100)
 >>> a
@@ -421,19 +419,21 @@ Traceback (most recent call last):
 File "<stdin>", line 1, in <module>
 NameError: name 'n' is not defined
 >>> 
-35
+```
 
+Function bodies have a local namespace.  In this example the `summation`
+function does not see the variable `total` from the top level scope.
+`summation` creates its own variable `total` which is different!  The top level
+scope also cannot see variables used inside of `summation`.
 
-## Variable scope
+Reference before assignment to a global scope variable will cause an error:
 
+```py
 >>> total = 0
 >>> def summation(a, b):
-...
-for n in range(a, b+1):
-...
-total += n
-...
-return total
+...     for n in range(a, b+1):
+...         total += n
+...     return total
 ... 
 >>> a = summation(1, 100)
 Traceback (most recent call last):
@@ -441,246 +441,169 @@ File "<stdin>", line 1, in <module>
 File "<stdin>", line 3, in summation
 UnboundLocalError: local variable 'total' referenced before assignment
 >>> 
+```
 
+### Variable scope examples
 
-36
+It is possible to use a variable from a higher scope.  This is generally
+considered bad practice:
 
-
-## Variable scope
-
+```py
 >>> a = ['hi', 'bye']
 >>> def func():
-...
-print a
+...     print(a)
 ... 
 >>> func()
 ['hi', 'bye']
 >>> 
+```
 
+Even worse practice is modifying a mutable object from a higher scope:
 
+```py
 >>> a = ['hi', 'bye']
 >>> def func():
-...
-a.append('hello')
+...     a.append('hello')
 ... 
 >>> func()
 >>> a
 ['hi', 'bye', 'hello']
 >>> 
+```
 
+Python will not let you redirect an identifier at a global scope.  Here the
+function body has its own `a`:
+
+```py
 >>> a = ['hi', 'bye']
 >>> def func():
-...
-a = 2
+...     a = 2
 ... 
 >>> func()
 >>> a
 ['hi', 'bye']
 >>> 
+```
 
-* You can't redirect the identifier a at global scope and
-have it reference some other object
+### Accessing a global variable
 
+This is bad practice, do not do this.  We will take off points.  We show you in
+case you run into it.
 
-* You can however modify a mutable object
-
-* Not a good programming practice, but an easy
-mistake to make in Python
-
-
-37
-
-
-## Variable scope
-
+```py
 >>> total = 0
 >>> def summation(a,b):
-Use the identifier total from
-...
-global total
-the global namespace
-
-...
-for n in range(a, b+1):
-...
-total += n
+...     global total
+...     for n in range(a, b+1):
+...         total += n
 ... 
 >>> a = summation(1,100)
 >>> total
 5050
 >>> 
+```
 
-Bad, Bad, Bad, Bad, Bad
+### Functions must be defined before they are used
 
-38
+In scripts (and the interpreter), functions must be defined before they are
+used!  See the file `lecture-6/order1.py`:
 
+```py
+def before():
+    print("I am function defined before use.")
 
-## Order matters
+before()
+after()
 
-summation() called before definition
+def after():
+    print("I am function defined after use.")
+```
 
-def summation(a, b):
-sum = 0
-for n in range(a, b+1):
-sum = sum + n
-return sum
+Output:
 
-a = summation(1, 100)
-print a
-order1.py
-
+```
 $ python order1.py 
-5050
-$
-
-
-a = summation(1, 100)
-print a
-
-def summation(a, b):
-sum = 0
-for n in range(a, b+1):
-sum = sum + n
-return sum
-order2.py
-
-$ python order2.py 
+I am function defined before use.
 Traceback (most recent call last):
-File "order2.py", line 1, in <module>
-a = summation(1, 100)
-NameError: name 'summation' is not defined
+  File "order.py", line 5, in <module>
+    after()
+NameError: name 'after' is not defined
 $
+```
 
+A function may refer to another function defined later in the file.  The rule is
+that functions must be defined before they are actually invoked/called.
 
-39
-
-
-## Order matters
-
+```py
 def sumofsquares(a, b):
-total = 0
-for n in range(a, b+1):
-total += squared(n)
-return total
+    total = 0
+    for n in range(a, b+1):
+        total += squared(n)
+    return total
 
 def squared(n):
-return n*n
+    return n*n
 
 print sumofsquares(1,10)
+```
 
-When/if this function is called, call the
-function squared(). squared()
-needs to be defined by the time this
-function is actually invoked.
+Output:
 
-
-order3.py
-plegresl@corn16:~/CME211/Lecture06$ python order3.py 
+```
+$ python order2.py 
 385
-plegresl@corn16:~/CME211/Lecture06$ 
-40
+$
+```
 
 
-## Passing convention
+### Passing convention
 
-increment() cannot
->>> def increment(a): modify the object
-...
-a = a + 1
-referenced by a
-... 
->>> b = 2
->>> increment(b)
->>> b
-2
+Python uses pass by object reference.  Python functions can change mutable
+objects refereed to by input variables
 
-41
-
-
-## Passing convention
-
-DoChores() has a
+```py
 >>> def DoChores(a):
-reference to a mutable
-...
-a.pop()
-object
+...     a.pop()
 ... 
 >>> b = ['feed dog', 'wash dishes']
 >>> DoChores(b)
 >>> b
 ['feed dog']
 >>> 
+```
 
-42
+`int`s, `float`s, and `str`ings are immutable objects and cannot be changed by a
+function:
 
+```py
+>>> def increment(a):
+...     a = a + 1
+... 
+>>> b = 2
+>>> increment(b)
+>>> b
+2
+```
 
-## Pass by object reference
+### Pass by object reference
 
-* Python uses what is sometimes called pass
-by object reference when calling functions
+* Python uses what is sometimes called pass by object reference when calling
+functions
 
+* If the reference is to a mutable object (e.g. lists, dictionaries, etc.), that
+object might be modified upon return from the function
 
-* If the reference is to a mutable object (e.g.
+* For references to immutable objects (e.g. numbers, strings), by definition the
+original object being referenced cannot be modified
 
-lists, dictionaries, etc.), that object might be
-modified upon return from the function
+### Example of a bad function
 
-
-* For references to immutable objects (e.g.
-
-numbers, strings), by definition the original
-object being referenced cannot be modified
-
-43
-
-
-## More realistic example
-
-
-Function definitions
-
-
-def LoadNameData(femalenames, malenames):
-# Creates a dictionary with the name data from the two input files
-namedata = {}
-
-f = open(femalenames)
-...
-
-return namedata
-
-def EvaluateName(namedata, name):
-# Uses the name data to evaluate a name
-if name in namedata:
-return namedata[name][0]
-else:
-return 0.5
-
-
-# Load reference data into a data structure
-namedata = LoadNameData('dist.female.first', 'dist.male.first')
-
-# Setup test data
-testdata = ['PETER', 'LOIS', 'STEWIE', 'BRIAN', 'MEG', 'CHRIS']
-
-# Try our algorithm
-for name in testdata:
-print '%s: %s' % (name, EvaluateName(namedata, name))
-
-Code that calls the functions
-
-
-From names.py
-44
-
-
-## Bad example
-
+```
 def add(a, b):
-# I wrote this function because Nick
-# is mean and is making us write functions
-return a + b
+    # I wrote this function because Nick
+    # is mean and is making us write three functions
+    return a + b
+```
 
 ## Python Object Model (if there's time)
 
