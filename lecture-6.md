@@ -300,4 +300,398 @@ Pull down remote changes
 
 ## Python functions
 
+* Code we have seen so far has been executed in linear fashion from top to
+  bottom, sometimes repeating one or more lines in a loop body
+
+* Functions allow us to:
+
+    * Replace duplicated code with one centralized implementation within a single
+      program
+
+    * Reuse code across different programs
+
+    * Easily use code developed by others
+
+    * Develop, test, debug code in isolation from other code
+
+* Analogous to mathematical functions
+
+## Defining a function in Python
+
+Start of
+function
+definition
+
+
+Function
+(identifier)
+name
+
+
+Function
+arguments
+
+
+>>> def PrintHello(name):
+...
+print "Hello, %s" % name Function body
+
+... 
+>>> PrintHello
+
+<function PrintHello at 0x14d21b8>
+>>> PrintHello("CME 211 students")
+Hello, CME 211 students
+>>> 
+
+32
+
+
+## Return a value
+
+>>> def summation(a, b):
+...
+total = 0
+...
+for n in range(a,b+1):
+...
+total += n
+...
+return total
+... 
+>>> c = summation(1, 100)
+>>> c
+5050
+>>>
+
+33
+
+
+## Return multiple values
+
+>>> def SummationAndProduct(a,b):
+...
+total = 0
+...
+prod = 1
+...
+for n in range(a,b+1):
+...
+total += n
+...
+prod *= n
+...
+return total, prod
+... 
+>>> a = SummationAndProduct(1,10)
+>>> a
+(55, 3628800)
+>>> a, b = SummationAndProduct(1,10)
+>>> a
+55
+>>> b
+3628800
+>>>
+34
+
+
+## Variable scope
+
+>>> total = 42
+>>> def summation(a, b):
+...
+total = 0
+Local namespace
+...
+for n in range(a, b+1):
+within the function
+
+...
+total += n
+...
+return total
+... 
+>>> a = summation(1, 100)
+>>> a
+5050
+>>> total
+42
+>>> n
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+NameError: name 'n' is not defined
+>>> 
+35
+
+
+## Variable scope
+
+>>> total = 0
+>>> def summation(a, b):
+...
+for n in range(a, b+1):
+...
+total += n
+...
+return total
+... 
+>>> a = summation(1, 100)
+Traceback (most recent call last):
+File "<stdin>", line 1, in <module>
+File "<stdin>", line 3, in summation
+UnboundLocalError: local variable 'total' referenced before assignment
+>>> 
+
+
+36
+
+
+## Variable scope
+
+>>> a = ['hi', 'bye']
+>>> def func():
+...
+print a
+... 
+>>> func()
+['hi', 'bye']
+>>> 
+
+
+>>> a = ['hi', 'bye']
+>>> def func():
+...
+a.append('hello')
+... 
+>>> func()
+>>> a
+['hi', 'bye', 'hello']
+>>> 
+
+>>> a = ['hi', 'bye']
+>>> def func():
+...
+a = 2
+... 
+>>> func()
+>>> a
+['hi', 'bye']
+>>> 
+
+* You can't redirect the identifier a at global scope and
+have it reference some other object
+
+
+* You can however modify a mutable object
+
+* Not a good programming practice, but an easy
+mistake to make in Python
+
+
+37
+
+
+## Variable scope
+
+>>> total = 0
+>>> def summation(a,b):
+Use the identifier total from
+...
+global total
+the global namespace
+
+...
+for n in range(a, b+1):
+...
+total += n
+... 
+>>> a = summation(1,100)
+>>> total
+5050
+>>> 
+
+Bad, Bad, Bad, Bad, Bad
+
+38
+
+
+## Order matters
+
+summation() called before definition
+
+def summation(a, b):
+sum = 0
+for n in range(a, b+1):
+sum = sum + n
+return sum
+
+a = summation(1, 100)
+print a
+order1.py
+
+$ python order1.py 
+5050
+$
+
+
+a = summation(1, 100)
+print a
+
+def summation(a, b):
+sum = 0
+for n in range(a, b+1):
+sum = sum + n
+return sum
+order2.py
+
+$ python order2.py 
+Traceback (most recent call last):
+File "order2.py", line 1, in <module>
+a = summation(1, 100)
+NameError: name 'summation' is not defined
+$
+
+
+39
+
+
+## Order matters
+
+def sumofsquares(a, b):
+total = 0
+for n in range(a, b+1):
+total += squared(n)
+return total
+
+def squared(n):
+return n*n
+
+print sumofsquares(1,10)
+
+When/if this function is called, call the
+function squared(). squared()
+needs to be defined by the time this
+function is actually invoked.
+
+
+order3.py
+plegresl@corn16:~/CME211/Lecture06$ python order3.py 
+385
+plegresl@corn16:~/CME211/Lecture06$ 
+40
+
+
+## Passing convention
+
+increment() cannot
+>>> def increment(a): modify the object
+...
+a = a + 1
+referenced by a
+... 
+>>> b = 2
+>>> increment(b)
+>>> b
+2
+
+41
+
+
+## Passing convention
+
+DoChores() has a
+>>> def DoChores(a):
+reference to a mutable
+...
+a.pop()
+object
+... 
+>>> b = ['feed dog', 'wash dishes']
+>>> DoChores(b)
+>>> b
+['feed dog']
+>>> 
+
+42
+
+
+## Pass by object reference
+
+* Python uses what is sometimes called pass
+by object reference when calling functions
+
+
+* If the reference is to a mutable object (e.g.
+
+lists, dictionaries, etc.), that object might be
+modified upon return from the function
+
+
+* For references to immutable objects (e.g.
+
+numbers, strings), by definition the original
+object being referenced cannot be modified
+
+43
+
+
+## More realistic example
+
+
+Function definitions
+
+
+def LoadNameData(femalenames, malenames):
+# Creates a dictionary with the name data from the two input files
+namedata = {}
+
+f = open(femalenames)
+...
+
+return namedata
+
+def EvaluateName(namedata, name):
+# Uses the name data to evaluate a name
+if name in namedata:
+return namedata[name][0]
+else:
+return 0.5
+
+
+# Load reference data into a data structure
+namedata = LoadNameData('dist.female.first', 'dist.male.first')
+
+# Setup test data
+testdata = ['PETER', 'LOIS', 'STEWIE', 'BRIAN', 'MEG', 'CHRIS']
+
+# Try our algorithm
+for name in testdata:
+print '%s: %s' % (name, EvaluateName(namedata, name))
+
+Code that calls the functions
+
+
+From names.py
+44
+
+
+## Bad example
+
+def add(a, b):
+# I wrote this function because Nick
+# is mean and is making us write functions
+return a + b
+
 ## Python Object Model (if there's time)
+
+## Recommended Reading
+
+From **Learning Python, Fifth Edition** by Mark Lutz
+
+* Chapter 6: The Dynamic Typing Interlude (i.e. references and objects)
+
+* Chapter 16: Function Basics
+
+* Chapter 17: Scopes
+
+* Chapter 18: Arguments
