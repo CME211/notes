@@ -15,6 +15,8 @@ Topics:
 * CUDA on Campus Day
 <http://icme.stanford.edu/events/nvidia-tech-talks-and-hands-labs>
 
+* Get your GitHub accounts!  You need this to submit assignments from here on.  We will not process last minute requests.
+
 ## Python object model
 
 Let's review and elaborate on Python's object model.  Key things to always keep
