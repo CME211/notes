@@ -1,7 +1,7 @@
 """print the top n-grams from a specified text file
 
 This python script shows an example of what we'd like to see in your python
-assignments.  We a popular example of computing and printing the top n-grams
+assignments.  We use a popular example of computing and printing the top n-grams
 from a text file.
 
 A n-gram is a sequence of n words that appear in a text file.  For example,
@@ -29,6 +29,7 @@ principled and conventional manner:
 2. import statements
 3. all functions
 4. the script body in an `if __name__ == "__main__": body`
+
 """
 
 import sys
