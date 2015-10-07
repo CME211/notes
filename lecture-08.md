@@ -17,6 +17,9 @@ Topic: Introduction to Object Oriented Programming (OOP) in Python
   
   * Email address you used to register on GitHub
 
+* Example to show good formating of a Python program:
+  <https://github.com/nwh/cme211-notes/blob/master/examples/ngrams/ngrams.py>
+
 ## Introduction to OOP
 
 ### Procedural programming
