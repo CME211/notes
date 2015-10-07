@@ -17,8 +17,84 @@ Topic: Introduction to Object Oriented Programming (OOP) in Python
   
   * Email address you used to register on GitHub
 
-* Example to show good formating of a Python program:
+* Example to show good formatting of a Python program:
   <https://github.com/nwh/cme211-notes/blob/master/examples/ngrams/ngrams.py>
+
+## Command line arguments
+
+In Python it is easy to pass command line arguments into a program.  For
+review, a shell command looks like this:
+
+```
+$ command arg1 arg2 arg3
+```
+
+For example:
+
+```
+$ ls -l code-08/
+total 48
+-rw-rw-r--. 1 nwh nwh  65 Oct  7 13:23 filewrite.py
+-rw-rw-r--. 1 nwh nwh  14 Oct  7 13:23 hello.txt
+-rw-rw-r--. 1 nwh nwh 184 Oct  7 13:23 self.py
+-rw-rw-r--. 1 nwh nwh 230 Oct  7 13:23 student10.py
+-rw-rw-r--. 1 nwh nwh   0 Oct  7 13:23 student11.py
+-rw-rw-r--. 1 nwh nwh  89 Oct  7 13:23 student1.py
+-rw-rw-r--. 1 nwh nwh   0 Oct  7 13:23 student2.py
+-rw-rw-r--. 1 nwh nwh 176 Oct  7 13:23 student3.py
+-rw-rw-r--. 1 nwh nwh 279 Oct  7 13:23 student4.py
+-rw-rw-r--. 1 nwh nwh 469 Oct  7 13:23 student5.py
+-rw-rw-r--. 1 nwh nwh 568 Oct  7 13:23 student6.py
+-rw-rw-r--. 1 nwh nwh 618 Oct  7 13:23 student7.py
+-rw-rw-r--. 1 nwh nwh 182 Oct  7 13:23 student8.py
+-rw-rw-r--. 1 nwh nwh 243 Oct  7 13:23 student9.py
+```
+
+* The command is: `ls`
+* The first argument is `-l` which tells `ls` to output detailed information for
+  each file
+* The second argument is the directory I want to list
+
+In a python scripts we can get access to the command line arguments with the
+`sys.argv` variable.  `sys.argv` is a list containing the command line arguments
+as items.  Command line arguments are separated by spaces.  See the example in
+`code-08/command.py`:
+
+```py
+import sys
+
+print("There are {} command line argument(s).".format(len(sys.argv)))
+
+for i, arg in enumerate(sys.argv):
+    print("arg {}: {}".format(i,arg))
+```
+
+Output:
+
+```
+$ python command.py a b c
+There are 4 command line argument(s).
+arg 0: command.py
+arg 1: a
+arg 2: b
+arg 3: c
+$ python command.py a b c "quote things with spaces"
+There are 5 command line argument(s).
+arg 0: command.py
+arg 1: a
+arg 2: b
+arg 3: c
+arg 4: quote things with spaces
+$ 
+```
+
+Notes:
+
+* `sys.argv[0]` is the name of the python script
+* arguments are separated by spaces
+* need to quote a string containing spaces
+* in python, the data type is `str`, need to convert to an `int` or `float` if
+  you want a number
 
 ## Introduction to OOP
 
