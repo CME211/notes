@@ -11,9 +11,11 @@ Topic: Introduction to Object Oriented Programming (OOP) in Python
   **will not** be graded.  You can do this today and email the following to
   <cme211-staff@lists.stanford.edu>:
 
-      * GitHub user name
-      * Stanford email address
-      * Email address you used to register on GitHub
+  * GitHub user name
+  
+  * Stanford email address
+  
+  * Email address you used to register on GitHub
 
 ## Introduction to OOP
 
