@@ -8,12 +8,12 @@ notes.
 ## Contents
 
 * [Lecture 2](lecture-02/lecture-02.md): Introduction to Python 
-* [Lecture 3](lecture-03/lecture-03.md): 
-* [Lecture 4](lecture-04/lecture-04.md): 
-* [Lecture 5](lecture-05/lecture-05.md): 
-* [Lecture 6](lecture-06/lecture-06.md): 
-* [Lecture 7](lecture-07/lecture-07.md): 
-* [Lecture 8](lecture-08/lecture-08.md): 
+* [Lecture 3](lecture-03/lecture-03.md): Lists, file IO
+* [Lecture 4](lecture-04/lecture-04.md): Python containers
+* [Lecture 5](lecture-05/lecture-05.md): Complexity analysis
+* [Lecture 6](lecture-06/lecture-06.md): Version control with `git`, Python functions
+* [Lecture 7](lecture-07/lecture-07.md): Python object model, modules, exceptions
+* [Lecture 8](lecture-08/lecture-08.md): Command line arguments, object oriented programming
 * [Lecture 9](lecture-09/lecture-09.md): 
 * [Lecture 10](lecture-10/lecture-10.md): 
 * [Lecture 11](lecture-11/lecture-11.md): 
