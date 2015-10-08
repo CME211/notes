@@ -7,5 +7,5 @@ notes.
 
 ## Contents
 
-* [Lecture 2][blob/master/lecture-02/lecture-02.md]: Introduction to Python
+* [Lecture 2](blob/master/lecture-02/lecture-02.md): Introduction to Python
 * [Lecture 2][blob/master/lecture-02/lecture-02.md]: Introduction to Python
