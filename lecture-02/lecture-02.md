@@ -781,7 +781,7 @@ Output:
 
 * use `ctrl-d`
 
-* use `exit()$`
+* use `exit()`
 
 ```
 nwh@corn30:~$ python
