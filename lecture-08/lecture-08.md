@@ -12,9 +12,9 @@ Topic: Introduction to Object Oriented Programming (OOP) in Python
   <cme211-staff@lists.stanford.edu>:
 
   * GitHub user name
-  
+
   * Stanford email address
-  
+
   * Email address you used to register on GitHub
 
 * Example to show good formatting of a Python program:
@@ -32,7 +32,7 @@ $ command arg1 arg2 arg3
 For example:
 
 ```
-$ ls -l code-08/
+$ ls -l code/
 total 48
 -rw-rw-r--. 1 nwh nwh  65 Oct  7 13:23 filewrite.py
 -rw-rw-r--. 1 nwh nwh  14 Oct  7 13:23 hello.txt
@@ -58,7 +58,7 @@ total 48
 In a python scripts we can get access to the command line arguments with the
 `sys.argv` variable.  `sys.argv` is a list containing the command line arguments
 as items.  Command line arguments are separated by spaces.  See the example in
-`code-08/command.py`:
+`code/command.py`:
 
 ```py
 import sys
@@ -85,7 +85,7 @@ arg 1: a
 arg 2: b
 arg 3: c
 arg 4: quote things with spaces
-$ 
+$
 ```
 
 Notes:
@@ -145,7 +145,7 @@ performance
 
 * Classes are blueprints for objects
 
-![fig-08/class-object.png](fig-08/class-object.png)
+![fig/class-object.png](fig/class-object.png)
 
 * Classes specify data and the methods to use or interact with that data
 
@@ -161,7 +161,7 @@ performance
 >>> a.sort()
 >>> a
 [3, 5, 19]
->>> 
+>>>
 ```
 
 * `list()` returns an object which is an instance of the *list* class
@@ -170,7 +170,7 @@ performance
 
 ### Class / object examples 2: file objects
 
-See the file `code-08/filewrite.py`:
+See the file `code/filewrite.py`:
 
 ```py
 f = open("hello.txt", "w")
@@ -198,7 +198,7 @@ Help on built-in function open in module __builtin__:
 
 open(...)
     open(name[, mode[, buffering]]) -> file object
-    
+
     Open a file using the file() type, returns a file object.  This is the
     preferred way to open a file.  See file.__doc__ for further information.
 ```
@@ -302,7 +302,7 @@ class Student:
 
 ### Class definition in action
 
-See the file `code-08/student1.py`
+See the file `code/student1.py`
 
 ```py
 class Student:
@@ -316,14 +316,14 @@ print(s)
 Output:
 
 ```
-$ python student1.py 
+$ python student1.py
 <__main__.Student instance at 0x1069f6c20>
 $
 ```
 
 ### Let's talk about `self`
 
-See `code-08/self.py`:
+See `code/self.py`:
 
 ```py
 class Student:
@@ -339,7 +339,7 @@ print("s    = {}".format(s))
 Output:
 
 ```
-$ python self.py 
+$ python self.py
 inside __init__()
 self = <__main__.Student instance at 0x10967cc20>
 s    = <__main__.Student instance at 0x10967cc20>
@@ -355,7 +355,7 @@ variables that will be used throughout the life of the instance
 
 ### Class variable setup
 
-See `code-08/student2.py`.  Let's add an empty dictionary for the classes that
+See `code/student2.py`.  Let's add an empty dictionary for the classes that
 the student is enrolled in:
 
 ```py
@@ -383,7 +383,7 @@ object
 * *encapsulation* means hiding the details of data structures and algorithms
 (internal code)
 
-![fig-08/encapsulation.png](fig-08/encapsulation.png)
+![fig/encapsulation.png](fig/encapsulation.png)
 
 ### Interfaces
 
@@ -412,7 +412,7 @@ Inside of the `Student` class, we put:
 
 ### Access to id
 
-See `code-08/student3.py`:
+See `code/student3.py`:
 
 ```py
 class Student:
@@ -430,7 +430,7 @@ print(s.getId())
 Output:
 
 ```
-$ python student3.py 
+$ python student3.py
 <__main__.Student instance at 0x1038becb0>
 7
 $
@@ -443,7 +443,7 @@ $
 * Is there a way somebody could accidentally change the id given the interface
 we've implemented?
 
-* Let's test it!  See `code-08/student4.py`:
+* Let's test it!  See `code/student4.py`:
 
 ```py
 class Student:
@@ -465,7 +465,7 @@ print("s.getId() = {}".format(s.getId()))
 Output:
 
 ```
-$ python student4.py 
+$ python student4.py
 <__main__.Student instance at 0x10bef2cb0>
 id = 7
 id = 9
@@ -479,7 +479,7 @@ $
 
 ### Adding classes / grades
 
-See: `code-08/student5.py`:
+See: `code/student5.py`:
 
 ```py
 class Student:
@@ -504,14 +504,14 @@ print("GPA = {}".format(s.getGPA()))
 Output:
 
 ```
-$ python student5.py 
+$ python student5.py
 GPA = 3.5
 $
 ```
 
 ### Getting classes
 
-See `code-08/student6.py`:
+See `code/student6.py`:
 
 ```py
 class Student:
@@ -548,7 +548,7 @@ $
 ### Getting classes
 
 If a method returns a reference to a mutable object, then changing that object
-"outside" of the class will change the data "inside" of the class.  See `code-08/student7.py`
+"outside" of the class will change the data "inside" of the class.  See `code/student7.py`
 
 ```py
 class Student:
@@ -580,7 +580,7 @@ print("classes = {}".format(s.getClasses()))
 Output:
 
 ```
-$ python student7.py 
+$ python student7.py
 GPA = 3.5
 classes = {'gym': 4, 'englist': 4, 'math': 3}
 $
@@ -602,7 +602,7 @@ have strong encapsulation
 * Default behavior is that all attributes are public, i.e. accessible using dot
 notation
 
-`code-08/student8.py`:
+`code/student8.py`:
 
 ```py
 class Student:
@@ -620,14 +620,14 @@ print("s.id = {}".format(s.id))
 Output:
 
 ```
-$ python student8.py 
+$ python student8.py
 s.id = 7
 $
 ```
 
 ### Public attributes
 
-`code-08/student9.py`:
+`code/student9.py`:
 
 ```py
 class Student:
@@ -646,7 +646,7 @@ print("s.getId() = {}".format(s.getId()))
 Output:
 
 ```
-$ python student9.py 
+$ python student9.py
 s.getId() = 7
 s.getId() = 9
 $
@@ -657,7 +657,7 @@ $
 * Attributes can be made private by using a double underscore prefix for the
 name
 
-* See `code-08/student10.py`:
+* See `code/student10.py`:
 
 ```py
 class Student:
@@ -675,7 +675,7 @@ print("s.id = {}".format(s.__id))
 * Output
 
 ```
-$ python student10.py 
+$ python student10.py
 s.getId() = 7
 Traceback (most recent call last):
   File "student10.py", line 10, in <module>
@@ -689,7 +689,7 @@ $
 Run `student10.py` in interactive mode:
 
 ```
-$ python -i student10.py 
+$ python -i student10.py
 s.getId() = 7
 Traceback (most recent call last):
 File "student10.py", line 10, in <module>
@@ -700,7 +700,7 @@ AttributeError: Student instance has no attribute '__id'
 >>> s._Student__id = 9
 >>> s.getId()
 9
->>> 
+>>>
 ```
 
 The "private" attribute is still accessible by prefixing it with `_<class name>`.
@@ -711,20 +711,20 @@ Python is dynamic, which is great.  But you should not do this:
 
 ```
 $ python
-Python 2.7.4 (default, Sep 26 2013, 03:20:26) 
+Python 2.7.4 (default, Sep 26 2013, 03:20:26)
 [GCC 4.7.3] on linux2
 Type "help", "copyright", "credits" or "license" for more information.
 >>> class MyClass:
 ...
 pass
-... 
+...
 >>> a = MyClass()
 >>> a.nitems = 3
 >>> a.todo = []
 >>> a.todo.append("get groceries")
 >>> a.todo
 ['get groceries']
->>> 
+>>>
 ```
 
 ### OOP Summary
