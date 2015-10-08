@@ -133,19 +133,19 @@ nwh-mbpro:lec5 nwh$ python count_words.py
 Log into <https://afs.stanford.edu/>.  You will see your farmshare files.  With
 this interface you can create directories and upload files.
 
-![web afs interface](lecture-5/web-afs.png)
+![web afs interface](fig/web-afs.png)
 
 Create a new folder:
 
-![web afs new folder](lecture-5/web-afs-new-folder.png)
+![web afs new folder](fig/web-afs-new-folder.png)
 
 Upload files:
 
-![web afs upload](lecture-5/web-afs-upload.png)
+![web afs upload](fig/web-afs-upload.png)
 
 Final result:
 
-![files uploaded](lecture-5/web-afs-files-uploaded.png)
+![files uploaded](fig/web-afs-files-uploaded.png)
 
 ### Test the program on Farmshare
 
@@ -336,7 +336,7 @@ the size of the input?
 ## Empirical approach
 
 Let's measure the running time of Pythons `sort` method on a random list of
-integers.  See `lecture-5/listsort.py`:
+integers.  See `code/listsort.py`:
 
 ```py
 import random
@@ -400,7 +400,7 @@ testing has some drawbacks, namely:
 
     * for an `m` by `m` matrix, we say the input size is `m` even though the
       matrix as `m^2` entries
-    
+
     * number of non-zero entries in a sparse matrix
 
     * number of nodes in a graph or network structure
@@ -420,7 +420,7 @@ testing has some drawbacks, namely:
 
 ## Visualization
 
-![order chart](lecture-5/order-chart.png)
+![order chart](fig/order-chart.png)
 
 ## Big O notation
 
@@ -464,7 +464,7 @@ for i in xrange(n):
 ```
 
 
-![matmul](lecture-5/matrix.png)
+![matmul](fig/matrix.png)
 
 Computing one value in the output matrix requires `O(n)`
 operations, and there are `n^2` values in the output matrix.
@@ -507,7 +507,7 @@ Is it `O(1)`, or `O(n)`, or something else?
 |---+----+-----+----+-----+----+-----+-----|
 | 4 | 17 | 100 | 73 | 120 | 42 | 999 | -17 |
 |---+----+-----+----+-----+----+-----+-----|
-             
+
                     ^
                     |
                   O(n/2)
@@ -605,7 +605,7 @@ The internet is full of examples of how sorting algorithms work
 
 ## Sorting algorithms
 
-![sorting algo table](lecture-5/sorting-algo-table.png)
+![sorting algo table](fig/sorting-algo-table.png)
 
 See: <https://en.wikipedia.org/wiki/Sorting_algorithm#Comparison_of_algorithms>
 
@@ -878,21 +878,21 @@ Which container is better for insertion and existence testing?
 
 ## Documentation
 
-![time complexity](lecture-5/time-complexity.png)
+![time complexity](fig/time-complexity.png)
 
 <https://wiki.python.org/moin/TimeComplexity>
 
 ### List operations
 
-![list](lecture-5/list.png)
+![list](fig/list.png)
 
 ### Set operations
 
-![set](lecture-5/set.png)
+![set](fig/set.png)
 
 ## Dictionary operations
 
-![dict](lecture-5/dict.png)
+![dict](fig/dict.png)
 
 ## Space complexity
 

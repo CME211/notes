@@ -106,7 +106,7 @@ The `__add__` method is called when the `+` operator is called on lists:
 ['josh', 'evan', 'oliver', 'swaroop', 'loek']
 >>> cme211_tas.__add__(['loek'])
 ['josh', 'evan', 'oliver', 'swaroop', 'loek']
->>> 
+>>>
 ```
 
 ## Dictionaries
@@ -178,12 +178,12 @@ Iterate through the keys with:
 ```py
 >>> for key in ages:
 ...     print("{} = {}".format(key,ages[key]))
-... 
+...
 bruce = 60
 angelina = 40
 leo = 40
 brad = 51
->>> 
+>>>
 ```
 
 Iterate through key-values pairs with:
@@ -191,7 +191,7 @@ Iterate through key-values pairs with:
 ```py
 >>> for k, v in ages.items():
 ...     print('{} = {}'.format(k,v))
-... 
+...
 bruce = 60
 angelina = 40
 leo = 40
@@ -205,7 +205,7 @@ pairs:
 ```py
 >>> for k, v in ages.iteritems():
 ...     print('{} = {}'.format(k,v))
-... 
+...
 bruce = 60
 angelina = 40
 leo = 40
@@ -341,7 +341,7 @@ TypeError: 'tuple' object does not support item assignment
 >>> my_tup[2][0] = 'new data'
 >>> my_tup
 (2, 'a string', ['new data', 3, 8])
->>> 
+>>>
 ```
 
 ### Tuple modifiability diagram
@@ -382,7 +382,7 @@ It is possible to associate a value with a new key with the following code:
 >>> del ages['bruce']
 >>> ages
 {'mike': 60, 'angelina': 40, 'leo': 40, 'brad': 51}
->>> 
+>>>
 ```
 
 ## Python sets
@@ -400,7 +400,7 @@ It is possible to associate a value with a new key with the following code:
 >>> myclasses.add("math")
 >>> myclasses.add("chemistry")
 >>> myclasses.add("literature")
->>> 
+>>>
 >>> yourclasses = set()
 >>> yourclasses.add("physics")
 >>> yourclasses.add("gym")
@@ -410,7 +410,7 @@ It is possible to associate a value with a new key with the following code:
 False
 >>> "gym" in yourclasses
 True
->>> 
+>>>
 >>> myclasses & yourclasses # intersection
 set(['math'])
 >>> myclasses | yourclasses # union
@@ -425,7 +425,7 @@ See `help(set)`:
 ```
 add(...)
     Add an element to a set.
-    
+
     This has no effect if the element is already present.
 
 clear(...)
@@ -436,7 +436,7 @@ copy(...)
 
 difference(...)
     Return the difference of two or more sets as a new set.
-    
+
     (i.e. all elements that are in this set but not the others.)
 
 difference_update(...)
@@ -444,12 +444,12 @@ difference_update(...)
 
 discard(...)
     Remove an element from a set if it is a member.
-    
+
     If the element is not a member, do nothing.
 
 intersection(...)
     Return the intersection of two or more sets as a new set.
-    
+
     (i.e. elements that are common to all of the sets.)
 
 intersection_update(...)
@@ -470,12 +470,12 @@ pop(...)
 
 remove(...)
     Remove an element from a set; it must be a member.
-    
+
     If the element is not a member, raise a KeyError.
 
 symmetric_difference(...)
     Return the symmetric difference of two sets as a new set.
-    
+
     (i.e. all elements that are in exactly one of the sets.)
 
 symmetric_difference_update(...)
@@ -483,7 +483,7 @@ symmetric_difference_update(...)
 
 union(...)
     Return the union of sets as a new set.
-    
+
     (i.e. all elements that are in either set.)
 
 update(...)
@@ -516,7 +516,7 @@ dist.male.first
 name1a.py
 name1b.py
 name2.py
-[nwh@icme-nwh lecture-4] $ head dist.female.first 
+[nwh@icme-nwh lecture-4] $ head dist.female.first
 MARY           2.629  2.629      1
 PATRICIA       1.073  3.702      2
 LINDA          1.035  4.736      3
@@ -537,7 +537,7 @@ Notes:
 
 ### Using sets
 
-See `lecture-4/name1a.py`:
+See `code/name1a.py`:
 
 ```py
 # Create sets for female and male names
@@ -574,7 +574,7 @@ for name in names:
 Run the code:
 
 ```
-[nwh@icme-nwh lecture-4] $ python name1a.py 
+[nwh@icme-nwh lecture-4] $ python name1a.py
 There are 4275 female names and 1219 male names.
 There are 331 names that appear in both sets.
 PETER: M
@@ -588,7 +588,7 @@ CHRIS: M
 Run the code and get interpreter after completion:
 
 ```
-[nwh@icme-nwh lecture-4] $ python -i name1a.py 
+[nwh@icme-nwh lecture-4] $ python -i name1a.py
 There are 4275 female names and 1219 male names.
 There are 331 names that appear in both sets.
 PETER: M
@@ -603,12 +603,12 @@ CHRIS: M
 1219
 >>> len(female)
 4275
->>> 
+>>>
 ```
 
 ### Using lists
 
-See `lecture-4/name1b.py`
+See `code/name1b.py`
 
 ```py
 # Create sets for female and male names
@@ -650,7 +650,7 @@ Given an input name:
 
 Use a Python dictionary with keys as first names and values as specified above.
 
-See `lecture-4/name2.py`:
+See `code/name2.py`:
 
 ```py
 # Create dictionary with name data
@@ -665,7 +665,7 @@ for line in f:
     name = line.split()[0]
     if name in names:
         # Just assume a 50/50 distribution for names on both lists
-        names[name] = 0.5 
+        names[name] = 0.5
     else:
         names[name] = 0.
 f.close()
