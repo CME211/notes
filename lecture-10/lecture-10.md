@@ -6,6 +6,46 @@ Topic: Representation of numbers, Numpy overview
 
 ## Announcements
 
+## Quiz 1 Prep
+
+Sample quiz solutions from 2012 and 2013 are posted on Piazza.
+
+Topics:
+
+* Understanding of low level and high level programming languages
+* Use cases for fundamental data types: integers, floating point numbers,
+  strings
+* basic Python syntax: loops, conditionals, functions, variables
+* built-in Python containers: lists, dictionaries, sets
+* fundamentals of python's data model
+* Python OOP: defining classes, data attributes, methods
+* Basics of complexity analysis (as covered in lecture)
+
+Book chapters:
+
+* Chapter 5: Numeric Types
+* Chapter 6: The Dynamic Typing Interlude (i.e. references and objects)
+* Chapter 7: String Fundamentals
+* Chapter 8: Lists and Dictionaries
+* Chapter 9: Tuples, Files, and Everything Else
+* Chapter 11: Assignments, Expressions, and Prints
+* Chapter 12: if Tests and Syntax Rules
+* Chapter 13: while and for Loops
+* Chapter 16: Function Basics
+* Chapter 17: Scopes
+* Chapter 18: Arguments
+* Chapter 26: OOP: The Big Picture
+* Chapter 27: Class Coding Basics
+
+Notes:
+
+* If you want `sqrt()`, remember to `import math` and use `math.sqrt()`.  Other
+than that, we won't test on module stuff.
+
+* We won't test on python exceptions
+
+* We won't test on Numpy, Scipy, or matplotlib (which we cover this week)
+
 ## Computer representation of data
 
 * Computers represent and store everything in *binary*
@@ -34,7 +74,6 @@ and decimal (base 10)
 ```
 
 ### Common prefixes
-
 
 * kilo, mega, giga, tera, peta, exa prefixes:
 
