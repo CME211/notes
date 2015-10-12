@@ -292,6 +292,8 @@ time = 9.53674e-07
 $
 ```
 
+Compile the C++ code with: `$ g++ summation.cpp -o summation`
+
 ### Python is kind of slow
 
 One of the main disadvantages of a higher level language is that, while
