@@ -10,6 +10,18 @@ Topic: Representation of numbers, Numpy overview
 
 Sample quiz solutions from 2012 and 2013 are posted on Piazza.
 
+* Open book
+* Open note
+* Open computer (restricted internet use)
+    * you may use Python iterpreter
+    * use computer to access notes at
+     <https://github.com/nwh/cme211-notes>
+    * use computer to access Learning Python book
+    * use computer to access Python documentation @ python.org
+    * use computer to access reference sheet
+      <http://www.astro.up.pt/~sousasag/Python_For_Astronomers/Python_qr.pdf>
+    * You may not use Google or any other search method to try and find answers
+
 Topics:
 
 * Understanding of low level and high level programming languages
@@ -40,10 +52,8 @@ Book chapters:
 Notes:
 
 * If you want `sqrt()`, remember to `import math` and use `math.sqrt()`.  Other
-than that, we won't test on module stuff.
-
+  than that, we won't test on module stuff.
 * We won't test on python exceptions
-
 * We won't test on Numpy, Scipy, or matplotlib (which we cover this week)
 
 ## Computer representation of data
@@ -54,6 +64,10 @@ than that, we won't test on module stuff.
 digits (bits)
 
 * There are 8 bits in a byte
+
+### Simplified model of computer
+
+![fig](fig/model-computer.png)
 
 ### Converting between bases
 
