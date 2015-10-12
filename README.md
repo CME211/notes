@@ -15,7 +15,7 @@ notes.
 * [Lecture 7](lecture-07/lecture-07.md): Python object model, modules, exceptions
 * [Lecture 8](lecture-08/lecture-08.md): Command line arguments, object oriented programming
 * [Lecture 9](lecture-09/lecture-09.md): More Python OOP
-* [Lecture 10](lecture-10/lecture-10.md): Computer representation of numbers, Numpy
+* [Lecture 10](lecture-10/lecture-10.md): Computer representation of data, NumPy
 * [Lecture 11](lecture-11/lecture-11.md): 
 * [Lecture 12](lecture-12/lecture-12.md): 
 * [Lecture 13](lecture-13/lecture-13.md): 
