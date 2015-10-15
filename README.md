@@ -16,7 +16,7 @@ notes.
 * [Lecture 8](lecture-08/lecture-08.md): Command line arguments, object oriented programming
 * [Lecture 9](lecture-09/lecture-09.md): More Python OOP
 * [Lecture 10](lecture-10/lecture-10.md): Computer representation of data, NumPy
-* [Lecture 11](lecture-11/lecture-11.md): 
+* [Lecture 11](lecture-11/lecture-11.md): SciPy, matplotlib
 * [Lecture 12](lecture-12/lecture-12.md): 
 * [Lecture 13](lecture-13/lecture-13.md): 
 * [Lecture 14](lecture-14/lecture-14.md): 
