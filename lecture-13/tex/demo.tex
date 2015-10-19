@@ -1,0 +1,101 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage{algorithm2e}
+
+\title{CME 211 Demo \LaTeX\ Document}
+% note: need extra "\ " after "\LaTeX" to get nice spacing in the title
+
+\author{CME 211 Instructor}
+
+\begin{document}
+% the following command inserts the "title" information
+\maketitle
+
+\section{Equations}
+
+Let's start with an equation:
+
+\begin{equation}
+\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}
+\end{equation}
+
+\section{Bulleted List}
+
+\begin{itemize}
+\item The first item
+\item And the second item
+\item etc.
+\end{itemize}
+
+\section{Figure}
+
+\begin{figure}[h]
+\begin{center}
+\includegraphics[width=0.85\linewidth]{../fig/maze.pdf}
+\caption{Maze}
+\label{fig:maze}
+\end{center}
+\end{figure}
+
+\section{Table}
+
+\begin{table}[h]
+\begin{center}
+\caption{Dataset Characteristics}
+\begin{tabular}{|c|c|c|}
+\hline
+Dataset number & Reference length & Number of reads \\ \hline
+1 & 100   & 60   \\ \hline
+2 & 1000  & 600  \\ \hline
+3 & 10000 & 6000 \\ \hline
+\end{tabular}
+\label{table:datasets}
+\end{center}
+\end{table}
+
+\section{Algorithm}
+
+\begin{algorithm}[H]
+ \SetAlgoLined
+ \KwData{this document}
+ \KwResult{how to use \LaTeX2e }
+ initialization\;
+ \While{not at end of this document}{
+  read current\;
+  \eIf{understand}{
+   go to next section\;
+   current section becomes this one\;
+   }{
+   go back to the beginning of current section\;
+  }
+ }
+\caption{How to read this document}
+\end{algorithm}
+
+\section{Referencing labels}
+
+With LaTeX you can create equations as shown in Equation~\ref{eq:integral}:
+%
+\begin{equation}
+\int_0^\infty e^{-x^2} dx=\frac{\sqrt{\pi}}{2}
+\label{eq:integral}
+\end{equation}
+
+\section{Citation Example}
+
+If you want to cite a publication, you use the cite
+command~\cite{CME211:2013:FinalProjectPart1}.
+
+Label must match the label in the \texttt{.bib} file.
+
+\section{Conclusions}
+
+Hope you enjoyed your tour of \LaTeX. Have a good day.
+
+% Reference section
+
+\bibliographystyle{unsrt} % specify bibliography format
+\bibliography{references} % include the bibliography
+
+\end{document}
