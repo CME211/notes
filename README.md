@@ -17,8 +17,8 @@ notes.
 * [Lecture 9](lecture-09/lecture-09.md): More Python OOP
 * [Lecture 10](lecture-10/lecture-10.md): Computer representation of data, NumPy
 * [Lecture 11](lecture-11/lecture-11.md): SciPy, matplotlib
-* [Lecture 12](lecture-12/lecture-12.md): 
-* [Lecture 13](lecture-13/lecture-13.md): 
+* [Lecture 12](lecture-12/lecture-12.ipynb): Introduction to Pandas 
+* [Lecture 13](lecture-13/lecture-13.md): Introduction to LaTeX 
 * [Lecture 14](lecture-14/lecture-14.md): 
 * [Lecture 15](lecture-15/lecture-15.md): 
 * [Lecture 16](lecture-16/lecture-16.md): 
