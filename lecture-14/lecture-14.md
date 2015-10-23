@@ -9,6 +9,12 @@ Topics:
 * Variables
 * Strings
 
+## Announcements
+
+* LaTeX screencast posted
+* HW 4 posted
+* New lecture format
+
 ## C++
 
 * Programming language developed at Bell Labs starting in the late 70s
