@@ -5,6 +5,7 @@ Friday, October 26, 2015
 Topics:
 
 * static arrays
+* variable scope
 * looping
 
 ## Static arrays
