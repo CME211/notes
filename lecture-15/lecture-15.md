@@ -1,6 +1,6 @@
 # CME 211: Lecture 15
 
-Friday, October 26, 2015
+Monday, October 26, 2015
 
 Topics:
 
