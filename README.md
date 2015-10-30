@@ -22,7 +22,7 @@ notes.
 * [Lecture 14](lecture-14/lecture-14.md): Introduction to C++
 * [Lecture 15](lecture-15/lecture-15.md): C++ static arrays, variable scope, looping
 * [Lecture 16](lecture-16/lecture-16.md): C++ conditionals, file IO
-* [Lecture 17](lecture-17/lecture-17.md): 
+* [Lecture 17](lecture-17/lecture-17.md): More C++ file IO
 * [Lecture 18](lecture-18/lecture-18.md): 
 * [Lecture 19](lecture-19/lecture-19.md): 
 * [Lecture 20](lecture-20/lecture-20.md): 

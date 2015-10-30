@@ -1,0 +1,4 @@
+workspace 0 0 10 10
+circle 3 7 1
+triangle 4 6 8 6 5 7
+rectangle 1 1 8 2
