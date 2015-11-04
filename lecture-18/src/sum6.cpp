@@ -1,0 +1,6 @@
+#include "sum6.hpp"
+
+double sum(double a, double b) {
+  double c = a + b;
+  return c;
+}
