@@ -41,7 +41,7 @@ Output:
 
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/iter1.cpp -o src/iter1
-$ ./src/iter1 
+$ ./src/iter1
 7
 11
 42
@@ -231,7 +231,7 @@ Output:
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/map4.cpp -o src/map4
 $ ./src/map4
 dir.size() = 4
-dir[5] = 
+dir[5] =
 dir.size() = 5
 ```
 
@@ -266,8 +266,9 @@ Output:
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/map5.cpp -o src/map5
 $ ./src/map5
 dir.size() = 4
+dir.at(5) =
 libc++abi.dylib: terminating with uncaught exception of type std::out_of_range: map::at:  key not found
-dir.at(5) = ```
+```
 
 ### Testing for a key
 
@@ -456,7 +457,7 @@ std::map<std::string,std::tuple<double,double,int>> ReadNames(std::string filena
 std::map<std::string,std::tuple<double,double,int>> ReadNames(std::string filename)
 {
   std::ifstream f(filename);
-  
+
   std::map<std::string,std::tuple<double,double,int>> names;
 
   std::string name;
@@ -603,7 +604,7 @@ Output:
 
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/set.cpp -o src/set
-$ ./src/set 
+$ ./src/set
 ERROR: Could not read file dist.male.first
 10 female names
 0 male names
@@ -648,7 +649,7 @@ Output:
 
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/array.cpp -o src/array
-$ ./src/array 
+$ ./src/array
 1
 1
 3
@@ -696,7 +697,7 @@ int main()
 
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/list.cpp -o src/list
-$ ./src/list 
+$ ./src/list
 42
 9
 ```
@@ -753,7 +754,7 @@ Output:
 
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/unordered_map.cpp -o src/unordered_map
-$ ./src/unordered_map 
+$ ./src/unordered_map
 dir[2] = south
 dir[0] = north
 ```
