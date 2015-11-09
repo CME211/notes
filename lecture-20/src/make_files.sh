@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+touch iter1.cpp
+touch iter2.cpp
+touch map1.cpp
+touch map2.cpp
+touch map3.cpp
+touch map4.cpp
+touch map5.cpp
+touch map6.cpp
+touch map7.cpp
+touch map8.cpp
+touch map9.cpp
+touch readnames.cpp
+touch testname.cpp
+touch main.cpp
+touch set.cpp
+touch array.cpp
+touch array2.cpp
+touch list.cpp
+touch unordered_map.cpp
