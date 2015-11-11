@@ -25,8 +25,8 @@ notes.
 * [Lecture 17](lecture-17/lecture-17.md): More C++ file IO
 * [Lecture 18](lecture-18/lecture-18.md): C++ functions, preprocessor, and `#include`
 * [Lecture 19](lecture-19/lecture-19.md): C++ containers: `vector` and `tuple`
-* [Lecture 20](lecture-20/lecture-20.md): 
-* [Lecture 21](lecture-21/lecture-21.md): 
+* [Lecture 20](lecture-20/lecture-20.md): C++ containers: `map` and `set`
+* [Lecture 21](lecture-21/lecture-21.md): Boost MultiArray
 * [Lecture 22](lecture-22/lecture-22.md): 
 * [Lecture 23](lecture-23/lecture-23.md): 
 * [Lecture 24](lecture-24/lecture-24.md): 
