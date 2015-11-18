@@ -1,7 +1,7 @@
 # C++ Challenge: what does `=` do?
 
 Think back to our Python days.  Things were nice back then.  The weather was
-warmer, the days were longer, and the assingment operator `=` associated a
+warmer, the days were longer, and the assignment operator `=` associated a
 variable with a reference to an object in memory.  If we wanted to copy a data
 structure from one variable to another we had to explicitly call `copy.copy` or
 `copy.deepcopy`.  The purpose of this challenge is to gain a better
@@ -12,7 +12,7 @@ set.  We used this in a previous homework.
 
 The challenge is to:
 
-1. Load the data into an appropriate C++ nested `map` structure.  The heirarchy
+1. Load the data into an appropriate C++ nested `map` structure.  The hierarchy
    should be `MovieId -> UserId -> Rating`.
 
 2. Write simple print routines for the `map`.
