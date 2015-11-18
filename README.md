@@ -29,6 +29,6 @@ notes.
 * [Lecture 21](lecture-21/lecture-21.md): Boost MultiArray
 * [Lecture 22](lecture-22/lecture-22.md): Compilation, Makefiles
 * [Lecture 23](lecture-23/lecture-23.md): C++ OOP Part 1
-* [Lecture 24](lecture-24/lecture-24.md): 
+* [Lecture 24](lecture-24/lecture-24.md): C++ OOP Part 2
 * [Lecture 25](lecture-25/lecture-25.md): 
 * [Lecture 26](lecture-26/lecture-26.md): 
