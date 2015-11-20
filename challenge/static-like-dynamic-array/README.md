@@ -19,7 +19,7 @@ position.
 
 In memory, things look like this:
 
-![fig](fig/mem.svg)
+![fig](fig/mem.png)
 
 ## Challenge
 
