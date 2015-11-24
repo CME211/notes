@@ -2,3 +2,4 @@
 /output.txt
 /examples/ngrams/t8.shakespeare.txt
 *.ipynb_checkpoints*
+/challenge/even_fib/even_fib
