@@ -171,7 +171,7 @@ g++ -std=c++11 -Wall -Wextra -Wconversion src/increment.cpp -o src/increment
 
 ### Increment
 
-![fig](src/increment.png)
+![fig](fig/increment.png)
 
 ### Returning pointers
 

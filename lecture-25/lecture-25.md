@@ -69,20 +69,15 @@ Output:
 $ ulimit -a
 core file size          (blocks, -c) 0
 data seg size           (kbytes, -d) unlimited
-scheduling priority             (-e) 0
 file size               (blocks, -f) unlimited
-pending signals                 (-i) 30601
-max locked memory       (kbytes, -l) 64
+max locked memory       (kbytes, -l) unlimited
 max memory size         (kbytes, -m) unlimited
-open files                      (-n) 1024
-pipe size            (512 bytes, -p) 8
-POSIX message queues     (bytes, -q) 819200
-real-time priority              (-r) 0
-stack size              (kbytes, -s) 4096
+open files                      (-n) 256
+pipe size            (512 bytes, -p) 1
+stack size              (kbytes, -s) 8515
 cpu time               (seconds, -t) unlimited
-max user processes              (-u) 4096
+max user processes              (-u) 709
 virtual memory          (kbytes, -v) unlimited
-file locks                      (-x) unlimited
 ```
 
 ### Modifying the stack size limit
@@ -126,20 +121,15 @@ Output:
 $ ulimit -a
 core file size          (blocks, -c) 0
 data seg size           (kbytes, -d) unlimited
-scheduling priority             (-e) 0
 file size               (blocks, -f) unlimited
-pending signals                 (-i) 30601
-max locked memory       (kbytes, -l) 64
+max locked memory       (kbytes, -l) unlimited
 max memory size         (kbytes, -m) unlimited
-open files                      (-n) 1024
-pipe size            (512 bytes, -p) 8
-POSIX message queues     (bytes, -q) 819200
-real-time priority              (-r) 0
-stack size              (kbytes, -s) 4096
+open files                      (-n) 256
+pipe size            (512 bytes, -p) 1
+stack size              (kbytes, -s) 8515
 cpu time               (seconds, -t) unlimited
-max user processes              (-u) 4096
+max user processes              (-u) 709
 virtual memory          (kbytes, -v) unlimited
-file locks                      (-x) unlimited
 $ g++ -std=c++11 -Wall -Wextra -Wconversion src/stack5.cpp -o src/stack5
 $ ./src/stack5
 ```
@@ -224,8 +214,8 @@ Output:
 $ g++ -std=c++11 -Wall -Wextra -Wconversion src/pointer1.cpp -o src/pointer1
 $ ./src/pointer1
  a = 42
-&a = 0x7ffdf7b3efa4
- b = 0x7ffdf7b3efa4
+&a = 0x7fff57463ad8
+ b = 0x7fff57463ad8
 *b = 42
 ```
 
@@ -278,12 +268,12 @@ Output:
 $ g++ -std=c++11 -Wall -Wextra -Wconversion src/pointer2.cpp -o src/pointer2
 $ ./src/pointer2
  a = 42
-&a = 0x7ffccf457cd4
- b = 0x7ffccf457cd4
+&a = 0x7fff5827ca98
+ b = 0x7fff5827ca98
 *b = 42
  a = 7
-&a = 0x7ffccf457cd4
- b = 0x7ffccf457cd4
+&a = 0x7fff5827ca98
+ b = 0x7fff5827ca98
 *b = 7
 ```
 
@@ -323,7 +313,7 @@ a = 3
 
 ### Increment
 
-![fig](src/increment.png)
+![fig](fig/increment.png)
 
 ### Returning pointers
 
@@ -351,13 +341,13 @@ Output:
 
 ```
 $ g++ -std=c++11 -Wall -Wextra -Wconversion src/func.cpp -o src/func
-src/func.cpp: In function ‘int* func()’:
-src/func.cpp:4:7: warning: address of local variable ‘b’ returned [-Wreturn-local-addr]
-   int b = 2;
-       ^
+src/func.cpp:5:11: warning: address of stack memory associated with local variable 'b' returned [-Wreturn-stack-address]
+  return &b;
+          ^
+1 warning generated.
 $ ./src/func
- a = 0x7ffc716c177c
-*a = 32577
+ a = 0x7fff5d2d7acc
+*a = 32767
 ```
 
 ### Returning pointers
@@ -432,12 +422,15 @@ Output:
 
 ```
 $ g++ -std=c++11 -Wall -Wextra -Wconversion src/pointer4.cpp -o src/pointer4
-src/pointer4.cpp: In function ‘int main()’:
-src/pointer4.cpp:5:28: warning: ‘a’ is used uninitialized in this function [-Wuninitialized]
-   std::cout << "*a = " << *a << std::endl;
-                            ^
+src/pointer4.cpp:5:28: warning: variable 'a' is uninitialized when used here [-Wuninitialized]
+  std::cout << "*a = " << *a << std::endl;
+                           ^
+src/pointer4.cpp:4:9: note: initialize the variable 'a' to silence this warning
+  int *a;
+        ^
+         = nullptr
+1 warning generated.
 $ ./src/pointer4
-*a = -1991643855
 ```
 
 ### Suggestion
@@ -489,7 +482,7 @@ int main(int argc, char *argv[]) {
   std::cout << "a = " << a << std::endl;
 
   for (unsigned int i = 0; i < n; i++)
-    a[i] = i+3;
+    a[i] = i+3; 
 
   for (unsigned int i = 0; i < n; i++)
     std::cout << "a[" << i << "] = " << a[i] << std::endl;
@@ -497,7 +490,7 @@ int main(int argc, char *argv[]) {
   // Free the memory
   delete[] a;
   std::cout << "a = " << a << std::endl;
-
+                  
   return 0;
 }
 ```
@@ -506,18 +499,22 @@ Output:
 
 ```
 $ g++ -std=c++11 -Wall -Wextra -Wconversion src/new1.cpp -o src/new1
+src/new1.cpp:6:20: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+  unsigned int n = std::stoi(argv[1]);
+               ~   ^~~~~~~~~~~~~~~~~~
+1 warning generated.
 $ ./src/new1 2
-a = 0x8f5040
+a = 0x7fb14bd00000
 a[0] = 3
 a[1] = 4
-a = 0x8f5040
+a = 0x7fb14bd00000
 $ ./src/new1 4
-a = 0x2405010
+a = 0x7f92f0401ed0
 a[0] = 3
 a[1] = 4
 a[2] = 5
 a[3] = 6
-a = 0x2405010
+a = 0x7f92f0401ed0
 ```
 
 ### Memory allocation sequence
@@ -553,7 +550,7 @@ int main(int argc, char *argv[]) {
   std::cout << "a = " << a << std::endl;
 
   for (unsigned int i = 0; i < n; i++)
-    a[i] = i+3;
+    a[i] = i+3; 
 
   for (unsigned int i = 0; i < n; i++)
     std::cout << "a[" << i << "] = " << a[i] << std::endl;
@@ -587,39 +584,57 @@ Output:
 
 ```
 $ g++ -g -std=c++11 -Wall -Wextra -Wconversion src/new2.cpp -o src/new2
+src/new2.cpp:6:20: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+  unsigned int n = std::stoi(argv[1]);
+               ~   ^~~~~~~~~~~~~~~~~~
+1 warning generated.
 $ valgrind ./src/new2 4
-==29156== Memcheck, a memory error detector
-==29156== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
-==29156== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
-==29156== Command: ./src/new2 4
-==29156==
-a = 0x5a200a0
-a = 0x5a200a0
-==29156== Invalid write of size 8
-==29156==    at 0x400FF4: main (new2.cpp:15)
-==29156==  Address 0x5a200a0 is 0 bytes inside a block of size 32 free'd
-==29156==    at 0x4C2B633: operator delete[](void*) (in /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so)
-==29156==    by 0x400F6A: main (new2.cpp:11)
-==29156==
-==29156== Invalid read of size 8
-==29156==    at 0x40101E: main (new2.cpp:18)
-==29156==  Address 0x5a200a0 is 0 bytes inside a block of size 32 free'd
-==29156==    at 0x4C2B633: operator delete[](void*) (in /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so)
-==29156==    by 0x400F6A: main (new2.cpp:11)
-==29156==
+==59974== Memcheck, a memory error detector
+==59974== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==59974== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==59974== Command: ./src/new2 4
+==59974== 
+a = 0x100a72ea0
+a = 0x100a72ea0
+==59974== Invalid write of size 8
+==59974==    at 0x100001099: main (new2.cpp:15)
+==59974==  Address 0x100a72ea0 is 0 bytes inside a block of size 32 free'd
+==59974==    at 0x10000B2F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==59974==    by 0x10000101E: main (new2.cpp:11)
+==59974==  Block was alloc'd at
+==59974==    at 0x10000AEBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==59974==    by 0x10004E7DD: operator new(unsigned long) (in /usr/lib/libc++.1.dylib)
+==59974==    by 0x100000FAB: main (new2.cpp:8)
+==59974== 
+==59974== Invalid read of size 8
+==59974==    at 0x10000112F: main (new2.cpp:18)
+==59974==  Address 0x100a72ea0 is 0 bytes inside a block of size 32 free'd
+==59974==    at 0x10000B2F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==59974==    by 0x10000101E: main (new2.cpp:11)
+==59974==  Block was alloc'd at
+==59974==    at 0x10000AEBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==59974==    by 0x10004E7DD: operator new(unsigned long) (in /usr/lib/libc++.1.dylib)
+==59974==    by 0x100000FAB: main (new2.cpp:8)
+==59974== 
 a[0] = 3
 a[1] = 4
 a[2] = 5
 a[3] = 6
-==29156==
-==29156== HEAP SUMMARY:
-==29156==     in use at exit: 0 bytes in 0 blocks
-==29156==   total heap usage: 2 allocs, 2 frees, 58 bytes allocated
-==29156==
-==29156== All heap blocks were freed -- no leaks are possible
-==29156==
-==29156== For counts of detected and suppressed errors, rerun with: -v
-==29156== ERROR SUMMARY: 8 errors from 2 contexts (suppressed: 0 from 0)
+==59974== 
+==59974== HEAP SUMMARY:
+==59974==     in use at exit: 38,600 bytes in 193 blocks
+==59974==   total heap usage: 258 allocs, 65 frees, 44,344 bytes allocated
+==59974== 
+==59974== LEAK SUMMARY:
+==59974==    definitely lost: 80 bytes in 1 blocks
+==59974==    indirectly lost: 68 bytes in 2 blocks
+==59974==      possibly lost: 0 bytes in 0 blocks
+==59974==    still reachable: 16,384 bytes in 1 blocks
+==59974==         suppressed: 22,068 bytes in 189 blocks
+==59974== Rerun with --leak-check=full to see details of leaked memory
+==59974== 
+==59974== For counts of detected and suppressed errors, rerun with: -v
+==59974== ERROR SUMMARY: 8 errors from 2 contexts (suppressed: 0 from 0)
 ```
 
 ### Suggestion
@@ -640,7 +655,7 @@ int main(int argc, char *argv[]) {
   a = nullptr;
 
   for (unsigned int i = 0; i < n; i++)
-    a[i] = i+3;
+    a[i] = i+3; 
 
   for (unsigned int i = 0; i < n; i++)
     std::cout << "a[" << i << "] = " << a[i] << std::endl;
@@ -679,7 +694,7 @@ int main(int argc, char *argv[]) {
 
   // Memory is now used by main()
   for (unsigned int i = 0; i < n; i++)
-    a[i] = i+3;
+    a[i] = i+3; 
   for (unsigned int i = 0; i < n; i++)
     std::cout << "a[" << i << "] = " << a[i] << std::endl;
 
@@ -694,25 +709,35 @@ Output:
 
 ```
 $ g++ -std=c++11 -g -Wall -Wextra -Wconversion src/new4.cpp -o src/new4
+src/new4.cpp:13:20: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+  unsigned int n = std::stoi(argv[1]);
+               ~   ^~~~~~~~~~~~~~~~~~
+1 warning generated.
 $ valgrind ./src/new4 4
-==29162== Memcheck, a memory error detector
-==29162== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
-==29162== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
-==29162== Command: ./src/new4 4
-==29162==
+==59979== Memcheck, a memory error detector
+==59979== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==59979== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==59979== Command: ./src/new4 4
+==59979== 
 a[0] = 3
 a[1] = 4
 a[2] = 5
 a[3] = 6
-==29162==
-==29162== HEAP SUMMARY:
-==29162==     in use at exit: 0 bytes in 0 blocks
-==29162==   total heap usage: 2 allocs, 2 frees, 58 bytes allocated
-==29162==
-==29162== All heap blocks were freed -- no leaks are possible
-==29162==
-==29162== For counts of detected and suppressed errors, rerun with: -v
-==29162== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==59979== 
+==59979== HEAP SUMMARY:
+==59979==     in use at exit: 38,600 bytes in 193 blocks
+==59979==   total heap usage: 258 allocs, 65 frees, 44,344 bytes allocated
+==59979== 
+==59979== LEAK SUMMARY:
+==59979==    definitely lost: 80 bytes in 1 blocks
+==59979==    indirectly lost: 68 bytes in 2 blocks
+==59979==      possibly lost: 0 bytes in 0 blocks
+==59979==    still reachable: 16,384 bytes in 1 blocks
+==59979==         suppressed: 22,068 bytes in 189 blocks
+==59979== Rerun with --leak-check=full to see details of leaked memory
+==59979== 
+==59979== For counts of detected and suppressed errors, rerun with: -v
+==59979== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 ```
 
 ### Memory leaks
@@ -726,12 +751,12 @@ a[3] = 6
 void ProcessData(double *a, unsigned int n) {
   // temporary allocation for processing a
   // Memory is allocated but never freed
-  double *tmp = new double[n];
+  double *tmp = new double[n]; 
   for (unsigned int i = 0; i < n; i++) tmp[i] = 0.;
 
   // Process a
   a[0] = tmp[0];
-
+  
   return;
 }
 
@@ -755,27 +780,31 @@ Output:
 
 ```
 $ g++ -std=c++11 -g -Wall -Wextra -Wconversion src/new5.cpp -o src/new5
+src/new5.cpp:18:20: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+  unsigned int n = std::stoi(argv[1]);
+               ~   ^~~~~~~~~~~~~~~~~~
+1 warning generated.
 $ valgrind ./src/new5 4
-==29168== Memcheck, a memory error detector
-==29168== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
-==29168== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
-==29168== Command: ./src/new5 4
-==29168==
-==29168==
-==29168== HEAP SUMMARY:
-==29168==     in use at exit: 32 bytes in 1 blocks
-==29168==   total heap usage: 3 allocs, 2 frees, 90 bytes allocated
-==29168==
-==29168== LEAK SUMMARY:
-==29168==    definitely lost: 32 bytes in 1 blocks
-==29168==    indirectly lost: 0 bytes in 0 blocks
-==29168==      possibly lost: 0 bytes in 0 blocks
-==29168==    still reachable: 0 bytes in 0 blocks
-==29168==         suppressed: 0 bytes in 0 blocks
-==29168== Rerun with --leak-check=full to see details of leaked memory
-==29168==
-==29168== For counts of detected and suppressed errors, rerun with: -v
-==29168== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==59987== Memcheck, a memory error detector
+==59987== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==59987== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==59987== Command: ./src/new5 4
+==59987== 
+==59987== 
+==59987== HEAP SUMMARY:
+==59987==     in use at exit: 22,100 bytes in 190 blocks
+==59987==   total heap usage: 255 allocs, 65 frees, 27,844 bytes allocated
+==59987== 
+==59987== LEAK SUMMARY:
+==59987==    definitely lost: 32 bytes in 1 blocks
+==59987==    indirectly lost: 0 bytes in 0 blocks
+==59987==      possibly lost: 0 bytes in 0 blocks
+==59987==    still reachable: 0 bytes in 0 blocks
+==59987==         suppressed: 22,068 bytes in 189 blocks
+==59987== Rerun with --leak-check=full to see details of leaked memory
+==59987== 
+==59987== For counts of detected and suppressed errors, rerun with: -v
+==59987== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 ```
 
 ### C++ memory management
@@ -829,7 +858,7 @@ void MyVector::push_back(int val) {
   else {
     // A real implementation would resize the capacity
     std::cerr << "Vector is full" << std::endl;
-    exit(1);
+    exit(1); 
   }
 }
 
@@ -886,27 +915,27 @@ Output:
 
 ```
 $ valgrind ./src/main1
-==29177== Memcheck, a memory error detector
-==29177== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
-==29177== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
-==29177== Command: ./src/main1
-==29177==
+==59994== Memcheck, a memory error detector
+==59994== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==59994== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==59994== Command: ./src/main1
+==59994== 
 [7, 42]
-==29177==
-==29177== HEAP SUMMARY:
-==29177==     in use at exit: 40 bytes in 1 blocks
-==29177==   total heap usage: 1 allocs, 0 frees, 40 bytes allocated
-==29177==
-==29177== LEAK SUMMARY:
-==29177==    definitely lost: 40 bytes in 1 blocks
-==29177==    indirectly lost: 0 bytes in 0 blocks
-==29177==      possibly lost: 0 bytes in 0 blocks
-==29177==    still reachable: 0 bytes in 0 blocks
-==29177==         suppressed: 0 bytes in 0 blocks
-==29177== Rerun with --leak-check=full to see details of leaked memory
-==29177==
-==29177== For counts of detected and suppressed errors, rerun with: -v
-==29177== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==59994== 
+==59994== HEAP SUMMARY:
+==59994==     in use at exit: 38,492 bytes in 191 blocks
+==59994==   total heap usage: 255 allocs, 64 frees, 44,204 bytes allocated
+==59994== 
+==59994== LEAK SUMMARY:
+==59994==    definitely lost: 40 bytes in 1 blocks
+==59994==    indirectly lost: 0 bytes in 0 blocks
+==59994==      possibly lost: 0 bytes in 0 blocks
+==59994==    still reachable: 16,384 bytes in 1 blocks
+==59994==         suppressed: 22,068 bytes in 189 blocks
+==59994== Rerun with --leak-check=full to see details of leaked memory
+==59994== 
+==59994== For counts of detected and suppressed errors, rerun with: -v
+==59994== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 ```
 
 ## Destructor
@@ -946,21 +975,27 @@ $ g++ -g -std=c++11 -Wall -Wextra -Wconversion src/main2.cpp src/MyVector2.cpp -
 $ ./src/main2
 [7, 42]
 $ valgrind ./src/main2
-==29192== Memcheck, a memory error detector
-==29192== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
-==29192== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
-==29192== Command: ./src/main2
-==29192==
+==60001== Memcheck, a memory error detector
+==60001== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==60001== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==60001== Command: ./src/main2
+==60001== 
 [7, 42]
-==29192==
-==29192== HEAP SUMMARY:
-==29192==     in use at exit: 0 bytes in 0 blocks
-==29192==   total heap usage: 1 allocs, 1 frees, 40 bytes allocated
-==29192==
-==29192== All heap blocks were freed -- no leaks are possible
-==29192==
-==29192== For counts of detected and suppressed errors, rerun with: -v
-==29192== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==60001== 
+==60001== HEAP SUMMARY:
+==60001==     in use at exit: 38,452 bytes in 190 blocks
+==60001==   total heap usage: 255 allocs, 65 frees, 44,204 bytes allocated
+==60001== 
+==60001== LEAK SUMMARY:
+==60001==    definitely lost: 0 bytes in 0 blocks
+==60001==    indirectly lost: 0 bytes in 0 blocks
+==60001==      possibly lost: 0 bytes in 0 blocks
+==60001==    still reachable: 16,384 bytes in 1 blocks
+==60001==         suppressed: 22,068 bytes in 189 blocks
+==60001== Rerun with --leak-check=full to see details of leaked memory
+==60001== 
+==60001== For counts of detected and suppressed errors, rerun with: -v
+==60001== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 ```
 
 ### C++ memory management
