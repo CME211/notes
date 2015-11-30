@@ -13,7 +13,7 @@ def mdx_run(shell_commands):
         out_list.append('$ {}'.format(c))
         print('# executing: {}'.format(c[:-1]))
         try:
-            out = subprocess.check_output(c[:-1],shell=True,stderr=subprocess.STDOUT)
+            out = subprocess.check_output(c[:-1] + '; exit 0',shell=True,stderr=subprocess.STDOUT)
         except subprocess.CalledProcessError as e:
             out = e.output
         out_list.append(out)

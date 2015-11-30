@@ -214,8 +214,8 @@ Output:
 $ g++ -std=c++11 -Wall -Wextra -Wconversion src/pointer1.cpp -o src/pointer1
 $ ./src/pointer1
  a = 42
-&a = 0x7fff57463ad8
- b = 0x7fff57463ad8
+&a = 0x7fff5a43fad8
+ b = 0x7fff5a43fad8
 *b = 42
 ```
 
@@ -268,12 +268,12 @@ Output:
 $ g++ -std=c++11 -Wall -Wextra -Wconversion src/pointer2.cpp -o src/pointer2
 $ ./src/pointer2
  a = 42
-&a = 0x7fff5827ca98
- b = 0x7fff5827ca98
+&a = 0x7fff5ebc9a98
+ b = 0x7fff5ebc9a98
 *b = 42
  a = 7
-&a = 0x7fff5827ca98
- b = 0x7fff5827ca98
+&a = 0x7fff5ebc9a98
+ b = 0x7fff5ebc9a98
 *b = 7
 ```
 
@@ -346,7 +346,7 @@ src/func.cpp:5:11: warning: address of stack memory associated with local variab
           ^
 1 warning generated.
 $ ./src/func
- a = 0x7fff5d2d7acc
+ a = 0x7fff5bcf4acc
 *a = 32767
 ```
 
@@ -431,6 +431,7 @@ src/pointer4.cpp:4:9: note: initialize the variable 'a' to silence this warning
          = nullptr
 1 warning generated.
 $ ./src/pointer4
+/bin/sh: line 1: 61024 Segmentation fault: 11  ./src/pointer4
 ```
 
 ### Suggestion
@@ -452,6 +453,7 @@ Output:
 ```
 $ g++ -std=c++11 -Wall -Wextra -Wconversion src/pointer5.cpp -o src/pointer5
 $ ./src/pointer5
+/bin/sh: line 1: 61031 Segmentation fault: 11  ./src/pointer5
 ```
 
 ### `new`
@@ -504,17 +506,17 @@ src/new1.cpp:6:20: warning: implicit conversion changes signedness: 'int' to 'un
                ~   ^~~~~~~~~~~~~~~~~~
 1 warning generated.
 $ ./src/new1 2
-a = 0x7fb14bd00000
+a = 0x7fb562e00000
 a[0] = 3
 a[1] = 4
-a = 0x7fb14bd00000
+a = 0x7fb562e00000
 $ ./src/new1 4
-a = 0x7f92f0401ed0
+a = 0x7fc033c031a0
 a[0] = 3
 a[1] = 4
 a[2] = 5
 a[3] = 6
-a = 0x7f92f0401ed0
+a = 0x7fc033c031a0
 ```
 
 ### Memory allocation sequence
@@ -589,52 +591,52 @@ src/new2.cpp:6:20: warning: implicit conversion changes signedness: 'int' to 'un
                ~   ^~~~~~~~~~~~~~~~~~
 1 warning generated.
 $ valgrind ./src/new2 4
-==59974== Memcheck, a memory error detector
-==59974== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
-==59974== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
-==59974== Command: ./src/new2 4
-==59974== 
+==61046== Memcheck, a memory error detector
+==61046== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==61046== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==61046== Command: ./src/new2 4
+==61046== 
 a = 0x100a72ea0
 a = 0x100a72ea0
-==59974== Invalid write of size 8
-==59974==    at 0x100001099: main (new2.cpp:15)
-==59974==  Address 0x100a72ea0 is 0 bytes inside a block of size 32 free'd
-==59974==    at 0x10000B2F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==59974==    by 0x10000101E: main (new2.cpp:11)
-==59974==  Block was alloc'd at
-==59974==    at 0x10000AEBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==59974==    by 0x10004E7DD: operator new(unsigned long) (in /usr/lib/libc++.1.dylib)
-==59974==    by 0x100000FAB: main (new2.cpp:8)
-==59974== 
-==59974== Invalid read of size 8
-==59974==    at 0x10000112F: main (new2.cpp:18)
-==59974==  Address 0x100a72ea0 is 0 bytes inside a block of size 32 free'd
-==59974==    at 0x10000B2F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==59974==    by 0x10000101E: main (new2.cpp:11)
-==59974==  Block was alloc'd at
-==59974==    at 0x10000AEBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==59974==    by 0x10004E7DD: operator new(unsigned long) (in /usr/lib/libc++.1.dylib)
-==59974==    by 0x100000FAB: main (new2.cpp:8)
-==59974== 
+==61046== Invalid write of size 8
+==61046==    at 0x100001099: main (new2.cpp:15)
+==61046==  Address 0x100a72ea0 is 0 bytes inside a block of size 32 free'd
+==61046==    at 0x10000B2F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==61046==    by 0x10000101E: main (new2.cpp:11)
+==61046==  Block was alloc'd at
+==61046==    at 0x10000AEBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==61046==    by 0x10004E7DD: operator new(unsigned long) (in /usr/lib/libc++.1.dylib)
+==61046==    by 0x100000FAB: main (new2.cpp:8)
+==61046== 
+==61046== Invalid read of size 8
+==61046==    at 0x10000112F: main (new2.cpp:18)
+==61046==  Address 0x100a72ea0 is 0 bytes inside a block of size 32 free'd
+==61046==    at 0x10000B2F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==61046==    by 0x10000101E: main (new2.cpp:11)
+==61046==  Block was alloc'd at
+==61046==    at 0x10000AEBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==61046==    by 0x10004E7DD: operator new(unsigned long) (in /usr/lib/libc++.1.dylib)
+==61046==    by 0x100000FAB: main (new2.cpp:8)
+==61046== 
 a[0] = 3
 a[1] = 4
 a[2] = 5
 a[3] = 6
-==59974== 
-==59974== HEAP SUMMARY:
-==59974==     in use at exit: 38,600 bytes in 193 blocks
-==59974==   total heap usage: 258 allocs, 65 frees, 44,344 bytes allocated
-==59974== 
-==59974== LEAK SUMMARY:
-==59974==    definitely lost: 80 bytes in 1 blocks
-==59974==    indirectly lost: 68 bytes in 2 blocks
-==59974==      possibly lost: 0 bytes in 0 blocks
-==59974==    still reachable: 16,384 bytes in 1 blocks
-==59974==         suppressed: 22,068 bytes in 189 blocks
-==59974== Rerun with --leak-check=full to see details of leaked memory
-==59974== 
-==59974== For counts of detected and suppressed errors, rerun with: -v
-==59974== ERROR SUMMARY: 8 errors from 2 contexts (suppressed: 0 from 0)
+==61046== 
+==61046== HEAP SUMMARY:
+==61046==     in use at exit: 38,600 bytes in 193 blocks
+==61046==   total heap usage: 258 allocs, 65 frees, 44,344 bytes allocated
+==61046== 
+==61046== LEAK SUMMARY:
+==61046==    definitely lost: 80 bytes in 1 blocks
+==61046==    indirectly lost: 68 bytes in 2 blocks
+==61046==      possibly lost: 0 bytes in 0 blocks
+==61046==    still reachable: 16,384 bytes in 1 blocks
+==61046==         suppressed: 22,068 bytes in 189 blocks
+==61046== Rerun with --leak-check=full to see details of leaked memory
+==61046== 
+==61046== For counts of detected and suppressed errors, rerun with: -v
+==61046== ERROR SUMMARY: 8 errors from 2 contexts (suppressed: 0 from 0)
 ```
 
 ### Suggestion
@@ -714,30 +716,30 @@ src/new4.cpp:13:20: warning: implicit conversion changes signedness: 'int' to 'u
                ~   ^~~~~~~~~~~~~~~~~~
 1 warning generated.
 $ valgrind ./src/new4 4
-==59979== Memcheck, a memory error detector
-==59979== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
-==59979== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
-==59979== Command: ./src/new4 4
-==59979== 
+==61053== Memcheck, a memory error detector
+==61053== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==61053== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==61053== Command: ./src/new4 4
+==61053== 
 a[0] = 3
 a[1] = 4
 a[2] = 5
 a[3] = 6
-==59979== 
-==59979== HEAP SUMMARY:
-==59979==     in use at exit: 38,600 bytes in 193 blocks
-==59979==   total heap usage: 258 allocs, 65 frees, 44,344 bytes allocated
-==59979== 
-==59979== LEAK SUMMARY:
-==59979==    definitely lost: 80 bytes in 1 blocks
-==59979==    indirectly lost: 68 bytes in 2 blocks
-==59979==      possibly lost: 0 bytes in 0 blocks
-==59979==    still reachable: 16,384 bytes in 1 blocks
-==59979==         suppressed: 22,068 bytes in 189 blocks
-==59979== Rerun with --leak-check=full to see details of leaked memory
-==59979== 
-==59979== For counts of detected and suppressed errors, rerun with: -v
-==59979== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==61053== 
+==61053== HEAP SUMMARY:
+==61053==     in use at exit: 38,600 bytes in 193 blocks
+==61053==   total heap usage: 258 allocs, 65 frees, 44,344 bytes allocated
+==61053== 
+==61053== LEAK SUMMARY:
+==61053==    definitely lost: 80 bytes in 1 blocks
+==61053==    indirectly lost: 68 bytes in 2 blocks
+==61053==      possibly lost: 0 bytes in 0 blocks
+==61053==    still reachable: 16,384 bytes in 1 blocks
+==61053==         suppressed: 22,068 bytes in 189 blocks
+==61053== Rerun with --leak-check=full to see details of leaked memory
+==61053== 
+==61053== For counts of detected and suppressed errors, rerun with: -v
+==61053== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 ```
 
 ### Memory leaks
@@ -785,26 +787,26 @@ src/new5.cpp:18:20: warning: implicit conversion changes signedness: 'int' to 'u
                ~   ^~~~~~~~~~~~~~~~~~
 1 warning generated.
 $ valgrind ./src/new5 4
-==59987== Memcheck, a memory error detector
-==59987== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
-==59987== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
-==59987== Command: ./src/new5 4
-==59987== 
-==59987== 
-==59987== HEAP SUMMARY:
-==59987==     in use at exit: 22,100 bytes in 190 blocks
-==59987==   total heap usage: 255 allocs, 65 frees, 27,844 bytes allocated
-==59987== 
-==59987== LEAK SUMMARY:
-==59987==    definitely lost: 32 bytes in 1 blocks
-==59987==    indirectly lost: 0 bytes in 0 blocks
-==59987==      possibly lost: 0 bytes in 0 blocks
-==59987==    still reachable: 0 bytes in 0 blocks
-==59987==         suppressed: 22,068 bytes in 189 blocks
-==59987== Rerun with --leak-check=full to see details of leaked memory
-==59987== 
-==59987== For counts of detected and suppressed errors, rerun with: -v
-==59987== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==61060== Memcheck, a memory error detector
+==61060== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==61060== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==61060== Command: ./src/new5 4
+==61060== 
+==61060== 
+==61060== HEAP SUMMARY:
+==61060==     in use at exit: 22,100 bytes in 190 blocks
+==61060==   total heap usage: 255 allocs, 65 frees, 27,844 bytes allocated
+==61060== 
+==61060== LEAK SUMMARY:
+==61060==    definitely lost: 32 bytes in 1 blocks
+==61060==    indirectly lost: 0 bytes in 0 blocks
+==61060==      possibly lost: 0 bytes in 0 blocks
+==61060==    still reachable: 0 bytes in 0 blocks
+==61060==         suppressed: 22,068 bytes in 189 blocks
+==61060== Rerun with --leak-check=full to see details of leaked memory
+==61060== 
+==61060== For counts of detected and suppressed errors, rerun with: -v
+==61060== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 ```
 
 ### C++ memory management
@@ -915,27 +917,27 @@ Output:
 
 ```
 $ valgrind ./src/main1
-==59994== Memcheck, a memory error detector
-==59994== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
-==59994== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
-==59994== Command: ./src/main1
-==59994== 
+==61070== Memcheck, a memory error detector
+==61070== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==61070== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==61070== Command: ./src/main1
+==61070== 
 [7, 42]
-==59994== 
-==59994== HEAP SUMMARY:
-==59994==     in use at exit: 38,492 bytes in 191 blocks
-==59994==   total heap usage: 255 allocs, 64 frees, 44,204 bytes allocated
-==59994== 
-==59994== LEAK SUMMARY:
-==59994==    definitely lost: 40 bytes in 1 blocks
-==59994==    indirectly lost: 0 bytes in 0 blocks
-==59994==      possibly lost: 0 bytes in 0 blocks
-==59994==    still reachable: 16,384 bytes in 1 blocks
-==59994==         suppressed: 22,068 bytes in 189 blocks
-==59994== Rerun with --leak-check=full to see details of leaked memory
-==59994== 
-==59994== For counts of detected and suppressed errors, rerun with: -v
-==59994== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==61070== 
+==61070== HEAP SUMMARY:
+==61070==     in use at exit: 38,492 bytes in 191 blocks
+==61070==   total heap usage: 255 allocs, 64 frees, 44,204 bytes allocated
+==61070== 
+==61070== LEAK SUMMARY:
+==61070==    definitely lost: 40 bytes in 1 blocks
+==61070==    indirectly lost: 0 bytes in 0 blocks
+==61070==      possibly lost: 0 bytes in 0 blocks
+==61070==    still reachable: 16,384 bytes in 1 blocks
+==61070==         suppressed: 22,068 bytes in 189 blocks
+==61070== Rerun with --leak-check=full to see details of leaked memory
+==61070== 
+==61070== For counts of detected and suppressed errors, rerun with: -v
+==61070== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 ```
 
 ## Destructor
@@ -975,27 +977,27 @@ $ g++ -g -std=c++11 -Wall -Wextra -Wconversion src/main2.cpp src/MyVector2.cpp -
 $ ./src/main2
 [7, 42]
 $ valgrind ./src/main2
-==60001== Memcheck, a memory error detector
-==60001== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
-==60001== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
-==60001== Command: ./src/main2
-==60001== 
+==61080== Memcheck, a memory error detector
+==61080== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==61080== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==61080== Command: ./src/main2
+==61080== 
 [7, 42]
-==60001== 
-==60001== HEAP SUMMARY:
-==60001==     in use at exit: 38,452 bytes in 190 blocks
-==60001==   total heap usage: 255 allocs, 65 frees, 44,204 bytes allocated
-==60001== 
-==60001== LEAK SUMMARY:
-==60001==    definitely lost: 0 bytes in 0 blocks
-==60001==    indirectly lost: 0 bytes in 0 blocks
-==60001==      possibly lost: 0 bytes in 0 blocks
-==60001==    still reachable: 16,384 bytes in 1 blocks
-==60001==         suppressed: 22,068 bytes in 189 blocks
-==60001== Rerun with --leak-check=full to see details of leaked memory
-==60001== 
-==60001== For counts of detected and suppressed errors, rerun with: -v
-==60001== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==61080== 
+==61080== HEAP SUMMARY:
+==61080==     in use at exit: 38,452 bytes in 190 blocks
+==61080==   total heap usage: 255 allocs, 65 frees, 44,204 bytes allocated
+==61080== 
+==61080== LEAK SUMMARY:
+==61080==    definitely lost: 0 bytes in 0 blocks
+==61080==    indirectly lost: 0 bytes in 0 blocks
+==61080==      possibly lost: 0 bytes in 0 blocks
+==61080==    still reachable: 16,384 bytes in 1 blocks
+==61080==         suppressed: 22,068 bytes in 189 blocks
+==61080== Rerun with --leak-check=full to see details of leaked memory
+==61080== 
+==61080== For counts of detected and suppressed errors, rerun with: -v
+==61080== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 ```
 
 ### C++ memory management
