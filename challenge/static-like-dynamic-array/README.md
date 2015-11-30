@@ -17,9 +17,16 @@ are integers known at compile time.  Here the variable `a` actually has type
 automatically compute the offset and deference the value at the desired
 position.
 
-In memory, things look like this:
+For a static-like dynamic array we want the memory to look like this:
 
 ![fig](fig/mem.png)
+
+Here `a` is a stack variable of type `int**`.  `a` is a pointer to a pointer to
+an `int`.  Thus, the memory for variable `a` stores the memory address of the
+row pointers (which are allocated on the heap).  If we index into `a` with
+single square brackets with `a[i]` we will get a pointer to the first element of
+row `i`.  Indexing a second time with square brackets with `a[i][j]` returns the
+value stored in row `i` and column `j` of our 2D array.
 
 ## Challenge
 
@@ -41,13 +48,13 @@ void slda_free(int** a);
 
 1. use `new` to allocate array for data
 
-2. user `new` to callocate data for row pointers
+2. user `new` to allocate data for row pointers
 
 3. write a loop to properly assign row pointer values to array allocated in step
 
 4. write a `main` function to allocate, zero, print, and delete an array
 
-5. make sure the program executes cleanly in valgrind
+5. make sure the program executes cleanly in `valgrind`
 
 ## Helper functions
 
