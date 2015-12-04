@@ -31,4 +31,4 @@ notes.
 * [Lecture 23](lecture-23/lecture-23.md): C++ OOP Part 1
 * [Lecture 24](lecture-24/lecture-24.md): C++ OOP Part 2
 * [Lecture 25](lecture-25/lecture-25.md): C++ memory management
-* [Lecture 26](lecture-26/lecture-26.md): 
+* [Lecture 26](lecture-26/lecture-26.md): Programming in C, wrap up
