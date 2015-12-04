@@ -1,4 +1,4 @@
-# CME 211: Lecture 25
+# CME 211: Lecture 26
 
 Friday, December 4, 2015
 
