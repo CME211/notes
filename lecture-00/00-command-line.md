@@ -15,6 +15,20 @@ investment is always worth it.  CLIs make repetition and automation quite
 simple.  It is much easier to send your colleague a shell command to achieve a
 task compared to a sequence of GUI instructions.
 
+*Note*: In all documentation for CME211 the dollar sign symbol (`$`) will be
+used to indicate a shell command.  All shell commands are geared for `bash`,
+but will likely work in `tcsh`.  The pound symbol (`#`) is used to indicate
+shell comments.  Inline, you might see something like "try the command `$
+pwd`".  Code blocks (like the following) will also be extensively used for
+demonstration.
+
+```sh
+# this is a comment, the $ on the next line is followed by a command
+$ pwd
+/afs/ir/users/n/w/nwh
+# the previous line was output from the pwd command
+```
+
 First let's cover a few terms.
 
 ### Terminal
