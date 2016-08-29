@@ -16,11 +16,11 @@ simple.  It is much easier to send your colleague a shell command to achieve a
 task compared to a sequence of GUI instructions.
 
 *Note*: In all documentation for CME211 the dollar sign symbol (`$`) will be
-used to indicate a shell command.  All shell commands are geared for `bash`,
-but will likely work in `tcsh`.  The pound symbol (`#`) is used to indicate
-shell comments.  Inline, you might see something like "try the command `$
-pwd`".  Code blocks (like the following) will also be extensively used for
-demonstration.
+used to indicate a shell command.  All shell commands in these notes (and all
+CME211 material) are geared for `bash`, but will likely work in `tcsh`.  The
+pound symbol (`#`) is used to indicate shell comments.  Inline, you might see
+something like "try the command `$ pwd`".  Code blocks (like the following)
+will also be extensively used for demonstration.
 
 ```sh
 # this is a comment, the $ on the next line is followed by a command
@@ -49,7 +49,7 @@ search for `terminal` using Spotlight.
 A **shell** is a program that executes commands from the user and displays the
 result.  There are many different shell programs out there.  `bash` is quite
 popular and is the default on macOS and most Linux distributions.  For a time,
-`tcsh` was the default **sheel** on Farmshare systems.  Is is possible to change
+`tcsh` was the default **shell** on Farmshare systems.  It is possible to change
 the login shell with the `chsh` command.
 
 ![fig](fig/terminal-shell.png)
@@ -75,9 +75,10 @@ Examples:
 Every user on a unix-like system has a **home directory**.  This is where the
 user can save their work.  On macOS, home directories are located in `/Users`.
 My home directory is `/Users/nwh`.  On many Linux systems, home directories are
-placed in `/home`.  On Farmshare systems home directories are organized in
+placed in `/home`.  On Farmshare systems, home directories are organized in
 subdirectories based on the first two characters of the user name.  My user name
-is `nwh`.  Thus, the path to my home on Farmshare is `/afs/ir/users/n/w/nwh`.
+is `nwh`.  Thus, the path to my home directory on Farmshare is
+`/afs/ir/users/n/w/nwh`.
 
 ## Moving around
 
@@ -93,7 +94,7 @@ Special directory aliases:
 * `..` - directory one higher in filesystem
 * `.` - alias for working directory
 
-The command `cd -` changes to the previous directory.
+The command `$ cd -` changes to the previous directory.
 
 ## Looking at things
 

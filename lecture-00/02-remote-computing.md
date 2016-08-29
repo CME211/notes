@@ -42,9 +42,9 @@ Duo two-factor login for nwh
 
 Enter a passcode or select one of the following options:
 
-1. Duo Push to XXX-XXX-XXX
-2. Phone call to XXX-XXX-XXX
-3. SMS passcodes to XXX-XXX-XXX
+1. Duo Push to XXX-XXX-XXXX
+2. Phone call to XXX-XXX-XXXX
+3. SMS passcodes to XXX-XXX-XXXX
 
 Passcode or option (1-3): 1
 Success. Logging you in...
@@ -82,6 +82,9 @@ $ scp demo/kitty.txt nwh@corn.stanford.edu:~/
 # authentication
 kitty.txt                                      100%  187     0.2KB/s   00:00
 ```
+
+Note the colon (`:`) between the server name and path in the above `scp`
+command.
 
 Now looking on `corn`:
 
