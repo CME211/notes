@@ -111,7 +111,15 @@ for long as Google will soon be [deprecating Chrome Apps][chrome-apps].
 
 macOS comes with `ssh` and `scp`.  The program Fetch provides a GUI for file
 transfer: <https://uit.stanford.edu/software/fetch>.  The `rsync` command may
-be used to sync an entire directory.
+be used to sync an entire directory:
+
+```
+$ rsync -avz -e ssh remoteuser@remotehost:/remote/dir /this/dir/
+```
+
+Search for ["rsync over ssh"][rsync-ssh] for more information on this.
+
+[rsync-ssh]: https://www.google.com/webhp?q=rsync%20over%20ssh#safe=off&q=rsync+over+ssh
 
 ### Programs for Windows
 
