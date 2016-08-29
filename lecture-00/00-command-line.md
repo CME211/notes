@@ -1,5 +1,11 @@
 # CME211 Lecture 0 - Command Line
 
+## Reading
+
+* <http://linuxcommand.org/lc3_learning_the_shell.php#contents>
+  * Read section 1, 2, 3, 5, and 6
+  * Skip sections 4, 7 and above unless interested
+
 ## Getting oriented
 
 A command line interface (CLI) is a convenient and powerful way to interact with
@@ -34,7 +40,35 @@ the login shell with the `chsh` command.
 
 ![fig](fig/terminal-shell.png)
 
+### Path
+
+A **path** specifies the location of a file or directory in a file system
+hierarchy.  On unix-like systems (e.g. macOS and Linux) a single slash (`/`)
+indicates the very top (or root) of the file system.  In longer path names,
+directories are separated by slashes.  The last item (lacking a slash) may be
+either a file or a directory.  If a path ends with a slash, the last item is a
+directory.
+
+Examples:
+
+* `/Users/nwh/Downloads`: this is the downloads directory on my Mac.
+* `/Users/nwh/Downloads/`: this is also the downloads directory on my Mac.  Note
+  the trailing slash to indicate that `Downloads` is a directory.
+* `/Users/nwh/Downloads/TLCL-16.07.pdf`: this is the path to a downloaded PDF.
+
+### Home directory
+
+Every user on a unix-like system has a **home directory**.  This is where the
+user can save their work.  On macOS, home directories are located in `/Users`.
+My home directory is `/Users/nwh`.  On many Linux systems, home directories are
+placed in `/home`.  On Farmshare systems home directories are organized in
+subdirectories based on the first two characters of the user name.  My user name
+is `nwh`.  Thus, the path to my home on Farmshare is `/afs/ir/users/n/w/nwh`.
+
 ## Moving around
+
+Shell commands are executed relative to a **working directory**.  Usually, when
+a shell first starts, the working directory is the user's home directory.
 
 * `pwd` - print working directory
 * `cd` - change directory
@@ -44,6 +78,8 @@ Special directory aliases:
 * `~` - user's home directory
 * `..` - directory one higher in filesystem
 * `.` - alias for working directory
+
+The command `cd -` changes to the previous directory.
 
 ## Looking at things
 
@@ -66,12 +102,6 @@ Special directory aliases:
 * `which` - Locate a command
 * `help` - Display reference page for shell builtin
 * `man` - Display an on-line command reference
-
-## Reading
-
-* http://linuxcommand.org/lc3_learning_the_shell.php#contents
-  * Read section 1, 2, 3, 5, and 6
-  * Skip sections 4, 7 and above unless interested
 
 ## Resources
 
