@@ -1,9 +1,38 @@
 # CME211 Lecture 0 - Command Line
 
-## What is a shell?
+## Getting oriented
 
-* define terminal (emulator)
-* define shell
+A command line interface (CLI) is a convenient and powerful way to interact with
+a computer.  It often takes a bit of adjustment for a person who is used to
+graphical user interfaces to get up and running with CLIs.  However, the
+investment is always worth it.  CLIs make repetition and automation quite
+simple.  It is much easier to send your colleague a shell command to achieve a
+task compared to a sequence of GUI instructions.
+
+First let's cover a few terms.
+
+### Terminal
+
+A **terminal**, **terminal emulator**, or **console** is a program that displays
+text and handles input.  These programs emulate the behavior of physical
+[computer terminals](https://en.wikipedia.org/wiki/Computer_terminal) (also
+known as dumb terminals) in past computing systems.  Users of modern computing
+systems often have many terminal windows open at once.  In the past, users were
+limited to the physical terminal they sat behind.
+
+On macOS, the built-in terminal program is called `Terminal.app`.  It is located
+in `/Applications/Utilities`.  One convenient way to start the program is to
+search for `terminal` using Spotlight.
+
+### Shell
+
+A **shell** is a program that executes commands from the user and displays the
+result.  There are many different shell programs out there.  `bash` is quite
+popular and is the default on macOS and most Linux distributions.  For a time,
+`tcsh` was the default **sheel** on Farmshare systems.  Is is possible to change
+the login shell with the `chsh` command.
+
+![fig](fig/terminal-shell.png)
 
 ## Moving around
 
