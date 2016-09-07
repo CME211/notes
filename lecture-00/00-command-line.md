@@ -2,7 +2,8 @@
 
 ## Reading
 
-* <http://linuxcommand.org/lc3_learning_the_shell.php#contents>
+From **The Linux Command Line** by William Shotts:
+  * <http://linuxcommand.org/lc3_learning_the_shell.php#contents>
   * Read section 1, 2, 3, 5, and 6
   * Skip sections 4, 7 and above unless interested
 
@@ -127,7 +128,7 @@ $ cd my\ docs
 
 * `ls` - list files in directory
 * `cat` - dump a file to terminal
-* `less` - open file in a "pager"
+* `less` - open file in a "pager" (hit `q` to quit)
 * `file` - inspect file type
 
 ## Manipulating files
@@ -135,6 +136,7 @@ $ cd my\ docs
 * `cp` - copy files and directories
 * `mv` - move or rename files and directories
 * `rm` - remove files and directories
+  (**be careful:** files cannot be recovered after `rm`)
 * `touch` - create file or update timestamp
 * `mkdir` - create directories
 
@@ -143,7 +145,7 @@ $ cd my\ docs
 * `type` - Display information about command type
 * `which` - Locate a command
 * `help` - Display reference page for shell builtin
-* `man` - Display an on-line command reference
+* `man` - Display an on-line command reference (hit `q` to quit)
 
 ## Resources
 

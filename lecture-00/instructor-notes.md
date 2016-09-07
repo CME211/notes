@@ -5,6 +5,10 @@ look a bit different for students compared to macOS demos.
 
 * macOS default `PS1` value is `\h:\W \u\$ `
 
+## Atom Markdown Preview Zoom
+
+* `cmd-0`, then `cmd-+` 3 times
+
 ## Video encoding
 
 Youtube recommendations: <https://support.google.com/youtube/answer/1722171?hl=en>
