@@ -96,6 +96,33 @@ Special directory aliases:
 
 The command `$ cd -` changes to the previous directory.
 
+### Important note: avoid spaces in directory and file names
+
+It is best to not use spaces in directory or file names.  Most shell programs
+use a space as a delimiter between commands and arguments.  Thus, spaces in file
+or directory names need to be escaped or quoted -- a thing that is easy to
+forget.
+
+For example, let's say we have a directory called "`my docs`".  If we try to
+enter the directory with `cd` with out handling the space, we get an error:
+
+```sh
+$ cd my docs
+-bash: cd: my: No such file or directory
+```
+
+To make this work, we can either quote the directory name:
+
+```sh
+$ cd "my docs"
+```
+
+Or escape the space with a backslash:
+
+```sh
+$ cd my\ docs
+```
+
 ## Looking at things
 
 * `ls` - list files in directory
