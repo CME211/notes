@@ -21,7 +21,8 @@ used to indicate a shell command.  All shell commands in these notes (and all
 CME211 material) are geared for `bash`, but will likely work in `tcsh`.  The
 pound symbol (`#`) is used to indicate shell comments.  Inline, you might see
 something like "try the command `$ pwd`".  Code blocks (like the following)
-will also be extensively used for demonstration.
+will also be extensively used for demonstration.  You don't actually have to
+type the `$` before the command.
 
 ```sh
 # this is a comment, the $ on the next line is followed by a command
