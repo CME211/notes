@@ -53,21 +53,20 @@ The Python interpreter uses `>>>` as a command prompt (by default).  It is often
 useful to use the Python interpreter as a simple calculator:
 
 ```
-4+7
+>>> 4+7
 11
-55*2
+>>> 55*2
 110
-9-1.4
+>>> 9-1.4
 7.6
-2/4
-0
-2//4
-0
-2.0/4
+>>> 2/4
 0.5
-2.0//4
+>>> 2//4
+0
+>>> 2.0/4
+0.5
+>>> 2.0//4
 0.0
->>>
 ```
 
 ## Integers and floating point
@@ -93,15 +92,15 @@ and floating point numbers.  For now:
 ### Some more examples
 
 ```
+>>> 1.0
 1.0
-1.0
-3/5
+>>> 3/5
 0.6
-3//5
+>>> 3//5
 0
-3.//5
+>>> 3.//5
 0.0
-3%5
+>>> 3%5
 3
 ```
 
@@ -125,7 +124,7 @@ and floating point numbers.  For now:
 
 * Insert the following Python code into `firstscript.py`:
 
-```pythonthon
+```python
 print("Hello from Python.")
 print("I am your first script!")
 ```
@@ -147,7 +146,7 @@ of the two previous numbers.  Let `F(i)` be the `i`th number in the series.  We
 define `F(0) = 0` and `F(1) = 1`, then `F(i) = F(i-1) + F(i-2)` for `i >= 2`.
 Numbers `F(0)` to `F(n)` can be computed with the following Python code:
 
-```pythonthon
+```python
 n = 10
 
 if n >= 0:
@@ -195,7 +194,8 @@ $ python fib.py 21
 ```
 
 We have increased the utility of our program by making it simple to run from the
-command line with different input arguments.
+command line with different input arguments.  Most CME211 homeworks will work
+like this.
 
 
 ## Interacting with Python and Jupyter Notebook
@@ -212,7 +212,7 @@ Jupyter Notebooks are great for teaching and interactive work.  From the
 
 In Jupyter Notebook, code is typed into code blocks:
 
-```pythonthon
+```python
 print("hello from a code block!")
 ```
 
@@ -246,7 +246,7 @@ CME211 Notes:
 
 If you are familiar with Matlab, you may come to Python and be confused by:
 
-```pythonthon
+```python
 sqrt(3)
 ```
 
@@ -291,7 +291,6 @@ print("pi: ", math.pi)
 radius = 4.82
 circ = 2*math.pi*radius
 print("circ: ", circ)
-30.2849531806
 ```
 
 In Python 3, `print` is a function.  It must be called with parentheses `()`. In
@@ -394,7 +393,7 @@ print("type(a): ", type(a))
 print("type(b): ", type(b))
 ```
 
-It is simple to convert!
+It is simple to convert between numbers and strings!
 
 ```python
 # convert int to a string
@@ -432,7 +431,7 @@ a[0]
 a[0] = 'k'
 ```
 
-Concatenate strings with `+``
+Concatenate strings with `+`
 
 ```python
 b = 'j' + a[1:]
