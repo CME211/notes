@@ -148,6 +148,12 @@ $ cd my\ docs
 * `help` - Display reference page for shell builtin
 * `man` - Display an on-line command reference (hit `q` to quit)
 
+## Quitting a command
+
+Sometimes you need to terminate a command.  This is often possible with the
+`ctrl-c` keyboard command.  In documentation you might see this represented as
+`^C`, where `^` is a symbol indicating the `ctrl` key.
+
 ## Resources
 
 * <http://linuxcommand.org/>
