@@ -11,142 +11,63 @@
   in C.  There are others, for example **Jython** and **IronPython**.  It is
   fairly easy (with experience) to access code written in C from **CPython**.
 * Python now has a long history.  Version 1.0 was released in 1994.
-* This class will use Python 2.  However, we will use the syntax most compatible
-  with Python 3 and discuss differences along the way.
+* This class will use Python 3.  However, we will discuss important differences
+  from Python 2 as we go along.
 
-## Let's get started
+## Getting started
 
-### We need to log into `corn.stanford.edu`
+To get started, let's log into `corn.stanford.edu`, start the Python 3
+interpreter, and execute some Python commands.  Please review the Lecture 0
+notes if any of the following is unfamiliar.
 
-Open `Terminal.app` on Max OS X.  Execute the following:
-
-```py
-[nwh@icme-nwh cme211-notes] $ ssh nwh@corn.stanford.edu
-Warning: Permanently added the RSA host key for IP address '171.67.216.95' to the list of known hosts.
-nwh@corn.stanford.edu's password: 
-Authenticated with partial success.
-Duo two-factor login for nwh
-
-Enter a passcode or select one of the following options:
-
- 1. Duo Push to XXX-XXX-2441
- 2. Phone call to XXX-XXX-2441
- 3. SMS passcodes to XXX-XXX-2441
-
-Passcode or option (1-3): 1
-Success. Logging you in...
-Welcome to Ubuntu 14.04.2 LTS (GNU/Linux 3.13.0-45-generic x86_64)
-
- * Documentation:  https://help.ubuntu.com/
-corn30.stanford.edu - Ubuntu 14.04.2 LTS, amd64
-8-core Opteron 2384 (SB X6240); 31.42GB RAM, 10GB swap
-Puppet environment: rec_test3; kernel 3.13.0-45-generic (x86_64)
- --*-*- Stanford University Research Computing -*-*--
-
-  _____                    ____  _
- |  ___|_ _ _ __ _ __ ___ / ___|| |__   __ _ _ __ ___
- | |_ / _` | '__| '_ ` _ \\___ \| '_ \ / _` | '__/ _ \
- |  _| (_| | |  | | | | | |___) | | | | (_| | | |  __/
- |_|  \__,_|_|  |_| |_| |_|____/|_| |_|\__,_|_|  \___|
-
-
-    http://farmshare.stanford.edu
-
- ###########################################################################
- #						                           #
- # Welcome to Farmshare! We recommend Mac and Linux users add the          #
- # following lines to their local laptop/desktop .ssh/config file to avoid #
- # having to use Duo two-factor every time you connect to a corn machine.  #
- #									   #
- # Host corn corn?? corn.stanford.edu corn??.stanford.edu		   #
- #  ControlMaster auto							   #
- #  ControlPath ~/.ssh/%r@%h:%p						   #
- #  ControlPersist yes							   #
- #									   #
- # This will open an ssh tunnel that will be shared on subsequent          #
- # connections to the same node and allow you to avoid having to manually  # 
- # authenticate again.							   #
- #									   #
- ###########################################################################
-
-	Don't Forget to sign up for the Farmshare mailing list to stay 
-	informed about upgrades, maintenace, FAQ, and downtime. 
-	https://mailman.stanford.edu/mailman/listinfo/farmshare-discuss
-
-
-nwh@corn30:~$ 
-```
-
-### Hello world!
-
-1. see where `python` executable (program) is located with the `which` command
-2. launch the `python` interpreter
-
-```py
-nwh@corn30:~$ which python
-/usr/bin/python
-nwh@corn30:~$ python
-Python 2.7.6 (default, Mar 22 2014, 22:59:56) 
-[GCC 4.8.2] on linux2
-Type "help", "copyright", "credits" or "license" for more information.
->>> print("Hello CME 211, how are you today?")
-Hello CME 211, how are you today?
->>> 
-```
+1. Use SSH to login with `$ ssh [username]@corn.stanford.edu`
+2. Locate the Python 3 interpreter with `$ which python3`
+3. Run the Python 3 interpreter with `$ python3`
+4. Execute the python statement `print("Hello World!")`
 
 ### Some notes
 
-When you see a `$` in quoted code, it typically indicates a shell command.  For
-example:
-
-```py
-nwh@corn30:~$ ls
-Downloads  bin	    config  gurobi.log	projects  tmp
-WWW	   cme213b  cs107   jobs	test.txt  work
-nwh@corn30:~$ 
+* An *interpreter* is a program that reads and executes commands
+* It is also sometimes called a REPL or read-evaluate-print-loop
+* One way to interact with Python is to use the interpreter
+* This is useful for interactive work, learning, and simple testing
+* When you see a `$` in code blocks, it typically indicates a shell command.  For
+  example:
 ```
-
-The `nwh@corn30:~$ ls` means that I've executed the `ls` command in the shell
-program (Bash).  Sometimes, I will simplify the output to:
-
-```py
 $ ls
 Downloads  bin	    config  gurobi.log	projects  tmp
 WWW	   cme213b  cs107   jobs	test.txt  work
-$ 
+$
 ```
+* When you see a `>>>` in code blocks, it typically indicates a command for the
+  Python interpreter
+* The basic Python interpreter is good for very simple computations or tests.
+  [IPython][ipython] provides a lot more functionality (like tab completion and
+  syntax highlighting), try `$ ipython3` at the command line
 
-This just removes the username, server name, and directory path from the command
-line prompt.  Note that the `ls` command lists the files and directories
-contained in the "working directory".  The "working directory" is where your
-shell is currently focued.  To see what your "working directory" is:
-
-```py
-$ pwd
-/afs/ir/users/n/w/nwh
-```
+[ipython]: https://ipython.org/
 
 ### Python as a calculator
 
 The Python interpreter uses `>>>` as a command prompt (by default).  It is often
 useful to use the Python interpreter as a simple calculator:
 
-```py
->>> 4+7
+```
+4+7
 11
->>> 55*2
+55*2
 110
->>> 9-1.4
+9-1.4
 7.6
->>> 2/4
+2/4
 0
->>> 2//4
+2//4
 0
->>> 2.0/4
+2.0/4
 0.5
->>> 2.0//4
+2.0//4
 0.0
->>> 
+>>>
 ```
 
 ## Integers and floating point
@@ -171,42 +92,170 @@ and floating point numbers.  For now:
 
 ### Some more examples
 
-```py
->>> 1.0
+```
 1.0
->>> 3/5
+1.0
+3/5
+0.6
+3//5
 0
->>> 3./5
-0.6
->>> 3/5.
-0.6
->>> 3%5
+3.//5
+0.0
+3%5
 3
->>> 
 ```
 
-The `%` operator is called the *modulus* operator and returns the remainder for
-integer division.
+* Division between two integers with `/` returns a floating point number
+* `//` performs integer division (rounds towards `0`)
+* The `%` operator is called the *modulus* operator and returns the remainder
+  for integer division
+
+## Python scripts
+
+* A more convenient way to interact with Python is to write a script
+* A Python script is a text file containing Python code
+* Python script file names typically end in `.py`
+
+### Let's create our first script
+
+* Log into `corn.stanford.edu`
+
+* Create a text file named `firstscript.py` with your favorite text editor
+  (`$ nano firstscript.py` is a good choice)
+
+* Insert the following Python code into `firstscript.py`:
+
+```pythonthon
+print("Hello from Python.")
+print("I am your first script!")
+```
+
+* Execute the command `$ python3 fisrtscript.py`
+
+Note the use of the `$ python3` command.  On many systems the command `$ python`
+will start the Python 2 interpreter.  For this simple example, the behavior will
+be the same.  In general, this is not the case Python versions 2 and 3 have
+[many differences][py3-diff].
+
+[py3-diff]: https://docs.python.org/3/whatsnew/3.0.html
+
+### Why scripts?
+
+Let's write a simple Python script to compute the first `n` numbers in the
+Fibonacci series.  As a reminder, each number in the Fibonacci series is the sum
+of the two previous numbers.  Let `F(i)` be the `i`th number in the series.  We
+define `F(0) = 0` and `F(1) = 1`, then `F(i) = F(i-1) + F(i-2)` for `i >= 2`.
+Numbers `F(0)` to `F(n)` can be computed with the following Python code:
+
+```pythonthon
+n = 10
+
+if n >= 0:
+    fn2 = 0
+    print(fn2,end=',')
+if n >= 1:
+    fn1 = 1
+    print(fn1,end=',')
+for i in range(2,n+1):
+    fn = fn1 + fn2
+    print(fn,end=',')
+    fn2 = fn1
+    fn1 = fn
+print()
+```
+
+Note, the above code is a preview of Python syntax that we will review in this
+course.  Now, paste this code into a file named `fib.py`.  Execute the file with
+the command `$ python fib.py`.  The result should like:
+
+```
+$ python fib.py
+0,1,1,2,3,5,8,13,21,34,55,
+```
+
+To see the utility of scripts, we need to add a bit more code.  Change the first
+line of `fib.py` to be:
+
+```
+import sys
+n = int(sys.argv[1])
+```
+
+This will instruct the script to obtain the value of `n` from the command line:
+
+```
+$ python fib.py 0
+0,
+
+$ python fib.py 5
+0,1,1,2,3,5,
+
+$ python fib.py 21
+0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,6765,10946,
+```
+
+We have increased the utility of our program by making it simple to run from the
+command line with different input arguments.
+
+
+## Interacting with Python and Jupyter Notebook
+
+Jupyter Notebooks are great for teaching and interactive work.  From the
+[jupyter.org][jupyter] website:
+
+> The Jupyter Notebook is a web application that allows you to create and share
+> documents that contain live code, equations, visualizations and explanatory
+> text. Uses include: data cleaning and transformation, numerical simulation,
+> statistical modeling, machine learning and much more.
+
+[jupyter]: http://jupyter.org/
+
+In Jupyter Notebook, code is typed into code blocks:
+
+```pythonthon
+print("hello from a code block!")
+```
+
+Code blocks can be re-executed with ease!
+
+You can test Jupyter Notebook in your browser via <https://try.jupyter.org/>.
+Note that any work you do here will not be saved.
+
+If you want to install Jupyter Notebook on your computer, I recommend [Anaconda
+Python][anaconda].  Make sure to install the Python 3.5 version.
+
+[anaconda]: https://www.continuum.io/downloads
+
+CME211 Notes:
+* We do not formally support Jupyter notebook.  I show to the class, because
+  it is a very useful tool.  You are responsible for figuring out how to install
+  and run Jupyter Notebook.  There are plenty of good tutorials online.
+* The teaching staff is not responsible for helping you set up Jupyter Notebook
+  on your computer.  Python 3 on `corn.stanford.edu` is the supported computing
+  environment.
+* All Python work for CME211 must be submitted as Python scripts `.py` files
+  that can be executed via the command line.  We will not accept or grade any
+  work submitted as a notebook (`.ipynb` format).
+* The notes for CME211 are written in [Markdown format][markdown] and [converted
+  to Jupyter notebooks][notedown] for lectures and screencasts.
+
+[markdown]: http://commonmark.org/
+[notedown]: https://github.com/aaren/notedown
 
 ## More math
 
 If you are familiar with Matlab, you may come to Python and be confused by:
 
-```py
->>> sqrt(3)
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-NameError: name 'sqrt' is not defined
->>> 
+```pythonthon
+sqrt(3)
 ```
 
 The Python languange does not have a built in `sqrt` function.  `sqrt` exists in
 the Python `math` module:
 
-```py
->>> import math
->>> math.sqrt(9)
-3.0
+```python
+import math
+math.sqrt(9)
 ```
 
 ## Modules
@@ -220,49 +269,45 @@ the Python `math` module:
   namespaces.
 
 * There are a large number of modules in the Python Standard Library:
-  https://docs.python.org/2/library/index.html
+  <https://docs.python.org/3/library/index.html>
 
 * It is often useful to explore the Python documentation in the interpreter:
 
-```py
->>> import math
->>> help(math)
-# pager opened
->>> help(math.sqrt)
-# pager opened
+```python
+import math
+help(math)
+```
+
+```python
+help(math.sqrt)
 ```
 
 ## Variables
 
 Variables may be assigned to data and may also come from modules:
 
-```py
->>> math.pi
-3.141592653589793
->>> radius = 4.82
->>> circ = 2*math.pi*radius
->>> print(circ)
-30.2849531806
->>> 
-```
-
-Please note that we will be using the function call syntax for `print`.  Python
-2 allows:
-
-```py
->>> print circ
+```python
+print("pi: ", math.pi)
+radius = 4.82
+circ = 2*math.pi*radius
+print("circ: ", circ)
 30.2849531806
 ```
 
-but Python 3 does not.  There are some other differences in the `print`
-keyword/function between 2 and 3 that we will discuss later.
+In Python 3, `print` is a function.  It must be called with parentheses `()`. In
+Python 2, `print` is a statement.  If you work with a Python 2 code base, you
+will likely see code like:
+
+```
+print circ
+```
 
 **Question:** what happens when you attempt to reference a variable that has not
 been defined?
 
 ## Variable naming
 
-* The name associated with a variable is refered to as an *identifier*
+* The name associated with a variable is referred to as an *identifier*
 * Variables names must start with a letter or an underscore, such as
     * `_underscore`
     * `underscore_`
@@ -286,46 +331,41 @@ See: <https://www.python.org/dev/peps/pep-0008/#naming-conventions>
 
 ## Important: don't override built-in names
 
-```py
->>> abs(-7)
-7
->>> abs = 'must do sit-ups'
->>> abs(-4)
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-TypeError: 'str' object is not callable
->>> 
+```python
+abs(-7)
+```
+
+```python
+abs = 'must do sit-ups'
+abs(-4)
 ```
 
 ## Printing
 
-The Python interpreter will echo the output of (non-assignment) statements:
+Jupyter Notebook will echo the output of the last (non-assignment) statement in
+a code block:
 
-```py
->>> 5 + 5
-10
->>> for i in range(4):
-...     i
-... 
-0
-1
-2
-3
+```python
+1 + 1
+5 + 5
 ```
 
-You can also use the `print()` function:
+```python
+myvar = 101
+# no output
+```
 
-```py
->>> a = 99
->>> print(a)
-99
+You can use the `print()` function:
+
+```python
+a = 99
+print(a)
 ```
 
 We will also learn about string formatting:
 
-```py
->>> print("the area of a circle of radius 1 is {}.".format(2*math.pi))
-the area of a circle of radius 1 is 6.28318530718.
+```python
+print("the area of a circle of radius 1 is {}.".format(2*math.pi))
 ```
 
 ## Strings
@@ -333,110 +373,108 @@ the area of a circle of radius 1 is 6.28318530718.
 Strings are a very important data type in all languages.  In Python, strings may
 be quoted several ways:
 
-```py
->>> inputfile = "data.txt"
->>> outputfule = 'output.txt'
->>> triplequotes = """woah!
-... split lines"""
->>> print(triplequotes)
-woah!
-split lines
->>> 
+```python
+inputfile = "data.txt"
+outputfule = 'output.txt'
+triplequotes = """woah!
+split lines"""
+print(triplequotes)
 ```
 
 ## Strings versus numbers
 
-```py
->>> a = 5
->>> b = '5'
->>> a
-5
->>> b
-'5'
->>> print b
-5
->>> a + b
-Traceback (most recent call last):
-File "<stdin>", line 1, in <module>
-TypeError: unsupported operand type(s) for +: 'int' and 'str'
->>> type(a)
-<type 'int'>
->>> type(b)
-<type 'str'>
->>>
+```python
+a = 5
+b = '5'
+a + b
+```
+
+```python
+print("type(a): ", type(a))
+print("type(b): ", type(b))
+```
+
+It is simple to convert!
+
+```python
+# convert int to a string
+a = str(55)
+print(a)
+print(type(a))
+```
+
+```python
+# convert string to a float
+a = float("99.45")
+print(a)
+print(type(a))
 ```
 
 ## String slicing
 
-```py
->>> quote = """That's all folks!"""
->>> quote[2]
-'a'
->>> quote[7:10]
-'all'
->>> quote[:4]
-'That'
->>> quote[7:]
-'all folks!'
->>> quote[:-7]
-"That's all"
->>>
+```python
+quote = """That's all folks!"""
+print(quote[2])
+print(quote[7:10])
+print(quote[:4])
+print(quote[7:])
+print(quote[:-7])
 ```
 
 ## Strings are immutable
 
-```py
->>> a = 'hello'
->>> a[0]
-
-'h'
->>> a[0] = 'j'
-Traceback (most recent call last):
-File "<stdin>", line 1, in <module>
-TypeError: 'str' object does not support item assignment
->>> 
+```python
+a = 'hello'
+a[0]
 ```
 
-Concatenate strings with +
+```python
+a[0] = 'k'
+```
 
-```py
->>> b = 'j' + a[1:]
->>> b
-'jello'
+Concatenate strings with `+``
+
+```python
+b = 'j' + a[1:]
+b
 ```
 
 ## String functions / methods 	
 
-```py
->>> name = 'Leland'
->>> len(name)
-6
->>> name.lower()
-'leland'
->>> name.upper()
-'LELAND'
->>> name.find('lan')
-2
->>> name.find('lan', 1, 4)
--1
->>>
+```python
+name = 'Leland'
 ```
+
+```python
+len(name)
+```
+
+```python
+name.lower()
+```
+
+```python
+name.upper()
+```
+
+```python
+name.find('lan')
+```
+
+```python
+name.find('lan', 1, 4)
+```
+
+There are many [string methods][py-str-methods].
+
+[py-str-methods]: https://docs.python.org/3/library/stdtypes.html#string-methods
 
 ## Looping
 
-```py
->>> for i in range(5):
-...     # loop body
-...     print(i)
-... 
-0
-1
-2
-3
-4
->>> i
-4
->>> 
+```python
+for i in range(5):
+    # loop body
+    print(i)
 ```
 
 ## Note on Python syntax
@@ -460,56 +498,49 @@ you hit the tab key on the keyboard.
 
 ## `for` loop 	
 
-* `range()` generates a sequence of integers	
+* The function `range(n)` returns a `range` object allowing us to iterate over
+  integers `0` to `n-1`
 
-```py
->>> range(6) 
-[0, 1, 2, 3, 4, 5]
->>> 
+```python
+range(6)
 ```
 
-* The `for i in <sequence>:` can be interpreted as doing the following:	
-    * assign the loop counter, `n`, the first value in `<sequence>`	
-    * execute the body of the loop	
+* The `for i in <sequence>:` can be interpreted as doing the following:
+    * assign the loop counter, `i`, the first value in `<sequence>`
+    * execute the body of the loop
     * assign the loop counter variable the next value in the sequence and repeat
 
 ## `range()`
 
-`range()` returns a sequence of integers and can be used in a few different
-ways:
+The `range()` function can be used in a few different ways.  We can convert
+a range object to a python list with the `list()` function:
 
-```py
->>> range(7)
-[0, 1, 2, 3, 4, 5, 6]
->>> range(4,11)
-[4, 5, 6, 7, 8, 9, 10]
->>> range(4,16,3)
-[4, 7, 10, 13]
+```python
+print(list(range(7)))
+print(list(range(4,11)))
+print(list(range(4,16,3)))
 ```
 
 ## Summing numbers
 
-```py
->>> summation = 0
->>> for n in range(1,101):
-...
-summation += n
-... 
->>> print(summation)
-5050
->>>
+```python
+summation = 0
+for n in range(1,101):
+    summation += n
+
+print(summation)
 ```
 
-## Conditional statments
+## Conditional statements
 
 We might want to test the summation example:
 
-```py
+```python
 if summation != 100*(100+1)/2:
     print("Sorry, wrong answer!")
 ```
 
-```py
+```python
 if summation != 100*(100+1)/2:
     print("Sorry, wrong answer!")
 else:
@@ -518,57 +549,67 @@ else:
 
 ## Boolean logic 	
 
-```py
->>> 2 == 2
-True
->>> 2 == 3
-False
->>> 2 != 3
-True
->>> a = 2
->>> b = 3
->>> a == 2 and b == 3
-True
->>> a == 2 or b == 4
-True
->>>
+```python
+2 == 2
+```
+
+```python
+2 == 3
+```
+
+```python
+2 != 3
+```
+
+```python
+a = 2
+```
+
+```python
+b = 3
+```
+
+```python
+a == 2 and b == 3
+```
+
+```python
+a == 2 or b == 4
 ```
 
 ## Boolean logic and numbers 	
 
-```py
->>> a = 2
->>> b = 0
->>> if a:
-...     print("True")
-... 
-True
->>> if b:
-...     print("True")
-... 
->>>
+```python
+a = 2
+if a:
+    print("True")
+```
+
+```python
+b = 0
+if b:
+    print("True")
 ```
 
 ## Boolean logic and strings 	
 
-```py
->>> msg = "Hello!"
->>> if msg:
-...     print("Evaluated True")
-... 
-Evaluated True
->>> msg = ""
->>> if msg:
-...     print("Evaluated True")
-... 
->>>
+```python
+msg = "Hello!"
+if msg:
+    print("Evaluated True")
+```
+
+```python
+msg = ""
+if msg:
+    print("Evaluated True")
 ```
 
 ## else if: `elif`
 
 If you need to handle more than an `if` and `else` case use one or more `elif`:
 
-```py
+```python
 if summation < 5050:
     print("Too low")
 elif summation > 5050:
@@ -579,141 +620,75 @@ else:
 
 ## `while` loop 	
 
-* The `for` loop is associated with executing a loop body a known number of times
+* The `for` loop is associated with executing a loop body a known number of
+  times
 
 * What if we’re unsure how many times we’ll need to execute the loop?
 
-```py
-while condition:
-    # loop body
-```
-
-## Bisection
-
-```py
-tol = 1e-4
-fa = f(a)
-fb = f(b)
-while abs(a-b) >= tol:
-    c = 0.5*(a+b)
-    fc = f(c)
-    if math.copysign(1,fa) == math.copysign(1,fc):
-        a = c
-        fa = fc
-    else:
-        b = c
-        fb = fc
-```
-
-## Better design
-
-It is a good idea to set a max on the trip count through a while loop:
-
-```py
-tol = 1e-4
-fa = f(a)
-fb = f(b)
-niter = 0
-while abs(a-b) >= tol and niter < maxiter:
-    c = 0.5*(a+b)
-    fc = f(c)
-    if math.copysign(1,fa) == math.copysign(1,fc):
-        a = c
-        fa = fc
-    else:
-        b = c
-        fb = fc
-    niter += 1
+```python
+n = 0
+while n < 7:
+    print(n)
+    n = n + 1
 ```
 
 ## Infinite loops
 
-```py
->>> while True:
-...     pass
-... 
-^CTraceback (most recent call last):
-  File "<stdin>", line 2, in <module>
-KeyboardInterrupt
+```
+while True:
+    pass
 ```
 
-Use `ctrl-c` to interrupt the interpreter!
+* In Jupyter Notebook, select "Interrupt" from the Kernel menu
+* Use `ctrl-c` to interrupt the interpreter
 
 ## Nesting loops 	
 
-```py
->>> for i in range(5):
-...     for j in range(i):
-...         print(j),
-...     print()
-... 
-
-0
-0 1
-0 1 2
-0 1 2 3
->>>
+```python
+for i in range(5):
+    for j in range(i):
+        print(j,end=" ")
+    print()
 ```
 
 ## Nesting loops and logic
 
-```py
->>> for i in range(8):
-...     for j in range(i):
-...         print(j),
-...     print()
-
-0 1
-0 1 2 3
-0 1 2 3 4 5
->>>
+```python
+for i in range(8):
+    for j in range(i):
+        print(j),
+    print()
 ```
 
 ## `continue`
 
-The continue statement allows you to skip the remainder of a loop body and
+The `continue` statement allows you to skip the remainder of a loop body and
 continue with the next iteration:
 
->>> for n in range(10):!
-...
-if n > 3:
-!
-...
-continue!
-...
-print n!
-... !
-0!
-1!
-2!
-3!
->>> !
+```python
+for n in range(10):
+    if not 3 < n < 7:
+        continue
+    print(n)
+```
 
 ## `break`
 
-The break statement allows one to immediately
-exit from a for or while loop	
+The `break` statement allows one to immediately exit from a `for` or `while`
+loop
 
-
->>> for n in range(10):!
-...
-if n > 3:!
-...
-break!
-...
-print n!
-... !
-0!
-1!
-2!
-3!
->>>
+```python
+for n in range(10):!
+    if n > 3:
+        break
+    print(n)
+```
 
 ## Innermost loop
 
 `continue` and `break` only apply to the innermost loop being executed:
 
-```py
+```python
 for i in range(2):
     print("i = {}".format(i))
     for j in range(2):
@@ -723,13 +698,6 @@ for i in range(2):
             print("k = {}".format(k))
 ```
 
-Output:
-
-```
-i = 0
-i = 1
-```
-
 ## Loop `else`
 
 * An `else` can be used with a `for` or `while` loop
@@ -737,44 +705,20 @@ i = 1
 * The `else` is only executed if the loop runs to completion, not when a `break`
 statement is executed
 
-Code:
-
-```py
+```python
 for i in range(4):
     print(i)
 else:
-print("all done")
+    print("all done")
 ```
 
-Output:
-
-```
-0
-1
-2
-3
-all done
-```
-
-Code:
-
-```py
+```python
 for i in range(7):
     print(i)
     if i > 3:
         break
 else:
     print("all done")
-```
-
-Output:
-
-```
-0
-1
-2
-3
-4
 ```
 
 ## Exiting the interpreter
@@ -784,10 +728,11 @@ Output:
 * use `exit()`
 
 ```
-nwh@corn30:~$ python
-Python 2.7.6 (default, Mar 22 2014, 22:59:56) 
-[GCC 4.8.2] on linux2
+$ python3
+Python 3.5.2 (default, Jun 29 2016, 13:43:58)
+[GCC 4.2.1 Compatible Apple LLVM 7.3.0 (clang-703.0.31)] on darwin
 Type "help", "copyright", "credits" or "license" for more information.
+>>> exit
+Use exit() or Ctrl-D (i.e. EOF) to exit
 >>> exit()
-nwh@corn30:~$ 
 ```
