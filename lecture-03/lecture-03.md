@@ -353,13 +353,9 @@ while conditional:
 Components:
 
 1. starts with the `while` keyword
-
 2. followed by a conditional statement
-
-    * a conditional statement is something that Python knows to be true or false
-
+  * a conditional statement is something that Python knows to be true or false
 3. followed by a colon `:`
-
 4. followed by an indented loop body
 
 ### `continue` and `break` statements
