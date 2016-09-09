@@ -2,17 +2,17 @@
 
 ## Reading
 
-* Relevant chapters in *Learning Python* are:
+Relevant chapters in *Learning Python* are:
 
-    * Chapter 5: Numeric Types
-    * Chapter 7: String Fundamentals
-    * Chapter 8: Lists and Dictionaries (you can ignore Dictionaries for now)
-    * Chapter 9: Tuples, Files, and Everything Else
-    * Chapter 11: Assignments, Expressions, and Prints
-    * Chapter 12: if Tests and Syntax Rules
-    * Chapter 13: while and for Loops
+* Chapter 5: Numeric Types
+* Chapter 7: String Fundamentals
+* Chapter 8: Lists and Dictionaries (you can ignore Dictionaries for now)
+* Chapter 9: Tuples, Files, and Everything Else
+* Chapter 11: Assignments, Expressions, and Prints
+* Chapter 12: if Tests and Syntax Rules
+* Chapter 13: while and for Loops
 
-* Chapter 4 (Introducing Python Object Types) has a summary of the object types
+Chapter 4 (Introducing Python Object Types) has a summary of the object types
 
 ## Outline
 
