@@ -1,18 +1,6 @@
 # CME 211 Lecture 3: Lists, file input and output
 
-Friday, September 25, 2015
-
-## Announcements
-
-* Homework 1 is out today.  It will require material covered in this weeks
-  class.  You will not need version control (`git`) for this assignment.  We
-  will start using `git` in homework 2 or 3, so start getting comfortable with
-  it.  This assignment will be submitted via a script on `corn.stanford.edu`.
-  See the homework PDF for details.  Please alert us on Piazza if there are any
-  issues.
-
-* Today we will discuss: Python lists, control flow, and file input output.
-  These topics will be needed for homework 1.
+## Reading
 
 * Relevant chapters in *Learning Python* are:
 
@@ -26,22 +14,9 @@ Friday, September 25, 2015
 
 * Chapter 4 (Introducing Python Object Types) has a summary of the object types
 
-* By Monday (Sept 28) I will post a schedule for the rest of the quarter.
-  In summary:
+## Outline
 
-    * 1 assignment per week, unless there is a quiz
-    * 6 assignments
-    * 2 quizzes (1 Python, 1 C++)
-    * 2-part final project in C++
-
-## Last time
-
-In the last lecture we discussed basic use of the Python as an interpreter and
-saw some of the fundamental data types (integers, floats, strings).
-
-## Today
-
-We have a lot to cover:
+We have a lot to cover in this lecture:
 
 * Lists
 * Control flow
@@ -64,24 +39,26 @@ system of equations vs. an algorithm to find a solution to the system of
 equations.  The algorithm tells a specific procedure so that we can find the
 quantity we are interested in.
 
-### Data
+## Data
 
 Python has many built-in types.  The ones that we have seen so far are:
 
 * Integers
 * Floating point numbers
 * Strings
+* Boolean (`True` or `False`)
 
 Other important types are:
 
-* Files!
+* Files
 * Complex numbers
-* Unicode strings (which can represent text from ALL languages)
 
 To perform useful tasks more efficiently, we need to combine the above types in
 various ways.  For this, Python allows us to store data in various
 *containers*.  In simple terms, *containers* contain data and there are various
 sorts.
+
+### Lists
 
 **Sequential containers** store data items in a specified order.  Think elements
 of a vector, names in a list of people that you want to invite to your
@@ -91,26 +68,62 @@ appropriate (and faster) for numerical data that come from NumPy.
 
 Example Python code:
 
-```py
-cme211_tas = ["josh", "evan", "oliver", "swaroop"]
-cme211_tas.append("loek")
+```python
+cme211_tas = ["andreas", "amy", "cindy", "yu-sheng"]
+cme211_tas.append("andreas")
 print(cme211_tas)
 for ta in cme211_tas:
     print("{} is an awesome ta".format(ta))
 print("cme211 has {} tas".format(len(cme211_tas)))
 ```
 
-Output:
+Python lists are a very useful data container.  They may contain any python
+object.  Here is a list containing some numbers and strings:
 
+```python
+my_list = [4, 9.4, 'some text', 55]
 ```
-['josh', 'evan', 'oliver', 'swaroop', 'loek']
-josh is an awesome ta
-evan is an awesome ta
-oliver is an awesome ta
-swaroop is an awesome ta
-loek is an awesome ta
-cme211 has 5 tas
+
+Python lists (and other sequential data types) use 0-base indexing.  Data in a
+list may be accessed via a slice:
+
+```python
+my_list[0]
 ```
+
+```python
+my_list[1:2]
+```
+
+```python
+my_list[1:3]
+```
+
+```python
+my_list[1:4]
+```
+
+```python
+my_list[1:]
+```
+
+Lists are mutable.  You may change the elements in a list:
+
+```python
+my_list[2] = 'some different text'
+my_list
+```
+
+You can get the length of a list with:
+
+```python
+len(my_list)
+```
+
+See `help(list)` from the Python interpreter for summary of methods that can
+operate on a list.
+
+### Dictionaries
 
 **Associative container** store data, organized by a unique *key*.  Think of a
 dictionary of word definitions.  They unique *key* is a word, the value
@@ -118,21 +131,31 @@ associated with the key is the definition.  In Python, this is represented with
 the built-in `dict` or Dictionary type.  You will soon learn the greatness of
 dictionaries in Python.
 
-```py
+```python
 emails = dict()
-emails['loek'] = 'loek@mail.com'
+emails['andreas'] = 'andreas@mail.com'
 emails['nick'] = 'nwh@stanford.net'
 print(emails)
 ```
 
+Access a single element:
+
+```python
+emails['nick']
 ```
-{'nick': 'nwh@stanford.net', 'loek': 'loek@mail.com'}
+
+What if a key is not there?
+
+```python
+emails['cindy']
 ```
+
+### Sets
 
 **Set containers** store unique data items.  They are related to dictionaries,
 because dictionaries require the keys to be unique.
 
-```py
+```python
 dinos = set()
 dinos.add('triceratops')
 dinos.add('t-rex')
@@ -143,67 +166,17 @@ dinos.add('t-rex')
 print(dinos)
 ```
 
-```
-set(['triceratops', 'raptor', 't-rex'])
-set(['pterodactyl', 'triceratops', 'raptor', 't-rex'])
-```
-
-## Lists
-
-Python lists are a very useful data container.  They may contain any python
-object.  Here is a list containing some numbers and strings:
-
-```py
->>> my_list = [4, 9.4, 'some text', 55]
-```
-
-Python lists (and other sequential data types) use 0-base indexing.  Data in a
-list may be accessed via a slice:
-
-```py
->>> my_list[0]
-4
->>> my_list[1:2]
-[9.4]
->>> my_list[1:3]
-[9.4, 'some text']
->>> my_list[1:4]
-[9.4, 'some text', 55]
->>> my_list[1:]
-[9.4, 'some text', 55]
-```
-
-Lists are mutable.  You may change the elements in a list:
-
-```py
->>> my_list[2] = 'some different text'
->>> my_list
-[4, 9.4, 'some different text', 55]
-```
-
-You can get the length of a list with:
-
-```py
->>> len(my_list)
-4
-```
-
-See `help(list)` from the Python interpreter for summary of methods that can
-operate on a list.
-
 ## Python's data model
 
 Variables in Python are actually a reference to an object in memory.  Here is a
 simple example to demonstrate this property:
 
-```py
->>> a = [1,2,3,4]
->>> b = a
->>> b[1] = 55
->>> print(b)
-[1, 55, 3, 4]
->>> print(a)
-[1, 55, 3, 4]
+```python
+a = [1,2,3,4]
+b = a
+b[1] = 55
+print(b)
+print(a)
 ```
 
 In this example, we assigned `a` to `b` via `b = a`.  This did not copy the
@@ -211,42 +184,36 @@ data, it only copied the reference to the list object in memory.  Thus
 modifying the list through `b` also changes the data that you will see when
 accessing from `a`.  You can inspect object ids in Python with:
 
-```py
->>> id(a)
-140672544197304
->>> id(b)
-140672544197304
+```python
+print("id(a): ", id(a))
+print("id(b): ", id(b))
 ```
 
 Those numbers refer to memory addresses.
 
-## Copying data
+### Copying data
 
 If you need to make a new copy of a list you may use the `copy` function in the
 `copy` module:
 
-```py
->>> import copy
->>> a = [5,2,7,0,'abc']
->>> b = copy.copy(a)
->>> b[4] = 'xyz'
->>> print(b)
-[5, 2, 7, 0, 'xyz']
->>> print(a)
-[5, 2, 7, 0, 'abc']
+```python
+import copy
+a = [5,2,7,0,'abc']
+b = copy.copy(a)
+b[4] = 'xyz'
+print(b)
+print(a)
 ```
 
 Note that elements in a list are also references to memory location.  For
 example if your list contains a list, this will happen when using `copy.copy()`:
 
-```py
->>> a = [2, 'string', [1,2,3]]
->>> b = copy.copy(a)
->>> b[2][0] = 55
->>> print(b)
-[2, 'string', [55, 2, 3]]
->>> print(a)
-[2, 'string', [55, 2, 3]]
+```python
+a = [2, 'string', [1,2,3]]
+b = copy.copy(a)
+b[2][0] = 55
+print(b)
+print(a)
 ```
 
 Here, the element for the sub-list `[55, 2, 3]` is actually a memory reference.
@@ -254,14 +221,12 @@ So, when we copy the outer list, only references for the contained objects are
 copied.  Thus in this case modifying the copy (`b`) modifies the original
 (`a`).  Thus, we may need the function `copy.deepcopy()`:
 
-```py
->>> a = [2, 'string', [1,2,3]]
->>> b = copy.deepcopy(a)
->>> b[2][0] = 99
->>> print(b)
-[2, 'string', [99, 2, 3]]
->>> print(a)
-[2, 'string', [1, 2, 3]]
+```python
+a = [2, 'string', [1,2,3]]
+b = copy.deepcopy(a)
+b[2][0] = 99
+print(b)
+print(a)
 ```
 
 ## Control flow
@@ -287,75 +252,60 @@ syntax, including loop `else` blocks.  Be sure to read pages 387-402.
 `if` statements control the flow of code execution based on a conditional
 statement.  Here are some examples:
 
-```py
->>> a = 1
->>> if a == 1:
-...     print("a is equal to one")
-... 
-a is equal to one
+```python
+a = 1
+if a == 1:
+    print("a is equal to one")
 ```
 
-```py
->>> b = 4
->>> if b == 1:
-...     print("b is equal to one")
-... 
+```python
+b = 4
+if b == 1:
+    print("b is equal to one")
 ```
 
-```py
->>> c = 55
->>> if c == 20:
-...     print('c is equal to twenty')
-... else:
-...     print('c is not equal to twenty')
-... 
-c is not equal to twenty
+```python
+c = 55
+if c == 20:
+    print('c is equal to twenty')
+else:
+    print('c is not equal to twenty')
 ```
 
-```py
->>> d = 99
->>> if d == 1:
-...     print("d is 1")
-... elif d == 99:
-...     print("d is 99")
-... else:
-...     print("I have no idea what d is")
-... 
-d is 99
+```python
+d = 99
+if d == 1:
+    print("d is 1")
+elif d == 99:
+    print("d is 99")
+else:
+    print("I have no idea what d is")
 ```
 
 Read Chapter 12 of **Learning Python** for a complete picture of Python's `if`
 statement.  Specifically, look at page 381, which specifies all of the rules on
 how Python statements evaluate to `True` and `False`.
 
-```py
->>> if "":
-...     print('an empty string evaluates to False')
-... 
->>> if "hi nick":
-...     print('a non-empty string evaluates to True')
-... 
-a non-empty string evaluates to True
+```python
+if "":
+    print('an empty string evaluates to False')
+
+if "hi nick":
+    print('a non-empty string evaluates to True')
 ```
 
 ### Python `for` loops
 
 Let's start with an example:
 
-```py
->>> for i in range(5):
-...     print("i = {}".format(i))
-... 
-i = 0
-i = 1
-i = 2
-i = 3
-i = 4
+```python
+for i in range(5):
+    print("i = {}".format(i))
 ```
 
 The anatomy of a `for` loop is:
 
-```py
+```
 for loop_var in sequence:
     loop_body()
 ```
@@ -369,49 +319,33 @@ Components:
 5. followed by a `:`
 6. followed by an **indented** loop body.  (Please use 4 spaces here)
 
-In Python 2, the `range` function returns a list:
+Note: in Python 2, the `range` function returns a list.  In Python 3 `range`
+returns a **range** object, which allows for iteration over integers with out
+creating a new list in memory.
 
-```py
->>> range(5)
-[0, 1, 2, 3, 4]
->>> range(4,8)
-[4, 5, 6, 7]
->>> range(4,20,3)
-[4, 7, 10, 13, 16, 19]
-```
+We can use a list as the sequence to iterate (loop) over:
 
-Likewise, we can use a list as the sequence to iterate (loop) over:
-
-```py
->>> languages = ['python', 'c', 'c++', 'r', 'java', 'matlab', 'julia']
->>> for lang in languages:
-...     print('{} is a pretty good language'.format(lang))
-... 
-python is a pretty good language
-c is a pretty good language
-c++ is a pretty good language
-r is a pretty good language
-java is a pretty good language
-matlab is a pretty good language
-julia is a pretty good language
+```python
+languages = ['python', 'c', 'c++', 'r', 'java', 'matlab', 'julia']
+for lang in languages:
+    print('{} is a pretty good language'.format(lang))
 ```
 
 ### Python `while` loops
 
 Let's start with an example:
 
-```py
->>> i = 0
->>> while i <= 10:
-...     i += 1
-... 
->>> print("i = {}".format(i))
-i = 11
+```python
+i = 0
+while i <= 10:
+    i += 1
+
+print("i = {}".format(i))
 ```
 
 The anatomy of a Python `while` loop is:
 
-```py
+```
 while conditional:
     loop_body()
 ```
@@ -433,20 +367,14 @@ Components:
 The `continue` and `break` control execution of a loop from within the loop
 body.  Here is an example with `break`:
 
-```py
->>> i = 0
->>> while i < 10:
-...     print("in loop, i = {}".format(i))
-...     i += 1
-...     if i == 4:
-...             break
-... 
-in loop, i = 0
-in loop, i = 1
-in loop, i = 2
-in loop, i = 3
->>> print(i)
-4
+```python
+i = 0
+while i < 10:
+    print("in loop, i = {}".format(i))
+    i += 1
+    if i == 4:
+            break
+print(i)
 ```
 
 If a loop body encounters a `break` statement, the loop is terminated.
@@ -454,20 +382,11 @@ If a loop body encounters a `break` statement, the loop is terminated.
 If a loop body encounters a `continue` statement, control moves to the next
 iteration.  For example:
 
-```py
->>> for i in range(100):
-...     if i < 92:
-...             continue
-...     print("i = {}".format(i))
-... 
-i = 92
-i = 93
-i = 94
-i = 95
-i = 96
-i = 97
-i = 98
-i = 99
+```python
+for i in range(100):
+    if i < 92:
+            continue
+    print("i = {}".format(i))
 ```
 
 ## File input output
@@ -483,7 +402,7 @@ convention have a `.py` extension.  On unix systems we can dump a text file to
 the terminal with:
 
 ```
-$ cat hello.py 
+$ cat hello.py
 # run me from the command line with
 # $ python hello.py
 
@@ -503,10 +422,9 @@ Python.  The relevant information starts on page 282.
 
 We open a file with the built-in `open` function:
 
-```py
->>> f = open("humpty-dumpty.txt","r")
->>> f
-<open file 'humpty-dumpty.txt', mode 'r' at 0x7f475ec18390>
+```python
+f = open("humpty-dumpty.txt","r")
+f
 ```
 
 The syntax is `open(filename,mode)` where `filename` is a string with the
@@ -516,87 +434,51 @@ function returns a *file object*, which we will use to read and write data.
 
 Note what happens if you try to open a file that does not exist:
 
-```py
->>> bad_file = open("no-file.txt","r")
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-IOError: [Errno 2] No such file or directory: 'no-file.txt'
->>> 
+```python
+bad_file = open("no-file.txt","r")
 ```
 
 ### Reading from files
 
 Use the `readline()` method to read lines from a file:
 
-```py
->>> f = open("humpty-dumpty.txt","r")
->>> f.readline()
-'Humpty Dumpty sat on a wall,\n'
->>> f.readline()
-'Humpty Dumpty had a great fall.\n'
->>> f.close()
+```python
+f = open("humpty-dumpty.txt","r")
+print(f.readline())
+print(f.readline())
+f.close()
 ```
 
-It is always a good idea to close a file when you are done with it.  We will
-take off points if you neglect to do this.
+It is always a good idea to close a file when you are done with it.  *We will
+take off points if you neglect to do this.*
 
 You can read an entire file at once with the `read()` method:
 
-```py
->>> f = open("humpty-dumpty.txt","r")
->>> poem = f.read()
->>> print(poem)
-Humpty Dumpty sat on a wall,
-Humpty Dumpty had a great fall.
-All the king's horses and all the king's men
-Couldn't put Humpty together again.
-
->>> f.close()
+```python
+f = open("humpty-dumpty.txt","r")
+poem = f.read()
+print(poem)
+f.close()
 ```
 
 You can very easily iterate over lines in a file with:
 
-```py
->>> f = open("humpty-dumpty.txt","r")
->>> for line in f:
-...     print(line)
-... 
-Humpty Dumpty sat on a wall,
-
-Humpty Dumpty had a great fall.
-
-All the king's horses and all the king's men
-
-Couldn't put Humpty together again.
-
->>> f.close()
+```python
+f = open("humpty-dumpty.txt","r")
+for line in f:
+    print(line)
+f.close()
 ```
 
 Note, on your own, try to suppress the extra newline character generated.  You
-can do with with adding a comment after print: `print(line),` or slicing `line`
-with `print(line[:-1])`.  Note that `line` is a variable name.  The following
-works in the same manner:
-
-```py
->>> f = open("humpty-dumpty.txt","r")
->>> for my_line in f:
-...     print(my_line)
-... 
-Humpty Dumpty sat on a wall,
-
-Humpty Dumpty had a great fall.
-
-All the king's horses and all the king's men
-
-Couldn't put Humpty together again.
-
->>> f.close()
-```
+can do this by specifying the `end` keyword parameter for the `print` function
+to be an empty string (`""`): `print(line, end='')` or slicing `line` with
+`print(line[:-1])`.  Note that `line` is a variable name.
 
 Let's say we wanted to process all words in a file.  The following example would
 get us started:
 
-```py
+```python
 f = open("humpty-dumpty.txt","r")
 for line in f:
     for word in line.split():
@@ -609,12 +491,15 @@ f.close()
 
 To open a file for writing and write a single line:
 
-```py
->>> f = open("output.txt","w")
->>> f.write("blah blah blah\n")
->>> f.close()
->>> exit()
-$ cat output.txt 
+```python
+f = open("output.txt","w")
+f.write("blah blah blah\n")
+f.close()
+exit()
+```
+
+```
+$ cat output.txt
 blah blah blah
 ```
 
@@ -623,15 +508,17 @@ line, you must add `'\n'` in the string that is passed to `write`.
 
 To write multiple lines to a file at once, use the `writelines` method:
 
-```py
->>> f = open("output.txt","w")
->>> f.writelines(["a mighty fine day\n","ends with a great big party\n","thank you, it's friday\n"])
->>> f.close()
->>> exit()
-$ cat output.txt 
+```python
+f = open("output.txt","w")
+f.writelines(["a mighty fine day\n","ends with a great big party\n","thank you, its friday\n"])
+f.close()
+```
+
+```
+$ cat output.txt
 a mighty fine day
 ends with a great big party
-thank you, it's friday
+thank you, its friday
 ```
 
 Note, the `\n` is still required in the strings that make up the list passed to

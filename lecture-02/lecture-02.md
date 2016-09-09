@@ -271,16 +271,9 @@ math.sqrt(9)
 * There are a large number of modules in the Python Standard Library:
   <https://docs.python.org/3/library/index.html>
 
-* It is often useful to explore the Python documentation in the interpreter:
-
-```python
-import math
-help(math)
-```
-
-```python
-help(math.sqrt)
-```
+* It is often useful to explore the Python documentation in the interpreter.
+  See `>>> help(math)` and `>>> help(math.sqrt)` from the interpreter or in a
+  notebook code block.
 
 ## Variables
 
@@ -543,7 +536,7 @@ if summation != 100*(100+1)/2:
 if summation != 100*(100+1)/2:
     print("Sorry, wrong answer!")
 else:
-    print "Congratulations!"
+    print("Congratulations!")
 ```
 
 ## Boolean logic 	
@@ -655,7 +648,7 @@ for i in range(5):
 ```python
 for i in range(8):
     for j in range(i):
-        print(j),
+        print(j, end=' ')
     print()
 ```
 
@@ -677,7 +670,7 @@ The `break` statement allows one to immediately exit from a `for` or `while`
 loop
 
 ```python
-for n in range(10):!
+for n in range(10):
     if n > 3:
         break
     print(n)
