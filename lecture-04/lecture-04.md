@@ -1,72 +1,57 @@
 # CME 211 Lecture 4: Python containers
 
-Monday, September 28, 2015
-
-## Announcements
-
-- Screencasts posted to Piazza
-- Course schedule posted
-- 11 spots in the class now open (waiting for registrar to update)
-- Will update on open spots Wednesday, Friday as well
-
 ## Container review
 
-- *Containers* are objects that contain one or more other objects
+* *Containers* are objects that contain one or more other objects
 
-- *Containers* are sometimes called "collections" or "data structures"
+* *Containers* are sometimes called "collections" or "data structures"
 
-- In lecture 3, we spent sometime looking at the Python `list` container
+* In lecture 3, we introduced the Python `list` container
 
-- Today we will see Dictionaries and Tuples
+* Today we will see Dictionaries, Sets, and Tuples
 
 ## List review
 
-- Python lists store objects in a specified sequence
+Python lists store objects in a specified sequence
 
-```py
->>> cme211_tas = ["josh", "evan", "oliver", "swaroop"]
+```python
+cme211_tas = ["andreas", "amy", "cindy", "yu-sheng"]
 ```
 
-- Accessing a single item is done via square brackets
+Accessing a single item is done via square brackets
 
-```py
->>> cme211_tas[2]
-'oliver'
+```python
+cme211_tas[2]
 ```
 
-- You can get a sub-list with a slice:
+You can get a sub-list with a slice:
 
-```py
->>> cme211_tas[1:3]
-['evan', 'oliver']
+```python
+cme211_tas[1:3]
 ```
 
-- Note that slicing creates a new list:
+Note that slicing creates a new list:
 
-```py
->>> two_tas = cme211_tas[1:3]
->>> two_tas
-['evan', 'oliver']
->>> two_tas[0] = 'bob'
->>> two_tas
-['bob', 'oliver']
->>> cme211_tas
-['josh', 'evan', 'oliver', 'swaroop']
->>>
+```python
+two_tas = cme211_tas[1:3]
+print(two_tas)
+two_tas[0] = 'bob'
+print(two_tas)
+print(cme211_tas)
 ```
 
 ## List methods
 
-See `>>> help(list)` to get a list of the list methods.  This should open a
-"pager" in your python interpreter.  The "pager" allows you to view the help text
-one page at a time.  On my computer the pager is the `less` program.  Hitting
-the key `g` goes back to the top of the help text.  Hitting the space bar moves
-one page forward in the help documentation.  For reference here are the built-in
+See `help(list)` to get a list of the list methods.  This should open a "pager"
+in your python interpreter.  The "pager" allows you to view the help text one
+page at a time.  On my computer the pager is the `less` program.  Hitting the
+key `g` goes back to the top of the help text.  Hitting the space bar moves one
+page forward in the help documentation.  For reference here are the built-in
 methods for Python `list` objects:
 
 ```
 append(...)
-    L.append(object) -- append object to end
+    L.append(object) -* append object to end
 
 count(...)
     L.count(value) -> integer -- return number of occurrences of value
@@ -101,131 +86,97 @@ The methods in the help documentation that start and end with underscores (for
 example, `__add__`) refer to methods that are called through python operators.
 The `__add__` method is called when the `+` operator is called on lists:
 
-```py
->>> cme211_tas + ['loek']
-['josh', 'evan', 'oliver', 'swaroop', 'loek']
->>> cme211_tas.__add__(['loek'])
-['josh', 'evan', 'oliver', 'swaroop', 'loek']
->>>
+```python
+cme211_tas + ['jerry']
+```
+
+```python
+cme211_tas.__add__(['jerry'])
 ```
 
 ## Dictionaries
 
-- Dictionaries are an *associative container*.  They contain *keys* with
+* Dictionaries are an *associative container*.  They contain *keys* with
   associated *values*
 
-- Dictionaries in Python are denoted by curly braces
+* Dictionaries in Python are denoted by curly braces
 
-    - Create an empty dictionary: `empty_dict = {}`
+  * Create an empty dictionary: `empty_dict = {}` or `empty_dict = dict()`
 
-    - Create a dictionary with some data: `ages = {"brad": 51, "angelina": 40}`
+  * Create a dictionary with some data: `ages = {"brad": 51, "angelina": 40}`
 
-- Values can be any python object: numbers, strings, lists, other dictionaries
+* Values can be any python object: numbers, strings, lists, other dictionaries
 
-- Keys can be any immutable object: numbers, strings, tuples (containing
+* Keys can be any immutable object: numbers, strings, tuples (containing
   immutable data)
 
-- No sense of order in a python dictionary.  When used in a loop, the key-value
+* No sense of order in a python dictionary.  When used in a loop, the key-value
   pairs may come out in any order.
 
-- Access values associated with a key with square brackets:
+* Access values associated with a key with square brackets:
   `value = dictionary[key]`
 
 ### Create a dictionary
 
-```py
->>> ages = {} # or ages = dict()
->>> ages['brad'] = 51
->>> ages['angelina'] = 40
->>> ages['leo'] = 40
->>> ages['bruce'] = 60
->>> ages
-{'bruce': 60, 'angelina': 40, 'leo': 40, 'brad': 51}
+```python
+ages = {} # or ages = dict()
+ages['brad'] = 51
+ages['angelina'] = 40
+ages['leo'] = 40
+ages['bruce'] = 60
+ages
 ```
 
 ### Access items
 
-```py
->>> ages['leo']
-40
+```python
+ages['leo']
 ```
 
 When the key does not exist:
 
-```py
->>> ages['helen']
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-KeyError: 'helen'
->>>
+```python
+ages['helen']
 ```
 
 Or you can use the `get()` method:
 
-```py
->>> temp = ages.get('brad')
->>> print(temp)
-51
->>> temp = ages.get('helen')
->>> print(temp)
-None
+```python
+temp = ages.get('brad')
+print(temp)
+temp = ages.get('helen')
+print(temp)
 ```
 
 ### Iteration
 
 Iterate through the keys with:
 
-```py
->>> for key in ages:
-...     print("{} = {}".format(key,ages[key]))
-...
-bruce = 60
-angelina = 40
-leo = 40
-brad = 51
->>>
+```python
+for key in ages:
+    print("{} = {}".format(key,ages[key]))
 ```
 
 Iterate through key-values pairs with:
 
-```py
->>> for k, v in ages.items():
-...     print('{} = {}'.format(k,v))
-...
-bruce = 60
-angelina = 40
-leo = 40
-brad = 51
+```python
+for k, v in ages.items():
+    print('{} = {}'.format(k,v))
 ```
 
-The above syntax is more efficient in Python 3.  To achieve equivalent
-performance in Python 2, it is best to ask for an *iterator* over the key-value
-pairs:
+**Note**: The above syntax is more efficient in Python 3.  To achieve equivalent
+performance in Python 2, it is best to ask for an *iterator* over the
+key-value pairs.
 
-```py
->>> for k, v in ages.iteritems():
-...     print('{} = {}'.format(k,v))
-...
-bruce = 60
-angelina = 40
-leo = 40
-brad = 51
+```
+for k, v in ages.iteritems():
+    print('{} = {}'.format(k,v))
 ```
 
-We will discuss *iterators* in more detail later.  In Python 2 the dictionary
-`items()` method returns a newly-created list of *tuples*:
+What does `ages.items()` return?
 
-```py
->>> ages.items()
-[('bruce', 60), ('angelina', 40), ('leo', 40), ('brad', 51)]
-```
-
-This requires memory allocation and data copying.  The `iteritems()` method (or
-`items()` method in Python 3) returns an *iterator*:
-
-```py
->>> ages.iteritems()
-<dictionary-itemiterator object at 0x7f509e06d260>
+```python
+ages.items()
 ```
 
 This is a Python object that provides access to the data in a container in a
@@ -300,48 +251,48 @@ viewvalues(...)
 
 ## Tuples
 
-- Tuples are essentially immutable lists
+* Tuples are essentially immutable lists
 
-- Tuples are denoted with parentheses: `tup = (1,2,3)`
+* Tuples are denoted with parentheses: `tup = (1,2,3)`
 
-- Tuples store data in order
+* Tuples store data in order
 
-- Items in tuples are accessed via indexing and slicing
+* Items in tuples are accessed via indexing and slicing
 
-- Tuple items may not be changed.  (However, if a tuple contains a modifiable
-object such as a list, the contained object may be modified)
+* Tuple items may not be changed.  (However, if a tuple contains a modifiable
+  object such as a list, the contained object may be modified)
 
 ### Tuple examples
 
 Basic usage:
 
-```py
->>> days = ('Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa')
->>> days[5]
+```python
+days = ('Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa')
+days[5]
 'F'
->>> days[3:6]
+days[3:6]
 ('W', 'Th', 'F')
->>> days[1] = 'C'
+days[1] = 'C'
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: 'tuple' object does not support item assignment
->>>
+
 ```
 
 Modifiable objects contained in a tuple are still modifiable:
 
-```py
->>> my_tup = (2, 'a string', [1,3,8])
->>> my_tup[2]
+```python
+my_tup = (2, 'a string', [1,3,8])
+my_tup[2]
 [1, 3, 8]
->>> my_tup[2] = 'something else'
+my_tup[2] = 'something else'
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
 TypeError: 'tuple' object does not support item assignment
->>> my_tup[2][0] = 'new data'
->>> my_tup
+my_tup[2][0] = 'new data'
+my_tup
 (2, 'a string', ['new data', 3, 8])
->>>
+
 ```
 
 ### Tuple modifiability diagram
@@ -350,14 +301,14 @@ TypeError: 'tuple' object does not support item assignment
 
 ### Tuple-list conversion
 
-```py
->>> days_list = list(days)
->>> days_list
+```python
+days_list = list(days)
+days_list
 ['Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa']
->>> days_tup = tuple(days_list)
->>> days_tup
+days_tup = tuple(days_list)
+days_tup
 ('Su', 'M', 'Tu', 'W', 'Th', 'F', 'Sa')
->>>
+
 ```
 
 ### A note on (im)mutability
@@ -375,14 +326,14 @@ unnecessary movement of data.
 
 It is possible to associate a value with a new key with the following code:
 
-```py
->>> ages
+```python
+ages
 {'bruce': 60, 'angelina': 40, 'leo': 40, 'brad': 51}
->>> ages['mike'] = ages['bruce']
->>> del ages['bruce']
->>> ages
+ages['mike'] = ages['bruce']
+del ages['bruce']
+ages
 {'mike': 60, 'angelina': 40, 'leo': 40, 'brad': 51}
->>>
+
 ```
 
 ## Python sets
@@ -390,32 +341,32 @@ It is possible to associate a value with a new key with the following code:
 - A `set` is an unordered, mutable collection of unique items
 - Items in Python set must be immutable (for the same reason keys in a
   dictionary must be immutable)
-- Create a set with: `>>> my_set = set([1, 2, 3])`
+- Create a set with: `my_set = set([1, 2, 3])`
 - We can test for existence in a set and perform set operations
 
 ### Set examples
 
 ```
->>> myclasses = set()
->>> myclasses.add("math")
->>> myclasses.add("chemistry")
->>> myclasses.add("literature")
->>>
->>> yourclasses = set()
->>> yourclasses.add("physics")
->>> yourclasses.add("gym")
->>> yourclasses.add("math")
->>>
->>> "gym" in myclasses
+myclasses = set()
+myclasses.add("math")
+myclasses.add("chemistry")
+myclasses.add("literature")
+
+yourclasses = set()
+yourclasses.add("physics")
+yourclasses.add("gym")
+yourclasses.add("math")
+
+"gym" in myclasses
 False
->>> "gym" in yourclasses
+"gym" in yourclasses
 True
->>>
->>> myclasses & yourclasses # intersection
+
+myclasses & yourclasses # intersection
 set(['math'])
->>> myclasses | yourclasses # union
+myclasses | yourclasses # union
 set(['literature', 'gym', 'chemistry', 'physics', 'math'])
->>>
+
 ```
 
 ### Set methods
@@ -539,7 +490,7 @@ Notes:
 
 See `code/name1a.py`:
 
-```py
+```python
 # Create sets for female and male names
 female = set()
 f = open("dist.female.first")
@@ -597,20 +548,20 @@ STEWIE: NA
 BRIAN: M
 MEG: F
 CHRIS: M
->>> names
+names
 ['PETER', 'LOIS', 'STEWIE', 'BRIAN', 'MEG', 'CHRIS']
->>> len(male)
+len(male)
 1219
->>> len(female)
+len(female)
 4275
->>>
+
 ```
 
 ### Using lists
 
 See `code/name1b.py`
 
-```py
+```python
 # Create sets for female and male names
 female = list()
 f = open("dist.female.first")
@@ -652,7 +603,7 @@ Use a Python dictionary with keys as first names and values as specified above.
 
 See `code/name2.py`:
 
-```py
+```python
 # Create dictionary with name data
 names = {}
 f = open("dist.female.first")
@@ -684,10 +635,3 @@ for name in testdata:
         ret = 0.5
     print("{}: {}".format(name, ret))
 ```
-
-## Coming up this week:
-
-- Wednesday: complexity analysis
-- Friday: python data model, functions
-- Assignment due Friday @ 2:30pm
-- Next assignment out on Friday also

@@ -70,7 +70,7 @@ Example Python code:
 
 ```python
 cme211_tas = ["andreas", "amy", "cindy", "yu-sheng"]
-cme211_tas.append("andreas")
+cme211_tas.append("jerry")
 print(cme211_tas)
 for ta in cme211_tas:
     print("{} is an awesome ta".format(ta))
