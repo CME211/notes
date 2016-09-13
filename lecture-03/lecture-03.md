@@ -1,3 +1,5 @@
+TODO: make sure this content is covered somewhere
+
 # CME 211 Lecture 3: Lists, file input and output
 
 ## Reading
