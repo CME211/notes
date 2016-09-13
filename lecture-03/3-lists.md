@@ -1,9 +1,12 @@
-# Lists
+## Lists
 
-A list in Python is a data container that holds multiple objects in a specific
-order.
+**Sequential containers** store data items in a specified order.  Think elements
+of a vector, names in a list of people that you want to invite to your
+birthday party.  The most fundamental Python data type for this is called a
+`list`.  Later in the course we will learn about containers that are more
+appropriate (and faster) for numerical data that come from NumPy.
 
-## Creating lists
+### Creating lists
 
 In Python, lists are created by putting things inside of square brackets (`[]`).
 
@@ -25,7 +28,7 @@ We can get the length of the list with the `len()` functions:
 len(many_types)
 ```
 
-## Accessing Elements
+### Accessing Elements
 
 Elements of a list are accessed using square brackets after a variable.
 
@@ -61,7 +64,7 @@ Likewise, we can index backwards using negative numbers:
 myList[-3]
 ```
 
-## Slicing
+### Slicing
 
 A sub-list may be accessed using slice syntax.  Let's start with the list:
 
@@ -90,7 +93,7 @@ It is also easy to slice from the beginning to a specified index:
 many_types[:3]
 ```
 
-## Adding and multiplying
+### Adding and multiplying
 
 The `+` operator concatenates (or combines) lists:
 
@@ -109,7 +112,7 @@ print(myList * 2)
 print(2 * myList)
 ```
 
-## Lists are mutable
+### Lists are mutable
 
 Lists are mutable, this means that individual elements can be changed.
 
@@ -130,7 +133,7 @@ my_list[1:3] = [x, 2.3]
 print(my_list)
 ```
 
-## Copying a list
+### Copying a list
 
 Let's attempt to copy a list referenced by variable `a` to another variable `b`:
 
@@ -170,7 +173,70 @@ Again, let's try this example in [Python Tutor][pytut-copy].
 A list can be copied with `b = list(a)` or `b = a[:]`.  The second option is a
 slice including all elements.
 
-## List operations
+### Python's data model
+
+Variables in Python are actually a reference to an object in memory.  Assignment
+with the `=` operator sets the variable to refer to an object.  Here is a simple
+example to demonstrate this property:
+
+```python
+a = [1,2,3,4]
+b = a
+b[1] = 55
+print(b)
+print(a)
+```
+
+In this example, we assigned `a` to `b` via `b = a`.  This did not copy the
+data, it only copied the reference to the list object in memory.  Thus
+modifying the list through `b` also changes the data that you will see when
+accessing from `a`.  You can inspect object ids in Python with:
+
+```python
+print("id(a): ", id(a))
+print("id(b): ", id(b))
+```
+
+Those numbers refer to memory addresses.
+
+### Copying data (more generally)
+
+The `copy` function in the `copy` module is a more generic way to copy a list:
+
+```python
+import copy
+a = [5,2,7,0,'abc']
+b = copy.copy(a)
+b[4] = 'xyz'
+print(b)
+print(a)
+```
+
+Note that elements in a list are also references to memory location.  For
+example if your list contains a list, this will happen when using `copy.copy()`:
+
+```python
+a = [2, 'string', [1,2,3]]
+b = copy.copy(a)
+b[2][0] = 55
+print(b)
+print(a)
+```
+
+Here, the element for the sub-list `[55, 2, 3]` is actually a memory reference.
+So, when we copy the outer list, only references for the contained objects are
+copied.  Thus in this case modifying the copy (`b`) modifies the original
+(`a`).  Thus, we may need the function `copy.deepcopy()`:
+
+```python
+a = [2, 'string', [1,2,3]]
+b = copy.deepcopy(a)
+b[2][0] = 99
+print(b)
+print(a)
+```
+
+### List operations
 
 In the following summary, `s` is a list and `x` is an element.
 
@@ -207,61 +273,7 @@ Also have a look at:
 help(list)
 ```
 
-## Looping over elements
-
-It is very easy to loop over elements of a list using `for`, we have seen this
-before using `range`.
-
-```python
-someIntegers = [1, 3, 10]
-for integer in someIntegers:
-    print(integer)
-```
-
-Using `enumerate`, we can loop over both elements and indices at the same time.
-
-```python
-myList = [1, 2, 4]
-for index, elem in enumerate(myList):
-    print("{0}) {1}".format(index, elem))
-```
-
-## `map`
-
-We can apply a function to all elements of a list using `map` and return the
-result in a new object.
-
-```python
-list_1 = [1, 2, 3, 4, 5, 6]
-list_2 = map(lambda x: x*x*x, list_1)
-print("list_2: ", list_2)
-print("list_2: ", list(list_2))
-```
-
-## `filter`
-
-We can also filter elements of a list using `filter`.
-
-```python
-list_1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-list_2 = filter(lambda x: x % 2 == 0, list_1)
-print("list_2: ", list_2)
-print("list_2: ", (list_2))
-```
-
-## List comprehensions
-
-A very powerful and concise way to create lists is using *list comprehensions*.
-
-```python
-list_1 = [0, 1, 2, 3, 4]
-list_2 = [x**2 for x in list_1]
-print("list_2: ", list_2)
-```
-
-This is often more readable than using `map` or `filter`.
-
-## Resources
+### Resources
 
 * Python tutorial section on [`list`][pydoc-lists]
 * Python reference section on [sequences][pydoc-sequences]

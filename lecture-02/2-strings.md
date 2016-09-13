@@ -167,12 +167,12 @@ String formatting is a good way to combine text and numeric data.
 String formatting is also how we control the output of floating point numbers:
 
 ```python
-print("{:f}".format(42.42))
-print("{:g}".format(42.42))
-print("{:e}".format(42.42))
-print("{:2e}".format(42.42))
-print("{: 8.2e}".format(42.42))
-print("{: 8.2e}".format(-1.0))
+print("    {{:f}}: {:f}".format(42.42))
+print("    {{:g}}: {:g}".format(42.42))
+print("    {{:e}}: {:e}".format(42.42))
+print("  {{:.2e}}: {:.2e}".format(42.42))
+print("{{: 8.2e}}: {: 8.2e}".format(42.42))
+print("{{: 8.2e}}: {: 8.2e}".format(-1.0))
 ```
 
 See the [Python Format Mini-Language docs][py-format-lang] and more [examples][py-format-examples].
