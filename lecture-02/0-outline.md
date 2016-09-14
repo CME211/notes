@@ -29,13 +29,14 @@ notes if any of the following is unfamiliar.
 * It is also sometimes called a REPL or read-evaluate-print-loop
 * One way to interact with Python is to use the interpreter
 * This is useful for interactive work, learning, and simple testing
-* When you see a `$` in code blocks, it typically indicates a shell command.  For
-  example:
+* When you see a `$` in code blocks, it typically indicates a shell command.
+  For example:
 ```
-$ ls
-Downloads  bin	    config  gurobi.log	projects  tmp
-WWW	   cme213b  cs107   jobs	test.txt  work
-$
+$ ls -1 *.md
+0-outline.md
+1-values-variables-types.md
+2-strings.md
+3-numbers.md
 ```
 * When you see a `>>>` in code blocks, it typically indicates a command for the
   Python interpreter

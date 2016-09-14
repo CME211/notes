@@ -2,12 +2,36 @@
 
 ### Values
 
-* A value is the fundamental thing that a program manipulates or uses to
-  perform operations.  A value is data.
+A value is the fundamental thing that a program manipulates or uses to perform
+operations.  A value is data.
 
-* Values can be `"Hello, world!"`, `42`, `12.34`, `True`, `False`
+Here is a string value
 
-* Values have types...
+```python
+"Hello, world!"
+```
+
+Here are some numbers
+
+```python
+42
+```
+
+```python
+12.34
+```
+
+Here the only two Boolean values
+
+```python
+True
+```
+
+```python
+False
+```
+
+Values have types...
 
 ### Types
 
