@@ -29,7 +29,7 @@ systems we can dump a text file to the terminal with:
 ```
 $ cat hello.py
 # run me from the command line with
-# $ python hello.py
+# $ python3 hello.py
 
 print("hello sweet world!")
 ```

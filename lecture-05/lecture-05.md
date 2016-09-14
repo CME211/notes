@@ -1,4 +1,4 @@
-# CME 211: Lecture 6
+# CME 211: Lecture 5
 
 ## Python functions
 
@@ -8,7 +8,7 @@
 * Functions allow us to:
 
   * Replace duplicated code with one centralized implementation within a single
-      program
+    program
 
   * Reuse code across different programs
 
@@ -22,20 +22,27 @@
 
 Let's start with an example:
 
-```
->>> def PrintHello(name):
-...     print("Hello, {}".format(name))
-...
->>> PrintHello
-<function PrintHello at 0x14d21b8>
->>> PrintHello("CME 211 students")
-Hello, CME 211 students
->>>
+```python
+def print_hello(name):
+    print("Hello, {}".format(name))
 ```
 
-Anatomy of a Python function:
+If Python encounters a function name without parens `()`, it tells us that it
+is a function:
 
-```py
+```python
+print_hello
+```
+
+Call the function:
+
+```python
+print_hello("CME211")
+```
+
+### Anatomy of a Python function
+
+```python
 def function_name(input_argument):
     # function body
     print("you guys rock")
@@ -56,71 +63,73 @@ def function_name(input_argument):
 
 ### Return a value
 
-Use the `return` keyword to return object from a function:
+Use the `return` keyword to return an object from a function:
 
-```py
->>> def summation(a, b):
-...     total = 0
-...     for n in range(a,b+1):
-...         total += n
-...     return total
-...
->>> c = summation(1, 100)
->>> c
-5050
->>>
+```python
+def summation(a, b):
+    total = 0
+    for n in range(a,b+1):
+        total += n
+    return total
+```
+
+```python
+c = summation(1, 100)
+c
 ```
 
 ### Return multiple values
 
 Separate multiple return values with a comma:
 
-```py
->>> def SummationAndProduct(a,b):
-...     total = 0
-...     prod = 1
-...     for n in range(a,b+1):
-...         total += n
-...         prod *= n
-...     return total, prod
-...
->>> a = SummationAndProduct(1,10)
->>> a
-(55, 3628800)
->>> a, b = SummationAndProduct(1,10)
->>> a
-55
->>> b
-3628800
->>>
-34
+```python
+def sum_and_prod(a,b):
+   total = 0
+   prod = 1
+   for n in range(a,b+1):
+       total += n
+       prod *= n
+   return total, prod
+```
+
+Call the function:
+
+```python
+a = sum_and_prod(1,10)
+print("a:", a)
+print("type(a):", type(a))
 ```
 
 The `return` keyword packs multiple outputs into a tuple.  You can use Python's
 tuple unpacking to nicely get the return values in calling code.
 
+```python
+a, b = sum_and_prod(1,10)
+print("a:", a)
+print("b:", b)
+```
+
 ### Variable scope
 
 Let's look at an example to start discussing variable scope:
 
-```py
->>> total = 42
->>> def summation(a, b):
-...     total = 0
-...     for n in range(a, b+1):
-...         total += n
-...     return total
-...
->>> a = summation(1, 100)
->>> a
-5050
->>> total
-42
->>> n
-Traceback (most recent call last):
-File "<stdin>", line 1, in <module>
-NameError: name 'n' is not defined
->>>
+```python
+total = 42
+def summation(a, b):
+    total = 0
+    for n in range(a, b+1):
+        total += n
+    return total
+
+a = summation(1, 100)
+```
+
+```python
+print("total:", total)
+```
+
+```python
+print("n:", n)
 ```
 
 Function bodies have a local namespace.  In this example the `summation`
@@ -130,19 +139,16 @@ scope also cannot see variables used inside of `summation`.
 
 Reference before assignment to a global scope variable will cause an error:
 
-```py
->>> total = 0
->>> def summation(a, b):
-...     for n in range(a, b+1):
-...         total += n
-...     return total
-...
->>> a = summation(1, 100)
-Traceback (most recent call last):
-File "<stdin>", line 1, in <module>
-File "<stdin>", line 3, in summation
-UnboundLocalError: local variable 'total' referenced before assignment
->>>
+```python
+total = 0
+def summation(a, b):
+    for n in range(a, b+1):
+        total = total + n
+        #         ^
+        #       reference before assignment
+    return total
+
+a = summation(1, 100)
 ```
 
 ### Variable scope examples
@@ -150,41 +156,35 @@ UnboundLocalError: local variable 'total' referenced before assignment
 It is possible to use a variable from a higher scope.  This is generally
 considered bad practice:
 
-```py
->>> a = ['hi', 'bye']
->>> def func():
-...     print(a)
-...
->>> func()
-['hi', 'bye']
->>>
+```python
+a = ['hi', 'bye']
+def func():
+    print(a)
+
+func()
 ```
 
 Even worse practice is modifying a mutable object from a higher scope:
 
-```py
->>> a = ['hi', 'bye']
->>> def func():
-...     a.append('hello')
-...
->>> func()
->>> a
-['hi', 'bye', 'hello']
->>>
+```python
+a = ['hi', 'bye']
+def func():
+    a.append('hello')
+
+func()
+print(a)
 ```
 
 Python will not let you redirect an identifier at a global scope.  Here the
 function body has its own `a`:
 
-```py
->>> a = ['hi', 'bye']
->>> def func():
-...     a = 2
-...
->>> func()
->>> a
-['hi', 'bye']
->>>
+```python
+a = ['hi', 'bye']
+def func():
+    a = 2
+
+func()
+print(a)
 ```
 
 ### Accessing a global variable
@@ -192,17 +192,15 @@ function body has its own `a`:
 This is bad practice, do not do this.  We will take off points.  We show you in
 case you run into it.
 
-```py
->>> total = 0
->>> def summation(a,b):
-...     global total
-...     for n in range(a, b+1):
-...         total += n
-...
->>> a = summation(1,100)
->>> total
-5050
->>>
+```python
+total = 0
+def summation(a,b):
+    global total
+    for n in range(a, b+1):
+        total += n
+
+a = summation(1,100)
+print("total:",vtotal)
 ```
 
 ### Functions must be defined before they are used
@@ -210,7 +208,7 @@ case you run into it.
 In scripts (and the interpreter), functions must be defined before they are
 used!  See the file `lecture-6/order1.py`:
 
-```py
+```python
 def before():
     print("I am function defined before use.")
 
@@ -224,7 +222,7 @@ def after():
 Output:
 
 ```
-$ python order1.py
+$ python3 order1.py
 I am function defined before use.
 Traceback (most recent call last):
   File "order.py", line 5, in <module>
@@ -236,7 +234,7 @@ $
 A function may refer to another function defined later in the file.  The rule is
 that functions must be defined before they are actually invoked/called.
 
-```py
+```python
 def sumofsquares(a, b):
     total = 0
     for n in range(a, b+1):
@@ -252,7 +250,7 @@ print sumofsquares(1,10)
 Output:
 
 ```
-$ python order2.py
+$ python3 order2.py
 385
 $
 ```
@@ -263,27 +261,27 @@ $
 Python uses pass by object reference.  Python functions can change mutable
 objects refereed to by input variables
 
-```py
->>> def DoChores(a):
-...     a.pop()
-...
->>> b = ['feed dog', 'wash dishes']
->>> DoChores(b)
->>> b
+```python
+def DoChores(a):
+    a.pop()
+
+b = ['feed dog', 'wash dishes']
+DoChores(b)
+b
 ['feed dog']
->>>
+
 ```
 
 `int`s, `float`s, and `str`ings are immutable objects and cannot be changed by a
 function:
 
-```py
->>> def increment(a):
-...     a = a + 1
-...
->>> b = 2
->>> increment(b)
->>> b
+```python
+def increment(a):
+    a = a + 1
+
+b = 2
+increment(b)
+b
 2
 ```
 

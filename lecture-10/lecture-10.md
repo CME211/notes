@@ -281,7 +281,7 @@ print("time = {}".format(t1-t0))
 Output:
 
 ```
-$ python summation1.py 
+$ python3 summation1.py 
 1000000
 time = 0.17532491684
 $
@@ -602,7 +602,7 @@ print("time = {}".format(t1-t0))
 Output:
 
 ```
-$ python summation2.py
+$ python3 summation2.py
 1000000
 time = 0.428977012634
 $
@@ -626,7 +626,7 @@ print("time = {}".format(t1-t0))
 Output:
 
 ```
-$ python summation3.py
+$ python3 summation3.py
 1000000
 time = 0.00641703605652
 $

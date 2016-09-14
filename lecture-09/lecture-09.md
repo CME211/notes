@@ -62,7 +62,7 @@ for name in testdata:
 * Output:
 
 ```
-$ python main.py 
+$ python3 main.py 
 PETER: 1.0
 LOIS: 1.0
 STEWIE: 0.5
@@ -110,7 +110,7 @@ print(s.getGPA())
 Output:
 
 ```
-$ python student1.py
+$ python3 student1.py
 s = <__main__.Student instance at 0x7f27f94acdd0>
 7
 {'gym': 4, 'math': 3}
@@ -163,7 +163,7 @@ print(s)
 Output:
 
 ```
-$ python student2.py
+$ python3 student2.py
 Student 7: {'gym': 4, 'math': 3}, GPA = 3.50
 $
 ```
@@ -229,7 +229,7 @@ class Particle:
 ### OOP particle collision
 
 ```
-$ python -i particle.py
+$ python3 -i particle.py
 >>> p_blue = Particle(4.3, 2.5)
 >>> p_red = Particle(1.4, -0.8)
 >>> p_purple = p_blue + p_red
@@ -255,7 +255,7 @@ class User:
 Output:
 
 ```
-$ python -i badoverloading.py
+$ python3 -i badoverloading.py
 >>> user = User(7)
 >>> len(user)
 7
@@ -296,7 +296,7 @@ class MovieWatcher(User):
 Output:
 
 ```
-$ python -i inheritance1.py
+$ python3 -i inheritance1.py
 >>> user = MovieWatcher(3)
 >>> user.getId()
 3
@@ -409,7 +409,7 @@ for shape in shapes:
 Output:
 
 ```
-$ python shapes.py
+$ python3 shapes.py
 area = 3.14159265359
 area = 8.0
 $

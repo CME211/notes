@@ -269,10 +269,10 @@ print()
 
 Note, the above code is a preview of Python syntax that we will review in this
 course.  Now, paste this code into a file named `fib.py`.  Execute the file with
-the command `$ python fib.py`.  The result should like:
+the command `$ python3 fib.py`.  The result should like:
 
 ```
-$ python fib.py
+$ python3 fib.py
 0,1,1,2,3,5,8,13,21,34,55,
 ```
 
@@ -287,13 +287,13 @@ n = int(sys.argv[1])
 This will instruct the script to obtain the value of `n` from the command line:
 
 ```
-$ python fib.py 0
+$ python3 fib.py 0
 0,
 
-$ python fib.py 5
+$ python3 fib.py 5
 0,1,1,2,3,5,
 
-$ python fib.py 21
+$ python3 fib.py 21
 0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,6765,10946,
 ```
 

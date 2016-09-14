@@ -58,7 +58,7 @@ for name in testdata:
 Output:
 
 ```
-$ python main.py 
+$ python3 main.py 
 PETER: 1.0
 LOIS: 1.0
 STEWIE: 0.5
@@ -238,7 +238,7 @@ CHRIS: 0.108597
 On my workstation.
 
 ```
-$ python similarity.py u.data sim_cpy.txt
+$ python3 similarity.py u.data sim_cpy.txt
 Input MovieLens file: u.data 
 Output file for similarity data: sim_cpy.txt
 Minimum number of common users: 5

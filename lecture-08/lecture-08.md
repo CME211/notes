@@ -72,13 +72,13 @@ for i, arg in enumerate(sys.argv):
 Output:
 
 ```
-$ python command.py a b c
+$ python3 command.py a b c
 There are 4 command line argument(s).
 arg 0: command.py
 arg 1: a
 arg 2: b
 arg 3: c
-$ python command.py a b c "quote things with spaces"
+$ python3 command.py a b c "quote things with spaces"
 There are 5 command line argument(s).
 arg 0: command.py
 arg 1: a
@@ -187,7 +187,7 @@ If we run the code in *interactive* mode, we can inspect these things in
 Python's online help:
 
 ```
-$ python -i filewrite.py
+$ python3 -i filewrite.py
 >>> help(open)
 ```
 
@@ -316,7 +316,7 @@ print(s)
 Output:
 
 ```
-$ python student1.py
+$ python3 student1.py
 <__main__.Student instance at 0x1069f6c20>
 $
 ```
@@ -339,7 +339,7 @@ print("s    = {}".format(s))
 Output:
 
 ```
-$ python self.py
+$ python3 self.py
 inside __init__()
 self = <__main__.Student instance at 0x10967cc20>
 s    = <__main__.Student instance at 0x10967cc20>
@@ -430,7 +430,7 @@ print(s.getId())
 Output:
 
 ```
-$ python student3.py
+$ python3 student3.py
 <__main__.Student instance at 0x1038becb0>
 7
 $
@@ -465,7 +465,7 @@ print("s.getId() = {}".format(s.getId()))
 Output:
 
 ```
-$ python student4.py
+$ python3 student4.py
 <__main__.Student instance at 0x10bef2cb0>
 id = 7
 id = 9
@@ -504,7 +504,7 @@ print("GPA = {}".format(s.getGPA()))
 Output:
 
 ```
-$ python student5.py
+$ python3 student5.py
 GPA = 3.5
 $
 ```
@@ -539,7 +539,7 @@ print("classes = {}".format(s.getClasses()))
 Output:
 
 ```
-$ python student6.py
+$ python3 student6.py
 GPA = 3.5
 classes = {'gym': 4, 'math': 3}
 $
@@ -580,7 +580,7 @@ print("classes = {}".format(s.getClasses()))
 Output:
 
 ```
-$ python student7.py
+$ python3 student7.py
 GPA = 3.5
 classes = {'gym': 4, 'englist': 4, 'math': 3}
 $
@@ -620,7 +620,7 @@ print("s.id = {}".format(s.id))
 Output:
 
 ```
-$ python student8.py
+$ python3 student8.py
 s.id = 7
 $
 ```
@@ -646,7 +646,7 @@ print("s.getId() = {}".format(s.getId()))
 Output:
 
 ```
-$ python student9.py
+$ python3 student9.py
 s.getId() = 7
 s.getId() = 9
 $
@@ -675,7 +675,7 @@ print("s.id = {}".format(s.__id))
 * Output
 
 ```
-$ python student10.py
+$ python3 student10.py
 s.getId() = 7
 Traceback (most recent call last):
   File "student10.py", line 10, in <module>
@@ -689,7 +689,7 @@ $
 Run `student10.py` in interactive mode:
 
 ```
-$ python -i student10.py
+$ python3 -i student10.py
 s.getId() = 7
 Traceback (most recent call last):
 File "student10.py", line 10, in <module>

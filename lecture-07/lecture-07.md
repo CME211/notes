@@ -609,7 +609,7 @@ if __name__ == '__main__':
 ### Running the test code
 
 ```
-$ python mymodule3.py
+$ python3 mymodule3.py
 Testing function summation()... OK
 $
 ```

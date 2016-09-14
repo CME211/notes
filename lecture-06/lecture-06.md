@@ -1,4 +1,4 @@
-# CME 211 Lecture 5: Complexity Analysis
+# CME 211 Lecture 6: Complexity Analysis
 
 ## Analysis of algorithms
 
@@ -38,18 +38,18 @@ print("Sorting {} values took {:.3} seconds.".format(n, t1-t0))
 Let's run the script with increasing list length:
 
 ```
-$ python listsort.py
+$ python3 listsort.py
 Usage:
  listsort.py nvalues
-$ python listsort.py 1000000
+$ python3 listsort.py 1000000
 Sorting %d values took %.3f seconds.
-$ python listsort.py 2000000
+$ python3 listsort.py 2000000
 Sorting 2000000 values took 1.12 seconds.
-$ python listsort.py 4000000
+$ python3 listsort.py 4000000
 Sorting 4000000 values took 2.49 seconds.
-$ python listsort.py 8000000
+$ python3 listsort.py 8000000
 Sorting 8000000 values took 5.41 seconds.
-$ python listsort.py 16000000
+$ python3 listsort.py 16000000
 Sorting 16000000 values took 11.9 seconds.
 ```
 
@@ -536,7 +536,7 @@ f.close()
 Run the script and enter into the interpreter:
 
 ```
-$ python -i loadnames.py
+$ python3 -i loadnames.py
 >>> 'JANE' in names_list
 True
 >>> 'LELAND' in names_list

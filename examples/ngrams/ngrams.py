@@ -16,11 +16,11 @@ $ wget http://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.
 
 To run this program:
 
-$ python ngrams.py t8.shakespeare.txt 2 10
+$ python3 ngrams.py t8.shakespeare.txt 2 10
 
 The command line syntax is:
 
-$ python ngrams.py [input file] [n-gram size] [number of top n-grams to print]
+$ python3 ngrams.py [input file] [n-gram size] [number of top n-grams to print]
 
 Please note the structure of this python file.  We will lay things out in a
 principled and conventional manner:
@@ -84,7 +84,7 @@ if __name__ == "__main__":
     # if no command line input, print a help message and quit
     if len(sys.argv) < 4:
         print("Usage:")
-        print("$ python ngrams.py [input file] [n-gram size] [number to print]")
+        print("$ python3 ngrams.py [input file] [n-gram size] [number to print]")
         sys.exit()
 
     # execute the main program

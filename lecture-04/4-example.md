@@ -81,7 +81,7 @@ for name in names:
 Run the code:
 
 ```
-$ python name1a.py
+$ python3 name1a.py
 There are 4275 female names and 1219 male names.
 There are 331 names that appear in both sets.
 PETER: M
@@ -95,7 +95,7 @@ CHRIS: M
 Run the code and get interpreter after completion:
 
 ```
-$ python -i name1a.py
+$ python3 -i name1a.py
 There are 4275 female names and 1219 male names.
 There are 331 names that appear in both sets.
 PETER: M
