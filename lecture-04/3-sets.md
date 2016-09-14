@@ -14,11 +14,13 @@
 ### Set examples
 
 ```python
+# create and update using add method
 myclasses = set()
 myclasses.add("math")
 myclasses.add("chemistry")
 myclasses.add("literature")
 
+# create using {} notation
 yourclasses = {"physics", "gym", "math"}
 ```
 
