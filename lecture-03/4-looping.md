@@ -194,3 +194,38 @@ for i in range(7):
 else:
     print("all done")
 ```
+
+### A note on Python variables
+
+It is bad practice to define a variable inside of a conditional or loop body and
+then reference it outside:
+
+```py
+name = "Nick"
+if name == "Nick":
+    age = 45 # newly created variable
+
+print("Nick's age is {}".format(age))
+```
+
+Here is what happens when a variable is not created:
+
+```py
+name = "Bob"
+if name == "Nick":
+    id_number = 45 # also newly created variable
+...
+print("{}'s id number is {}".format(name, id_number))
+```
+
+Good practice to define/initialize variables at the same level they will be
+used:
+
+```py
+name = "Bob"
+age = 55
+if name == "Nick":
+    age = 45
+
+print("{}'s age is {}".format(name,age))
+```
