@@ -19,6 +19,33 @@ I can span multiple lines!'''
 print(triple_single_quotes)
 ```
 
+### Quotes in quotes
+
+In Python, we can quote strings with either single (`'`) or double quotes (`"`).
+Sometimes we want to create a string that contains quotes.  This is easy to do!
+
+Strings quoted with `'` can contain `"`:
+
+```python
+'Bob said, "it is hot out there today".'
+```
+
+Strings quoted with `"` can contain `'`:
+
+```python
+"Python, it's a wonderful language"
+```
+
+Or we can escape the quote with `\`:
+
+```python
+'it\'s not Nick\'s birthday today'
+```
+
+```python
+"I don't always quote my strings, but when I do, I prefer \""
+```
+
 ### Strings versus numbers
 
 ```python

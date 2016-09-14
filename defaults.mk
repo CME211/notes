@@ -7,9 +7,12 @@
 %.pdf : %.nbconvert.ipynb
 	jupyter nbconvert --to pdf $< --output $(basename $@)
 
-.PHONY: clean
-clean:
+.PHONY: clean-ipynb
+clean-ipynb:
 	$(RM) *.ipynb
+
+.PHONY: clean-pdf
+clean-pdf:
 	$(RM) *.pdf
 
 # for debugging

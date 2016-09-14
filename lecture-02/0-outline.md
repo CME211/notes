@@ -21,7 +21,7 @@ notes if any of the following is unfamiliar.
 1. Use SSH to login with `$ ssh [username]@corn.stanford.edu`
 2. Locate the Python 3 interpreter with `$ which python3`
 3. Run the Python 3 interpreter with `$ python3`
-4. Execute the python statement `print("Hello World!")`
+4. Execute the python statement `>>> print("Hello World!")`
 
 ### Interpreter
 
@@ -72,8 +72,8 @@ In the Python 3 interpreter:
 
 ### Integers and floating point
 
-In CME 212, we will discuss in detail the computer representation of integers
-and floating point numbers.  For now:
+In a later lecture, we will discuss in detail the computer representation of
+integers and floating point numbers.  For now:
 
 * It is best to think of integers as being represented exactly over a fixed
   range.  (This is not really true in current versions of Python, but will be
@@ -199,7 +199,7 @@ commands][ipy-magic].
 
 A simple plot of 100 random sampled data points:
 
-```
+```python
 plt.plot(np.random.rand(100))
 ```
 
