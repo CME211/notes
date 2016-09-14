@@ -1,6 +1,6 @@
 # CME 211 Lecture 2: Introduction to Python
 
-* Python is a high level language that runs in an *interpreter*
+* Python is a high level language that typically runs in an *interpreter*
 * An *interpreter* is a program (see `$ python3`) that executes statements from a
   high level language
 * Examples of high level interpreted languages: Python, R, Matlab, Perl,
