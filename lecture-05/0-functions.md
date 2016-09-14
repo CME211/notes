@@ -18,7 +18,7 @@
 
 * Analogous to mathematical functions
 
-### Defining a function in Python
+## Defining a function in Python
 
 Let's start with an example:
 
@@ -40,7 +40,7 @@ Call the function:
 print_hello("CME211")
 ```
 
-### Anatomy of a Python function
+## Anatomy of a Python function
 
 ```python
 def function_name(input_argument):
@@ -55,7 +55,7 @@ def function_name(input_argument):
 3. followed by comma separated list of input arguments, surrounded by
    parentheses
 
-  * just use `()` for no inputs
+  * just use `()` for no input arguments
 
 4. followed by a colon `:`
 
@@ -109,7 +109,7 @@ print("a:", a)
 print("b:", b)
 ```
 
-### Variable scope
+## Variable scope
 
 Let's look at an example to start discussing variable scope:
 
@@ -203,10 +203,9 @@ a = summation(1,100)
 print("total:",vtotal)
 ```
 
-### Functions must be defined before they are used
+## Functions must be defined before they are used
 
-In scripts (and the interpreter), functions must be defined before they are
-used!  See the file `lecture-6/order1.py`:
+Functions must be defined before they are used!  See the file `order1.py`:
 
 ```python
 def before():
@@ -234,6 +233,8 @@ $
 A function may refer to another function defined later in the file.  The rule is
 that functions must be defined before they are actually invoked/called.
 
+See `order2.py`:
+
 ```python
 def sumofsquares(a, b):
     total = 0
@@ -252,24 +253,20 @@ Output:
 ```
 $ python3 order2.py
 385
-$
 ```
 
-
-### Passing convention
+## Passing convention
 
 Python uses pass by object reference.  Python functions can change mutable
-objects refereed to by input variables
+objects referred to by input variables
 
 ```python
-def DoChores(a):
+def do_chores(a):
     a.pop()
 
 b = ['feed dog', 'wash dishes']
-DoChores(b)
-b
-['feed dog']
-
+do_chores(b)
+print(b)
 ```
 
 `int`s, `float`s, and `str`ings are immutable objects and cannot be changed by a
@@ -282,26 +279,121 @@ def increment(a):
 b = 2
 increment(b)
 b
-2
 ```
 
 ### Pass by object reference
 
 * Python uses what is sometimes called pass by object reference when calling
-functions
+  functions
 
 * If the reference is to a mutable object (e.g. lists, dictionaries, etc.), that
-object might be modified upon return from the function
+  object might be modified upon return from the function
 
 * For references to immutable objects (e.g. numbers, strings), by definition the
-original object being referenced cannot be modified
+  original object being referenced cannot be modified
 
-### Example of a bad function
+## Default and keyword arguments
 
+We have seen that the behavior of some Python functions can be modified by
+passing keyword arguments.  Keyword arguments have default values.  For example,
+the `print` function has optional `end` and `sep` arguments:
+
+```python
+print("first line, ")
+print("second line")
 ```
+
+```python
+print("first line, ", end="")
+print("second line")
+```
+
+```python
+print(1,2,3,4,5,6,7)
+print(1,2,3,4,5,6,7, sep=", ")
+```
+
+It is simple to use this feature when defining functions:
+
+```python
+def func(x, a = 1):
+    return x + a
+
+print("   func(1) =", func(1))
+print("func(1, 2) =", func(1, 2))
+```
+
+The default value is used if the argument is not specified when the function is
+called.
+
+### Multiple default arguments
+
+Consider the function prototype: `func(x, a=1, b=2)`.
+
+Suppose we want to use the default value for `a`, but change `b`:
+
+```python
+def func(x, a=1, b=3):
+    return x + a - b
+
+print("     func(2) =", func(2))
+print("  func(5, 2) =", func(5, 2))
+print("func(3, b=0) =", func(3, b=0))
+```
+
+Keyword arguments may be passed in any order:
+
+```python
+func(10, b=5, a=7)
+```
+
+See the [Python Tutorial section on defining functions][py-func-tut] for more
+info.
+
+[py-func-tut]: https://docs.python.org/3/tutorial/controlflow.html#more-on-defining-functions
+
+## Docstring
+
+It is important that others, including *you-in-3-months-time* are able
+to understand what your code does.
+
+This can be easily done using a so called "docstring", as follows:
+
+```python
+def nothing():
+    """ This function doesn’t do anything. """
+    pass
+```
+
+We can then read the docstring from the interpreter using:
+
+```python
+help(nothing)
+```
+
+Built-in Python functions also have documentation, see `help(print)`:
+
+```python
+help(print)
+```
+## Lambda functions
+
+A lambda function is simply a function without a name.  These are also called
+anonymous functions.
+
+They are used as an alternative way to define short functions:
+
+```python
+cube = lambda x: x*x*x
+print("cube(3) = ", cube(3))
+```
+
+## Example of a bad function
+
+```python
 def add(a, b):
     # I wrote this function because Nick
-    # is mean and is making us write three functions
+    # is mean and is making us write three functions in a homework
     return a + b
 ```
 
