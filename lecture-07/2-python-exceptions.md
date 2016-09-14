@@ -1,53 +1,92 @@
+## Python Error Handling
 
+## Syntax Errors
 
-### Exceptions
+A syntax error is incorrect in the context of the language.  Code containing
+syntax errors cannot be executed by the Python interpreter.  Here are a few
+examples:
 
-* Errors generate exceptions
+```python
+# forgetting :
+def my_func()
+    print("hello from my_func")
+```
+
+```python
+# not closing a bracket
+a = [1, 2, 3
+```
+
+```python
+# missing comma
+a = [1, 2 3, 4]
+```
+
+## Runtime Errors
+
+Runtime errors occur when syntactically correct code does something wrong (like
+attempt to access a list out of bounds, or divide an integer by zero).
+
+We have seen these before:
+
+```python
+a = [3, 7]
+a[2]
+```
+
+```python
+b = {'cupcakes' : 7, 'brownies' : 2}
+b['cookies']
+```
+
+## Exceptions
+
+* Runtime errors generate exceptions
 
 * Exceptions can potentially be caught
 
 * Uncaught exceptions propagate up to the interpreter, which halts execution and
   displays the information in a traceback
 
-### Exceptions
-
 * Python uses a try/except model for error handling
 
-```py
->>> f = open('thisfiledoesntexist.txt')
-Traceback (most recent call last):
-File "<stdin>", line 1, in <module>
-IOError: [Errno 2] No such file or directory: 'thisfiledoesntexist.txt'
->>> try:
-...     f = open('thisfiledoesntexist.txt')
-... except IOError:
-...     print 'That filename doesn't exist.'
-...
-That filename doesn't exist.
->>>
+```python
+f = open('thisfiledoesntexist.txt')
 ```
+
+```python
+try:
+    f = open('thisfiledoesntexist.txt')
+except IOError:
+    print("That filename doesn't exist.")
+```
+
+Here, we caught the exception raised when `open` could not find the file.
+The `try-except` syntax allows us to control what happens when an exception
+occurs.
 
 ### Catching multiple exceptions
 
-```py
->>> try:
-...     5/0
-... except IOError, e:
-...     print('I/O error')
-... except ZeroDivisionError, e:
-...     print('Zero division error')
-... except Exception, e:
-...     print(e)
-...
-Zero division error
->>>
+Specific exceptions can be handled by specifying the exception type after
+`except`.  
+
+```python
+try:
+    5/0
+except IOError:
+    print('I/O error')
+except ZeroDivisionError:
+    print('Zero division error')
+except Exception as e:
+    # here we get access to the exception object
+    print(e)
 ```
 
 ### Raising exceptions
 
-From `code/mymodule5.py`:
+From `mymodule5.py`:
 
-```py
+```python
 import types
 
 def summation(a,b):
@@ -56,7 +95,7 @@ def summation(a,b):
     """
 
     if (type(a) != types.IntType or type(b) != types.IntType):
-        raise ValueError, 'Expected integers'
+        raise ValueError('Expected integers')
 
     total = 0
     for n in range(a,b+1):
@@ -66,26 +105,22 @@ def summation(a,b):
 
 Using:
 
-```py
->>> import mymodule4
->>> mymodule4.summation(1,'hello')
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  File "mymodule4.py", line 11, in summation
-    for n in range(a,b+1):
-TypeError: cannot concatenate 'str' and 'int' objects
->>> import mymodule5
->>> mymodule5.summation(1,'hello')
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-  File "mymodule5.py", line 13, in summation
-    raise ValueError, 'Expected integers'
-ValueError: Expected integers
->>>
+```python
+import mymodule4
+mymodule4.summation(1,'hello')
+```
+
+```python
+import mymodule5
+mymodule5.summation(1,'hello')
 ```
 
 ### Recommended Reading
 
+* [Python Tutorial: Errors and Exceptions][py-err]
+
 * Chapter 33: Exception Basics
 
 * Chapter 34: Exception Coding Details
+
+[py-err]: https://docs.python.org/3/tutorial/errors.html

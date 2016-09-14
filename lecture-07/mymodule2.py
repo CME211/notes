@@ -6,7 +6,7 @@ def summation(a,b):
 
 primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]
 
-print('Testing function summation():...'),
+print('Testing function summation():...', end='')
 total = summation(1,100)
 if (total == 5050):
     print('OK')
