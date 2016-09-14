@@ -2,7 +2,7 @@
 
 Topics:
 
-* Review: Python object model
+* Python object model
 
 * Python modules
 
@@ -19,24 +19,22 @@ in mind:
 
 ### Starting example
 
-```py
->>> a = [42, 19, 73]
->>> b = a
->>> a
-[42, 19, 73]
->>> b
-[42, 19, 73]
->>> b[0] = 7   # (1.)
->>> b
-[7, 19, 73]    # (2.)
->>> a
-[7, 19, 73]    # (2.)
->>>
+```python
+a = [42, 19, 73]
+b = a
+print(a)
+print(b)
+```
+
+```python
+b[0] = 7   # (1.)
+print(b)   # (2.)
+print(a)   # (2.)
 ```
 
 1. Item `b[0]` is modified
 
-2. This action affect the object referenced by both `a` and `b`
+2. This action affects the object referenced by both `a` and `b`
 
 In this example, `a` is a reference to the list object initially set to `[42,
 19, 73]`.  The variable `b` also references the same list.
@@ -56,32 +54,36 @@ In this example, `a` is a reference to the list object initially set to `[42,
 * Names or identifiers point to or reference an object
 
 * Identifiers are untyped and dynamic (an identifier can reference an integer,
-and then reference a string)
+  and then reference a string)
 
-```py
->>> a = 5
->>> a = 'hi'
+```python
+a = 5
+a = 'hi'
 ```
 
 * But Python is also strongly typed: you can't add a number and a string because
-that doesn't make sense
+  that doesn't make sense
 
 * Everything in Python is an object: numbers, strings, functions, etc. are all
-objects
+  objects
 
 * An object is a location in memory with a type and a value
 
 ### Assignment
 
-* The assignment operation, `=`, can be interpreted as setting up the reference
+The assignment operation, `=`, can be interpreted as setting up a reference.
 
-```py
->>> a = 'hello'
+We can interpret the code:
+
+```python
+a = 'hello'
 ```
 
-1) Create a string object containing `'hello'`
+as:
 
-2) Point the identifier a to the newly created string object
+1. creating a string object containing `'hello'`
+
+2. setting the identifier `a` to refer to the newly created string object
 
 ### Example
 
@@ -93,38 +95,56 @@ objects
 
 ### Checking references
 
-We can check if two names reference the same object with the `is` operator:
+We can check if two names (variables) reference the same object with the `is`
+operator:
 
-```py
->>> a = [42, 19, 73]
->>> b = a
->>> a is b
-True
->>> b = [42, 19, 73]
->>> a is b
-False
->>>
+```python
+a = [42, 19, 73]
+b = a
+print(a is b)
 ```
+
+In memory we have:
+
+![list-1](fig/list-1.png)
+
+```python
+b = [42, 19, 73]
+print(a is b)
+```
+
+In memory we have:
+
+![list-2](fig/list-2.png)
+
+Check it out in [Python Tutor][pytut-ex-list].
+
+[pytut-ex-list]: http://www.pythontutor.com/visualize.html#code=a%20%3D%20%5B42,%2019,%2073%5D%0Ab%20%3D%20a%0Aprint(a%20is%20b%29%0Ab%20%3D%20%5B42,%2019,%2073%5D%0Aprint(a%20is%20b%29%0A&cumulative=false&curInstr=0&heapPrimitives=false&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false
 
 ### Integers and references
 
-Integers are objects also and need to be created in memory:
+Integers are objects also and need to be created in memory.  Let's explore this
+a bit.
 
-```py
->>> a = 1024
->>> b = a
->>> a is b
-True
->>> a = 1024
->>> b = 1024
->>> a is b
-False
->>> a = 16
->>> b = 16
->>> a is b
-True
->>>
+```python
+a = 1024
+b = a
+a is b
 ```
+
+```python
+a = 1024
+b = 1024
+a is b
+
+```python
+a = 16
+b = 16
+a is b
+```
+
+In the last code block, `a` and `b` point to the same object, because Python
+preallocates some integers.
 
 ### Preallocated integers
 
@@ -136,36 +156,38 @@ True
 
 * Integers outside this range are created / destroyed as needed
 
-```py
->>> a = -6
->>> b = -6
->>> a is b
-False
->>> a = -5
->>> b = -5
->>> a is b
-True
->>> a = 256
->>> b = 256
->>> a is b
-True
->>> a = 257
->>> b = 257
->>> a is b
-False
->>>
+```python
+a = -6
+b = -6
+a is b
+```
+
+```python
+a = -5
+b = -5
+a is b
+```
+
+```python
+a = 256
+b = 256
+a is b
+```
+
+```python
+a = 257
+b = 257
+a is b
 ```
 
 ### String reuse
 
 String objects may be "reused" internally:
 
-```py
->>> a = 'hello'
->>> b = 'hello'
->>> a is b
-True
->>>
+```python
+a = 'hello'
+b = 'hello'
+a is b
 ```
 
 ### Why immutables?
@@ -175,8 +197,7 @@ True
 
 * Allows for performance optimizations
 
-* Can setup storage for a string once because
-it never changes
+* Can setup storage for a string once because it never changes
 
 * Dictionary keys required to be immutable for performance optimizations to
   quickly locate keys
@@ -194,110 +215,99 @@ it never changes
 
 ### Containers and element references
 
-```py
->>> a = [42, 'hello']
->>> b = a
+```python
+a = [42, 'hello']
+b = a
 ```
 
 ![fig/list-ref.png](fig/list-ref.png)
 
 ### Copying a list
 
-* Simple assignment does not give us a copy
-of a list, only an additional reference to the
-same list
+* Simple assignment does not give us a copy of a list, only an additional
+reference to the same list
 
+* What if we really want an additional copy that can be modified without changing
+the original?
 
-* What if we really want an additional copy
-that can be modified without changing the
-original?
+#### Shallow copy
 
-### Shallow copy
-
-```py
->>> a = [42, 'hello']
->>> import copy
->>> b = copy.copy(a)
+```python
+a = [42, 'hello']
+import copy
+b = copy.copy(a)
 ```
 
 ![fig/shallow-copy.png](fig/shallow-copy.png)
 
-* Constructs a new list and inserts references to
-the objects referenced in the original
+A shallow copy (`copy.copy`) constructs a new list and inserts references to the
+objects referenced in the original.
 
-### Shallow copies and mutables
+#### Shallow copies and mutables
 
-```py
->>> a = [19, {'grade':92}]
->>> b = copy.copy(a)
->>> a
-[19, {'grade': 92}]
->>> b
-[19, {'grade': 92}]
->>> a[1]['grade'] = 97
->>> a
-[19, {'grade': 97}]
->>> b
-[19, {'grade': 97}]
->>>
+```python
+a = [19, {'grade':92}]
+b = copy.copy(a)
+print(a)
+print(b)
+```
+
+```python
+a[0] = 42
+a[1]['grade'] = 97
+print(a)
+print(b)
 ```
 
 ![fig/shallow-copy-mutables.png](fig/shallow-copy-mutables.png)
 
-### Deep copy
+#### Deep copy
 
-```py
->>> a = [19, {'grade':92}]
->>> b = copy.deepcopy(a)
->>> a
-[19, {'grade': 92}]
->>> b
-[19, {'grade': 92}]
->>> a[1]['grade'] = 97
->>> a
-[19, {'grade': 97}]
->>> b
-[19, {'grade': 92}]
->>>
+```python
+a = [19, {'grade':92}]
+b = copy.deepcopy(a)
+print(a)
+print(b)
+```
+
+```python
+a[0] = 42
+a[1]['grade'] = 97
+print(a)
+print(b)
 ```
 
 ![fig/deep-copy-mutables.png](fig/deep-copy-mutables.png)
 
-* Constructs a new list and inserts copies of the
-objects referenced in the original
+A deep copy (`copy.deepcopy`) constructs a new list and inserts copies of the
+objects referenced in the original.  It will copy all nested data structures.
 
 ### Tuples and immutability
 
-```py
->>> a = [42, 'feed the dog', 'clean house']
->>> import copy
->>> b = copy.copy(a)
->>> c = (a,b)
->>> c
+```python
+a = [42, 'feed the dog', 'clean house']
+import copy
+b = copy.copy(a)
+c = (a,b)
+c
 ([42, 'feed the dog', 'clean house'], [42, 'feed the dog', 'clean house'])
 ```
 
-```py
->>> b[0] = 7
->>> c
-([42, 'feed the dog', 'clean house'], [7, 'feed the dog', 'clean house'])
->>> c[0][0] = 7
->>> c
-([7, 'feed the dog', 'clean house'], [7, 'feed the dog', 'clean house'])
+```python
+b[0] = 7
+print(c)
+c[0][0] = 7
+print(c)
 ```
 
-```py
->>> c[0] = [73, 'wash dishes', 'do laundry']
-Traceback (most recent call last):
-File "<stdin>", line 1, in <module>
-TypeError: 'tuple' object does not support item assignment
->>>
+```python
+c[0] = [73, 'wash dishes', 'do laundry']
 ```
 
 ![fig/tuples-and-immutability.png](fig/tuples-and-immutability.png)
 
 The immutable property of tuples only means I can't change where the arrows
-point, I'm still free to change a mutable at the arrow destination
+point, I'm still free to change a mutable object at the arrow destination.
 
 ### Memory management
 
