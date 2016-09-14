@@ -236,6 +236,37 @@ print(b)
 print(a)
 ```
 
+### Sorting lists
+
+Sorting Python lists is very easy.  Let's randomly shuffle a list and then sort
+it.
+
+```python
+import random
+my_list = list(range(10))
+print(my_list)
+random.shuffle(my_list)
+print(my_list)
+```
+
+Note that the `random.shuffle()` function shuffles the list in-place.  It does
+not create a new list.
+
+We can use the `sorted()` function to return a new sorted list:
+
+```python
+sorted_list = sorted(my_list)
+print("my_list:", my_list)
+print("sorted_list:", sorted_list)
+```
+
+The list `sort()` method sorts the list in place:
+
+```python
+my_list.sort()
+print("my_list:", my_list)
+```
+
 ### List operations
 
 In the following summary, `s` is a list and `x` is an element.
@@ -266,12 +297,9 @@ In the following summary, `s` is a list and `x` is an element.
 * `s.pop([i])`: retrieves the item at `i` and also removes it from `s`
 * `s.remove(x)`: remove the first item from `s` where `s[i] == x`
 * `s.reverse()`: reverses the items of `s` in place
+* `s.sort()`: sorts the items of `s` in place
 
-Also have a look at:
-
-```python
-help(list)
-```
+Also have a look at `help(list)`.
 
 ### Resources
 
