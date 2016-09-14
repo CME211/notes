@@ -1,7 +1,5 @@
 # CME 211: Lecture 7
 
-Monday, October 5, 2015
-
 Topics:
 
 * Review: Python object model
@@ -9,14 +7,6 @@ Topics:
 * Python modules
 
 * Python exceptions
-
-## Announcements
-
-* CUDA on Campus Day
-<http://icme.stanford.edu/events/nvidia-tech-talks-and-hands-labs>
-
-* Get your GitHub accounts!  You need this to submit assignments from here on.
-  We will not process last minute requests.
 
 ## Python object model
 

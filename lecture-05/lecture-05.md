@@ -1,329 +1,5 @@
 # CME 211 Lecture 5: Complexity Analysis
 
-Wednesday, September 30, 2015
-
-## Announcements
-
-* If you are on the wait list: submit homework by deadline.  We will grade
-  if/when you make it into the class.
-
-* We will be using [GitHub][GitHub] for version control and managing assignment
-  submissions in this course. If you haven't already done so, please create a
-  personal Github account at <https://github.com/>. Feel free to link the
-  account to whatever email that you prefer (i.e. it does not need to be your
-  `stanford.edu` email). Afterward, please fill out the [Google form][gh-form].
-
-* Note: *SUNetID* refers to the first part of your stanford email address.  My
-  SUNetID is `nwh`.  Please do not put your student ID number in the above form.
-
-* Goal: we need to associate your GitHub username with your stanford username
-  (SUNetID)
-
-* In class I've shown IPython (Jupyter) notebooks and recommended the install of
-  Anaconda Python.  We recommend that you use the web and each other for tech
-  support related to these packages.  Computers and software are complicated
-  things.  In this class, we must standardize and can only support your code
-  running on the Farmshare systems.  Feel free to ask us for help, but we may
-  decline based on time or requests from other students.  We will help you with
-  farmshare issues.
-
-[GitHub]: https://github.com/
-[gh-form]: https://docs.google.com/forms/d/1JyNmmn2Ur6WTwUrI4jvCSpDNv6jph48mFUXu6lF-G2Q/viewform
-
-## Farmshare review
-
-Your first assignment must run on and be submitted through the farmshare
-servers.  Let's walk through the process of creating a Python script and data
-file locally then move it over to farmshare.  We will use the same conventions
-as homework 1.
-
-Please note that these instructions will work best on Mac OS X.  If you are on
-Windows, you will need to follow the spirit of the instructions.
-
-### Create a local directory structure for the class
-
-1. Open your terminal program (`Terminal.app` on OSX).
-
-2. Follow the sequence of commands:
-
-```
-nwh-mbpro:~ nwh$ cd
-nwh-mbpro:~ nwh$ pwd
-/Users/nwh
-nwh-mbpro:~ nwh$ mkdir CME211
-nwh-mbpro:~ nwh$ cd CME211/
-nwh-mbpro:CME211 nwh$ mkdir lec5
-nwh-mbpro:CME211 nwh$ cd lec5/
-nwh-mbpro:lec5 nwh$ pwd
-/Users/nwh/CME211/lec5
-```
-
-Notes:
-
-* `cd` by itself moves to your home directory
-* `~` is an alias for your home directory
-* Homework 1 requires that your files be placed in `~/CME211/hw1` on farmshare
-
-### Exercise
-
-Let's write a short python script to count unique words in a data file.  The
-data file will have one word per line.
-
-### Create a data file
-
-Open your favorite text editor and create the file `~/CME211/lec5/words.txt`.
-Enter the following contents:
-
-```
-this
-is
-a
-short
-file
-this
-is
-also
-a
-rainy
-day
-```
-### Create a python script to count words
-
-```py
-# file name uses relative path
-data_file = "words.txt"
-
-f = open(data_file,"r")
-
-# dictionary to store unique words as keys and counts as values
-word_dict = dict()
-
-# count the words
-for line in f:
-    # remove the new line character
-    word = line.strip()
-    if word in word_dict:
-        # word is in dictionary, increment count
-        word_dict[word] += 1
-    else:
-        # word is not yet in dictionary, set count to 1
-        word_dict[word] = 1
-
-# print the word counts
-for word, count in word_dict.items():
-    print("'{}' appeared {} time(s)".format(word,count))
-```
-
-### Test the script locally:
-
-```
-nwh-mbpro:lec5 nwh$ python count_words.py
-'a' appeared 2 time(s)
-'rainy' appeared 1 time(s)
-'short' appeared 1 time(s)
-'this' appeared 2 time(s)
-'is' appeared 2 time(s)
-'also' appeared 1 time(s)
-'file' appeared 1 time(s)
-'day' appeared 1 time(s)
-```
-
-### Move onto Farmshare with WebAFS
-
-Log into <https://afs.stanford.edu/>.  You will see your farmshare files.  With
-this interface you can create directories and upload files.
-
-![web afs interface](fig/web-afs.png)
-
-Create a new folder:
-
-![web afs new folder](fig/web-afs-new-folder.png)
-
-Upload files:
-
-![web afs upload](fig/web-afs-upload.png)
-
-Final result:
-
-![files uploaded](fig/web-afs-files-uploaded.png)
-
-### Test the program on Farmshare
-
-```
-nwh-mbpro:lec5 nwh$ ssh nwh@corn.stanford.edu
-nwh@corn26:~$ cd CME211/lec5/
-nwh@corn26:~/CME211/lec5$ ls
-count_words.py	words.txt
-nwh@corn26:~/CME211/lec5$ python count_words.py
-'a' appeared 2 time(s)
-'rainy' appeared 1 time(s)
-'short' appeared 1 time(s)
-'this' appeared 2 time(s)
-'is' appeared 2 time(s)
-'also' appeared 1 time(s)
-'file' appeared 1 time(s)
-'day' appeared 1 time(s)
-# edit the data file
-nwh@corn26:~/CME211/lec5$ emacs words.txt
-nwh@corn26:~/CME211/lec5$ python count_words.py
-'a' appeared 2 time(s)
-'rainy' appeared 4 time(s)
-'short' appeared 1 time(s)
-'this' appeared 2 time(s)
-'is' appeared 2 time(s)
-'also' appeared 1 time(s)
-'file' appeared 1 time(s)
-'day' appeared 1 time(s)
-nwh@corn26:~/CME211/lec5$
-```
-
-### Other method to copy files: `scp`
-
-```
-nwh-mbpro:lec5 nwh$ scp test.txt nwh@corn.stanford.edu:~/CME211/lec5/
-Warning: Permanently added the RSA host key for IP address '171.67.215.107' to the listAuthenticated with partial success.
-Duo two-factor login for nwh
-
-Enter a passcode or select one of the following options:
-
- 1. Duo Push to XXX-XXX-2441
- 2. Phone call to XXX-XXX-2441
- 3. SMS passcodes to XXX-XXX-2441
-
-Passcode or option (1-3): 1
-test.txt                                              100%   50     0.1KB/s   00:00
-nwh-mbpro:lec5 nwh$
-```
-
-See `$ man scp`
-
-### Other method to copy files: `sftp`
-
-```
-nwh-mbpro:lec5 nwh$ sftp nwh@corn.stanford.edu
-nwh@corn.stanford.edu's password:
-Authenticated with partial success.
-Duo two-factor login for nwh
-
-Enter a passcode or select one of the following options:
-
- 1. Duo Push to XXX-XXX-2441
- 2. Phone call to XXX-XXX-2441
- 3. SMS passcodes to XXX-XXX-2441
-
-Passcode or option (1-3): 1
-Connected to corn.stanford.edu.
-sftp> help
-Available commands:
-bye                                Quit sftp
-cd path                            Change remote directory to 'path'
-chgrp grp path                     Change group of file 'path' to 'grp'
-chmod mode path                    Change permissions of file 'path' to 'mode'
-chown own path                     Change owner of file 'path' to 'own'
-df [-hi] [path]                    Display statistics for current directory or
-                                   filesystem containing 'path'
-exit                               Quit sftp
-get [-Ppr] remote [local]          Download file
-help                               Display this help text
-lcd path                           Change local directory to 'path'
-lls [ls-options [path]]            Display local directory listing
-lmkdir path                        Create local directory
-ln [-s] oldpath newpath            Link remote file (-s for symlink)
-lpwd                               Print local working directory
-ls [-1afhlnrSt] [path]             Display remote directory listing
-lumask umask                       Set local umask to 'umask'
-mkdir path                         Create remote directory
-progress                           Toggle display of progress meter
-put [-Ppr] local [remote]          Upload file
-pwd                                Display remote working directory
-quit                               Quit sftp
-rename oldpath newpath             Rename remote file
-rm path                            Delete remote file
-rmdir path                         Remove remote directory
-symlink oldpath newpath            Symlink remote file
-version                            Show SFTP version
-!command                           Execute 'command' in local shell
-!                                  Escape to local shell
-?                                  Synonym for help
-sftp>
-```
-
-### Other software
-
-See <https://itservices.stanford.edu/service/ess/> for Mac and Windows SFTP and
-AFS clients.
-
-Text editors:
-
-* emacs
-* vim
-* [TextWrangler](http://www.barebones.com/products/textwrangler/)
-* [Sublime Text](http://www.sublimetext.com/)
-* [Atom](https://atom.io/)
-
-Key: learn a tool, learn it well
-
-Note: very helpful to become comfortable with a text editor you can use from the
-terminal.
-
-### Learn more about unix systems and interacting with the shell
-
-William E. Shotts, Jr. has a very nice online book called **The Linux Command
-Line**.  See the book online:
-
-* <http://linuxcommand.org/lc3_learning_the_shell.php>
-
-Only need to focus on "Learning the Shell".  In CME 211, we are not concerned
-with writing shell scripts.
-
-## A note on Python variables
-
-It is bad practice to define a variable inside of a conditional or loop body and
-then reference it outside:
-
-```py
->>> name = "Nick"
->>> if name == "Nick":
-...     age = 45
-...
->>> print("Nick's age is {}".format(age))
-Nick's age is 45
->>>
-```
-
-If `name` holds a different name, the following will happen:
-
-```py
->>> name = "Bob"
->>> if name == "Nick":
-...     age = 45
-...
->>> print("Nick's age is {}".format(age))
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-NameError: name 'age' is not defined
->>>
-```
-
-Good practice to define/initialize variables at the same level they will be
-used:
-
-```py
->>> name = "Bob"
->>> age = None
->>> if name == "Nick":
-...     age = 45
-...
->>> print("Nick's age is {}".format(age))
-Nick's age is None
->>>
-```
-
-Note in the above example, it may be more appropriate to initialize the `age`
-variable to a more meaningful value.
-
-We will learn about *scope* when we talk about functions on Friday.
-
 ## Analysis of algorithms
 
 Key questions when considering the performance of algorithms:
@@ -396,14 +72,14 @@ testing has some drawbacks, namely:
 
 * Input size examples:
 
-    * length of list
+  * length of list
 
-    * for an `m` by `m` matrix, we say the input size is `m` even though the
+  * for an `m` by `m` matrix, we say the input size is `m` even though the
       matrix as `m^2` entries
 
-    * number of non-zero entries in a sparse matrix
+  * number of non-zero entries in a sparse matrix
 
-    * number of nodes in a graph or network structure
+  * number of nodes in a graph or network structure
 
 * Typically characterized in terms of Big O notation, e.g. an algorithm is
   `O(n log n)` or `O(n^2)`.
@@ -571,11 +247,11 @@ We have found `17`.  It is time to celebrate and return the index of `2`.
 
 * Requires that the data first be sorted, but then:
 
-    * Best case: `O(1)`
+  * Best case: `O(1)`
 
-    * Average case: `O(log n)`
+  * Average case: `O(log n)`
 
-    * Worst case: `O(log n)`
+  * Worst case: `O(log n)`
 
 ## Sorting algorithms
 
@@ -796,11 +472,11 @@ TGTAGAATCACTTGAAAGGCGCGCAGTCTGGGGCGCTAGTCGTGGT
 
 * Different algorithms:
 
-    * `O(mn)` for a naive implementation
+  * `O(mn)` for a naive implementation
 
-    * `O(m)` for typical algorithms
+  * `O(m)` for typical algorithms
 
-    * `O(n)` for a search that uses the Burrows-Wheeler transform
+  * `O(n)` for a search that uses the Burrows-Wheeler transform
 
 ## List operations in Python
 
@@ -917,10 +593,10 @@ application made up of multiple algorithms
 
 * Caveats:
 
-    * There is no standard definition of what constitutes an operation
+  * There is no standard definition of what constitutes an operation
 
-    * It's an asymptotic limit for large n
+  * It's an asymptotic limit for large n
 
-    * Says nothing about the constants
+  * Says nothing about the constants
 
-    * May make assumptions about dataset (random distribution, etc.)
+  * May make assumptions about dataset (random distribution, etc.)
