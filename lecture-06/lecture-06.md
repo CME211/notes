@@ -1,320 +1,600 @@
-# CME 211: Lecture 6
+# CME 211 Lecture 5: Complexity Analysis
 
-## Python functions
+## Analysis of algorithms
 
-* Code we have seen so far has been executed in linear fashion from top to
-  bottom, sometimes repeating one or more lines in a loop body
+Key questions when considering the performance of algorithms:
 
-* Functions allow us to:
+* **Time complexity**: How does the number of operations in an algorithm scale
+  with the size of the input?
 
-    * Replace duplicated code with one centralized implementation within a single
-      program
+* **Space complexity**: How do the storage requirements of the algorithm scale?
 
-    * Reuse code across different programs
+## Empirical approach
 
-    * Easily use code developed by others
+Let's measure the running time of Pythons `sort` method on a random list of
+integers.  See `code/listsort.py`.  Here is the code modified to suit the
+notebook:
 
-    * Develop, test, debug code in isolation from other code
-
-* Analogous to mathematical functions
-
-### Defining a function in Python
-
-Let's start with an example:
-
-```
->>> def PrintHello(name):
-...     print("Hello, {}".format(name))
-...
->>> PrintHello
-<function PrintHello at 0x14d21b8>
->>> PrintHello("CME 211 students")
-Hello, CME 211 students
->>>
+```python
+import random
+import sys
+import time
 ```
 
-Anatomy of a Python function:
+```python
+n = 1000
+
+# Setup a list of random values and record the time required to sort it
+v = random.sample(range(n), n)
+t0 = time.time()
+v.sort()
+t1 = time.time()
+
+print("Sorting {} values took {:.3} seconds.".format(n, t1-t0))
+```
+
+## Empirical approach
+
+Let's run the script with increasing list length:
+
+```
+$ python listsort.py
+Usage:
+ listsort.py nvalues
+$ python listsort.py 1000000
+Sorting %d values took %.3f seconds.
+$ python listsort.py 2000000
+Sorting 2000000 values took 1.12 seconds.
+$ python listsort.py 4000000
+Sorting 4000000 values took 2.49 seconds.
+$ python listsort.py 8000000
+Sorting 8000000 values took 5.41 seconds.
+$ python listsort.py 16000000
+Sorting 16000000 values took 11.9 seconds.
+```
+
+## Problems with empirical
+
+Empirical performance testing is an important endeavor.  It is an apect of
+"profiling" your code to see what parts take longer.  Empirical performance
+testing has some drawbacks, namely:
+
+* Results are computer dependent
+
+* You need to have the code before you can do the analysis
+
+## Time complexity
+
+* Estimate of the number of operations as a function of the input size (usually
+  denoted as `n`)
+
+* Input size examples:
+
+  * length of list
+
+  * for an `m` by `m` matrix, we say the input size is `m` even though the
+      matrix as `m^2` entries
+
+  * number of non-zero entries in a sparse matrix
+
+  * number of nodes in a graph or network structure
+
+* Typically characterized in terms of Big O notation, e.g. an algorithm is
+  `O(n log n)` or `O(n^2)`.
+
+```
+| order notation | in English          |
+|----------------+---------------------|
+| O(1)           | Constant time       |
+| O(log n)       | Logarithmic time    |
+| O(n)           | Linear time         |
+| O(n log n)     | Linearithmitic time |
+| O(n^2)         | Quadratic time      |
+```
+
+## Visualization
+
+![order chart](fig/order-chart.png)
+
+## Big O notation
+
+* Big O notation represents growth rate of a function in the limit of argument
+  going to infinity
+
+* Excludes coefficients and lower order terms
+
+```
+2n^22 + 64n -> O(n^2)
+```
+
+* Often some simplifying assumptions will need to be made about the nature of
+  the input data in order to carry out analysis
+
+## Linear algebra examples
+
+* Adding two vectors? `O(n)`
 
 ```py
-def function_name(input_argument):
-    # function body
-    print("you guys rock")
+# c = a + b
+# assume all the same length
+n = len(a)
+for i in xrange(n):
+    c[i] = a[i] + b[i]
 ```
 
-1. start with `def` keyword
-
-2. give the function name
-
-3. followed by comma separated list of input arguments, surrounded by
-   parentheses
-
-    * just use `()` for no inputs
-
-4. followed by a colon `:`
-
-5. followed by **indented** function body
-
-### Return a value
-
-Use the `return` keyword to return object from a function:
+* Multiplying two matrices? Assuming the matrices are both `n x n`, it's
+  `O(n^3)`
 
 ```py
->>> def summation(a, b):
-...     total = 0
-...     for n in range(a,b+1):
-...         total += n
-...     return total
-...
->>> c = summation(1, 100)
->>> c
-5050
->>>
+# assume all matrices are n x n
+# indexing notation below comes from numpy
+# this will not work with standard python
+# C = A*B
+for i in xrange(n):
+    for j in xrange(n):
+        C[i,j] = 0
+        for k in xrange(n):
+            C[i,j] += A[i,k]*B[k,j]
 ```
 
-### Return multiple values
 
-Separate multiple return values with a comma:
+![matmul](fig/matrix.png)
 
-```py
->>> def SummationAndProduct(a,b):
-...     total = 0
-...     prod = 1
-...     for n in range(a,b+1):
-...         total += n
-...         prod *= n
-...     return total, prod
-...
->>> a = SummationAndProduct(1,10)
+Computing one value in the output matrix requires `O(n)`
+operations, and there are `n^2` values in the output matrix.
+
+## Linear search
+
+*Linear search* is searching through a sequential data container for a specified
+item.  An example of this is finding the start index of a given sub-string in a
+longer string.
+
+Exercise: Find the number `x` in your data:
+
+```
+|---+----+-----+----+-----+----+-----+-----|
+| 4 | 17 | 100 | 73 | 120 | 42 | 999 | -17 |
+|---+----+-----+----+-----+----+-----+-----|
+```
+
+Is it `O(1)`, or `O(n)`, or something else?
+
+## Linear search: best and worst case
+
+```
+|---+----+-----+----+-----+----+-----+-----|
+| 4 | 17 | 100 | 73 | 120 | 42 | 999 | -17 |
+|---+----+-----+----+-----+----+-----+-----|
+
+  ^                                     ^
+  |                                     |
+ O(1)                                  O(n)
+```
+
+* Best case: `x = 4` and we find the index with only one comparison
+
+* Worst case: `x = -17` and we scan the entire list to find the last element
+
+## Linear search: average case
+
+```
+|---+----+-----+----+-----+----+-----+-----|
+| 4 | 17 | 100 | 73 | 120 | 42 | 999 | -17 |
+|---+----+-----+----+-----+----+-----+-----|
+
+                    ^
+                    |
+                  O(n/2)
+```
+
+Given random data and a random input (in the range of the data) we can **on
+average** expect to search through half of the list.  This would be `O(n/2)`.
+Remember that Big O notation is not concerned with constant terms, so this
+becomes `O(n)`.
+
+## Binary search algorithm
+
+I we know that the list is sorted, we can apply binary search.  Let's look at an example
+
+**Goal**: Find the index of `17` in the following list:
+
+```
+|-----+---+----+----+----+-----+-----+-----|
+| -17 | 4 | 17 | 42 | 73 | 100 | 120 | 999 |
+|-----+---+----+----+----+-----+-----+-----|
+```
+
+Start by looking half way through the list:
+
+```
+|-----+---+----+----+----+-----+-----+-----|
+| -17 | 4 | 17 | 42 | 73 | 100 | 120 | 999 |
+|-----+---+----+----+----+-----+-----+-----|
+                  ^
+                  U
+```
+
+`42` is not `17`, but `42` is greater than `17` so continue searching the left
+(lower) part of the list.  The index associated with `42` becomes an upper bound
+on the search.
+
+```
+|-----+---+----+----+----+-----+-----+-----|
+| -17 | 4 | 17 | 42 | 73 | 100 | 120 | 999 |
+|-----+---+----+----+----+-----+-----+-----|
+        ^         ^
+        L         U
+```
+
+`4` is not `17`, but `4` is less than `17` so continue searching to the right
+part of the list up to the upper bound.  Turns out in this example that we only
+have one entry to inspect:
+
+```
+|-----+---+----+----+----+-----+-----+-----|
+| -17 | 4 | 17 | 42 | 73 | 100 | 120 | 999 |
+|-----+---+----+----+----+-----+-----+-----|
+        ^   ^     ^
+        L   *     U
+```
+
+We have found `17`.  It is time to celebrate and return the index of `2`.
+(Remember Python uses 0-based indexing.)
+
+## Summary: Binary search
+
+* Requires that the data first be sorted, but then:
+
+  * Best case: `O(1)`
+
+  * Average case: `O(log n)`
+
+  * Worst case: `O(log n)`
+
+## Sorting algorithms
+
+There are many sorting algorithms and this is a worthy area of study.  Here are
+few examples of names of sorting algorithms:
+
+* Quicksort
+
+* Merge sort
+
+* Heapsort
+
+* Timsort
+
+* Bubble sort
+
+* Radix sorts
+
+* Etc.
+
+The internet is full of examples of how sorting algorithms work
+
+* <http://www.youtube.com/watch?v=lyZQPjUT5B4>
+
+* <http://www.youtube.com/user/AlgoRythmics>
+
+
+## Sorting algorithms
+
+![sorting algo table](fig/sorting-algo-table.png)
+
+See: <https://en.wikipedia.org/wiki/Sorting_algorithm#Comparison_of_algorithms>
+
+## Finding the maximum
+
+What's the order of the algorithm to find the maximum value in an *unordered*
+list?
+
+```
+|----+------+----+-----+----+----+-----+-----+---|
+| 17 | 1325 | -3 | 346 | 73 | 19 | 999 | 120 | 0 |
+|----+------+----+-----+----+----+-----+-----+---|
+```
+
+### Idea: let's sort
+
+* Sort the list ascending / descending and take the last / first value
+
+* Cost of the algorithm will be the cost of the sorting plus one more operation
+to take the last / first value
+
+* Sorting algorithms are typically `O(n log n)` or `O(n^2)`
+
+* Overall order of algorithm will clearly be the order of the sorting algorithm
+
+### Idea: linear search
+
+Algorithm:
+
+* scan through the list sequentially
+* keep track of max element seen so far
+* compare each element and update if needed
+
+Step 1:
+
+```
+|----+------+----+-----+----+----+-----+-----+---|
+| 17 | 1325 | -3 | 346 | 73 | 19 | 999 | 120 | 0 |
+|----+------+----+-----+----+----+-----+-----+---|
+  ^
+  |
+ 17
+```
+
+Step 2: move to next element, compare and update
+
+```
+|----+------+----+-----+----+----+-----+-----+---|
+| 17 | 1325 | -3 | 346 | 73 | 19 | 999 | 120 | 0 |
+|----+------+----+-----+----+----+-----+-----+---|
+         ^
+         |
+       1325
+```
+
+Repeat:
+
+```
+|----+------+----+-----+----+----+-----+-----+---|
+| 17 | 1325 | -3 | 346 | 73 | 19 | 999 | 120 | 0 |
+|----+------+----+-----+----+----+-----+-----+---|
+              ^
+              |
+            1325
+```
+
+And so on:
+
+```
+|----+------+----+-----+----+----+-----+-----+---|
+| 17 | 1325 | -3 | 346 | 73 | 19 | 999 | 120 | 0 |
+|----+------+----+-----+----+----+-----+-----+---|
+                                               ^
+                                               |
+                                             1325
+```
+
+Question: what is the order of this algorithm?
+
+## Two largest values
+
+* What's the complexity to find the two largest values in an *unordered* list of `n`
+values?
+
+## Two largest values
+
+Now we need to keep track of two values during the traverse of the list.  We
+will also need to sort the pair of numbers that we keep along the way.
+
+Start by looking at the first two elements:
+
+```
+|----+----+-----+-----+----+------+-----+---|
+| 17 | 73 | 417 | 346 | 73 | 1325 | 120 | 0 |
+|----+----+-----+-----+----+------+-----+---|
+ ^    ^
+ |    |
+(17,  73)
+(73,  17) <- sorted
+```
+
+Move down by one:
+
+```
+|----+----+-----+-----+----+------+-----+---|
+| 17 | 73 | 417 | 346 | 73 | 1325 | 120 | 0 |
+|----+----+-----+-----+----+------+-----+---|
+      ^    ^
+      |    |
+     (73,  417)
+     (417,  73) <- sorted
+```
+
+Repeat:
+
+```
+|----+----+-----+-----+----+------+-----+---|
+| 17 | 73 | 417 | 346 | 73 | 1325 | 120 | 0 |
+|----+----+-----+-----+----+------+-----+---|
+           ^     ^
+           |     |
+          (417,  346)
+          (417,  346) <- sorted
+```
+
+Repeat (in this case no update is needed):
+
+```
+|----+----+-----+-----+----+------+-----+---|
+| 17 | 73 | 417 | 346 | 73 | 1325 | 120 | 0 |
+|----+----+-----+-----+----+------+-----+---|
+                 ^     ^
+                 |     |
+                (417,  346)
+                (417,  346) <- sorted
+```
+
+Notes:
+
+* For each of n input elements you will do a comparison, potentially a
+replacement, and a sort
+
+* Time complexity is `O(n)`
+
+Question:
+
+* Does that mean that finding the two largest values will take the same amount
+of time as finding the single largest value?
+
+## `m` largest values
+
+What if I want to find the `m` largest values in an unordered list of `n`
+elements?
+
+This is an example of a more complicated algorithm.  We have two components to
+consider:
+
+* the length of the list `n`
+
+* number number of largest values that we want `m`
+
+Thus, it may not be appropriate to characterize an algorithm in terms of one
+parameter `n`:
+
+* Time complexity for finding the `m` largest values in an unordered list of `n`
+elements could be characterized as `O(n m log m)` for a sorting algorithm that
+is `O(m log m)`
+
+Question:
+
+* For what m is it better just to sort the list?
+
+## Finding sub-strings
+
+Important procedure.  We are using it in homework 1.
+
+Example:
+
+```
+TGTAGAATCACTTGAAAGGCGCGCAGTCTGGGGCGCTAGTCGTGGT
+          CTTGAAAGG
+          ^       ^
+          |       |
+```
+
+
+* String has length `m`, and sub-string has length `n`
+
+* Different algorithms:
+
+  * `O(mn)` for a naive implementation
+
+  * `O(m)` for typical algorithms
+
+  * `O(n)` for a search that uses the Burrows-Wheeler transform
+
+## List operations in Python
+
+```
+>>> a = []
+>>> a.append(42)
 >>> a
-(55, 3628800)
->>> a, b = SummationAndProduct(1,10)
+[42]
+>>> a.insert(0, 7)
 >>> a
-55
->>> b
-3628800
->>>
-34
-```
-
-The `return` keyword packs multiple outputs into a tuple.  You can use Python's
-tuple unpacking to nicely get the return values in calling code.
-
-### Variable scope
-
-Let's look at an example to start discussing variable scope:
-
-```py
->>> total = 42
->>> def summation(a, b):
-...     total = 0
-...     for n in range(a, b+1):
-...         total += n
-...     return total
-...
->>> a = summation(1, 100)
+[7, 42]
+>>> a.insert(1, 19)
 >>> a
-5050
->>> total
-42
->>> n
-Traceback (most recent call last):
-File "<stdin>", line 1, in <module>
-NameError: name 'n' is not defined
+[7, 19, 42]
 >>>
 ```
 
-Function bodies have a local namespace.  In this example the `summation`
-function does not see the variable `total` from the top level scope.
-`summation` creates its own variable `total` which is different!  The top level
-scope also cannot see variables used inside of `summation`.
+Python lists use contiguous storage.  As we are inserting into the list, the
+memory layout will look something like:
 
-Reference before assignment to a global scope variable will cause an error:
+```
+>>> a.append(42)
 
-```py
->>> total = 0
->>> def summation(a, b):
-...     for n in range(a, b+1):
-...         total += n
-...     return total
-...
->>> a = summation(1, 100)
-Traceback (most recent call last):
-File "<stdin>", line 1, in <module>
-File "<stdin>", line 3, in summation
-UnboundLocalError: local variable 'total' referenced before assignment
+|----+---+---+---|
+| 42 | ? | ? | ? |
+|----+---+---+---|
+
+>>> a.insert(0, 7)
+
+|---+----+---+---|
+| 7 | 42 | ? | ? |
+|---+----+---+---|
+
+>>> a.insert(1, 19)
+
+|---+----+----+---|
+| 7 | 19 | 42 | ? |
+|---+----+----+---|
+
+```
+
+## List vs Set in python
+
+Let's compare Python's list and set objects for a few operations:
+
+Create a file `loadnames.py`
+
+```
+names_list = []
+names_set = set([])
+f = open('dist.female.first')
+for line in f:
+    name = line.split()[0]
+    names_list.append(name)
+    names_set.add(name)
+f.close()
+```
+
+Run the script and enter into the interpreter:
+
+```
+$ python -i loadnames.py
+>>> 'JANE' in names_list
+True
+>>> 'LELAND' in names_list
+False
+>>> 'JANE' in names_set
+True
+>>> 'LELAND' in names_set
+False
 >>>
 ```
 
-### Variable scope examples
+Which container is better for insertion and existence testing?
 
-It is possible to use a variable from a higher scope.  This is generally
-considered bad practice:
+## Documentation
 
-```py
->>> a = ['hi', 'bye']
->>> def func():
-...     print(a)
-...
->>> func()
-['hi', 'bye']
->>>
-```
+![time complexity](fig/time-complexity.png)
 
-Even worse practice is modifying a mutable object from a higher scope:
+<https://wiki.python.org/moin/TimeComplexity>
 
-```py
->>> a = ['hi', 'bye']
->>> def func():
-...     a.append('hello')
-...
->>> func()
->>> a
-['hi', 'bye', 'hello']
->>>
-```
+### List operations
 
-Python will not let you redirect an identifier at a global scope.  Here the
-function body has its own `a`:
+![list](fig/list.png)
 
-```py
->>> a = ['hi', 'bye']
->>> def func():
-...     a = 2
-...
->>> func()
->>> a
-['hi', 'bye']
->>>
-```
+### Set operations
 
-### Accessing a global variable
+![set](fig/set.png)
 
-This is bad practice, do not do this.  We will take off points.  We show you in
-case you run into it.
+## Dictionary operations
 
-```py
->>> total = 0
->>> def summation(a,b):
-...     global total
-...     for n in range(a, b+1):
-...         total += n
-...
->>> a = summation(1,100)
->>> total
-5050
->>>
-```
+![dict](fig/dict.png)
 
-### Functions must be defined before they are used
+## Space complexity
 
-In scripts (and the interpreter), functions must be defined before they are
-used!  See the file `lecture-6/order1.py`:
+* What additional storage will I need during execution of the algorithm?
 
-```py
-def before():
-    print("I am function defined before use.")
+* Doesn't include the input or output data
 
-before()
-after()
+* Really just refers to temporary data structures which have the life of the
+algorithm
 
-def after():
-    print("I am function defined after use.")
-```
+* Process for determining the space complexity is analogous to determining time
+complexity
 
-Output:
+## Complexity analysis
 
-```
-$ python order1.py
-I am function defined before use.
-Traceback (most recent call last):
-  File "order.py", line 5, in <module>
-    after()
-NameError: name 'after' is not defined
-$
-```
+* Good framework for comparing *algorithms*
 
-A function may refer to another function defined later in the file.  The rule is
-that functions must be defined before they are actually invoked/called.
+* Understanding individual algorithms will help you understand performance of an
+application made up of multiple algorithms
 
-```py
-def sumofsquares(a, b):
-    total = 0
-    for n in range(a, b+1):
-        total += squared(n)
-    return total
+* Also important for understanding data structures
 
-def squared(n):
-    return n*n
+* Caveats:
 
-print sumofsquares(1,10)
-```
+  * There is no standard definition of what constitutes an operation
 
-Output:
+  * It's an asymptotic limit for large n
 
-```
-$ python order2.py
-385
-$
-```
+  * Says nothing about the constants
 
-
-### Passing convention
-
-Python uses pass by object reference.  Python functions can change mutable
-objects refereed to by input variables
-
-```py
->>> def DoChores(a):
-...     a.pop()
-...
->>> b = ['feed dog', 'wash dishes']
->>> DoChores(b)
->>> b
-['feed dog']
->>>
-```
-
-`int`s, `float`s, and `str`ings are immutable objects and cannot be changed by a
-function:
-
-```py
->>> def increment(a):
-...     a = a + 1
-...
->>> b = 2
->>> increment(b)
->>> b
-2
-```
-
-### Pass by object reference
-
-* Python uses what is sometimes called pass by object reference when calling
-functions
-
-* If the reference is to a mutable object (e.g. lists, dictionaries, etc.), that
-object might be modified upon return from the function
-
-* For references to immutable objects (e.g. numbers, strings), by definition the
-original object being referenced cannot be modified
-
-### Example of a bad function
-
-```
-def add(a, b):
-    # I wrote this function because Nick
-    # is mean and is making us write three functions
-    return a + b
-```
-
-## Recommended Reading
-
-From **Learning Python, Fifth Edition** by Mark Lutz
-
-* Chapter 6: The Dynamic Typing Interlude (i.e. references and objects)
-
-* Chapter 16: Function Basics
-
-* Chapter 17: Scopes
-
-* Chapter 18: Arguments
+  * May make assumptions about dataset (random distribution, etc.)
