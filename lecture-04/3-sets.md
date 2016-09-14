@@ -1,39 +1,73 @@
 ## Python sets
 
-- A `set` is an unordered, mutable collection of unique items
-- Items in Python set must be immutable (for the same reason keys in a
+* A `set` is an unordered, mutable collection of unique items
+
+* Items in Python set must be immutable (for the same reason keys in a
   dictionary must be immutable)
-- Create a set with: `my_set = set([1, 2, 3])`
-- We can test for existence in a set and perform set operations
+
+* Create a set with: `my_set = set([1, 2, 3])`
+
+* Or create a set with: `my_set = {5, 8, "str", 49.2}`
+
+* We can test for existence in a set and perform set operations
 
 ### Set examples
 
-```
+```python
 myclasses = set()
 myclasses.add("math")
 myclasses.add("chemistry")
 myclasses.add("literature")
 
-yourclasses = set()
-yourclasses.add("physics")
-yourclasses.add("gym")
-yourclasses.add("math")
+yourclasses = {"physics", "gym", "math"}
+```
 
+Test for membership with the `in` operator:
+
+```python
 "gym" in myclasses
-False
+```
+
+```python
 "gym" in yourclasses
-True
+```
 
-myclasses & yourclasses # intersection
-set(['math'])
+Compute set intersections:
+
+```python
+myclasses & yourclasses
+```
+
+Compute set union:
+
+```python
 myclasses | yourclasses # union
-set(['literature', 'gym', 'chemistry', 'physics', 'math'])
+```
 
+### Find unique items in a list
+
+Let's create a list with non-unique elements:
+
+```python
+basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+```
+
+From this list, we create a `set`:
+
+```python
+fruit = set(basket)
+print(fruit)
 ```
 
 ### Set methods
 
-See `help(set)`:
+For more information and examples see the `set` documentation in the official
+[Python Tutorial][py-set-tut] and [Library Reference][py-set-ref].
+
+[py-set-tut]: https://docs.python.org/3/tutorial/datastructures.html#sets
+[py-set-ref]: https://docs.python.org/3/library/stdtypes.html#set-types-set-frozenset
+
+Also see `help(set)`:
 
 ```
 add(...)
@@ -61,9 +95,9 @@ discard(...)
     If the element is not a member, do nothing.
 
 intersection(...)
-    Return the intersection of two or more sets as a new set.
+    Return the intersection of two sets as a new set.
 
-    (i.e. elements that are common to all of the sets.)
+    (i.e. all elements that are in both sets.)
 
 intersection_update(...)
     Update a set with the intersection of itself and another.

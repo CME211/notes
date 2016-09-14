@@ -13,16 +13,16 @@ Algorithm:
 ### Look at the files
 
 ```
-[nwh@icme-nwh cme211-notes] $ pwd
+$ pwd
 /home/nwh/git/cme211-notes
-[nwh@icme-nwh cme211-notes] $ cd lecture-4/
-[nwh@icme-nwh lecture-4] $ ls -1
+$ cd lecture-04/code
+$ ls -1
 dist.female.first
 dist.male.first
 name1a.py
 name1b.py
 name2.py
-[nwh@icme-nwh lecture-4] $ head dist.female.first
+$ head dist.female.first
 MARY           2.629  2.629      1
 PATRICIA       1.073  3.702      2
 LINDA          1.035  4.736      3
@@ -37,9 +37,10 @@ DOROTHY        0.727 10.703     10
 
 Notes:
 
-- the unix `head` command prints out the first 10 lines of a text file
-- first column of the data file contains the name in uppercase
-- following columns contain frequency data and rank, which we won't use today.
+* the unix `head` command prints out the first 10 lines of a text file
+* first column of the data file contains the name in uppercase
+* following columns contain frequency data and rank, which we won't use in this
+  lecture
 
 ### Using sets
 
@@ -80,7 +81,7 @@ for name in names:
 Run the code:
 
 ```
-[nwh@icme-nwh lecture-4] $ python name1a.py
+$ python name1a.py
 There are 4275 female names and 1219 male names.
 There are 331 names that appear in both sets.
 PETER: M
@@ -94,7 +95,7 @@ CHRIS: M
 Run the code and get interpreter after completion:
 
 ```
-[nwh@icme-nwh lecture-4] $ python -i name1a.py
+$ python -i name1a.py
 There are 4275 female names and 1219 male names.
 There are 331 names that appear in both sets.
 PETER: M
@@ -103,13 +104,12 @@ STEWIE: NA
 BRIAN: M
 MEG: F
 CHRIS: M
-names
+>>> names
 ['PETER', 'LOIS', 'STEWIE', 'BRIAN', 'MEG', 'CHRIS']
-len(male)
+>>> len(male)
 1219
-len(female)
+>>> len(female)
 4275
-
 ```
 
 ### Using lists

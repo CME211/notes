@@ -23,12 +23,27 @@
 ### Create a dictionary
 
 ```python
+simple_dict = {1:"ths number 1", "42": 42, "a list": [1,2,3]}
+print(simple_dict)
+```
+
+Here is a slightly more useful dictionary associating names with ages.  We
+start with an empty dictionary and add to it.
+
+```python
 ages = {} # or ages = dict()
 ages['brad'] = 51
 ages['angelina'] = 40
 ages['leo'] = 40
 ages['bruce'] = 60
+ages['cameron'] = 44
 ages
+```
+
+We can get the size of the dictionary with `len`:
+
+```python
+len(ages)
 ```
 
 ### Access items
@@ -52,6 +67,31 @@ temp = ages.get('helen')
 print(temp)
 ```
 
+### Updating values
+
+We can change the value associated with a key.
+
+```python
+ages['brad'] = 52
+print(ages)
+```
+
+### Checking for existence of a key
+
+The `in` operator is used to check for the existence of a key in a dictionary.
+
+```python
+print(ages)
+```
+
+```python
+'nick' in ages
+```
+
+```python
+'leo' in ages
+```
+
 ### Iteration
 
 Iterate through the keys with:
@@ -61,18 +101,34 @@ for key in ages:
     print("{} = {}".format(key,ages[key]))
 ```
 
+or:
+
+```python
+for key in ages.keys():
+    print("{} = {}".format(key,ages[key]))
+```
+
+Loop over values:
+
+```python
+# loop over values
+for value in ages.values():
+    print(value)
+```
+
 Iterate through key-values pairs with:
 
 ```python
 for k, v in ages.items():
-    print('{} = {}'.format(k,v))
+    print('{} is {} years old'.format(k,v))
 ```
 
-**Note**: The above syntax is more efficient in Python 3.  To achieve equivalent
-performance in Python 2, it is best to ask for an *iterator* over the
-key-value pairs.
+**Note**: The above syntax is more efficient in Python 3 compared with Python 2.
+To achieve equivalent performance in Python 2, it is best to ask for an
+*iterator* over the key-value pairs.
 
 ```
+# only in python 2
 for k, v in ages.iteritems():
     print('{} = {}'.format(k,v))
 ```
@@ -85,7 +141,7 @@ ages.items()
 
 This is a Python object that provides access to the data in a container in a
 sequential fashion **without** requiring the creation of a new data structure
-and copying of data.
+and copying of data.  This is sort of like the `range()` function.
 
 ### Dictionary methods
 
@@ -98,30 +154,17 @@ clear(...)
 copy(...)
     D.copy() -> a shallow copy of D
 
-fromkeys(...)
-    dict.fromkeys(S[,v]) -> New dict with keys from S and values equal to v.
-    v defaults to None.
+fromkeys(iterable, value=None, /) from builtins.type
+    Returns a new dict with keys from iterable and values equal to value.
 
 get(...)
     D.get(k[,d]) -> D[k] if k in D, else d.  d defaults to None.
 
-has_key(...)
-    D.has_key(k) -> True if D has a key k, else False
-
 items(...)
-    D.items() -> list of D's (key, value) pairs, as 2-tuples
-
-iteritems(...)
-    D.iteritems() -> an iterator over the (key, value) items of D
-
-iterkeys(...)
-    D.iterkeys() -> an iterator over the keys of D
-
-itervalues(...)
-    D.itervalues() -> an iterator over the values of D
+    D.items() -> a set-like object providing a view on D's items
 
 keys(...)
-    D.keys() -> list of D's keys
+    D.keys() -> a set-like object providing a view on D's keys
 
 pop(...)
     D.pop(k[,d]) -> v, remove specified key and return the corresponding value.
@@ -136,19 +179,10 @@ setdefault(...)
 
 update(...)
     D.update([E, ]**F) -> None.  Update D from dict/iterable E and F.
-    If E present and has a .keys() method, does:     for k in E: D[k] = E[k]
-    If E present and lacks .keys() method, does:     for (k, v) in E: D[k] = v
-    In either case, this is followed by: for k in F: D[k] = F[k]
+    If E is present and has a .keys() method, then does:  for k in E: D[k] = E[k]
+    If E is present and lacks a .keys() method, then does:  for k, v in E: D[k] = v
+    In either case, this is followed by: for k in F:  D[k] = F[k]
 
 values(...)
-    D.values() -> list of D's values
-
-viewitems(...)
-    D.viewitems() -> a set-like object providing a view on D's items
-
-viewkeys(...)
-    D.viewkeys() -> a set-like object providing a view on D's keys
-
-viewvalues(...)
-    D.viewvalues() -> an object providing a view on D's values
+    D.values() -> an object providing a view on D's values
 ```
