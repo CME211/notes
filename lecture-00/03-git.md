@@ -64,6 +64,11 @@ with either your Stanford or GitHub username in the appropriate context.
 
 ## Log in to `corn.stanford.edu` via `ssh` and configure `git`
 
+Note: see [Farmshare two-factor authentication documentation][corn-2fa] to
+configure more convenient access to `corn.stanford.edu` via SSH.
+
+[corn-2fa]: https://web.stanford.edu/group/farmshare/cgi-bin/wiki/index.php/Main_Page#Duo_Two-Factor
+
 ```sh
 # on host, log into corn
 $ ssh nwh@corn.stanford.edu
