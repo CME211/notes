@@ -24,7 +24,7 @@ the programming language.  In languages like C, C++, and Java, loop bodies are
 enclosed in braces, but good coding style suggests that statements in a loop or
 conditional body are indented:
 
-```
+```c
 for (int i = 0; i < 10; i++) {
     printf("i = %d\n",i);
 }
@@ -108,7 +108,7 @@ print() # print a new line at the end
 
 ### Infinite loops
 
-```
+```py
 while True:
     print("hah!")
 ```
@@ -166,6 +166,7 @@ The `pass` statement does nothing, which can come in handy when you are working
 on something and want to implement some part of your code later.
 
 ```python
+traffic_light = 'green'
 if traffic_light == 'green':
     pass # to implement later
 else:
@@ -200,7 +201,7 @@ else:
 It is bad practice to define a variable inside of a conditional or loop body and
 then reference it outside:
 
-```py
+```python
 name = "Nick"
 if name == "Nick":
     age = 45 # newly created variable
@@ -210,18 +211,18 @@ print("Nick's age is {}".format(age))
 
 Here is what happens when a variable is not created:
 
-```py
+```python
 name = "Bob"
 if name == "Nick":
     id_number = 45 # also newly created variable
-...
+
 print("{}'s id number is {}".format(name, id_number))
 ```
 
 Good practice to define/initialize variables at the same level they will be
 used:
 
-```py
+```python
 name = "Bob"
 age = 55
 if name == "Nick":
