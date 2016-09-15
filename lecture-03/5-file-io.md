@@ -51,7 +51,7 @@ Python.  The relevant information starts on page 282.
 
 ### Opening a file
 
-```
+```py
 f = open(filename, option)
 ```
 
