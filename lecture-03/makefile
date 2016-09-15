@@ -1,8 +1,14 @@
 LECDIR := $(abspath $(PWD))
 LECHOME := $(abspath $(LECDIR)/..)
 
-DEFAULT_GOAL := lecture-03.ipynb
+NOTEBOOKS := \
+  0-outline.ipynb \
+  1-logical-operations.ipynb \
+  2-if-statements.ipynb \
+  3-lists.ipynb \
+  4-looping.ipynb \
+  5-file-io.ipynb
 
-all: ${DEFAULT_GOAL}
+all: ${NOTEBOOKS}
 
 include $(LECHOME)/defaults.mk
