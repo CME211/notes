@@ -4,6 +4,10 @@ Thanks to Patrick LeGresley for this example.
 
 Goal: write program to predict *male* or *female* given name
 
+Data: [Frequently Occurring Surnames from Census 1990][name-data]
+
+[name-data]: http://www.census.gov/topics/population/genealogy/data/1990_census/1990_census_namefiles.html
+
 Algorithm:
 
 1. If input name is in list of males, return `"M"`
@@ -14,133 +18,72 @@ Algorithm:
 
 ```
 $ pwd
-/home/nwh/git/cme211-notes
-$ cd lecture-04/code
-$ ls -1
+/Users/nwh/git/cme211-notes/lecture-04
+$ ls -1 *.first
 dist.female.first
 dist.male.first
-name1a.py
-name1b.py
-name2.py
-$ head dist.female.first
+$ head -n 5 dist.female.first
 MARY           2.629  2.629      1
 PATRICIA       1.073  3.702      2
 LINDA          1.035  4.736      3
 BARBARA        0.980  5.716      4
 ELIZABETH      0.937  6.653      5
-JENNIFER       0.932  7.586      6
-MARIA          0.828  8.414      7
-SUSAN          0.794  9.209      8
-MARGARET       0.768  9.976      9
-DOROTHY        0.727 10.703     10
+$ head -n 5 dist.male.first
+JAMES          3.318  3.318      1
+JOHN           3.271  6.589      2
+ROBERT         3.143  9.732      3
+MICHAEL        2.629 12.361      4
+WILLIAM        2.451 14.812      5
 ```
 
 Notes:
 
-* the unix `head` command prints out the first 10 lines of a text file
+* the unix `head` command prints out the first number lines of a text file based
+  on the number after the `-n` argument
 * first column of the data file contains the name in uppercase
 * following columns contain frequency data and rank, which we won't use in this
   lecture
 
 ### Using sets
 
-See `code/name1a.py`:
+Exercise: write a Python script `names_set.py` to implement the name to gender
+algorithm specified above using the Python `set` container.  Also print out some
+information about the data sets.
 
-```python
-# Create sets for female and male names
-female = set()
-f = open("dist.female.first")
-for line in f:
-    female.add(line.split()[0])
-f.close()
-
-male = set()
-f = open("dist.male.first")
-for line in f:
-    male.add(line.split()[0])
-f.close()
-
-# Summarize information about the reference data
-print("There are {} female names and {} male names.".format(len(female),len(male)))
-print("There are {} names that appear in both sets.".format(len(female & male)))
-
-# Test data
-names = ["PETER", "LOIS", "STEWIE", "BRIAN", "MEG", "CHRIS"]
-
-# Try our algorithm
-for name in names:
-    if name in male:
-        ret = "M"
-    elif name in female:
-        ret = "F"
-    else:
-        ret = "NA"
-    print("{}: {}".format(name, ret))
-```
-
-Run the code:
+The program should take data filenames and test names from the command line.
+In no command line arguments are provided, the script should print out a helpful
+usage message.
 
 ```
-$ python3 name1a.py
+$ python3 names_set.py
+Usage:
+  $ python3 names_set.py FEMALE_DATA MALE_DATA [TEST NAMES]
+Example:
+  $ python3 names_set.py dist.female.first dist.male.first Nick
+```
+
+If data filenames and test names are provided, the script should behave as
+follows:
+
+```
+$ python3 names_set.py dist.female.first dist.male.first Nick Sally Bicycle
 There are 4275 female names and 1219 male names.
 There are 331 names that appear in both sets.
-PETER: M
-LOIS: F
-STEWIE: NA
-BRIAN: M
-MEG: F
-CHRIS: M
+Nick: M
+Sally: F
+Bicycle: NA
 ```
 
-Run the code and get interpreter after completion:
-
-```
-$ python3 -i name1a.py
-There are 4275 female names and 1219 male names.
-There are 331 names that appear in both sets.
-PETER: M
-LOIS: F
-STEWIE: NA
-BRIAN: M
-MEG: F
-CHRIS: M
->>> names
-['PETER', 'LOIS', 'STEWIE', 'BRIAN', 'MEG', 'CHRIS']
->>> len(male)
-1219
->>> len(female)
-4275
-```
+The word `Bicycle` does not appear in either the male or female dataset, so
+`NA` is printed.
 
 ### Using lists
 
-See `code/name1b.py`
+Exercise: write a Python script `names_list.py` to implement the name to gender
+algorithm specified above using the Python `list` container.  Also print out some
+information about the data sets.
 
-```python
-# Create sets for female and male names
-female = list()
-f = open("dist.female.first")
-for line in f:
-    female.append(line.split()[0])
-f.close()
-
-male = list()
-f = open("dist.male.first")
-for line in f:
-    male.append(line.split()[0])
-f.close()
-
-# Summarize information about the reference data
-print("There are {} female names and {} male names.".format(len(female),len(male)))
-
-# need to implement intersection
-nboth = 0
-for name in female:
-    if name in male:
-        nboth = nboth + 1
-
-print("There are {} names that appear in both sets.".format(nboth))
-```
+The script should behave the same as `names_set.py`.
 
 ### Second algorithm
 
@@ -152,41 +95,29 @@ Given an input name:
 - return `1.0` if female
 - return `0.5` if uncertain or name does not appear in dataset
 
-### Solution
+Exercise: write a Python script `names_dict.py` to implement the name to gender
+algorithm specified above using the Python `dict` container.  Also print out
+some information about the data sets.  The behavior should follow:
 
-Use a Python dictionary with keys as first names and values as specified above.
+Usage message:
 
-See `code/name2.py`:
-
-```python
-# Create dictionary with name data
-names = {}
-f = open("dist.female.first")
-for line in f:
-    names[line.split()[0]] = 1.
-f.close()
-
-f = open("dist.male.first")
-for line in f:
-    name = line.split()[0]
-    if name in names:
-        # Just assume a 50/50 distribution for names on both lists
-        names[name] = 0.5
-    else:
-        names[name] = 0.
-f.close()
-
-# Summary information about our reference data
-print("There are {} names in our reference data.".format(len(names)))
-
-# Test data
-testdata = ["PETER", "LOIS", "STEWIE", "BRIAN", "MEG", "CHRIS", "NICK"]
-
-# Try our algorithm
-for name in testdata:
-    if name in names:
-        ret = names[name]
-    else:
-        ret = 0.5
-    print("{}: {}".format(name, ret))
 ```
+$ python3 names_dict.py
+Usage:
+  $ python3 names_dict.py FEMALE_DATA MALE_DATA [TEST NAMES]
+Example:
+  $ python3 names_dict.py dist.female.first dist.male.first Nick
+```
+
+`names_dict.py` in action:
+
+```
+$ python3 names_dict.py dist.female.first dist.male.first Nick Sally Billy
+There are 5163 names in our reference data.
+Nick: 0.0
+Sally: 1.0
+Billy: 0.5
+```
+
+The name "Billy" appears in both male and female datasets, so `0.5` is printed
+after the name to indicate uncertainty.

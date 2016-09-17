@@ -24,6 +24,14 @@ myclasses.add("literature")
 yourclasses = {"physics", "gym", "math"}
 ```
 
+```python
+myclasses
+```
+
+```python
+yourclasses
+```
+
 Test for membership with the `in` operator:
 
 ```python

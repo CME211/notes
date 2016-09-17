@@ -117,6 +117,7 @@ dictionaries to prevent unnecessary movement of data.
 It is possible to associate a value with a new key with the following code:
 
 ```python
+ages = {'cameron': 44, 'angelina': 40, 'bruce': 60, 'brad': 51, 'leo': 40}
 print(ages)
 ages['BRUCIE'] = ages['bruce']
 del ages['bruce']

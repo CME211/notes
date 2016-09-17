@@ -127,7 +127,7 @@ for k, v in ages.items():
 To achieve equivalent performance in Python 2, it is best to ask for an
 *iterator* over the key-value pairs.
 
-```
+```py
 # only in python 2
 for k, v in ages.iteritems():
     print('{} = {}'.format(k,v))
