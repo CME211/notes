@@ -33,6 +33,7 @@ It is also possible to filter out elements of list in a comprehension:
 ```python
 my_list = [1,2,3,4,5,6,7,8,9,10,11]
 odds = [x for x in my_list if x % 2 != 0]
+odds
 ```
 
 Python also has [set][so-set-comp] and [dictionary][so-dict-comp]
@@ -44,3 +45,5 @@ comprehensions.
 ## References
 
 * [List comprehensions in Python Tutorial][py-list-comp]
+
+[py-list-comp]: https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions

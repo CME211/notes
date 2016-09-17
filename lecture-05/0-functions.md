@@ -122,6 +122,7 @@ def summation(a, b):
     return total
 
 a = summation(1, 100)
+a
 ```
 
 ```python
@@ -200,7 +201,7 @@ def summation(a,b):
         total += n
 
 a = summation(1,100)
-print("total:",vtotal)
+print("total:",total)
 ```
 
 ## Functions must be defined before they are used
@@ -245,7 +246,7 @@ def sumofsquares(a, b):
 def squared(n):
     return n*n
 
-print sumofsquares(1,10)
+print(sumofsquares(1,10))
 ```
 
 Output:
@@ -376,16 +377,91 @@ Built-in Python functions also have documentation, see `help(print)`:
 ```python
 help(print)
 ```
-## Lambda functions
 
-A lambda function is simply a function without a name.  These are also called
-anonymous functions.
+## Functions as objects
+
+In Python everything is an object, this includes functions.  It is possible to
+pass functions to other functions:
+
+```python
+def simple_function():
+    print("hello from simple_function()")
+
+def function_caller(f):
+    # just call the function f
+    f()
+```
+
+Now, we can pass `simple_function` to `function_caller`:
+
+```python
+function_caller(simple_function)
+```
+
+This is useful when combined with Python's [`map`][py-map] and
+[`filter`][py-filter] functions.
+
+[py-map]: https://docs.python.org/3/library/functions.html#map
+[py-filer]: https://docs.python.org/3/library/functions.html#filter
+
+### `map`
+
+The `map` function applies an input function to each element of a container and
+returns an iterator.  We'll use it to construct a list.
+
+```python
+def square(x):
+    return x*x
+```
+
+`map` returns an iterator:
+
+```python
+map(square, [1,2,3,4,5,6])
+```
+
+iterators can be used in a `for` loop:
+
+```python
+for s in map(square, [1,2,3,4,5,6]):
+    print(s,end=', ')
+print()
+```
+
+or we can ask for a `list`:
+
+```python
+list(map(square,[1,2,3,4,5,6]))
+```
+
+### `filter`
+
+The `filter` function returns an iterator over items in a container for which
+the input function returns `True`:
+
+```python
+def isodd(x):
+    return x % 2 != 0
+```
+
+```python
+list(filter(isodd,[1,2,3,4,5,6,7]))
+```
+
+### Lambda functions
+
+A **lambda** function is simply a function without a name.  These are also
+called **anonymous** functions.
 
 They are used as an alternative way to define short functions:
 
 ```python
 cube = lambda x: x*x*x
 print("cube(3) = ", cube(3))
+```
+
+```python
+list(map(lambda x: x*x*x, [1,2,3,4,5,6,7,8,9]))
 ```
 
 ## Example of a bad function
