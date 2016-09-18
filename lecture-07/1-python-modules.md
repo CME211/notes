@@ -112,19 +112,19 @@ symbols that have been defined elsewhere.
 
 Here we know where `time()` is coming from:
 
-```
+```py
 import time
 import mymodule
-...
+# ...
 t = time.time()
 ```
 
 Does `time()` come from `time` or `mymodule`?
 
-```
+```py
 from time import *
 from mymodule import *
-...
+# ...
 t = time()
 ```
 
@@ -134,7 +134,7 @@ t = time()
 
 See file `mymodule1.py`:
 
-```python
+```py
 def summation(a,b):
     total = 0
     for n in range(a,b+1):
@@ -169,7 +169,7 @@ print(mymodule1.primes)
 
 Add test code in file `mymodule2.py`:
 
-```python
+```py
 def summation(a,b):
     total = 0
     for n in range(a,b+1):
@@ -261,7 +261,7 @@ mymodule1.py  mymodule1.pyc  mymodule2.py  mymodule2.pyc
 
 See `mymodule3.py`
 
-```python
+```py
 def summation(a,b):
     total = 0
     for n in range(a,b+1):
@@ -300,7 +300,7 @@ Testing function summation()... OK
 
 See `mymodule4.py`:
 
-```python
+```py
 """
 My module of misc code.
 """

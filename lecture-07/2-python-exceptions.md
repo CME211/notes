@@ -1,6 +1,6 @@
 ## Python Error Handling
 
-## Syntax Errors
+### Syntax Errors
 
 A syntax error is incorrect in the context of the language.  Code containing
 syntax errors cannot be executed by the Python interpreter.  Here are a few
@@ -22,7 +22,7 @@ a = [1, 2, 3
 a = [1, 2 3, 4]
 ```
 
-## Runtime Errors
+### Runtime Errors
 
 Runtime errors occur when syntactically correct code does something wrong (like
 attempt to access a list out of bounds, or divide an integer by zero).
@@ -39,7 +39,7 @@ b = {'cupcakes' : 7, 'brownies' : 2}
 b['cookies']
 ```
 
-## Exceptions
+### Exceptions
 
 * Runtime errors generate exceptions
 

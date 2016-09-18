@@ -1,6 +1,6 @@
 # CME 211: Lecture 7
 
-Topics:
+## Topics
 
 * Python object model
 
@@ -136,6 +136,7 @@ a is b
 a = 1024
 b = 1024
 a is b
+```
 
 ```python
 a = 16
