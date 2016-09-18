@@ -9,10 +9,20 @@ Key questions when considering the performance of algorithms:
 
 * **Space complexity**: How do the storage requirements of the algorithm scale?
 
+* **Communication complexity**: Many modern applications in high performance
+  computing are limited by memory communication bandwidth and/or latency.  This
+  can be a challenging area of study, because there are many types of
+  communication to consider (e.g. main memory to CPU, CPU to GPU, GPU memory to
+  GPU, or computer to computer over a network).  Also modern computing hardware
+  has many levels of caching (e.g. L1, L2, and L3), making it difficult to
+  to predict the performance of a single memory transaction.
+
+These notes focus on **time complexity**.
+
 ## Empirical approach
 
 Let's measure the running time of Pythons `sort` method on a random list of
-integers.  See `code/listsort.py`.  Here is the code modified to suit the
+integers.  See `listsort.py`.  Here is the code modified to suit the
 notebook:
 
 ```python
@@ -53,6 +63,22 @@ $ python3 listsort.py 16000000
 Sorting 16000000 values took 23.6 seconds.
 ```
 
+### IPython `%timeit` magic command
+
+IPython has a [magic][ipy-timeit] command called [`%timeit`][ipy-timeit] to help
+benchmark Python statements.
+
+```python
+# use %timeit to benchmark sorted function
+# Setup a list of random values and record the time required to sort it
+n = 10000
+v = random.sample(range(n), n)
+%timeit sorted_v = sorted(v)
+```
+
+[ipy-magic]: http://ipython.readthedocs.io/en/stable/interactive/magics.html
+[ipy-timeit]: http://ipython.readthedocs.io/en/stable/interactive/magics.html#magic-timeit
+
 ### Problems with empirical measurement
 
 Empirical performance testing is an important endeavor.  It is an aspect of
@@ -67,14 +93,14 @@ testing has some drawbacks, namely:
 ## Time complexity
 
 * *Time complexity* is an estimate of the number of operations as a function of
-  the input size (usually denoted as `n`)
+  the input size (usually denoted as $n$)
 
 * Input size examples:
 
   * length of list
 
-  * for an `m` by `m` matrix, we say the input size is `m` even though the
-      matrix as `m^2` entries
+  * for an $m$ by $m$ matrix, we say the input size is $m$ even though the
+      matrix as $m^2$ entries
 
   * number of non-zero entries in a sparse matrix
 
@@ -82,7 +108,7 @@ testing has some drawbacks, namely:
     edges is also important)
 
 * Typically characterized in terms of Big O notation, e.g. an algorithm is
-  `O(n log n)` or `O(n^2)`.
+  $O(n \log n)$ or $O(n^2)$.
 
 ```
 | order notation | in English          |
@@ -98,7 +124,7 @@ testing has some drawbacks, namely:
 
 ![order chart](fig/order-chart.png)
 
-### Big O notation
+### Big $O$ notation
 
 * Big $O$ notation represents growth rate of a function in the limit of argument
   going to infinity
@@ -131,8 +157,8 @@ for i in range(n):
     c[i] = a[i] + b[i]
 ```
 
-* Multiplying two matrices? Assuming the matrices are both `n x n`, it's
-  `O(n^3)`
+* Multiplying two matrices? Assuming the matrices are both $n \times n$, it's
+  $O(n^3)$
 
 ```
 # assume all matrices are n x n
@@ -158,7 +184,7 @@ are $n^2$ values in the output matrix.
 item.  An example of this is finding the start index of a given sub-string in a
 longer string.
 
-Exercise: Find the number `x` in your data:
+Exercise: Find the number $x$ in your data:
 
 ```
 |---+----+-----+----+-----+----+-----+-----|
@@ -198,7 +224,7 @@ Is it $O(1)$, or $O(n)$, or something else?
 
 Given random data and a random input (in the range of the data) we can **on
 average** expect to search through half of the list.  This would be $O(n/2)$.
-Remember that Big O notation is not concerned with constant terms, so this
+Remember that Big $O$ notation is not concerned with constant terms, so this
 becomes $O(n)$.
 
 ### Binary search
@@ -551,22 +577,22 @@ Let's compare Python's `list` and `set` objects for a few operations:
 ```python
 def load_set(filename):
     names_set = set()
-    with f as open(filename,'r'):
+    with open(filename,'r') as f:
         for line in f:
             names_set.add(line.split()[0])
     return names_set
 
 def load_list(filename):
     names_list = []
-    with f as open(filename,'r'):
+    with open(filename,'r') as f:
         for line in f:
             names_list.append(line.split()[0])
-    return names_lsit
+    return names_list
 ```
 
 ```python
-names_list = load_list('../lecture-04/code/dist.female.first')
-names_set = load_set('../lecture-04/code/dist.female.first')
+names_list = load_list('../lecture-04/dist.female.first')
+names_set = load_set('../lecture-04/dist.female.first')
 ```
 
 Let's test:
