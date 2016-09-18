@@ -11,7 +11,7 @@ my_list = [1,2,3,4,5,6,7,8]
 
 new_list = []
 for x in my_list:
-    new_list.append(x*x)
+    new_list.append(square(x))
 
 print(new_list)
 ```
