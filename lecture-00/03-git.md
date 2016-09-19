@@ -12,6 +12,21 @@ provide similar services.
 [bitbucket]: https://bitbucket.org/
 [gitlab]: https://about.gitlab.com/
 
+## 2016-09-19 Update: Farmshare user directory
+
+These notes have been updated after recording of the lecture screencast to
+reflect issues between `AFS` and `git`.  We were running into timeout issues
+when attempting to clone a repository from GitHub on to our AFS-based home
+directory on Farmshare.  The solution is to use the farmshare user directory
+located at `/farmshare/user_data/[sunet_id]` instead of AFS.  The notes have
+been updated to reflect this change.  The screencasts will still refer to using
+AFS space.
+
+See the sections on "GitHub Repo Cloning" and "Directory paths" on the
+[Farmshare User Guide][farmshare-user-guide] for some more information.
+
+[farmshare-user-guide]: https://web.stanford.edu/group/farmshare/cgi-bin/wiki/index.php/User_Guide
+
 ## Watch
 
 Please watch the 4 introductory videos on the official `git` website:
@@ -112,16 +127,18 @@ See: <https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup>
 
 ## Clone the test repository
 
-When logged into `corn`, **clone** the repository you just created.  It is easiest
-to copy the HTTPS link from the repository homepage.  Here is a log of the
-process:
+When logged into `corn`, first navigate to your Farmshare user directory located
+at `/farmshare/user_data/[sunet_id]` then **clone** the repository you just
+created.  It is easiest to copy the HTTPS link from the repository homepage.
+Here is a log of the process:
 
 ```sh
 # on corn.stanford.edu
 $ pwd
 /afs/ir/users/n/w/nwh
+$ cd /farmshare/user_data/nwh
 $ ls
-WWW  bin  config
+# no output means the directory is empty (your directory may not be empty)
 $ git clone https://github.com/nwh/cme211-test-repo.git
 Cloning into 'cme211-test-repo'...
 remote: Counting objects: 3, done.
@@ -129,8 +146,14 @@ remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
 Unpacking objects: 100% (3/3), done.
 Checking connectivity... done.
 $ ls
-WWW  bin  cme211-test-repo  config
+cme211-test-repo
 ```
+
+Note: if you just logged into `corn.stanford.edu` for the first time, your
+`/farmshare/user_data/[sunet_id]` directory may not exit.  The online
+documentation says that you need to wait about 30 minutes for the directory to
+be created.  Please alert the teaching staff if your directory does not show up
+after this amount of time.
 
 ## Add a new text file
 
@@ -139,7 +162,7 @@ create a file called `favorite-things.txt`:
 
 ```sh
 $ pwd
-/afs/ir/users/n/w/nwh
+/farmshare/user_data/nwh
 $ cd cme211-test-repo/
 $ ls
 README.md
@@ -239,7 +262,7 @@ changes you made up on GitHub to your repository on `corn`:
 
 ```sh
 $ pwd
-/afs/ir/users/n/w/nwh/cme211-test-repo
+/farmshare/user_data/nwh/cme211-test-repo
 $ git pull
 remote: Counting objects: 3, done.
 remote: Compressing objects: 100% (3/3), done.

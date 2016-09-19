@@ -1,5 +1,20 @@
 # CME211 Lecture 0 - Command Line
 
+## 2016-09-19 Update: Farmshare user directory
+
+These notes have been updated after recording of the lecture screencast to
+reflect issues between `AFS` and `git`.  We were running into timeout issues
+when attempting to clone a repository from GitHub on to our AFS-based home
+directory on Farmshare.  The solution is to use the farmshare user directory
+located at `/farmshare/user_data/[sunet_id]` instead of AFS.  The notes have
+been updated to reflect this change.  The screencasts will still refer to using
+AFS space.
+
+See the sections on "GitHub Repo Cloning" and "Directory paths" on the
+[Farmshare User Guide][farmshare-user-guide] for some more information.
+
+[farmshare-user-guide]: https://web.stanford.edu/group/farmshare/cgi-bin/wiki/index.php/User_Guide
+
 ## Reading
 
 From **The Linux Command Line** by William Shotts:
@@ -81,6 +96,13 @@ placed in `/home`.  On Farmshare systems, home directories are organized in
 subdirectories based on the first two characters of the user name.  My user name
 is `nwh`.  Thus, the path to my home directory on Farmshare is
 `/afs/ir/users/n/w/nwh`.
+
+### Farmshare user directory
+
+Farmshare also has a separate space for user files called the "Farmshare user
+directory".  Your Farmshare user directory is located at
+`/farmshare/user_data/[sunet_id]`, where `[sunet_id]` is your Stanford network
+id (the id before `@stanford.edu` in your email address).
 
 ## Moving around
 
