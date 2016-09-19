@@ -1,13 +1,17 @@
 # CME 211 Lecture 6: Complexity Analysis
 
+We study the complexity of algorithms to understand the resources required to
+run a program.
+
 ## Analysis of algorithms
 
 Key questions when considering the performance of algorithms:
 
-* **Time complexity**: How does the number of operations in an algorithm scale
-  with the size of the input?
+* **Time/computational complexity**: How does the number of computational
+  operations in an algorithm scale with the size of the input?
 
-* **Space complexity**: How do the storage requirements of the algorithm scale?
+* **Space complexity**: How do the storage (memory) requirements of the
+  algorithm scale?
 
 * **Communication complexity**: Many modern applications in high performance
   computing are limited by memory communication bandwidth and/or latency.  This
@@ -118,6 +122,8 @@ testing has some drawbacks, namely:
 | O(n)           | Linear time         |
 | O(n log n)     | Linearithmitic time |
 | O(n^2)         | Quadratic time      |
+| O(n^3)         | Cubic time          |
+| O(2^n)         | Exponential time    |
 ```
 
 ### Visualization
