@@ -188,9 +188,9 @@ Configure plotting for notebook:
 
 ```python
 # tell matplotlib to use the notebook for figures
-%matplotlib notebook
+%matplotlib inline
 # tell matplotlib to use svg (they look better than png)
-%config InlineBackend.figure_format = 'svg'
+#%config InlineBackend.figure_format = 'svg'
 ```
 
 Note: in Jupyter notebook, statements that start with `%` are known as [magic
