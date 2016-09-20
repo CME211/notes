@@ -122,7 +122,7 @@ Other resources are listed in the [`CME211/notes`][cme211-notes] repository.
 
 ## Grading
 
-Your overall course grade will be based on assignments (50%), two quizzes (12.5%
+Your overall course grade will be based on assignments (50%), two exams (12.5%
 each, 25% total), and a final project (25%).
 
 Course letter grades are at the discretion of the instructor. If at any time you
