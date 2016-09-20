@@ -1,205 +1,174 @@
-Basic usage of the Python and C/C++ programming languages are introduced
-and used to solve representative computational problems from various
-science and engineering disciplines. Software design principles
-including time and space complexity analysis, data structures,
-object-oriented design, decomposition, encapsulation, and modularity are
-emphasized. Usage of campus wide Linux compute resources: login, file
-system navigation, editing files, compiling and linking, file transfer,
-etc. Versioning and revision control, software build utilities, and the
-LaTeX typesetting software are introduced and used to help complete
+# CME 211 Syllabus (Fall 2016)
+
+*(cross listed as Earth 211)*
+
+## Software Development for Scientists and Engineers
+
+Basic usage of the Python and C/C++ programming languages are introduced and
+used to solve representative computational problems from various science and
+engineering disciplines. Software design principles including time and space
+complexity analysis, data structures, object-oriented design, decomposition,
+encapsulation, and modularity are emphasized. Usage of campus wide Linux compute
+resources: login, file system navigation, editing files, compiling and linking,
+file transfer, etc. Versioning and revision control, software build utilities,
+and the LaTeX typesetting software are introduced and used to help complete
 programming assignments. Prerequisite: introductory programming course
-equivalent to [*CS
-106A*](http://explorecourses.stanford.edu/search?view=catalog&filter-coursestatus-Active=on&page=0&q=CS106A)
-or instructor consent.
+equivalent to [CS 106A][cs106a] or instructor consent.
 
-Goals
-=====
+[cs106a]: https://explorecourses.stanford.edu/search?view=catalog&filter-coursestatus-Active=on&page=0&catalog=&academicYear=&q=cs106&collapse=
 
-The goal for this course is for students to be able to apply knowledge
-of the following topics to the development and usage of scientific
-computing software:
+## Time and location
 
-Linux
------
+- Days: Mon, Wed, Fri
+- Time: 3:00 PM - 4:20 PM
+- Location: 320-105 (Geology Corner)
 
--   Remote login and file transfer using SSH, SCP, and SFTP
+## Goals
 
--   Filesystem navigation (moving through and creating directories,
-    > finding files, etc.)
+- To become a productive user of unix-like and remote computing systems.
+- To become an effective user of tools for software development such as version
+  control (`git`) and text editors.
+- To be able to write Python programs of intermediate complexity for science
+  and engineering applications.
+- To be able to write C++ programs of intermediate complexity for science
+  and engineering applications.
+- Develop skill in [*computational thinking*][comp-think], that "is the thought
+  processes involved in formulating a problem and expressing its solution(s) in
+  such a way that a computer—human or machine—can effectively carry out."
 
--   Creation and editing of code and data files
+[comp-think]: http://socialissues.cs.toronto.edu/index.html%3Fp=279.html
 
-Python
-------
+## Topics
 
--   Variables, conditionals, file I/O, data structures (lists, tuples,
-    > dictionaries, sets),
+### Linux
 
--   loops, functions, exceptions, and modules
+- Remote login and file transfer using SSH, SCP, and SFTP
+- Filesystem navigation (moving through and creating directories, finding files, etc.)
+- Creation and editing of code and data files
 
--   Objects and references
+### Python
 
--   Objected Oriented Programming (OOP) using classes
+- Variables, conditionals, file I/O, data structures (lists, tuples, dictionaries, sets),
+- loops, functions, exceptions, and modules
+- Objects and references
+- Objected Oriented Programming (OOP) using classes
+- Numerical Python (NumPy) and Scientific Python (SciPy) extensions for scientific computing
+- matplotlib for visualization
 
--   Numerical Python (NumPy) and Scientific Python (SciPy) extensions
-    > for scientific computing
+### C/C++
 
--   matplotlib for visualization
+- Compiling and linking
+- Preprocessor
+- Containers (vector, map, etc.)
+- Object oriented programming (classes and methods, etc.)
+- Pointers, addresses, and memory management
+- *Note that more advanced features of C++ (operator overloading, templates, etc.) will be covered in CME 212*
 
-C/C++
------
+### Building software
 
--   Compiling and linking
+- Creating and using a basic Makefile
 
--   Preprocessor
+### Version control
 
--   Containers (vector, map, etc.)
+- Use of Git and Github for managing software projects
 
--   Object oriented programming (classes and methods, etc.)
+### LaTeX
 
--   Pointers, addresses, and memory management
+- LaTeX markup (figures, tables, equations, references, etc.)
+- Managing a bibliography
+- Creating a ready to publish file in Adobe Acrobat (PDF) format
 
--   *Note that more advanced features of C++ (operator overloading,
-    > templates, etc.) will be covered in CME 212*
+## Communication
 
-Building software
------------------
+We will be using Piazza to send announcements and as a discussion board for the
+homework projects. Please use this if you have questions regarding course
+material.
 
--   Creating and using a basic Makefile
+* <http://www.piazza.com/stanford/fall2016/cme211>
 
-Version control
----------------
+All other correspondence should be sent to <cme211-staff@lists.stanford.edu>.
 
--   Use of Git and Github for managing software projects
-
-LaTeX
------
-
--   LaTeX markup (figures, tables, equations, references, etc.)
-
--   Managing a bibliography
-
--   Creating a ready to publish file in Adobe Acrobat (PDF) format
-
-Time and location
-=================
-
-Days: Mon, Wed, Fri
-
-Time: 3:00 PM - 4:20 PM
-
-Location: 320-105 (Geology Corner)
-
-Communication
-=============
-
-We will be using Piazza to send announcements and as a discussion board
-for the homework projects. Please use this if you have questions
-regarding course material.
-
-[*http://www.piazza.com/stanford/fall2015/cme211*](http://www.piazza.com/stanford/fall2015/cme211)
-
-All other correspondence should be sent to:
-[*cme211-staff@lists.stanford.edu*](mailto:cme211-staff@lists.stanford.edu)
-
-Teaching staff
-==============
+## Teaching staff
 
 Instructor: Nick Henderson
 
-Head Teaching Assistant: Josh Romero
+Head Teaching Assistant: Andreas Santucci
 
 Teaching assistants:
+- Amy Shoemaker
+- Cindy Catherine Orozco Bohorquez
+- Jerry Watkins
+- Yu-Sheng Chen
 
--   Oliver Bear Don't Walk
-
--   Evan Nixon
-
--   Loek Janssen
-
--   Swaroop Ramaswamy
-
-Office hours
-============
+## Office hours
 
 To be announced in the first week of classes and posted on Piazza.
 
-Resources
-=========
+## Resources
 
-We will assign readings from the following books, which are available
-online to Stanford students through the library:
+Recommended readings come from the following books, which are available online
+to Stanford students through the library.  These are great books to have in your
+collection.
 
--   **Learning Python**, 5th Edition by *Mark Lutz*\
-    > [*http://proquest.safaribooksonline.com/book/programming/python/9781449355722*](http://proquest.safaribooksonline.com/book/programming/python/9781449355722)
+- **Learning Python**, 5th Edition by *Mark Lutz* ([link][learning-python])
+- **C++ Primer**, 5th Edition by *Lippman, Kajoie, and Moo* ([link][c++-primer])
 
--   **C++ Primer**, 5th Edition by *Lippman, Kajoie, and Moo*\
-    > [*http://proquest.safaribooksonline.com/9780133053043?uicode=stanford*](http://proquest.safaribooksonline.com/9780133053043?uicode=stanford)
+[learning-python]: http://proquest.safaribooksonline.com/book/programming/python/9781449355722
+[c++-primer]: http://proquest.safaribooksonline.com/9780133053043?uicode=stanford
 
-Other resources will be uploaded to the course page on Piazza.
+Other resources are listed in the [`CME211/notes`][cme211-notes] repository.
 
-Grading
-=======
+[cme211-notes]: https://github.com/CME211/notes
 
-Your overall course grade will be based on assignments (50%), two
-quizzes (12.5% each, 25% total), and a final project (25%).
+## Grading
 
-Course letter grades are at the discretion of the instructor. If at any
-time you have questions about your standing in the class, please contact
-the instructor. Please don’t wait until after the course is over if you
-have concerns about your progress in the class.
+Your overall course grade will be based on assignments (50%), two quizzes (12.5%
+each, 25% total), and a final project (25%).
 
-Assignments
------------
+Course letter grades are at the discretion of the instructor. If at any time you
+have questions about your standing in the class, please contact the instructor.
+Please don’t wait until after the course is over if you have concerns about your
+progress in the class.
 
-There will be 6 graded assignments. Assignments will be posted on Friday
-afternoons and be due the following Friday at 2:30 pm via online
-submission. Late assignments will not be accepted.
+## Assignments
 
-Although students are expected to complete all assignments, the one
-assignment with the lowest score (by percentage) will automatically be
-dropped when computing your overall course grade. The policy of dropping
-the lowest score is in lieu of a late policy or providing extensions so
-please don’t ask for them.
+There will be 7 graded assignments. Assignments will be posted on Friday
+afternoons and be due the following Friday at 2:30 pm via online submission.
+Late assignments will not be accepted.
 
-Final Project 
-==============
+Although students are expected to complete all assignments, the one assignment
+with the lowest score (by percentage) will automatically be dropped when
+computing your overall course grade. The policy of dropping the lowest score is
+in lieu of a late policy or providing extensions so please don’t ask for them.
 
-In place of a final exam there will be a final project due on the
-scheduled day of the final exam. More details will be provided later in
-the quarter.
+## Final Project
 
-Honor Code
-==========
+In place of a final exam there will be a final project due on the scheduled day
+of the final exam. More details will be provided later in the quarter.
 
-All students are expected to abide by the honor code:
+## Honor Code
 
-[*http://studentaffairs.stanford.edu/judicialaffairs/policy/honor-code*](http://studentaffairs.stanford.edu/judicialaffairs/policy/honor-code)
+All students are expected to abide by the [Stanford Honor Code][honor-code]. The
+[computer science website][cs-code] has a good explanation of the honor code as
+it relates to courses involving significant amounts of computer programming.
 
-This computer science website has a good explanation of the honor code
-as it relates to courses involving significant amounts of computer
-programming:
+Note that at various times we may use special computer software called
+[MOSS][moss] to assist us in detecting plagiarism.  If you are having difficulty
+completing an assignment please contact a TA or the instructor so that we may
+help you. We would much rather spend time helping you than dealing with honor
+code violations.
 
-[*http://csmajor.stanford.edu/HonorCode.shtml*](http://csmajor.stanford.edu/HonorCode.shtml)
+[honor-code]: http://studentaffairs.stanford.edu/judicialaffairs/policy/honor-code
+[cs-code]: http://csmajor.stanford.edu/HonorCode.shtml
+[moss]: http://theory.stanford.edu/\~aiken/moss/
 
-Note that at various times we may use special computer software to
-assist us in detecting plagiarism:
-
-[*http://theory.stanford.edu/\~aiken/moss/*](http://theory.stanford.edu/~aiken/moss/)
-
-If you are having difficulty completing an assignment please contact a
-TA or the instructor so that we may help you. We would much rather spend
-time helping you than dealing with honor code violations.
-
-Students with Documented Disabilities
-=====================================
+## Students with Documented Disabilities
 
 Students who may need an academic accommodation based on the impact of a
-disability must initiate the request with the Office of Accessible
-Education (OAE). Professional staff will evaluate the request with
-required documentation, recommend reasonable accommodations, and prepare
-an Accommodation Letter for faculty dated in the current quarter in
-which the request is made. Students should contact the OAE as soon as
-possible since timely notice is needed to coordinate accommodations. The
-OAE is located at 563 Salvatierra Walk (Phone: 723-1066, URL:
-http://studentaffairs.stanford.edu/oae).
+disability must initiate the request with the Office of Accessible Education
+(OAE). Professional staff will evaluate the request with required documentation,
+recommend reasonable accommodations, and prepare an Accommodation Letter for
+faculty dated in the current quarter in which the request is made. Students
+should contact the OAE as soon as possible since timely notice is needed to
+coordinate accommodations. The OAE is located at 563 Salvatierra Walk (Phone:
+723-1066, URL: <http://studentaffairs.stanford.edu/oae>).
