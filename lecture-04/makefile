@@ -1,13 +1,10 @@
 LECDIR := $(abspath $(PWD))
 LECHOME := $(abspath $(LECDIR)/..)
 
-NOTEBOOKS := \
-  0-python-containers.ipynb \
-  1-dictionaries.ipynb \
-  2-tuples.ipynb \
-  3-sets.ipynb \
-  4-example.ipynb
+LECFILES := $(wildcard *.md)
+NOTEBOOKS := $(LECFILES:.md=.ipynb)
+PDFS := $(LECFILES:.md=.pdf)
 
-all: ${NOTEBOOKS}
+all: $(NOTEBOOKS) $(PDFS)
 
 include $(LECHOME)/defaults.mk

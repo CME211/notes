@@ -5,6 +5,6 @@ LECFILES := $(wildcard *.md)
 NOTEBOOKS := $(LECFILES:.md=.ipynb)
 PDFS := $(LECFILES:.md=.pdf)
 
-all: $(NOTEBOOKS) $(PDFS)
+all: $(PDFS)
 
 include $(LECHOME)/defaults.mk

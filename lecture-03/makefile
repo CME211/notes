@@ -1,14 +1,10 @@
 LECDIR := $(abspath $(PWD))
 LECHOME := $(abspath $(LECDIR)/..)
 
-NOTEBOOKS := \
-  0-outline.ipynb \
-  1-logical-operations.ipynb \
-  2-if-statements.ipynb \
-  3-lists.ipynb \
-  4-looping.ipynb \
-  5-file-io.ipynb
+LECFILES := $(wildcard *.md)
+NOTEBOOKS := $(LECFILES:.md=.ipynb)
+PDFS := $(LECFILES:.md=.pdf)
 
-all: ${NOTEBOOKS}
+all: $(NOTEBOOKS) $(PDFS)
 
 include $(LECHOME)/defaults.mk

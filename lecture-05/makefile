@@ -1,10 +1,10 @@
 LECDIR := $(abspath $(PWD))
 LECHOME := $(abspath $(LECDIR)/..)
 
-NOTEBOOKS := \
-  0-functions.ipynb \
-  1-list-comprehensions.ipynb
+LECFILES := $(wildcard *.md)
+NOTEBOOKS := $(LECFILES:.md=.ipynb)
+PDFS := $(LECFILES:.md=.pdf)
 
-all: ${NOTEBOOKS}
+all: $(NOTEBOOKS) $(PDFS)
 
 include $(LECHOME)/defaults.mk
