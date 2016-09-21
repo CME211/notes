@@ -2,14 +2,14 @@
 
 The following operations are defined for numeric types (i.e. `int` and `float`):
 
-* `x + y`:	sum of `x` and `y`	 	 
-* `x - y`:	difference of `x` and `y`	 	 
-* `x * y`:	product of `x` and `y`	 	 
-* `x / y`:	quotient of `x` and `y`	 	 
+* `x + y`:	sum of `x` and `y`
+* `x - y`:	difference of `x` and `y`
+* `x * y`:	product of `x` and `y`
+* `x / y`:	quotient of `x` and `y`
 * `x // y`:	floored quotient of `x` and `y`
 * `x % y`:	remainder of `x` / `y`
-* `-x`:	`x` negated	 	 
-* `+x`:	`x` unchanged	 	 
+* `-x`:	`x` negated
+* `+x`:	`x` unchanged
 * `abs(x)`:	absolute value or magnitude of `x`
 * `int(x)`:	`x` converted to integer
 * `float(x)`:	`x` converted to floating point

@@ -1,12 +1,15 @@
 LECDIR := $(abspath $(PWD))
 LECHOME := $(abspath $(LECDIR)/..)
 
-NOTEBOOKS := \
-  0-interacting-with-python.ipynb \
-  1-values-variables-types.ipynb \
-  2-strings.ipynb \
-  3-numbers.ipynb \
+LECFILES := \
+  0-interacting-with-python \
+  1-values-variables-types \
+  2-strings \
+  3-numbers
 
-all: ${NOTEBOOKS}
+NOTEBOOKS := $(LECFILES:=.ipynb)
+PDFS := $(LECFILES:=.pdf)
+
+all: $(NOTEBOOKS) $(PDFS)
 
 include $(LECHOME)/defaults.mk

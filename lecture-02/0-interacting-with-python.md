@@ -142,6 +142,7 @@ Python][anaconda].  Make sure to install the Python 3.5 version.
 [anaconda]: https://www.continuum.io/downloads
 
 CME211 Notes:
+
 * We do not formally support Jupyter Notebook.  I show it to the class, because
   it is a very useful tool.  You are responsible for figuring out how to install
   and run Jupyter Notebook.  There are plenty of good tutorials online.
@@ -211,6 +212,7 @@ based on the import statements above.
 [numpy-matlab]: http://mathesaurus.sourceforge.net/matlab-numpy.html
 
 It may also be a good idea to skim the following to see what you can do:
+
 * [NumPy reference](http://docs.scipy.org/doc/numpy/reference/)
 * [SciPy reference](http://docs.scipy.org/doc/scipy/reference/)
 
