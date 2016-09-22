@@ -33,7 +33,7 @@ if a class time conflict).*
 ### Course capacity
 
 CME 211 is currently capped at 69 spots. We have a number students on an
-internal waitlist because of a registrar error. There are 2 students on
+internal list because of a registrar error. There are 2 students on
 the waitlist count shown on the [*Stanford
 Bulletin*](http://explorecourses.stanford.edu/search?view=catalog&filter-coursestatus-Active=on&page=0&catalog=&academicYear=&q=cme211&collapse=).
 The waitlist is currently closed. We expect final capacity to be
