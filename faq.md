@@ -1,6 +1,6 @@
 # CME 211 Frequently Asked Questions
 
-Update: 2016-09-22
+Last update: 2016-09-22
 
 ## Resources
 
