@@ -17,24 +17,18 @@ equivalent to [CS 106A][cs106a] or instructor consent.
 
 [cs106a]: https://explorecourses.stanford.edu/search?view=catalog&filter-coursestatus-Active=on&page=0&catalog=&academicYear=&q=cs106&collapse=
 
-## Time and location
-
-- Days: Mon, Wed, Fri
-- Time: 3:00 PM - 4:20 PM
-- Location: 320-105 (Geology Corner)
-
 ## Goals
 
 - To become a productive user of unix-like and remote computing systems.
 - To become an effective user of tools for software development such as version
-  control (`git`) and text editors.
+  control (`git`), text editors, and build systems (`make`).
 - To be able to write Python programs of intermediate complexity for science
   and engineering applications.
 - To be able to write C++ programs of intermediate complexity for science
   and engineering applications.
 - Develop skill in [*computational thinking*][comp-think], that "is the thought
   processes involved in formulating a problem and expressing its solution(s) in
-  such a way that a computer—human or machine—can effectively carry out."
+  such a way that a computer, human or machine, can effectively carry out."
 
 [comp-think]: http://socialissues.cs.toronto.edu/index.html%3Fp=279.html
 
@@ -78,15 +72,24 @@ equivalent to [CS 106A][cs106a] or instructor consent.
 - Managing a bibliography
 - Creating a ready to publish file in Adobe Acrobat (PDF) format
 
+## Time and location
+
+- Days: Mon, Wed, Fri
+- Time: 3:00 PM - 4:20 PM
+- Location: 320-105 (Geology Corner)
+
 ## Communication
 
-We will be using Piazza to send announcements and as a discussion board for the
+We will be using Canvas to send announcements and as a discussion board for the
 homework projects. Please use this if you have questions regarding course
 material.
 
-* <http://www.piazza.com/stanford/fall2016/cme211>
-
 All other correspondence should be sent to <cme211-staff@lists.stanford.edu>.
+
+*Do not send questions related to course material to the staff mailing list or to
+individual staff emails (including the instructor).  We will not answer these.
+Questions may be posted to the Canvas discussion board or asked in-person during
+office hours.*
 
 ## Teaching staff
 
@@ -102,7 +105,7 @@ Teaching assistants:
 
 ## Office hours
 
-To be announced in the first week of classes and posted on Piazza.
+To be announced in the first week of classes and posted on Canvas.
 
 ## Resources
 
@@ -143,14 +146,16 @@ in lieu of a late policy or providing extensions so please don’t ask for them.
 
 ## Final Project
 
-In place of a final exam there will be a final project due on the scheduled day
-of the final exam. More details will be provided later in the quarter.
+In place of an exam during finals week there will be a final project due on the
+scheduled day of the final exam. More details will be provided later in the
+quarter.
 
 ## Honor Code
 
 All students are expected to abide by the [Stanford Honor Code][honor-code]. The
-[computer science website][cs-code] has a good explanation of the honor code as
-it relates to courses involving significant amounts of computer programming.
+work you submit to us for grading must be your own.  The [computer science
+website][cs-code] has a good explanation of the honor code as it relates to
+courses involving significant amounts of computer programming.
 
 Note that at various times we may use special computer software called
 [MOSS][moss] to assist us in detecting plagiarism.  If you are having difficulty
@@ -161,6 +166,22 @@ code violations.
 [honor-code]: http://studentaffairs.stanford.edu/judicialaffairs/policy/honor-code
 [cs-code]: http://csmajor.stanford.edu/HonorCode.shtml
 [moss]: http://theory.stanford.edu/\~aiken/moss/
+
+### Guidelines
+
+- Do not copy code from another student (current or previous).
+- Do not give your code to another student (current or future).
+- It is acceptable to copy small blocks (a few lines) of code from public sources,
+  such as [stackoverflow.com](http://stackoverflow.com/).  You must cite your
+  source and abide by any copyright and licensing restrictions.  You do not need
+  to cite course notes, example programs provided by CME211, reference information
+  from [`python.org` docs](https://docs.python.org/3/), or reference information
+  from [`cppreference.com`](http://en.cppreference.com/w/).
+- Do not use or reference work from previous students of CME211 or any solution
+  files that may be out there.
+- Do not post homework PDFs or your solutions in a publicly available location.
+- Please let us know if you come across available solutions.  We will kindly ask
+  the provider to remove the resource.
 
 ## Students with Documented Disabilities
 

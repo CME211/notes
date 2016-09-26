@@ -1,5 +1,13 @@
 # CME 211 Notes
 
+In each folder:
+
+* `.md` files contain the notes with input code
+* `.ipynb` files are [Jupyter notebooks][jupyter] with output from code
+* `.pdf` files are generated from `.md` files and don't have output from code
+
+[jupyter]: http://jupyter.org/
+
 ## Contents
 
 * [Lecture 00](lecture-00/): Getting started
