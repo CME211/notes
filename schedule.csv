@@ -1,6 +1,6 @@
 week #,lecture #,date,day,section,topic,assignments,reading
-1,1,26-Sep,M,course,intro,"hw0 out, hw1 out",
-,2,28-Sep,W,py,intro,,
+1,1,26-Sep,M,course,"course overview","hw0 out, hw1 out",
+,2,28-Sep,W,py,"python intro",,
 ,3,30-Sep,F,py,"file io, lists",hw0 due,
 2,4,3-Oct,M,py,containers,,
 ,5,5-Oct,W,py,complexity,,
