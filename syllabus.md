@@ -169,6 +169,11 @@ code violations.
 
 ### Guidelines
 
+- It’s great (and encouraged) to work with other people on high level ideas,
+  concepts, and methods.  But, you must write your code on your own. Please seek
+  help early if and when you encounter problems.
+- Keep your code closed and separate if you are helping another student with a
+  debugging or technical issue in code.
 - Do not copy code from another student (current or previous).
 - Do not give your code to another student (current or future).
 - It is acceptable to copy small blocks (a few lines) of code from public sources,
