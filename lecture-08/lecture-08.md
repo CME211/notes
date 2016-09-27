@@ -469,6 +469,36 @@ s._Student__id
 The "private" attribute is still accessible by prefixing it with
 `_<classname>__`.
 
+### Better to return a copy over a reference
+
+```python
+import copy
+
+class Student:
+    def __init__(self, id):
+        self._id = id
+        self._gpa = 0.0
+        self._courses = {}
+    def get_id(self):
+        return self._id
+    def add_class(self, name, gradepoint):
+        self._courses[name] = gradepoint
+        sumgradepoints = float(sum(self._courses.values()))
+        self._gpa = sumgradepoints/len(self._courses)
+    def get_gpa(self):
+        return self._gpa
+    def get_courses(self):
+        return copy.deepcopy(self._courses)
+
+s = Student(7)
+s.add_class("gym", 4)
+s.add_class("math", 3)
+courses = s.get_courses()
+courses["english"] = 4
+print("GPA = {}".format(s.get_gpa()))
+print("courses = {}".format(s.get_courses()))
+```
+
 ### What not to do
 
 Python is dynamic, which is great.  But you should not do this:

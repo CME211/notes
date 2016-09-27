@@ -1,41 +1,35 @@
 # CME 211: Lecture 9
 
-Wednesday, October 9, 2015
-
-Topic: More Object Oriented Programming (OOP) in Python
-
-## Announcements
+More Object Oriented Programming (OOP) in Python
 
 ## Python OOP topics & examples
 
 ### Name example
 
-* `code/names.py`:
-
-```py
+```python
 class NameClassifier:
     def __init__(self, femalefile, malefile):
-        self.LoadNameData(femalefile, malefile)
+        self.load_name_data(femalefile, malefile)
 
-    def LoadNameData(self, femalefile, malefile):
+    def load_name_data(self, femalefile, malefile):
         # Creates a dictionary with the name data from the two input files
         self.namedata = {}
         f = open(femalefile,'r')
         for line in f:
             self.namedata[line.split()[0]] = 1.0
         f.close()
-            
+
         f = open(malefile,'r')
         for line in f:
             name = line.split()[0]
         if name in self.namedata:
             # Just assume a 50/50 distribution for names on both lists
-            self.namedata[name] = 0.5 
+            self.namedata[name] = 0.5
         else:
             self.namedata[name] = 0.0
         f.close()
 
-    def ClassifyName(self, name):
+    def classify_name(self, name):
         if name in self.namedata:
             return self.namedata[name]
         else:
@@ -43,129 +37,92 @@ class NameClassifier:
             return 0.5
 ```
 
-* `code/main.py`:
-
-```py
-import names
-
+```python
 # Create an instance of the name classifier
-classifier = names.NameClassifier('dist.female.first', 'dist.male.first')
+classifier = NameClassifier('dist.female.first', 'dist.male.first')
 
 # Setup test data
 testdata = ['PETER', 'LOIS', 'STEWIE', 'BRIAN', 'MEG', 'CHRIS']
 
-# Invoke the ClassifyName() method
+# Invoke the classify_name() method
 for name in testdata:
-    print('{}: {}'.format(name, classifier.ClassifyName(name)))
-```
-
-* Output:
-
-```
-$ python3 main.py 
-PETER: 1.0
-LOIS: 1.0
-STEWIE: 0.5
-BRIAN: 1.0
-MEG: 1.0
-CHRIS: 1.0
+    print('{}: {}'.format(name, classifier.classify_name(name)))
 ```
 
 ### Student example
 
-Let's inspect a `Student` object:
+Let's inspect review the `Student` object example from lecture 8:
 
-* `code/student1.py`:
-
-```py
+```python
 import copy
 
 class Student:
     def __init__(self, id):
-        self.id = id
-        self.classes = {}
-    def getId(self):
-        return self.id
-    def addClass(self, name, gradepoint):
-        self.classes[name] = gradepoint
-        sumgradepoints = float(sum(self.classes.values()))
-        self.gpa = sumgradepoints/len(self.classes)
-    def getGPA(self):
-        return self.gpa
-    def getClasses(self):
-        return copy.deepcopy(self.classes)
+        self._id = id
+        self._gpa = 0.0
+        self._courses = {}
+    def get_id(self):
+        return self._id
+    def add_class(self, name, gradepoint):
+        self._courses[name] = gradepoint
+        sumgradepoints = float(sum(self._courses.values()))
+        self._gpa = sumgradepoints/len(self._courses)
+    def get_gpa(self):
+        return self._gpa
+    def get_courses(self):
+        return copy.deepcopy(self._courses)
 
 s = Student(7)
-s.addClass("gym", 4)
-s.addClass("math", 3)
+s.add_class("gym", 4)
+s.add_class("math", 3)
 
 print("s = {}".format(s))
 
 # lots of print statements to get information
-print(s.getId())
-print(s.getClasses())
-print(s.getGPA())
-```
-
-Output:
-
-```
-$ python3 student1.py
-s = <__main__.Student instance at 0x7f27f94acdd0>
-7
-{'gym': 4, 'math': 3}
-3.5
-$
+print(s.get_id())
+print(s.get_classes())
+print(s.get_gpa())
 ```
 
 ### Operator overloading
 
 * Your user defined objects can be made to work with the Python built-in
-operators
+  operators
 
 * Why would you want to do that?
 
 ### String representation method
 
-* `code/student2.py`:
+We add a `__repr__()` method:
 
-```py
-import copy
-
+```python
 class Student:
     def __init__(self, id):
-        self.id = id
-        self.classes = {}
-    def getId(self):
-        return self.id
-    def addClass(self, name, gradepoint):
-        self.classes[name] = gradepoint
-        sumgradepoints = float(sum(self.classes.values()))
-        self.gpa = sumgradepoints/len(self.classes)
-    def getGPA(self):
-        return self.gpa
-    def getClasses(self):
-        return copy.deepcopy(self.classes)
+        self._id = id
+        self._gpa = 0.0
+        self._courses = {}
+    def get_id(self):
+        return self._id
+    def add_class(self, name, gradepoint):
+        self._courses[name] = gradepoint
+        sumgradepoints = float(sum(self._courses.values()))
+        self._gpa = sumgradepoints/len(self._courses)
+    def get_gpa(self):
+        return self._gpa
+    def get_courses(self):
+        return copy.deepcopy(self._courses)
     def __repr__(self):
-        string = "Student %d: " % self.getId()
-        string += " %s, " % self.getClasses()
-        string += "GPA = %4.2f" % self.getGPA()
+        string = "Student %d: " % self.get_id()
+        string += " %s, " % self.get_classes()
+        string += "GPA = %4.2f" % self.get_gpa()
         return string
 
 s = Student(7)
-s.addClass("gym", 4)
-s.addClass("math", 3)
+s.add_class("gym", 4)
+s.add_class("math", 3)
 
 # now easy to print a student
 print(s)
-```
-
-Output:
-
-```
-$ python3 student2.py
-Student 7: {'gym': 4, 'math': 3}, GPA = 3.50
-$
 ```
 
 ### Methods you can override
@@ -179,6 +136,7 @@ $
 | __neg__(self)        | Returns -sefl              |
 | __abs__(self)        | Returns abs(self)          |
 | __float__(self)      | Returns float(self)        |
+... many more ...
 ```
 
 Over 50+ methods in total
@@ -188,10 +146,8 @@ Over 50+ methods in total
 * Some will argue that putting your data in an object, and adding a bunch of put
 / get methods to interface with it, is just a glorified container and interface
 
-
 * Real power of OOP might be in allowing objects to interact with each other by
 overriding appropriate methods
-
 
 ### Particle collision
 
@@ -210,9 +166,7 @@ p_purple = p_blue + p_red
 
 ### Particle class
 
-`code/particle.py`:
-
-```py
+```python
 class Particle:
     def __init__(self, mass, velx):
         self.mass = mass
@@ -226,45 +180,42 @@ class Particle:
         return "Mass: %s, Velocity: %s" % (self.mass, self.velx)
 ```
 
-### OOP particle collision
+OOP particle collision:
 
-```
-$ python3 -i particle.py
->>> p_blue = Particle(4.3, 2.5)
->>> p_red = Particle(1.4, -0.8)
->>> p_purple = p_blue + p_red
->>> p_purple
-Mass: 5.7, Velocity: 1.68947368421
->>>
+```python
+p_blue = Particle(4.3, 2.5)
+p_red = Particle(1.4, -0.8)
+p_purple = p_blue + p_red
+p_purple
 ```
 
 ### Overloading should be intuitive
 
-`code/badoverloading.py`:
+This is not a good idea:
 
-```py
+```python
 class User:
     def __init__(self, id):
         self.id = id
     def __len__(self):
-        return self.getId()
-    def getId(self):
+        return self.get_id()
+    def get_id(self):
         return self.id
 ```
 
-Output:
+Now:
 
-```
-$ python3 -i badoverloading.py
->>> user = User(7)
->>> len(user)
-7
->>>
+```python
+user = User(7)
+len(user)
 ```
 
-Is this intuitive?
+Is this intuitive?  Does this behave in a way a reasonable Python programmer
+would expect?
 
 ### Inheritance
+
+TODO: continue here
 
 * Inheritance is a way for a class to inherit attributes from another class
 
@@ -280,12 +231,12 @@ Is this intuitive?
 
 `code/inheritance1.py`:
 
-```py
+```python
 # parent class
 class User:
     def __init__(self, id):
         self.id = id
-    def getId(self):
+    def get_id(self):
         return self.id
 
 # child class
@@ -298,7 +249,7 @@ Output:
 ```
 $ python3 -i inheritance1.py
 >>> user = MovieWatcher(3)
->>> user.getId()
+>>> user.get_id()
 3
 >>>
 ```
@@ -307,11 +258,11 @@ $ python3 -i inheritance1.py
 
 `code/inheritance2.py`:
 
-```py
+```python
 class User:
     def __init__(self, id):
         self.id = id
-    def getId(self):
+    def get_id(self):
         return self.id
 
 class MovieWatcher(User):
@@ -329,11 +280,11 @@ class MovieWatcher(User):
 
 `code/inheritance3.py`:
 
-```py
+```python
 class User:
     def __init__(self, id):
         self.id = id
-    def getId(self):
+    def get_id(self):
         return self.id
 
 class MovieWatcher(User):
@@ -369,7 +320,7 @@ operations
 
 `code/shapes.py`:
 
-```py
+```python
 import math
 
 class Shape:
@@ -434,4 +385,3 @@ $
 * Polymorphism
 
 * Share method names and arguments across (sibling) classes
-
