@@ -1,5 +1,7 @@
 # CME 211 Notes
 
+2016 CME 211 Canvas page: <https://canvas.stanford.edu/courses/47947>
+
 In each folder:
 
 * `.md` files contain the notes with input code

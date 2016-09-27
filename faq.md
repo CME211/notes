@@ -6,6 +6,7 @@ Last update: 2016-09-26
 
 - Course web page: <http://web.stanford.edu/class/cme211/>
 - Staff mailing list: <cme211-staff@lists.stanford.edu>
+- 2016 Canvas page: <https://canvas.stanford.edu/courses/47947>
 - Fall 2015 notes: <https://github.com/CME211/notes/tree/2015-fall>
 
 ## Questions
