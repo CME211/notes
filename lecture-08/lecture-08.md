@@ -1,123 +1,28 @@
 # CME 211: Lecture 8
 
-Wednesday, October 7, 2015
-
-Topic: Introduction to Object Oriented Programming (OOP) in Python
-
-## Announcements
-
-* Deadline: by 5pm today you must have a GitHub account.  If you have not
-  created a GitHub account and sent us your account information, your homework 2
-  **will not** be graded.  You can do this today and email the following to
-  <cme211-staff@lists.stanford.edu>:
-
-  * GitHub user name
-
-  * Stanford email address
-
-  * Email address you used to register on GitHub
-
-* Example to show good formatting of a Python program:
-  <https://github.com/nwh/cme211-notes/blob/master/examples/ngrams/ngrams.py>
-
-## Command line arguments
-
-In Python it is easy to pass command line arguments into a program.  For
-review, a shell command looks like this:
-
-```
-$ command arg1 arg2 arg3
-```
-
-For example:
-
-```
-$ ls -l code/
-total 48
--rw-rw-r--. 1 nwh nwh  65 Oct  7 13:23 filewrite.py
--rw-rw-r--. 1 nwh nwh  14 Oct  7 13:23 hello.txt
--rw-rw-r--. 1 nwh nwh 184 Oct  7 13:23 self.py
--rw-rw-r--. 1 nwh nwh 230 Oct  7 13:23 student10.py
--rw-rw-r--. 1 nwh nwh   0 Oct  7 13:23 student11.py
--rw-rw-r--. 1 nwh nwh  89 Oct  7 13:23 student1.py
--rw-rw-r--. 1 nwh nwh   0 Oct  7 13:23 student2.py
--rw-rw-r--. 1 nwh nwh 176 Oct  7 13:23 student3.py
--rw-rw-r--. 1 nwh nwh 279 Oct  7 13:23 student4.py
--rw-rw-r--. 1 nwh nwh 469 Oct  7 13:23 student5.py
--rw-rw-r--. 1 nwh nwh 568 Oct  7 13:23 student6.py
--rw-rw-r--. 1 nwh nwh 618 Oct  7 13:23 student7.py
--rw-rw-r--. 1 nwh nwh 182 Oct  7 13:23 student8.py
--rw-rw-r--. 1 nwh nwh 243 Oct  7 13:23 student9.py
-```
-
-* The command is: `ls`
-* The first argument is `-l` which tells `ls` to output detailed information for
-  each file
-* The second argument is the directory I want to list
-
-In a python scripts we can get access to the command line arguments with the
-`sys.argv` variable.  `sys.argv` is a list containing the command line arguments
-as items.  Command line arguments are separated by spaces.  See the example in
-`code/command.py`:
-
-```py
-import sys
-
-print("There are {} command line argument(s).".format(len(sys.argv)))
-
-for i, arg in enumerate(sys.argv):
-    print("arg {}: {}".format(i,arg))
-```
-
-Output:
-
-```
-$ python3 command.py a b c
-There are 4 command line argument(s).
-arg 0: command.py
-arg 1: a
-arg 2: b
-arg 3: c
-$ python3 command.py a b c "quote things with spaces"
-There are 5 command line argument(s).
-arg 0: command.py
-arg 1: a
-arg 2: b
-arg 3: c
-arg 4: quote things with spaces
-$
-```
-
-Notes:
-
-* `sys.argv[0]` is the name of the python script
-* arguments are separated by spaces
-* need to quote a string containing spaces
-* in python, the data type is `str`, need to convert to an `int` or `float` if
-  you want a number
-
 ## Introduction to OOP
+
+OOP stands for *Object Oriented Programming*.
 
 ### Procedural programming
 
-* In procedural programming you implement your computation in terms of variables
+In procedural programming you implement your computation in terms of variables
 (integers, doubles, etc.), data structures (arrays, lists, dictionaries, etc.),
-and procedures (functions, subroutines, etc.)
+and procedures (functions, subroutines, etc.).
 
-
-* Python, C++, Fortran, Java, MATLAB, and many other languages have procedural
-aspects to them but also support Object Oriented Programming (OOP)
+Python, C++, Fortran, Java, MATLAB, and many other languages have procedural
+aspects to them but also support Object Oriented Programming (OOP).
 
 ### Why OOP?
 
 * Concept of OOP has been around since 1960s
 
 * Gained popularity in the 1980s and 1990s with the development and
-standardization of C++, and faster computers that mitigated the overhead of the
-abstractions
+  standardization of C++, and faster computers that mitigated the overhead of the
+  abstractions
 
 * Abstraction, modularity, and reusability are some of the most commonly cited
-reasons for using OOP
+  reasons for using OOP
 
 * Almost all new software development uses some degree of OOP
 
@@ -125,18 +30,18 @@ reasons for using OOP
 
 * Represent data and computations in a familiar form
 
-    * Car object, with an engine object, and tire objects
+  * Car object, with an engine object, and tire objects
 
 * Make programmers more productive
 
-    * Salaries are expensive compared to computers
+  * Salaries are expensive compared to computers
 
 * Too much abstraction can be a bad thing if it has a significant impact on
-performance
+  performance
 
-    * Desktop computers really are cheap
+  * Desktop computers really are cheap
 
-    * Supercomputers are not cheap
+  * Supercomputers are not cheap
 
 ### Objects
 
@@ -151,17 +56,17 @@ performance
 
 ### Class / object example 1: list
 
-```py
->>> a = list()
->>> a.append(5)
->>> a.append(19)
->>> a.append(3)
->>> a
-[5, 19, 3]
->>> a.sort()
->>> a
-[3, 5, 19]
->>>
+```python
+a = list()
+a.append(5)
+a.append(19)
+a.append(3)
+a
+```
+
+```python
+a.sort()
+a
 ```
 
 * `list()` returns an object which is an instance of the *list* class
@@ -170,9 +75,9 @@ performance
 
 ### Class / object examples 2: file objects
 
-See the file `code/filewrite.py`:
+Here is some code to write to a file:
 
-```py
+```python
 f = open("hello.txt", "w")
 f.write("hello cme211!\n")
 f.close()
@@ -183,75 +88,44 @@ f.close()
 
 * `write()` and `close()` are methods of the *file class*
 
-If we run the code in *interactive* mode, we can inspect these things in
-Python's online help:
+Let's look at the documentation for `open()` via `help(open)`:
 
 ```
-$ python3 -i filewrite.py
->>> help(open)
+Help on built-in function open in module io:
+
+open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, closefd=True, opener=None)
+    Open file and return a stream.  Raise IOError upon failure.
+
+[text omitted]
+
+open() returns a file object whose type depends on the mode, and
+through which the standard file operations such as reading and writing
+are performed. When open() is used to open a file in a text mode ('w',
+'r', 'wt', 'rt', etc.), it returns a TextIOWrapper. When used to open
+a file in a binary mode, the returned class varies: in read binary
+mode, it returns a BufferedReader; in write binary and append binary
+modes, it returns a BufferedWriter, and in read/write mode, it returns
+a BufferedRandom.
+
+[text omitted]
 ```
 
-Output:
+Now let's look at the file object with `help(f)`:
 
-```
-Help on built-in function open in module __builtin__:
-
-open(...)
-    open(name[, mode[, buffering]]) -> file object
-
-    Open a file using the file() type, returns a file object.  This is the
-    preferred way to open a file.  See file.__doc__ for further information.
-```
-
-Now let's look at the file object with `>>> help(f)`:
-
-```
-Help on file object:
-
-class file(object)
- |  file(name[, mode[, buffering]]) -> file object
- |  
- |  Open a file.  The mode can be 'r', 'w' or 'a' for reading (default),
- |  writing or appending.  The file will be created if it doesn't exist
- |  when opened for writing or appending; it will be truncated when
- |  opened for writing.  Add a 'b' to the mode for binary files.
- |  Add a '+' to the mode to allow simultaneous reading and writing.
- |  If the buffering argument is given, 0 means unbuffered, 1 means line
- |  buffered, and larger numbers specify the buffer size.  The preferred way
- |  to open a file is with the builtin open() function.
- |  Add a 'U' to mode to open the file for input with universal newline
- |  support.  Any line ending in the input file will be seen as a '\n'
- |  in Python.  Also, a file so opened gains the attribute 'newlines';
- |  the value for this attribute is one of None (no newline read yet),
- |  '\r', '\n', '\r\n' or a tuple containing all the newline types seen.
- |  
- |  'U' cannot be combined with 'w' or '+' mode.
- |  
- |  Methods defined here:
- |  
- |  __delattr__(...)
- |      x.__delattr__('name') <==> del x.name
- |  
- |  __enter__(...)
- |      __enter__() -> self.
- |  
-```
-
-The help documentation continues.  The public interface methods are at the
-bottom.  I wish they would swap the order.
+The structure of file input-output objects has changed quite a bit between
+Python 2 and Python 3.  For basic uses, the behavior is the same and simple file
+IO code should be the same.  
 
 ### Modularity and reusability
 
-* High level languages like Python, Java, C++, etc.  include classes for working
-with files, holding data (lists and dictionaries), etc.
-
+* High level languages like Python, Java, C++, etc. include classes for working
+  with files, holding data (lists and dictionaries), etc.
 
 * So you do not have to design and create your own classes if someone else has
-already done the work for you
-
+  already done the work for you
 
 * But you might want to create classes that are specialized to the needs of your
-applications, so they can be used (and reused) by yourself and others
+  applications, so they can be used (and reused) by yourself and others
 
 ### OOP in Python
 
@@ -262,11 +136,11 @@ the class
 
 * Classes have *attributes*
 
-    * Variables (data) are called class *variables*
+  * Variables (data) are called class *variables*
 
-    * Functions for interacting with the class are called *methods*
+  * Functions for interacting with the class are called *methods*
 
-    * Attributes are accessed using *dot notation*
+  * Attributes are accessed using *dot notation*
 
 ### Creating instances
 
@@ -277,7 +151,7 @@ the class
 
 ### Python class definition
 
-```py
+```python
 class Student:
     def __init__(self, id):
         self.id = id
@@ -296,36 +170,48 @@ class Student:
 
 * `__init__` is the special name for the initialization method
 * `self` is a reference to the specific instance (object) that is calling this
-  method
+  method.  In the case of the `__init__` method, `self` refers to the object
+  being created.  `self` is simply a Python variable and can be renamed
 * `id` is the input argument from the call to create a new instance
 * `self.id = id` stores the input `id` in the object
 
 ### Class definition in action
 
-See the file `code/student1.py`
+Let's work with a class called `Student` to create objects that represent and
+maintain information about students.
 
-```py
+Define the class:
+
+```python
 class Student:
     def __init__(self, id):
         self.id = id
+```
 
+Remember, everything in Python is an object.  This includes classes:
+
+```python
+Student
+```
+
+We can think of a Python `class` as object that can produce objects of the class
+type.  Let's create a student object:
+
+```python
 s = Student(7)
-print(s)
+s
 ```
 
-Output:
+That output is not terribly useful at this point.  Let's access the `id`
+attribute:
 
-```
-$ python3 student1.py
-<__main__.Student instance at 0x1069f6c20>
-$
+```python
+print(s.id)
 ```
 
 ### Let's talk about `self`
 
-See `code/self.py`:
-
-```py
+```python
 class Student:
     def __init__(self, id):
         print("inside __init__()")
@@ -336,33 +222,25 @@ s = Student(7)
 print("s    = {}".format(s))
 ```
 
-Output:
-
-```
-$ python3 self.py
-inside __init__()
-self = <__main__.Student instance at 0x10967cc20>
-s    = <__main__.Student instance at 0x10967cc20>
-$
-```
+Here we see that `self` inside of `__init__` is the same object that is returned
+by the call `Student(7)`.
 
 ### Object setup
 
 * The optional initialization method is typically used to do setup of class
-variables that will be used throughout the life of the instance
+  variables that will be used throughout the life of the instance
 
 * What kind of class variables might we want to setup for a student class?
 
 ### Class variable setup
 
-See `code/student2.py`.  Let's add an empty dictionary for the classes that
-the student is enrolled in:
+Let's add an empty dictionary for the classes that the student is enrolled in:
 
-```py
+```python
 class Student:
     def __init__(self, id):
         self.id = id
-        self.classes = {}
+        self.courses = {}
 
 s = Student(7)
 ```
@@ -374,7 +252,7 @@ s = Student(7)
 * But how do we do anything with it?
 
 * We need to create additional methods for interacting or *interfacing* with the
-object
+  object
 
 ### Encapsulation
 
@@ -390,19 +268,24 @@ object
 * Interfaces protect the user of the class from internal implementation details
 
 * Found a better way to implement the internal representation of the data? No
-problem
+  problem.  In the interface is the same, internal changes to data representation
+  won't affect anything that uses the object.
 
 * New algorithm for the internal processing of that data? No problem
 
 * Screwed up your interface and now need to make changes to the interface?
-Problem
+  Problem
 
 ### Defining a regular method
 
-Inside of the `Student` class, we put:
+Inside of the `Student` class, we put the `get_id` method:
 
-```py
-    def getId(self):
+```python
+class Student:
+    def __init__(self, id):
+        self.id = id
+        self.courses = {}
+    def get_id(self):
         return self.id
 ```
 
@@ -412,329 +295,208 @@ Inside of the `Student` class, we put:
 
 ### Access to id
 
-See `code/student3.py`:
-
-```py
-class Student:
-    def __init__(self, id):
-        self.id = id
-        self.classes = {}
-    def getId(self):
-        return self.id
-
+```python
 s = Student(7)
 print(s)
-print(s.getId())
-```
-
-Output:
-
-```
-$ python3 student3.py
-<__main__.Student instance at 0x1038becb0>
-7
-$
+print(s.get_id())
 ```
 
 ### Check up
 
-* How are we doing with interface design?
+How are we doing with interface design?
 
-* Is there a way somebody could accidentally change the id given the interface
+Is there a way somebody could accidentally change the id given the interface
 we've implemented?
 
-* Let's test it!  See `code/student4.py`:
+Let's test it:
 
-```py
-class Student:
-    def __init__(self, id):
-        self.id = id
-        self.classes = {}
-    def getId(self):
-        return self.id
-
+```python
 s = Student(7)
 print(s)
-id = s.getId()
+id = s.get_id()
 print("id = {}".format(id))
-id = 9
+id = 42
 print("id = {}".format(id))
-print("s.getId() = {}".format(s.getId()))
+print("s.get_id() = {}".format(s.get_id()))
 ```
 
-Output:
+The reference returned by `get_id()` cannot be used to change the assignment of
+the reference within the object.
 
-```
-$ python3 student4.py
-<__main__.Student instance at 0x10bef2cb0>
-id = 7
-id = 9
-s.getId() = 7
-$
+```python
+s.id = "I have changed the id to a string, probably not good"
+print("s.get_id() = {}".format(s.get_id()))
 ```
 
-* The reference returned by `getId()` cannot be used to change the assignment of
-  the reference within the object.
-
+The `id` attribute is accessible and can be assigned to just like any Python
+variable.  This may not be desirable behavior.
 
 ### Adding classes / grades
 
-See: `code/student5.py`:
-
-```py
+```python
 class Student:
     def __init__(self, id):
         self.id = id
-        self.classes = {}
-    def getId(self):
+        self.courses = {}
+    def get_id(self):
         return self.id
-    def addClass(self, name, gradepoint):
-        self.classes[name] = gradepoint
-        sumgradepoints = float(sum(self.classes.values()))
-        self.gpa = sumgradepoints/len(self.classes)
-    def getGPA(self):
+    def add_class(self, name, gradepoint):
+        self.courses[name] = gradepoint
+        sumgradepoints = float(sum(self.courses.values()))
+        self.gpa = sumgradepoints/len(self.courses)
+    def get_gpa(self):
         return self.gpa
 
 s = Student(7)
-s.addClass("gym", 4)
-s.addClass("math", 3)
-print("GPA = {}".format(s.getGPA()))
+s.add_class("gym", 4)
+s.add_class("math", 3)
+print("GPA = {}".format(s.get_gpa()))
 ```
 
-Output:
+### Getting courses
 
-```
-$ python3 student5.py
-GPA = 3.5
-$
-```
-
-### Getting classes
-
-See `code/student6.py`:
-
-```py
+```python
 class Student:
     def __init__(self, id):
         self.id = id
-        self.classes = {}
-    def getId(self):
+        self.courses = {}
+    def get_id(self):
         return self.id
-    def addClass(self, name, gradepoint):
-        self.classes[name] = gradepoint
-        sumgradepoints = float(sum(self.classes.values()))
-        self.gpa = sumgradepoints/len(self.classes)
-    def getGPA(self):
+    def add_class(self, name, gradepoint):
+        self.courses[name] = gradepoint
+        sumgradepoints = float(sum(self.courses.values()))
+        self.gpa = sumgradepoints/len(self.courses)
+    def get_gpa(self):
         return self.gpa
-    def getClasses(self):
-        return self.classes
+    def get_courses(self):
+        return self.courses
 
 s = Student(7)
-s.addClass("gym", 4)
-s.addClass("math", 3)
-print("GPA = {}".format(s.getGPA()))
-print("classes = {}".format(s.getClasses()))
+s.add_class("gym", 4)
+s.add_class("math", 3)
+print("GPA = {}".format(s.get_gpa()))
+print("courses = {}".format(s.get_courses()))
 ```
-
-Output:
-
-```
-$ python3 student6.py
-GPA = 3.5
-classes = {'gym': 4, 'math': 3}
-$
-```
-
-### Getting classes
 
 If a method returns a reference to a mutable object, then changing that object
-"outside" of the class will change the data "inside" of the class.  See `code/student7.py`
+"outside" of the class will change the data "inside" of the class.
 
-```py
+```python
 class Student:
     def __init__(self, id):
         self.id = id
-        self.classes = {}
-    def getId(self):
+        self.courses = {}
+    def get_id(self):
         return self.id
-    def addClass(self, name, gradepoint):
-        self.classes[name] = gradepoint
-        sumgradepoints = float(sum(self.classes.values()))
-        self.gpa = sumgradepoints/len(self.classes)
-    def getGPA(self):
+    def add_class(self, name, gradepoint):
+        self.courses[name] = gradepoint
+        sumgradepoints = float(sum(self.courses.values()))
+        self.gpa = sumgradepoints/len(self.courses)
+    def get_gpa(self):
         return self.gpa
-    def getClasses(self):
-        return self.classes
+    def get_courses(self):
+        return self.courses
 
 s = Student(7)
-s.addClass("gym", 4)
-s.addClass("math", 3)
+s.add_class("gym", 4)
+s.add_class("math", 3)
 
-classes = s.getClasses()
-classes["englist"] = 4
+courses = s.get_courses()
+courses["english"] = 4
 
-print("GPA = {}".format(s.getGPA()))
-print("classes = {}".format(s.getClasses()))
-```
-
-Output:
-
-```
-$ python3 student7.py
-GPA = 3.5
-classes = {'gym': 4, 'englist': 4, 'math': 3}
-$
+print("GPA = {}".format(s.get_gpa()))
+print("courses = {}".format(s.get_courses()))
 ```
 
 ### Interfaces and references
 
 * It is easy to accidentally let a method provide a reference to a mutable data
-structure within your object
+  structure within your object
 
 * Once you have handed out that reference someone can manipulate your internal
-data and perhaps get the object into an unexpected state
+  data and perhaps get the object into an unexpected state
 
 * You really need to think about what you pass out of your object if you want to
-have strong encapsulation
+  have strong encapsulation
 
 ### Public attributes
 
-* Default behavior is that all attributes are public, i.e. accessible using dot
+Default behavior is that all attributes are public, i.e. accessible using dot
 notation
 
-`code/student8.py`:
-
-```py
+```python
 class Student:
     def __init__(self, id):
         self.id = id
-        self.classes = {}
-    def getId(self):
+        self.courses = {}
+    def get_id(self):
         return self.id
 
 s = Student(7)
 print("s.id = {}".format(s.id))
-```
-
-
-Output:
-
-```
-$ python3 student8.py
-s.id = 7
-$
-```
-
-### Public attributes
-
-`code/student9.py`:
-
-```py
-class Student:
-    def __init__(self, id):
-        self.id = id
-        self.classes = {}
-    def getId(self):
-        return self.id
-
-s = Student(7)
-print("s.getId() = {}".format(s.getId()))
 s.id = 9
-print("s.getId() = {}".format(s.getId()))
-```
-
-Output:
-
-```
-$ python3 student9.py
-s.getId() = 7
-s.getId() = 9
-$
+print("s.get_id() = {}".format(s.get_id()))
 ```
 
 ### Private attributes
 
-* Attributes can be made private by using a double underscore prefix for the
-name
+Attributes can be made *private* by using a double underscore prefix for the
+name:
 
-* See `code/student10.py`:
-
-```py
+```python
 class Student:
     def __init__(self, id):
         self.__id = id
-        self.classes = {}
-    def getId(self):
+        self.courses = {}
+    def get_id(self):
         return self.__id
 
 s = Student(7)
-print("s.getId() = {}".format(s.getId()))
+print("s.get_id() = {}".format(s.get_id()))
 print("s.id = {}".format(s.__id))
-```
-
-* Output
-
-```
-$ python3 student10.py
-s.getId() = 7
-Traceback (most recent call last):
-  File "student10.py", line 10, in <module>
-    print("s.id = {}".format(s.__id))
-AttributeError: Student instance has no attribute '__id'
-$
 ```
 
 ### "Privacy" through obscurity
 
-Run `student10.py` in interactive mode:
+Python object attributes are never really private.  The `__` before the attribute
+tells Python to obscure tha name in some way.  This is called name or symbol
+mangling.
 
-```
-$ python3 -i student10.py
-s.getId() = 7
-Traceback (most recent call last):
-File "student10.py", line 10, in <module>
-print "s.id = %s" % s.__id
-AttributeError: Student instance has no attribute '__id'
->>> s._Student__id
-7
->>> s._Student__id = 9
->>> s.getId()
-9
->>>
+```python
+s._Student__id
 ```
 
-The "private" attribute is still accessible by prefixing it with `_<class name>`.
+The "private" attribute is still accessible by prefixing it with
+`_<classname>__`.
 
 ### What not to do
 
 Python is dynamic, which is great.  But you should not do this:
 
+```python
+class SimpleClass:
+    pass
+
+a = SimpleClass()
+a.new_attribute = "hi cme211"
 ```
-$ python
-Python 2.7.4 (default, Sep 26 2013, 03:20:26)
-[GCC 4.7.3] on linux2
-Type "help", "copyright", "credits" or "license" for more information.
->>> class MyClass:
-...
-pass
-...
->>> a = MyClass()
->>> a.nitems = 3
->>> a.todo = []
->>> a.todo.append("get groceries")
->>> a.todo
-['get groceries']
->>>
+
+This adds an attribute to the object referred to by `a`, but not other objects
+of the same class:
+
+```python
+b = SimpleClass()
+b.new_attribute
 ```
 
 ### OOP Summary
 
 * Object Oriented Programming is about implementing abstractions such that data,
-and the associated operations on it, are represented in a way that is more
-familiar to humans
+  and the associated operations on it, are represented in a way that is more
+  familiar to humans
 
 * Mechanics of OOP are about the same as procedural programming, but developing
-good abstractions can take a lot of thought
+  good abstractions can take a lot of thought
 
 ### Recommended Reading
 
