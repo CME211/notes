@@ -34,7 +34,7 @@ $ cat hello.py
 print("hello sweet world!")
 ```
 
-For run, try dumping a binary file to the terminal with `$ cat /bin/ls`.  What
+For fun, try dumping a binary file to the terminal with `$ cat /bin/ls`.  What
 happens?
 
 In Python it is very easy to open, read from, and write to a text file.  Let's
