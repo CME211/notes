@@ -63,7 +63,7 @@ class Student:
         self._courses = {}
     def get_id(self):
         return self._id
-    def add_class(self, name, gradepoint):
+    def add_course(self, name, gradepoint):
         self._courses[name] = gradepoint
         sumgradepoints = float(sum(self._courses.values()))
         self._gpa = sumgradepoints/len(self._courses)
@@ -73,14 +73,14 @@ class Student:
         return copy.deepcopy(self._courses)
 
 s = Student(7)
-s.add_class("gym", 4)
-s.add_class("math", 3)
+s.add_course("gym", 4)
+s.add_course("math", 3)
 
 print("s = {}".format(s))
 
 # lots of print statements to get information
 print(s.get_id())
-print(s.get_classes())
+print(s.get_courses())
 print(s.get_gpa())
 ```
 
@@ -103,7 +103,7 @@ class Student:
         self._courses = {}
     def get_id(self):
         return self._id
-    def add_class(self, name, gradepoint):
+    def add_course(self, name, gradepoint):
         self._courses[name] = gradepoint
         sumgradepoints = float(sum(self._courses.values()))
         self._gpa = sumgradepoints/len(self._courses)
@@ -113,13 +113,13 @@ class Student:
         return copy.deepcopy(self._courses)
     def __repr__(self):
         string = "Student %d: " % self.get_id()
-        string += " %s, " % self.get_classes()
+        string += " %s, " % self.get_courses()
         string += "GPA = %4.2f" % self.get_gpa()
         return string
 
 s = Student(7)
-s.add_class("gym", 4)
-s.add_class("math", 3)
+s.add_course("gym", 4)
+s.add_course("math", 3)
 
 # now easy to print a student
 print(s)
@@ -215,8 +215,6 @@ would expect?
 
 ### Inheritance
 
-TODO: continue here
-
 * Inheritance is a way for a class to inherit attributes from another class
 
 * This is a form of code reuse
@@ -228,8 +226,6 @@ TODO: continue here
 * The new class will typically redefine or add new attributes
 
 ### Inheritance example
-
-`code/inheritance1.py`:
 
 ```python
 # parent class
@@ -244,19 +240,17 @@ class MovieWatcher(User):
     pass
 ```
 
-Output:
+Let's use it:
 
-```
-$ python3 -i inheritance1.py
->>> user = MovieWatcher(3)
->>> user.get_id()
-3
->>>
+```python
+m = MovieWatcher(3)
+m.get_id()
 ```
 
 ### Overriding a method
 
-`code/inheritance2.py`:
+We can overrite the `__init__` method to provide special functionality when
+creating a `MovieWatcher` object.
 
 ```python
 class User:
@@ -278,7 +272,7 @@ class MovieWatcher(User):
 
 ### Sibling classes
 
-`code/inheritance3.py`:
+Multiple classes can inherit from a base class:
 
 ```python
 class User:
@@ -325,7 +319,7 @@ import math
 
 class Shape:
     def GetArea(self):
-        raise RuntimeError, "Not implemented yet"
+        raise RuntimeError("Not implemented yet")
 
 class Circle(Shape):
     def __init__ (self, x, y, radius):
@@ -348,22 +342,15 @@ class Rectangle(Shape):
         xDistance = self.x1 - self.x0
         yDistance = self.y1 - self.y0
         return abs(xDistance * yDistance)
+```
 
+```python
 shapes = []
 shapes.append(Circle(0., 0., 1.0))
 shapes.append(Rectangle(0., 0., 2., 4.))
 
 for shape in shapes:
     print("area = {}".format(shape.GetArea()))
-```
-
-Output:
-
-```
-$ python3 shapes.py
-area = 3.14159265359
-area = 8.0
-$
 ```
 
 ![fig](fig/uml-3.png)
