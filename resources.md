@@ -115,3 +115,8 @@ Please report broken links by creating a GitHub issue or pull request.
 [farmshare-wiki]: https://web.stanford.edu/group/farmshare/cgi-bin/wiki/index.php/Main_Page
 [shared-computing]: https://uit.stanford.edu/service/sharedcomputing
 [research-computing]: https://srcc.stanford.edu/
+
+## LaTeX
+
+* <http://latexdraw.sourceforge.net/>
+
