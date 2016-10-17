@@ -5,7 +5,7 @@
 * Computers represent and store everything in *binary*
 
 * Binary, a base 2 number system, consists only of 0s and 1s called binary
-digits (bits)
+  digits (bits)
 
 * There are 8 bits in a byte
 
@@ -16,11 +16,11 @@ digits (bits)
 ### Converting between bases
 
 * One can easily convert numbers between different bases such as binary (base 2)
-and decimal (base 10)
+  and decimal (base 10)
 
 ```
 | decimal | binary |
-|---------+--------|
+|---------|--------|
 |       0 |      0 |
 |       1 |      1 |
 |       2 |     10 |
