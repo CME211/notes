@@ -19,6 +19,7 @@ Please report broken links by creating a GitHub issue or pull request.
 * [Sublime Text][sublime]: very popular non-free editor
 * [TextWrangler][text-wrangler]: macOS only, free, closed source, can easily edit remote files
 * [Vim][vim]: free, open source, works in terminal
+  * [Vim for humans (ebook)][vim-for-humans]
 * [Visual Studio Code][vs-code]: free, open source, sponsored by Microsoft
 
 [atom]: https://atom.io/
@@ -28,6 +29,7 @@ Please report broken links by creating a GitHub issue or pull request.
 [sublime]: https://www.sublimetext.com/
 [text-wrangler]: http://www.barebones.com/products/textwrangler/
 [vim]: http://www.vim.org/
+[vim-for-humans]: https://vimebook.com/en
 [vs-code]: https://code.visualstudio.com/
 
 ## Linux, Unix, macOS
