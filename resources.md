@@ -119,4 +119,5 @@ Please report broken links by creating a GitHub issue or pull request.
 ## LaTeX
 
 * <http://latexdraw.sourceforge.net/>
+* <http://www.jonathanleroux.org/software/iguanatex/>
 
