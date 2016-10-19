@@ -7,6 +7,9 @@ PANDOC_FLAGS := -H $(CME211_PKG)
 	notedown --match python $< > $@
 	jupyter nbconvert --to notebook --execute --allow-errors --inplace $@
 
+%.tex : %.md $(CME211_PKG)
+	$(PANDOC) $(PANDOC_FLAGS) -o $@ $<
+
 %.pdf : %.md $(CME211_PKG)
 	$(PANDOC) $(PANDOC_FLAGS) -o $@ $<
 

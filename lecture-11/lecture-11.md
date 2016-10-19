@@ -1,9 +1,5 @@
 # CME 211: Lecture 11
 
-Monday, October 14, 2015
-
-Topics: SciPy and matplotlib
-
 ## SciPy
 
 See: <http://scipy.org/>
@@ -61,7 +57,7 @@ octave:4>
 
 Let's use SciPy to open the matlab data file:
 
-```{.python .input}
+```python
 import scipy.io
 data = scipy.io.loadmat('matlabfile.mat')
 print(data)
@@ -94,7 +90,7 @@ of data
 
 ### Image Processing
 
-```{.python .input}
+```python
 import numpy
 import scipy.misc, scipy.signal
 im = scipy.misc.imread('fig/memchu.jpg',flatten=True).astype(numpy.float32)
@@ -103,6 +99,10 @@ ck = scipy.signal.cspline2d(im, 8.0)
 edge = scipy.signal.convolve2d(ck, laplacian,mode='same',boundary='symm')
 scipy.misc.imsave('fig/edge.jpg', edge)
 ```
+
+Note: `scipy.misc.imread()` requires the Python Imaging Library (PIL). This will
+be installed with Anaconda Python. It is also possible to install via `$ pip3
+isntall pillow`.
 
 Input image:
 
@@ -120,7 +120,7 @@ $$
 \int_a^b f(x) dx
 $$
 
-```{.python .input}
+```python
 import scipy.integrate
 
 # define function to integrate
@@ -143,7 +143,7 @@ $$
 
 Let's use `scipy.optimize` to solve an unconstrained optimization problem:
 
-```{.python .input}
+```python
 import numpy
 import scipy.optimize
 import math
@@ -166,19 +166,17 @@ print(rosenbrock(min))
 * Least squares
 * Eigenvalues / eigenvectors
 * Singular Value Decomposition (SVD)
-* LU, QR, Cholesky, Schur decompositions
+* LU, QR, Cholesky, Schur matrix factorizations
 
 ### Solver example
 
 Here is a $3 \times 3$ system of linear equations:
 
-$$
 \begin{align}
 y + 2x - z &= 8 \\
 2z - y - 3x &= -11 \\
 -2x + 2z + y &= -3 \\
 \end{align}
-$$
 
 Convert to matrix-vector form:
 
@@ -199,7 +197,7 @@ $$
 
 Solve with Python:
 
-```{.python .input}
+```python
 import numpy
 import scipy.linalg
 A = numpy.array(([2., 1., -1.],[-3., -1., 2.],[-2., 1., 2.]))
@@ -257,7 +255,7 @@ Question: what is the storage complexity for these different storage methods?
 
 ### Reading / writing sparse matrices
 
-```{.python .input}
+```python
 import scipy.io
 A = scipy.io.mmio.mmread('data/LFAT5.mtx')
 print(A)
@@ -281,7 +279,7 @@ See <https://www.cise.ufl.edu/research/sparse/matrices/>.
 
 ### Sparse solver examples
 
-```{.python .input}
+```python
 import numpy
 import scipy.io
 import scipy.linalg
@@ -296,22 +294,22 @@ t0 = time.time()
 u = scipy.sparse.linalg.spsolve(K, f)
 t1 = time.time()
 err = scipy.linalg.norm(K*u - f)
-print "spsolve() time = %f seconds" % (t1-t0)
-print "err = %e" % err
+print("spsolve() time = %f seconds" % (t1-t0))
+print("err = %e" % err)
 
 # Iterative solve (Conjugate Gradient)
 t0 = time.time()
 u, info = scipy.sparse.linalg.cg(K, f, tol=1.e-7)
 t1 = time.time()
 err = scipy.linalg.norm(K*u - f)
-print "cg() time = %f seconds" % (t1-t0)
-print "err = %e" % err
-print "info = %d" % info
+print("cg() time = %f seconds" % (t1-t0))
+print("err = %e" % err)
+print("info = %d" % info)
 ```
 
 ### Sparse matrix eigenvalues
 
-```{.python .input}
+```python
 import scipy.io
 import scipy.sparse.linalg
 A = scipy.io.mmio.mmread('data/LFAT5.mtx')
@@ -353,7 +351,7 @@ of a `.py` file
 
 ### `pylab` includes `numpy`
 
-```{.python .input}
+```python
 import pylab
 a = pylab.arange(9, dtype=pylab.float64)
 print(a)
@@ -365,7 +363,7 @@ print(a)
 
 Doesn't include numpy functionality:
 
-```{.python .input}
+```python
 import matplotlib.pyplot
 a = matplotlib.pyplot.arange(9)
 ```
@@ -374,7 +372,7 @@ a = matplotlib.pyplot.arange(9)
 
 Some good Jupyter Settings:
 
-```{.python .input}
+```python
 import matplotlib.pyplot as plt
 import numpy as np
 %matplotlib inline
@@ -383,7 +381,7 @@ import numpy as np
 
 A simple plot:
 
-```{.python .input}
+```python
 plt.plot(2*np.arange(5))
 ```
 
@@ -392,7 +390,8 @@ plt.plot(2*np.arange(5))
 The `savefig` function saves the most recent plot to disk.  The file type is
 determined by the extension:
 
-```{.python .input}
+```python
+plt.plot(2*np.arange(5))
 plt.savefig('figure1.jpg')
 plt.savefig('figure1.png')
 plt.savefig('figure1.pdf')
@@ -400,13 +399,13 @@ plt.savefig('figure1.pdf')
 
 Let's look at the files!
 
-```
+```python
 %ls
 ```
 
 ### Start a new figure
 
-```{.python .input}
+```python
 plt.figure(2)
 plt.plot(2*np.arange(5), 3*np.arange(5))
 plt.show(block=False)
@@ -414,7 +413,7 @@ plt.show(block=False)
 
 ### Controlling the line type
 
-```{.python .input}
+```python
 plt.figure(3)
 time = np.arange(0,1.01,0.01)
 signal = np.sin(2*np.pi*time)
@@ -424,7 +423,7 @@ plt.show(block=False)
 
 ### Text
 
-```{.python .input}
+```python
 plt.figure(4)
 plt.plot(time, signal, 'r-')
 plt.xlabel('Time')
@@ -435,7 +434,7 @@ plt.show(block=False)
 
 ### Axis
 
-```{.python .input}
+```python
 plt.figure(5)
 plt.plot(time,signal,'g-')
 plt.axis([0, 1, -1.5, 1.5])
@@ -444,7 +443,7 @@ plt.show(block=False)
 
 ### Plotting multiple data
 
-```{.python .input}
+```python
 plt.figure(6)
 signal2 = np.cos(2*np.pi*time)
 plt.plot(time,signal,'r-',time,signal2,'b--')
@@ -453,7 +452,7 @@ plt.show(block=False)
 
 ### Legend
 
-```{.python .input}
+```python
 plt.figure(7)
 p1, = plt.plot(time,signal,'r-')
 p2, = plt.plot(time,signal2,'b--')
@@ -463,7 +462,7 @@ plt.show(block=False)
 
 ### Subplots
 
-```{.python .input}
+```python
 plt.figure(8)
 plt.subplot(211)
 plt.plot(time,signal,'r-')
@@ -474,7 +473,7 @@ plt.show(block=False)
 
 ### Pseudocolor plot
 
-```
+```python
 delta = 0.05
 X = np.arange(-2., 2.+delta, delta)
 Y = np.arange(-1., 3.+delta, delta)
