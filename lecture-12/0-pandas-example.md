@@ -89,7 +89,7 @@ nba.columns
 Write a loop to nicely print out the column headers.
 
 ```python
-
+# code here
 ```
 
 ## Column glossary
@@ -255,21 +255,21 @@ method on the object returned from `groupby`)
 What is the max number of teams any player has played for?
 
 ```python
-
+# code here
 ```
 
 What is the highest scoring team?
 What is the lowest scoring team?
 
 ```python
-
+# code here
 ```
 
 What is highest scoring position?  What is lowest scoring position?  How many
 players in each position?  What is average score per position?
 
 ```python
-
+# code here
 ```
 
 More questions:
