@@ -1,23 +1,61 @@
-# Exam 1 Details
+# CME 211 -- Exam 1 -- Python
 
-A link to a HackerRank exam will be sent to the Stanford email addresses of all
-students registered in CME 211. The exam will be available from the morning of
-Wednesday 10/26 to Friday 10/28 at 2pm. Students will have 2 hours to complete
-the exam once it is started.
+Updated on 2016-10-24.
+
+The exam will be conducted through Canvas. The exam will be available from the
+morning of Wednesday 10/26 to Friday 10/28 at 2pm. Students will have 2 hours to
+complete the exam once it is started. There will be several multiple choice
+questions and a series of coding questions. At the end of the exam, you will be
+asked to submit a single `*.py` file through Canvas. This is the file that we
+will execute and evaluate.
+
+Note: the exam will appear in the "Quizzes" section on Canvas.
 
 Sample quiz solutions from 2013, 2014, and 2015 are posted on Piazza.
+
+## Details
+
+* Exam will be challenging -- I believe you all to be smart and hardworking
+  students no matter how you perform on the exam
+* I recommend attacking the problems in the given sequence
+* Make sure to use your time wisely
+* In terms of grading: correctness > performance (complexity) > style
+* Remember, this exam is only worth 12.5% of your grade
+
+## Rules
 
 * Open book
 * Open note
 * Open computer (restricted internet use)
   * you may use Python 3 interpreter
   * you may use Jupyter Notebook
-  * use computer to access notes at <https://github.com/CME211/notes>
-  * use computer to access Learning Python book
-  * use computer to access Python documentation @ python.org
-  * **You may not use Google or any other search method to try and find answers**
+  * your may use computer to access notes at <https://github.com/CME211/notes>
+  * your may use computer to access Learning Python book
+  * your may use computer to access Python documentation
+    @ [python.org](https://docs.python.org/3/index.html)
+  * You may use the search bar on the Python docs page.
+  * **You may not use Google or any other search method to try and find
+    answers**
   * **Stackoverflow.com and similar QA sites are not allowed**
 * Code must be Python 3
+* You may use any functionality from
+  the [Python Standard Library](https://docs.python.org/3/library/index.html)
+* **You may not use any external package (Numpy, Scipy, Matplotlib, Pandas, ...)**
+
+## Communication
+
+* When the exam gets published on Canvas on the morning of Wednesday 10/26, it
+  will be known as **The-Exam-Who-Must-Not-Be-Named**. That is, nobody is
+  allowed to discuss any aspect of the exam until Friday 10/28 at 2pm.
+* The teaching staff will not answer any questions related to the exam until it
+  is over. I have tried to remove all ambiguity from the question statements.
+  The teaching staff will review the questions. If you feel something is
+  ambiguous on the exam, please make a comment above your answer in the source
+  code you submit. Indicate what you thought was ambiguous and the decision you
+  made to resolve the ambiguity.
+* If Canvas stops working during your exam for some reason, please email the
+  required source code to <cme211-staff@lists.stanford.edu>. We will check the
+  time stamp of the email against the start time stamp on Canvas.
 
 ## Topics
 
@@ -50,7 +88,6 @@ From *Learning Python*:
 
 ## Notes
 
-* If you want `sqrt()`, remember to `import math` and use `math.sqrt()`.  Other
-  than that, we won't test on module stuff.
-* We won't test on python exceptions
-* We won't test on Numpy, Scipy, or matplotlib (which we cover this week)
+* If you want `sqrt()`, remember to `import math` and use `math.sqrt()`.
+* We won't test on Python exceptions
+* We won't test on Numpy, Scipy, or matplotlib
