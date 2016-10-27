@@ -53,6 +53,7 @@ Please report broken links by creating a GitHub issue or pull request.
 * [GitHub][github]: online Git repository hosting service
 * [BitBucket][bitbucket]: online Git repository hosting service
 * [GitLab][gitlab]: online Git repository hosting service
+* Article: [Git from the inside out](https://codewords.recurse.com/issues/two/git-from-the-inside-out) by Mary Rose Cook
 
 [git-book]: https://git-scm.com/book/en/v2
 [git-lxiny]: https://learnxinyminutes.com/docs/git/
