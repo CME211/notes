@@ -108,7 +108,7 @@ system and underlying processor
 ```
 [nwh@icme-nwh src] $ ls
 hello.cpp
-[nwh@icme-nwh src] $ g++ -Wall -Wconversion -Wextra hello.cpp 
+[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp 
 [nwh@icme-nwh src] $ ls
 a.out  hello.cpp
 ```
@@ -116,6 +116,8 @@ a.out  hello.cpp
 Details:
 
 * `g++`: GNU C++ compiler program
+
+* `-std=c++11`: tells the compiler to use the C++11 standard
 
 * `-Wall`, `-Wconversion`, `-Wextra` are flags to enable all warnings
 
@@ -139,7 +141,7 @@ Why `a.out`?: <https://en.wikipedia.org/wiki/A.out>
 Specify the output executable name:
 
 ```
-[nwh@icme-nwh src] $ g++ -Wall -Wconversion -Wextra hello.cpp -o hello
+[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
 [nwh@icme-nwh src] $ ls
 a.out  hello  hello.cpp
 [nwh@icme-nwh src] $ ./hello 
@@ -181,7 +183,7 @@ int main() {
 ```
 
 ```
-$ g++ -Wall -Wconversion -Wextra hello.cpp -o newline
+$ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o newline
 $ ./newline
 Hello world
 $
@@ -249,7 +251,7 @@ int main() {
 ```
 
 ```
-[nwh@icme-nwh src] $ g++ -Wall -Wconversion -Wextra hello.cpp -o hello
+[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
 hello.cpp: In function ‘int main()’:
 hello.cpp:11:3: error: ‘cout’ is not a member of ‘std’
    std::cout << "Hello world" << std::endl;
@@ -274,7 +276,7 @@ int main() {
 ```
 
 ```
-[nwh@icme-nwh src] $ g++ -Wall -Wconversion -Wextra hello.cpp -o hello
+[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
 hello.cpp: In function ‘int main()’:
 hello.cpp:11:3: error: ‘cout’ was not declared in this scope
    cout << "Hello world" << endl;
@@ -311,7 +313,7 @@ int main() {
 ```
 
 ```
-$ g++ -Wall -Wconversion -Wextra hello.cpp -o hello
+$ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
 $ ./hello
 Hello world
 $
@@ -345,7 +347,7 @@ int main(){std::cout<<"Hello world"<<std::endl;return 0;}
 ```
 
 ```
-$ g++ -Wall -Wconversion -Wextra hello.cpp -o hello
+$ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
 $ ./hello5
 Hello world
 $
@@ -387,7 +389,7 @@ int main() {
 ```
 
 ```
-[nwh@icme-nwh src] $ g++ -Wall -Wconversion -Wextra hello.cpp -o hello
+[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
 [nwh@icme-nwh src] $ ./hello 
 Hello world
 [nwh@icme-nwh src] $ echo $?
@@ -422,7 +424,7 @@ int main() {
 Output:
 
 ```
-[nwh@icme-nwh src] $ g++ -Wall -Wconversion -Wextra variables.cpp -o variables
+[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
 variables.cpp: In function ‘int main()’:
 variables.cpp:4:3: error: ‘a’ was not declared in this scope
    a = 2;
@@ -453,7 +455,7 @@ int main() {
 ```
 
 ```
-$ g++ variables.cpp -o variables
+$ g++ -std=c++11 variables.cpp -o variables
 $ ./variables
 c = 32767
 $
@@ -462,7 +464,7 @@ $
 ### Compiler warnings
 
 ```
-[nwh@icme-nwh src] $ g++ -Wall -Wconversion -Wextra variables.cpp -o variables
+[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
 variables.cpp: In function ‘int main()’:
 variables.cpp:9:12: warning: ‘a’ is used uninitialized in this function [-Wuninitialized]
    c = a + b;
@@ -496,7 +498,7 @@ int main() {
 ```
 
 ```
-[nwh@icme-nwh src] $ g++ -Wall -Wconversion -Wextra variables.cpp -o variables
+[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
 [nwh@icme-nwh src] $ ./variables 
 c = 5
 ```
@@ -517,7 +519,7 @@ int main() {
 ```
 
 ```
-[nwh@icme-nwh src] $ g++ -Wall -Wconversion -Wextra variables.cpp -o variables
+[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
 variables.cpp: In function ‘int main()’:
 variables.cpp:10:5: error: invalid conversion from ‘const char*’ to ‘int’ [-fpermissive]
    a = "hello";
@@ -543,7 +545,7 @@ int main() {
 ```
 
 ```
-[nwh@icme-nwh src] $ g++ -Wall -Wconversion -Wextra variables.cpp -o variables
+[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
 variables.cpp: In function ‘int main()’:
 variables.cpp:6:5: warning: conversion to ‘int’ alters ‘double’ constant value [-Wfloat-conversion]
    a = 2.7;
@@ -570,7 +572,7 @@ int main() {
 ```
 
 ```
-[nwh@icme-nwh src] $ g++ -Wall -Wconversion -Wextra variables.cpp -o variables
+[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
 [nwh@icme-nwh src] $ ./variables 
 c = 5
 ```
@@ -594,7 +596,7 @@ int main() {
 ```
 
 ```
-$ g++ -Wall -Wconversion -Wextra variables.cpp -o variables
+$ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
 $ ./variables6
 c = 6.28
 $
@@ -621,7 +623,7 @@ int main() {
 ```
 
 ```
-$ g++ -Wall -Wconversion -Wextra variables.cpp -o variables
+$ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
 $ ./variables
 a = 3
 $
@@ -660,7 +662,7 @@ int main() {
 ```
 
 ```
-$ g++ -Wall -Wconversion -Wextra boolean.cpp -o boolean
+$ g++ -std=c++11 -Wall -Wconversion -Wextra boolean.cpp -o boolean
 $ ./boolean
 0
 1
@@ -693,7 +695,7 @@ int main() {
 ```
 
 ```
-$ g++ -Wall -Wconversion -Wextra string.cpp -o string
+$ g++ -std=c++11 -Wall -Wconversion -Wextra string.cpp -o string
 $ ./string
 Hello world
 $
@@ -718,7 +720,7 @@ int main() {
 ```
 
 ```
-$ g++ -Wall -Wconversion -Wextra string.cpp -o string
+$ g++ -std=c++11 -Wall -Wconversion -Wextra string.cpp -o string
 $ ./string
 Hello world
 $
@@ -741,7 +743,7 @@ int main() {
 ```
 
 ```sh
-$ g++ -Wall -Wconversion -Wextra string.cpp -o string
+$ g++ -std=c++11 -Wall -Wconversion -Wextra string.cpp -o string
 $ ./string
 3
 ```
