@@ -1,7 +1,5 @@
 # CME 211: Lecture 14
 
-Friday, October 23, 2015
-
 Topics:
 
 * Introduction to C++
@@ -9,35 +7,30 @@ Topics:
 * Variables
 * Strings
 
-## Announcements
-
-* LaTeX screencast posted
-* HW 4 posted
-* New lecture format
-
 ## C++
 
 * Programming language developed at Bell Labs starting in the late 70s
 
 * B and C were languages also developed at Bell Labs
 
-* ++ is the increment operator, so C++ is an incremental change or improvement
-to C
+* `++` is the increment operator, so C++ is an incremental change or improvement
+  to C
 
 * There is also an A+ language but that wasn't developed until the 1980s
 
 * D is a programming language that came out in 2001 and is a "re-engineering" of
-C++
+  C++
 
 * C++ is now a standard or specification, and multiple companies or
-organizations implement the standard.
+  organizations implement the standard.
 
 * Latest version of the standard was ratified in 2014 and is referred to as
-C++14.  Next update is expected to come in 2017.  The document defining the
-standard is 1,366 pages long.
+  C++14. Next update is expected to come in 2017. The document defining the
+  standard is 1,366 pages long.
 
 * We will use C++11, which was a substanial update and improvement over C++03.
-  (C++14 was a smaller update)
+  (C++14 was a smaller update, C++17 is a big update -- but I don't really know
+  what's in there.)
 
 ### C versus C++
 
@@ -46,15 +39,15 @@ standard is 1,366 pages long.
 * C is a lower level language that has fewer abstractions over the hardware
 
 * Even within C++ programs, the most computationally intense parts should be C
-like for efficiency
+  like for efficiency
 
 * C is still used for many applications: Linux kernel, CPython interpreter, low
-power or embedded systems, etc.
+  power or embedded systems, etc.
 
 ## Hello world
 
 In this lecture, we are going to start with a C++ source file and modify it to
-show various things about C++.  If you desire to compile and execute subsequent
+show various things about C++. If you desire to compile and execute subsequent
 code block on your own, please modify the provided source (or start a new source
 file).
 
@@ -110,9 +103,7 @@ system and underlying processor
 ### Compiling on corn
 
 * We will use the GNU (GNU's Not Unix) compilers that should be available with
-any Linux distribution
-
-TODO: insert compilation output here
+  any Linux distribution
 
 ```
 [nwh@icme-nwh src] $ ls
@@ -169,7 +160,7 @@ std::cout << "Hello world" << std::endl;
 * `cout` is in the `std` namespace and refers to the standard output (stdout)
   stream
 
-* `endl` is in the `std` namespace and inserts '\n' and flushes the stream
+* `endl` is in the `std` namespace and inserts `\n` and flushes the stream
 
 * `<<` is the stream insertion operator
 
@@ -749,14 +740,13 @@ int main() {
 }
 ```
 
-```
+```sh
 $ g++ -Wall -Wconversion -Wextra string.cpp -o string
 $ ./string
 3
-$
 ```
 
-## Required reading
+## Recommended reading
 
 * **C++ Primer, Fifth Edition** by Lippman et al.
 
