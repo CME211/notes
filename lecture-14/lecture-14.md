@@ -75,7 +75,7 @@ int main()
   program.  `<iostream>` has standard C++ input output functionality.
 
 * The `main` function is the entry point into the program.  Code from the `main`
-function body will be executed upon starting the program.
+  function body will be executed upon starting the program.
 
 * The `return` keyword returns a value from the function.  The type of the
   return value must match the specified output type of the function (`int` in
@@ -93,12 +93,12 @@ function body will be executed upon starting the program.
 * C++ programs have to be compiled
 
 * Compilation is the process of translating the human readable source code into
-an executable containing the machine instructions that the computer will use
-while the program is running
+  an executable containing the machine instructions that the computer will use
+  while the program is running
 
 * Although C++ source code can be made portable and compiled on multiple
-machines (Linux, Windows, Mac) the executables are specific to an operating
-system and underlying processor
+  machines (Linux, Windows, Mac) the executables are specific to an operating
+  system and underlying processor
 
 ### Compiling on corn
 
@@ -106,10 +106,10 @@ system and underlying processor
   any Linux distribution
 
 ```
-[nwh@icme-nwh src] $ ls
+$ ls
 hello.cpp
-[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp 
-[nwh@icme-nwh src] $ ls
+$ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp 
+$ ls
 a.out  hello.cpp
 ```
 
@@ -126,9 +126,9 @@ Details:
 ### Running Hello world
 
 ```
-[nwh@icme-nwh src] $ ls
+$ ls
 a.out  hello.cpp
-[nwh@icme-nwh src] $ ./a.out 
+$ ./a.out 
 Hello world
 ```
 
@@ -141,10 +141,10 @@ Why `a.out`?: <https://en.wikipedia.org/wiki/A.out>
 Specify the output executable name:
 
 ```
-[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
-[nwh@icme-nwh src] $ ls
+$ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
+$ ls
 a.out  hello  hello.cpp
-[nwh@icme-nwh src] $ ./hello 
+$ ./hello 
 Hello world
 ```
 
@@ -166,12 +166,10 @@ std::cout << "Hello world" << std::endl;
 
 * `<<` is the stream insertion operator
 
-### `std::endl`
-
-* Inserts a newline character (`\n`) and flushes the buffer
+* `std::endl` inserts a newline character (`\n`) and flushes the buffer
 
 * You can also put in a newline yourself, and let the buffer flush automatically
-as necessary
+  as necessary
 
 ```c++
 #include <iostream>
@@ -186,40 +184,39 @@ int main() {
 $ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o newline
 $ ./newline
 Hello world
-$
 ```
 
 ## Include (header) files
 
 * When  we do  `#include` that  is somewhat  analogous to  an import  in Python,
-giving us access to functionality defined in another file
+  giving us access to functionality defined in another file
 
 * In C++ the access to even fundamental functionality like outputting to the
-screen requires specifying the proper include file(s)
+  screen requires specifying the proper include file(s)
 
 * Include files in C++ work a bit differently when it comes to namespaces
 
 * However, namespaces in C++ still generally serve the same purpose as
-namespaces in Python
+  namespaces in Python
 
 ### Namespaces
 
 * In Python the name of the namespace comes from the file name, and everything
-in the file is automatically in that one namespace
+  in the file is automatically in that one namespace
 
 * A C++ include file might contain functions, classes, etc. that are not in a
-namespace at all
+  namespace at all
 
 * An include file could also contain functions, classes, etc. from multiple
-namespaces
+  namespaces
 
 * Namespaces can also span multiple include files, like for the C++ standard
-library
+  library
 
 ### C++ Standard Library
 
 * The C++ Standard Library is all the built in functionality that is part of the
-C++ language
+  C++ language
 
 * Namespace for this library is `std`
 
@@ -235,7 +232,7 @@ C++ language
 * Used to indicate what namespace something comes from
 
 * If a namespace is required that will typically be listed in the documentation,
-or by inspecting the include file
+  or by inspecting the include file
 
 * Will talk about namespaces more when we start writing our own include files
 
@@ -251,7 +248,7 @@ int main() {
 ```
 
 ```
-[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
+$ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
 hello.cpp: In function ‘int main()’:
 hello.cpp:11:3: error: ‘cout’ is not a member of ‘std’
    std::cout << "Hello world" << std::endl;
@@ -259,7 +256,6 @@ hello.cpp:11:3: error: ‘cout’ is not a member of ‘std’
 hello.cpp:11:33: error: ‘endl’ is not a member of ‘std’
    std::cout << "Hello world" << std::endl;
                                  ^
-[nwh@icme-nwh src] $
 ```
 
 ### Common mistakes
@@ -276,7 +272,7 @@ int main() {
 ```
 
 ```
-[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
+$ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
 hello.cpp: In function ‘int main()’:
 hello.cpp:11:3: error: ‘cout’ was not declared in this scope
    cout << "Hello world" << endl;
@@ -295,7 +291,6 @@ In file included from /usr/include/c++/4.9.2/iostream:39:0,
 /usr/include/c++/4.9.2/ostream:564:5: note:   ‘std::endl’
      endl(basic_ostream<_CharT, _Traits>& __os)
      ^
-[nwh@icme-nwh src] $
 ```
 
 ### Another namespace option
@@ -316,7 +311,6 @@ int main() {
 $ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
 $ ./hello
 Hello world
-$
 ```
 
 ### Another namespace option
@@ -337,7 +331,7 @@ int main() {
 ### Blocks of code
 
 * Blocks of code, such as the code comprising a function, conditional, loop,
-etc. are indicated by enclosing them in curly brackets
+  etc. are indicated by enclosing them in curly brackets
 
 * There are very few places where whitespace matters to the compiler
 
@@ -350,7 +344,6 @@ int main(){std::cout<<"Hello world"<<std::endl;return 0;}
 $ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
 $ ./hello5
 Hello world
-$
 ```
 
 ### Bracket style
@@ -389,14 +382,14 @@ int main() {
 ```
 
 ```
-[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
-[nwh@icme-nwh src] $ ./hello 
+$ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
+$ ./hello 
 Hello world
-[nwh@icme-nwh src] $ echo $?
+$ echo $?
 7
-[nwh@icme-nwh src] $ ls
+$ ls
 a.out  hello  hello.cpp
-[nwh@icme-nwh src] $ echo $?
+$ echo $?
 0
 ```
 
@@ -424,7 +417,7 @@ int main() {
 Output:
 
 ```
-[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
+$ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
 variables.cpp: In function ‘int main()’:
 variables.cpp:4:3: error: ‘a’ was not declared in this scope
    a = 2;
@@ -458,13 +451,12 @@ int main() {
 $ g++ -std=c++11 variables.cpp -o variables
 $ ./variables
 c = 32767
-$
 ```
 
 ### Compiler warnings
 
 ```
-[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
+$ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
 variables.cpp: In function ‘int main()’:
 variables.cpp:9:12: warning: ‘a’ is used uninitialized in this function [-Wuninitialized]
    c = a + b;
@@ -498,8 +490,8 @@ int main() {
 ```
 
 ```
-[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
-[nwh@icme-nwh src] $ ./variables 
+$ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
+$ ./variables 
 c = 5
 ```
 
@@ -519,7 +511,7 @@ int main() {
 ```
 
 ```
-[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
+$ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
 variables.cpp: In function ‘int main()’:
 variables.cpp:10:5: error: invalid conversion from ‘const char*’ to ‘int’ [-fpermissive]
    a = "hello";
@@ -545,7 +537,7 @@ int main() {
 ```
 
 ```
-[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
+$ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
 variables.cpp: In function ‘int main()’:
 variables.cpp:6:5: warning: conversion to ‘int’ alters ‘double’ constant value [-Wfloat-conversion]
    a = 2.7;
@@ -572,8 +564,8 @@ int main() {
 ```
 
 ```
-[nwh@icme-nwh src] $ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
-[nwh@icme-nwh src] $ ./variables 
+$ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
+$ ./variables 
 c = 5
 ```
 
@@ -599,7 +591,6 @@ int main() {
 $ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
 $ ./variables6
 c = 6.28
-$
 ```
 
 ### Rounding
@@ -626,7 +617,6 @@ int main() {
 $ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
 $ ./variables
 a = 3
-$
 ```
 
 ### Key data types
@@ -666,7 +656,6 @@ $ g++ -std=c++11 -Wall -Wconversion -Wextra boolean.cpp -o boolean
 $ ./boolean
 0
 1
-$
 ```
 
 ## Strings
@@ -698,7 +687,6 @@ int main() {
 $ g++ -std=c++11 -Wall -Wconversion -Wextra string.cpp -o string
 $ ./string
 Hello world
-$
 ```
 
 ### String concatenation
@@ -723,7 +711,6 @@ int main() {
 $ g++ -std=c++11 -Wall -Wconversion -Wextra string.cpp -o string
 $ ./string
 Hello world
-$
 ```
 
 ### String finding
@@ -762,6 +749,8 @@ $ ./string
 * Chapter 3: Strings, Vectors, and Arrays: Sections 3.1 - 3.2
 
 ## Resources
+
+* Online C++ compiler for small tests: <http://coliru.stacked-crooked.com/>
 
 * <http://www.cppreference.com>
 
