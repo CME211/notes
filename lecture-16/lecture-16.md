@@ -1,8 +1,6 @@
 # CME 211: Lecture 16
 
-Wednesday, October 27, 2015
-
-Topics:
+## Topics
 
 * conditionals
 * basic file operations in C++
@@ -19,7 +17,7 @@ C++ has three conditional statements:
 
 ## C++ `if`
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -40,7 +38,6 @@ Output:
 $ ./if1 
 n = 2
 n is positive
-$
 ```
 
 Note: brackets `{...}` are not needed for a single line `if` block.  However, I
@@ -48,7 +45,7 @@ recommend always putting them in.
 
 ### `else if`
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -67,16 +64,17 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ ./if2
 n = -3
 n is negative
-$
 ```
 
 ### `else`
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -98,25 +96,26 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ ./if3
 n = 0
 n is zero
-$
 ```
 
 ### Common mistakes
 
 Empty `if` due to extraneous semi-colon:
 
-```
+```c++
 if (n < 0);
   std::cout << "n is negative" << std::endl;
 ```
 
 Assignment in the conditional expression:
 
-```
+```c++
 if (n = 0)
   std::cout << "n is zero" << std::endl;
 ```
@@ -129,7 +128,7 @@ This is known as a
 
 The `break` keyword breaks out of the current loop.
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -143,6 +142,8 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ ./break
 0
@@ -150,14 +151,13 @@ $ ./break
 2
 3
 4
-$
 ```
 
 ### `continue`
 
 The `continue` keyword moves to the next loop iteration. 
 
-```
+```c++
 #include <iostream>
 
 int main() {
@@ -170,12 +170,13 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ ./continue
 7
 8
 9
-$
 ```
 
 ### Logical operators
@@ -190,7 +191,7 @@ $
 
 ### Logical AND
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -209,16 +210,17 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ ./logical1
 a == 7 and b == 42 is true
 a == 7 && b == 42 is true
-$
 ```
 
 ### `0` is false, everything else is true
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -235,18 +237,19 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ ./logical2
 -1 is true
 0 is false
 1 is true
 2 is true
-$
 ```
 
 ### Bitwise results
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -272,13 +275,14 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ g++ -Wall -Wconversion -Wextra logical3.cpp -o logical3
 $ ./logical3
 a is true
 b is true
 a & b is false
-$
 ```
 
 ### `switch`
@@ -287,7 +291,7 @@ $
 
 * Can use a switch statement instead:
 
-```cpp
+```c++
 if (choice == `C')
   clearRecord();
 else if (choice == `D')
@@ -314,7 +318,7 @@ switch (choice) {
 
 ### `switch` and `enum` example
 
-```cpp
+```c++
 enum direction {
   left,
   right,
@@ -341,17 +345,18 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ ./switch1
 you are going right
-$
 ```
 
 ### Advantage
 
 Compiler warnings will tell you if you are missing some cases.
 
-```cpp
+```c++
 switch (d)
 {
   case left:
@@ -363,20 +368,21 @@ switch (d)
 }
 ```
 
+Output:
+
 ```
 $ g++ -Wall -Wconversion -Wextra switch2.cpp -o switch2
 switch2.cpp: In function 'int main()':
 switch2.cpp:16:10: warning: enumeration value 'up' not handled in switch [-Wswitch]
 switch (d)
 ^
-$
 ```
 
 ### Common mistake
 
 Neglecting to add `break` in each case.
 
-```cpp
+```c++
 std::string txt = "you are going ";
 switch (d) {
   case left:
@@ -391,24 +397,25 @@ switch (d) {
 std::cout << txt << std::endl;
 ```
 
+Output:
+
 ```
 $ g++ -Wall -Wconversion -Wextra switch3.cpp -o switch3
 $ ./switch3
 you are going rightupdown
-$
 ```
 
 ### Ternary operator
 
 This is called the "ternary" operator:
 
-```
+```c++
 a = b < 0 ? -b : b;
 ```
 
 Equivalent code:
 
-```
+```c++
 if (b < 0)
   a = -b;
 else
@@ -434,11 +441,11 @@ See: <http://xkcd.com/292/>
 
 File I/O in Python:
 
-![fig](fig/SoundOfMusic.jpg)
+![File I/O in Python](fig/SoundOfMusic.jpg)
 
 File I/O in C++:
 
-![fig](fig/plumbing.jpg)
+![File I/O in C++](fig/plumbing.jpg)
 
 
 ### C++ file I/O
@@ -455,7 +462,7 @@ File I/O in C++:
 
 ### `ofstream`
 
-```cpp
+```c++
 #include <iostream>
 #include <fstream>
 
@@ -475,6 +482,8 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ g++ -Wall -Wconversion -Wextra ofstream1.cpp -o ofstream1
 $ rm -f hello.txt
@@ -486,7 +495,7 @@ $ cat hello.txt
 
 Code:
 
-```cpp
+```c++
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -527,14 +536,15 @@ open(const char* __s,
 /usr/include/c++/4.8/fstream:713:7: note:
 no known conversion for argument 1 from
 'std::string {aka std::basic_string<char>}' to 'const char*'
-$
 ```
 
 Change to:
 
-```cpp
+```c++
   f.open(filename.c_str());
 ```
+
+Output:
 
 ```
 $ g++ -Wall -Wconversion -Wextra ofstream3.cpp -o ofstream3
@@ -545,7 +555,8 @@ $ cat file.txt
 
 ### C++ 2011 standard
 
-Specify usage of the C++ 2011 standard.  Passing an `std::string` to `f.open` is supported:
+Specify usage of the C++ 2011 standard. Passing an `std::string` to `f.open` is
+supported:
 
 ```
 g++ -std=c++11 -Wall -Wconversion -Wextra ofstream2.cpp -o ofstream2
@@ -556,7 +567,7 @@ cat file.txt
 
 ### Writing an array of values
 
-```
+```c++
 #include <iostream>
 
 //  Define constants to size the static array
@@ -594,7 +605,7 @@ int main() {
 
 ### `fstream`
 
-```cpp
+```c++
 #include <iostream>
 #include <fstream>
 
@@ -624,7 +635,7 @@ wrote
 
 ### `ifstream`
 
-```
+```c++
 #include <iostream>
 #include <fstream>
 
@@ -655,12 +666,11 @@ $ ./ifstream1
 3
 4
 5
-$
 ```
 
 ### Reading the array
 
-```cpp
+```c++
 // Read the array values from the file
 std::ifstream f("array.txt");
 
