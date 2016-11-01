@@ -1,8 +1,6 @@
 # CME 211: Lecture 15
 
-Monday, October 26, 2015
-
-Topics:
+## Topics
 
 * static arrays
 * variable scope
@@ -32,7 +30,7 @@ int main() {
 
 Compile and look at the output:
 
-```
+```sh
 $ g++ -Wall -Wconversion -Wextra array.cpp -o array
 $ g++ -Wall -Wconversion -Wextra array.cpp -o array
 $ ./array
@@ -48,7 +46,7 @@ Accessing static arrays (or any array for that matter) out of bounds leads to
 undefined behavior and is a particularly nasty problem.  Modify `src/array.cpp`
 to the following:
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -72,14 +70,13 @@ int main() {
 
 Now, compile and run:
 
-```
+```sh
 $ g++ -Wall -Wconversion -Wextra array.cpp -o array
 $ ./array
 a[0] = 0
 a[1] = 1
 a[2] = 2
 a[3] = 3
-$
 ```
 
 Nothing bad happened here.  But, the behavior is undefined.  This could have
@@ -102,12 +99,11 @@ arrays.  To do this we enable the "address sanitizer" at compile time.
 
 Let's enable this with `g++`:
 
-```
+```sh
 $ g++ -Wall -Wconversion -Wextra \
     -g \
     -fsanitize=address \
     array.cpp -o array
-$
 ```
 
 Notes:
@@ -120,7 +116,7 @@ Notes:
 
 ### Testing Address Sanitizer
 
-```
+```sh
 $ ./array
 =================================================================
 ==23777== ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7fff6e11364c at pc 0x400c64 bp 0x7fff6e113610 sp 0x7fff6e113608
@@ -229,7 +225,6 @@ a[0][0] = 0
 a[1][0] = 1
 a[0][1] = 2
 a[1][1] = 3
-$
 ```
 
 Note: the first output line prints the memory address.
@@ -269,13 +264,12 @@ int main() {
 
 Attempt to compile:
 
-```
+```sh
 $ g++ -Wall -Wconversion -Wextra md_array.cpp -o md_array
 md_array.cpp: In function 'int main()':
 md_array.cpp:10:5: error: invalid array assignment
    b = a;
      ^
-$
 ```
 
 ## Scope
@@ -292,7 +286,7 @@ variables at broader scope
 
 ### Scope examples
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -308,7 +302,7 @@ int main() {
 
 Output:
 
-```
+```sh
 $ g++ -Wall -Wconversion -Wextra scope.cpp -o scope
 scope.cpp: In function 'int main()':
 scope.cpp:5:9: warning: unused variable 'n' [-Wunused-variable]
@@ -317,12 +311,11 @@ scope.cpp:5:9: warning: unused variable 'n' [-Wunused-variable]
 scope.cpp:8:26: error: 'n' was not declared in this scope
    std::cout << "n = " << n << std::endl;
                           ^
-$
 ```
 
 ### Scope examples
 
-```cpp
+```c++
 #include <iostream>
 #include <string>
 
@@ -341,19 +334,18 @@ int main() {
 }
 ```
 
-```
+```sh
 $ g++ -Wall -Wconversion -Wextra scope.cpp -o scope
 $ ./scope
 n = Hi
 n = 5
-$
 ```
 
 ## C++ for loop
 
 Start with an example.  See `src/for_loop1.cpp`:
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -366,7 +358,7 @@ int main() {
 
 Compile and run:
 
-```
+```sh
 $ g++ -Wall -Wconversion -Wextra for_loop1.cpp -o for_loop1
 $ ./for_loop1
 i = 0
@@ -379,12 +371,11 @@ i = 6
 i = 7
 i = 8
 i = 9
-$
 ```
 
 ### Anatomy of a for loop
 
-```cpp
+```c++
 for (expression1; expression2; expression3) {
   // loop body
 }
@@ -399,7 +390,7 @@ for (expression1; expression2; expression3) {
 
 File `src/for_loop2.cpp`:
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -417,7 +408,7 @@ int main() {
 
 Output:
 
-```
+```sh
 $ g++ -Wall -Wconversion -Wextra for_loop2.cpp -o for_loop2
 $ ./for_loop2
 sum = 5050
@@ -432,7 +423,7 @@ sum = 5050
 
 * See `src/increment.cpp`
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -454,7 +445,7 @@ int main() {
 
 Output:
 
-```
+```sh
 $ g++ -Wall -Wconversion -Wextra increment.cpp -o increment
 $ ./increment
 n = 2
@@ -473,7 +464,7 @@ n = 2
 
 Example (`src/increment2.cpp`):
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -501,7 +492,7 @@ return of ++a: 3
 
 `src/for_loop3.cpp`:
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -521,7 +512,7 @@ int main() {
 }
 ```
 
-```
+```sh
 $ g++ -Wall -Wconversion -Wextra for_loop3.cpp -o for_loop3
 $ ./for_loop3
 a[0] = 0
@@ -530,7 +521,7 @@ n = 5
 
 ### Variations on for loop
 
-```
+```c++
 #include <iostream>
 
 int main() {
@@ -549,7 +540,7 @@ int main() {
 
 ### Variations on for loop
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -569,7 +560,7 @@ int main() {
 
 See `src/inf_loop.cpp`:
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -590,7 +581,7 @@ $ ./inf_loop
 
 ### `for` loop brackets
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -607,7 +598,7 @@ int main() {
 
 ### Common mistake
 
-```
+```c++
 #include <iostream>
 
 int main() {
@@ -630,7 +621,7 @@ int main() {
 
 ### Common mistake
 
-```
+```c++
 #include <iostream>
 
 int main() {
@@ -650,7 +641,7 @@ int main() {
 
 ### Nested loops example
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -681,7 +672,7 @@ int main() {
 
 ### `while` loop
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -698,7 +689,7 @@ int main() {
 
 ### Common mistake
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -723,7 +714,7 @@ evaluation
 * C/C++ has a do-while loop that is very similar to a while loop, but always
 executes at least once
 
-```cpp
+```c++
 do {
   // loop body
 } while (expression);
