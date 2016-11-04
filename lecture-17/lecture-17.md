@@ -1,12 +1,10 @@
 # CME 211: Lecture 17
 
-Friday, October 30, 2015
-
 Topic: Additional file I/O options in C++
 
-### Command line arguments
+## Command line arguments
 
-```cpp
+```c++
 #include <iostream>
 
 int main(int argc, char *argv[]) {
@@ -18,18 +16,19 @@ int main(int argc, char *argv[]) {
 }
 ```
 
+Output:
+
 ```
 $ ./argv1 hello.txt 3.14 42
 0 ./argv1
 1 hello.txt
 2 3.14
 3 42
-$
 ```
 
 ### Command line arguments
 
-```cpp
+```c++
 #include <iostream>
 #include <string>
 
@@ -60,12 +59,11 @@ $ ./argv2 hello.txt 3.14 42
 filename = hello.txt
 param1 = 3.14
 param2 = 42
-$
 ```
 
-### Formatting
+## Formatting
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -75,15 +73,16 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ ./formatting1
 a = 2
-$
 ```
 
 ### Showing decimal point
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -94,15 +93,16 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ ./formatting2
 a = 2.00000
-$
 ```
 
 ### Showing decimal point
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -119,12 +119,13 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ ./formatting3
 a = 2.00000
 b = 3.14000
 c = 4
-$
 ```
 
 ### Controlling decimal places
@@ -149,17 +150,18 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ ./formatting4
 a = 2.000
 b = 3.140
 c = 4
-$
 ```
 
 ### Scientific notation
 
-```cpp
+```c++
 int main() {
   double a = 2., b = 3.14;
   int c = 4;
@@ -175,17 +177,18 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ ./formatting5
 a = 2.000e+00
 b = 3.140e+00
 c = 4
-$
 ```
 
 ### Field width
 
-```cpp
+```c++
 #include <iostream>
 
 int main() {
@@ -205,17 +208,18 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ ./formatting6
 a = 2.000e+00
            b = 3.140e+00
                           c = 4
-$
 ```
 
 ### Fill character
 
-```cpp
+```c++
 #include <iomanip>
 #include <iostream>
 
@@ -231,6 +235,8 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ ./formatting7
 00
@@ -241,7 +247,7 @@ $ ./formatting7
 
 ### `cout` and files work the same
 
-```cpp
+```c++
 #include <iostream>
 #include <fstream>
 
@@ -262,14 +268,17 @@ int main() {
 }
 ```
 
+Output:
+
 ```
 $ ./formatting8
 $ cat formatting.txt
 a = 2.00000
 b = 3.14000
 c = 4
-$
 ```
+
+## More on reading data
 
 ### Loading a table
 
@@ -291,7 +300,7 @@ $ cat u.data
 
 ### Same data on each line
 
-```cpp
+```c++
 #include <fstream>
 #include <iostream>
 
@@ -314,6 +323,8 @@ int main() {
   return 0;
 }
 ```
+
+Output:
 
 ```
 $ ./file1
@@ -352,7 +363,7 @@ BETTY          0.666 13.408     14
 
 ### Be careful with data types
 
-```cpp
+```c++
 std::ifstream f;
 
 f.open("dist.female.first");
@@ -385,12 +396,11 @@ workspace 0 0 10 10
 circle 3 7 1
 line 0 0 3 2
 rectangle 1 1 8 2
-$
 ```
 
 ### Step by step extraction
 
-```cpp
+```c++
 f.open(filename);
 if (f.is_open()) {
   std::string shape;
@@ -418,7 +428,7 @@ if (f.is_open()) {
 
 ### Read line by line
 
-```cpp
+```c++
 f.open(filename);
 if (f.is_open()) {
   std::string line;
@@ -445,12 +455,11 @@ workspace 0 0 10 10
 circle 3 7 1
 line 0 0 3 2
 rectangle 1 1 8 2
-$
 ```
 
 ### String stream
 
-```cpp
+```c++
 f.open(filename);
 if (f.is_open()) {
   // Read the file one line at a time
@@ -478,18 +487,19 @@ for (int n = 0; n < nval; n++)
   ss >> val[n]
 ```
 
+Output:
+
 ```
 $ ./extraction1
 Usage:
 ./extraction1 <name data> [nnames]
 
 Read at most nnames (optional)
-$
 ```
 
 ### Convert argument to number
 
-```cpp
+```c++
 #include <limits>
 
 int main(int argc, char *argv[]) {
@@ -526,7 +536,7 @@ Read 3 names.
 
 ### Testing extraction
 
-```cpp
+```c++
 #include <iostream>
 #include <sstream>
 
@@ -558,7 +568,7 @@ n = 0
 
 ### Extraction failures
 
-```cpp
+```c++
 #include <iostream>
 #include <sstream>
 
@@ -590,7 +600,6 @@ $ ./extraction3
 ERROR: string stream extraction failed
 $ ./extraction3
 n = 3
-$
 ```
 
 ## Reading
