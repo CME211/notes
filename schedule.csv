@@ -17,10 +17,10 @@ week #,lecture #,date,day,section,topic,in class,assignments
 6,15,31-Oct,M,C++,"static arrays, looping",,
 ,16,2-Nov,W,C++,"conditionals, file io",,
 ,17,4-Nov,F,C++,more file io,,"hw4 due, hw5 out"
-7,,7-Nov,M,,(no class),,project description out
-,18,9-Nov,W,C++,"function, includes, preprocessor",,
+7,,7-Nov,M,C++,"function, includes, preprocessor",,project description out
+,18,9-Nov,W,C++,containers,,
 ,19,11-Nov,F,C++,containers,,hw5 due
-8,20,14-Nov,M,C++,containers,,
+8,20,14-Nov,M,,(no class),,
 ,21,16-Nov,W,C++,boost multiarray,,
 ,22,18-Nov,F,C++,make,,"project part 1 due, hw6 out"
 thanksgiving,,,,,,,
