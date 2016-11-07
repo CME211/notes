@@ -1,34 +1,34 @@
-week #,lecture #,date,day,section,topic,in class,assignments
-1,1,26-Sep,M,course,course intro,Nick,"hw0 out, hw1 out"
-,2,28-Sep,W,py,"python, numbers, strings","Jerry, hw0 walk through",
-,3,30-Sep,F,py,"file io, lists, control",Amy,hw0 due
-2,4,3-Oct,M,py,"dicts, sets, tuples",Andreas,
-,5,5-Oct,W,py,functions,Cindy,
-,6,7-Oct,F,py,complexity,Yosen,"hw1 due, hw2 out"
-3,7,10-Oct,M,py,"data model, modules, exceptions",NO CLASS,
-,8,12-Oct,W,py,oop intro,Nick is back,
-,9,14-Oct,F,py,"oop, data representation",,"hw2 due, hw3 out"
-4,10,17-Oct,M,py,numpy,,
-,11,19-Oct,W,py,"scipy, matplotlib",,
-,12,21-Oct,F,py,"pandas, jupyter notebook",,hw3 due
-5,13,24-Oct,M,latex,,,
-,exam,26-Oct,W,,hacker rank exam,,exam 1
-,14,28-Oct,F,C++,intro,,hw4 out
-6,15,31-Oct,M,C++,"static arrays, looping",,
-,16,2-Nov,W,C++,"conditionals, file io",,
-,17,4-Nov,F,C++,more file io,,"hw4 due, hw5 out"
-7,,7-Nov,M,C++,"function, includes, preprocessor",,project description out
-,18,9-Nov,W,C++,containers,,
-,19,11-Nov,F,C++,containers,,hw5 due
-8,20,14-Nov,M,,(no class),,
-,21,16-Nov,W,C++,boost multiarray,,
-,22,18-Nov,F,C++,make,,"project part 1 due, hw6 out"
-thanksgiving,,,,,,,
-9,23,28-Nov,M,C++,oop 1,,
-,24,30-Nov,W,C++,oop 2,,
-,25,2-Dec,F,C++,memory management,,"hw6 due, project part 2 out"
-10,q/a,5-Dec,M,C++,review question + answer,,
-,exam,7-Dec,W,C++,hacker rank exam,,exam 2
-,26,9-Dec,F,C++,"C, wrap up",,
-final exam,,12-Dec,M,,,,"exam time 3:30-6:30pm, project part 2 due"
-end of finals,,16-Dec,F,,,,
+week #,lecture #,date,day,section,topic,assignments
+1,1,26-Sep,M,course,course intro,"hw0 out, hw1 out"
+,2,28-Sep,W,py,"python, numbers, strings",
+,3,30-Sep,F,py,"file io, lists, control",hw0 due
+2,4,3-Oct,M,py,"dicts, sets, tuples",
+,5,5-Oct,W,py,functions,
+,6,7-Oct,F,py,complexity,"hw1 due, hw2 out"
+3,7,10-Oct,M,py,"data model, modules, exceptions",
+,8,12-Oct,W,py,oop intro,
+,9,14-Oct,F,py,"oop, data representation","hw2 due, hw3 out"
+4,10,17-Oct,M,py,numpy,
+,11,19-Oct,W,py,"scipy, matplotlib",
+,12,21-Oct,F,py,"pandas, jupyter notebook",hw3 due
+5,13,24-Oct,M,latex,,
+,exam,26-Oct,W,,Python exam,exam 1
+,14,28-Oct,F,C++,intro,hw4 out
+6,15,31-Oct,M,C++,"static arrays, looping",
+,16,2-Nov,W,C++,"conditionals, file io",
+,17,4-Nov,F,C++,more file io,"hw4 due, hw5 out"
+7,18,7-Nov,M,C++,"function, includes, preprocessor",
+,19,9-Nov,W,C++,containers,
+,20,11-Nov,F,C++,containers,"hw5 due, project pt 1 out"
+8,,14-Nov,M,,(no class),
+,21,16-Nov,W,C++,boost multiarray,
+,22,18-Nov,F,C++,make,hw6 out
+thanksgiving,,,,,,
+9,23,28-Nov,M,C++,oop 1,"project pt 1 due, project pt 2 out"
+,24,30-Nov,W,C++,oop 2,
+,25,2-Dec,F,C++,memory management,hw6 due
+10,q/a,5-Dec,M,C++,review question + answer,
+,exam,7-Dec,W,C++,C++ exam,exam 2
+,26,9-Dec,F,C++,"C, wrap up",
+final exam,,12-Dec,M,,exam time 3:30-6:30pm,project part 2 due
+end of finals,,16-Dec,F,,,
