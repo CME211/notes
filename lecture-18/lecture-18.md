@@ -1,7 +1,5 @@
 # CME 211: Lecture 18
 
-Wednesday, November 4, 2015
-
 Topics:
 
 * Functions
@@ -69,7 +67,6 @@ Output:
 $ g++ -Wall -Wextra -Wconversion sum1.cpp -o sum1
 $ ./sum1
 c = 5
-$
 ```
 
 ### Order matters
@@ -103,7 +100,6 @@ sum2.cpp: In function 'int main()':
 sum2.cpp:7:18: error: 'sum' was not declared in this scope
   int c = sum(a,b);
                  ^
-$
 ```
 
 ### Function declarations and definitions
@@ -146,7 +142,6 @@ Output:
 $ g++ -Wall -Wextra -Wconversion sum3.cpp -o sum3
 $ ./sum3
 c = 5
-$
 ```
 
 ### Data types
@@ -183,7 +178,6 @@ datatypes1.cpp:14:18: warning: conversion to 'int' from 'double' may alter its v
 datatypes1.cpp:14:18: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]
 $ ./datatypes1
 c = 5
-$
 ```
 
 ### Implicit casting
@@ -223,7 +217,6 @@ datatypes2.cpp:13:18: warning: conversion to 'int' from 'double' may alter its v
 datatypes2.cpp:13:18: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]
 $ ./datatypes2
 c = 5
-$
 ```
 
 ### Explicit casting
@@ -252,7 +245,6 @@ Output:
 
 ```
 $ g++ -Wall -Wextra -Wconversion datatypes3.cpp -o datatypes3
-$
 ```
 
 ### `void`
@@ -284,7 +276,6 @@ $ ./void1
 -------------------------
       MySolver v1.0
 -------------------------
-$
 ```
 
 ### `void` and `return`
@@ -315,7 +306,6 @@ void2.cpp: In function 'void printHeader()':
 void2.cpp:8:10: error: return-statement with a value, in function returning 'void' [-fpermissive]
   return 0;
          ^
-$
 ```
 
 ### `void` and `return`
@@ -342,7 +332,6 @@ Output:
 
 ```
 $ g++ -Wall -Wextra -Wconversion void3.cpp -o void3
-$
 ```
 
 ### Ignoring return value
@@ -371,7 +360,6 @@ Output:
 ```
 $ g++ -Wall -Wextra -Wconversion ignore.cpp -o ignore
 $ ./ignore
-$
 ```
 
 ### Function scope
@@ -443,7 +431,6 @@ $ g++ -Wall -Wextra -Wconversion scope2.cpp -o scope2
 $ ./scope2
 a = 2
 a = 3
-$
 ```
 
 ### Passing arguments
@@ -475,7 +462,6 @@ $ g++ -Wall -Wextra -Wconversion passing1.cpp -o passing1
 $ ./passing1
 a = 3
 a = 2
-$
 ```
 
 ### Passing arguments
@@ -509,7 +495,6 @@ $ ./passing2
 a[0] = 2, a[1] = 3
 a[0] = 3, a[1] = 4
 a[0] = 3, a[1] = 4
-$
 ```
 
 ### Pass by value
@@ -562,7 +547,6 @@ Output:
 $ g++ -Wall -Wextra -Wconversion main4.cpp sum4.cpp -o sum4
 $ ./sum4
 c = 5
-$
 ```
 
 ### Maintaining consistency
@@ -600,7 +584,6 @@ $ g++ -Wall -Wextra -Wconversion main5.cpp sum5.cpp -o sum5
 /tmp/ccCKlsvX.o: In function main':
 main5.cpp:(.text+0x21): undefined reference to sum(int, int)'
 collect2: error: ld returned 1 exit status
-$
 ```
 
 ## The preprocessor and `#include`
@@ -698,7 +681,6 @@ Output:
 $ g++ -Wall -Wextra -Wconversion main6.cpp sum6.cpp -o sum6
 $ ./sum6
 c = 5
-$
 ```
 
 ### `#include` syntax
@@ -757,7 +739,6 @@ int main() {
 
   return 0;
 }
-$
 ```
 
 ### Macros
@@ -791,7 +772,6 @@ Output:
 $ g++ -Wall -Wextra -Wconversion define2.cpp -o define2
 $ ./define2
 b = 4
-$
 ```
 
 ### Be careful
@@ -819,7 +799,6 @@ Output:
 $ g++ -Wall -Wextra -Wconversion define3.cpp -o define3
 $ ./define3
 b = 11
-$
 ```
 
 ### Predefined macros
@@ -843,7 +822,6 @@ Output:
 $ g++ -Wall -Wextra -Wconversion define4.cpp -o define4
 $ ./define4
 This line is in file define4.cpp, line 5
-$
 ```
 
 ### Conditional compilation
@@ -883,7 +861,6 @@ a[0] = 2
 a[1] = 3
 a[2] = 4
 a[3] = 5
-$
 ```
 
 ### Reading

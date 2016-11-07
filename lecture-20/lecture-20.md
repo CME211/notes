@@ -1,7 +1,5 @@
 # CME 211: Lecture 20
 
-Monday, November 9, 2015
-
 Topics:
 
 * C++ containers

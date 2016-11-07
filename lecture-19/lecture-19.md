@@ -1,7 +1,5 @@
 # CME 211: Lecture 19
 
-Friday, November 6, 2015
-
 Topics:
 
 * C++ containers
@@ -508,7 +506,6 @@ Output:
 ```
 $ ./accumulate 
 sum = 127
-$
 ```
 
 ### Copy or reference?
@@ -594,7 +591,6 @@ v[0] = 42
 v[1] = 17
 v[2] = -5
 v[3] = 73
-$
 ```
 
 ### Copy or reference?
@@ -637,7 +633,6 @@ v[2] = 20
 v[0] = 42
 v[1] = -7
 v[2] = 19
-$
 ```
 
 ### Pass by reference
@@ -713,7 +708,6 @@ v[2] = 20
 v[0] = 43
 v[1] = -6
 v[2] = 20
-$
 ```
 
 ## Tuple
