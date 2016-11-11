@@ -1,4 +1,4 @@
-# CME 211 Guidelines
+# CME 211 Style Guidelines
 
 Good style practices in software development are important for collaboration
 and code readability.  This document provides a set of guidelines that we expect
