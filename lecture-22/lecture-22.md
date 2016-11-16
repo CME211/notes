@@ -1,7 +1,5 @@
 # CME 211: Lecture 22
 
-Friday, November 13, 2015
-
 Topics:
 
 * Compilation process
@@ -10,7 +8,7 @@ Topics:
 ## Compilation
 
 * Although you can go from source code to an executable in one command, the
-process is actually made up of 4 steps
+  process is actually made up of 4 steps
 
   * Preprocessing
   
@@ -21,7 +19,7 @@ process is actually made up of 4 steps
   * Linking
 
 * `g++` and `clang++` (and `gcc` or `clang` for C code) are driver programs that
-invoke the appropriate tools to perform these steps
+  invoke the appropriate tools to perform these steps
 
 * This is a high level overview.  The compilation process also includes
   optimization phases during compilation and linking.
@@ -29,46 +27,30 @@ invoke the appropriate tools to perform these steps
 ### Behind the scenes
 
 We can inspect the compilation process in more detail with the `-v` compiler
-argument.  `-v` typically stands for "verbose".
+argument. `-v` typically stands for "verbose".
 
 Output:
 
 ```
 $ g++ -v -Wall -Wextra -Wconversion src/hello1.cpp -o src/hello1
-Using built-in specs.
-COLLECT_GCC=/usr/bin/g++
-COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/4.9.2/lto-wrapper
-Target: x86_64-redhat-linux
-Configured with: ../configure --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-bootstrap --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-languages=c,c++,objc,obj-c++,fortran,ada,go,lto --enable-plugin --enable-initfini-array --disable-libgcj --with-isl=/builddir/build/BUILD/gcc-4.9.2-20150212/obj-x86_64-redhat-linux/isl-install --with-cloog=/builddir/build/BUILD/gcc-4.9.2-20150212/obj-x86_64-redhat-linux/cloog-install --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
+Apple LLVM version 7.3.0 (clang-703.0.31)
+Target: x86_64-apple-darwin15.6.0
 Thread model: posix
-gcc version 4.9.2 20150212 (Red Hat 4.9.2-6) (GCC) 
-COLLECT_GCC_OPTIONS='-v' '-Wall' '-Wextra' '-Wconversion' '-o' 'src/hello1' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/libexec/gcc/x86_64-redhat-linux/4.9.2/cc1plus -quiet -v -D_GNU_SOURCE src/hello1.cpp -quiet -dumpbase hello1.cpp -mtune=generic -march=x86-64 -auxbase hello1 -Wall -Wextra -Wconversion -version -o /tmp/ccgejI6U.s
-GNU C++ (GCC) version 4.9.2 20150212 (Red Hat 4.9.2-6) (x86_64-redhat-linux)
-	compiled by GNU C version 4.9.2 20150212 (Red Hat 4.9.2-6), GMP version 6.0.0, MPFR version 3.1.2, MPC version 1.0.2
-GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/4.9.2/include-fixed"
-ignoring nonexistent directory "/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../x86_64-redhat-linux/include"
+InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.11.0 -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name hello1.cpp -mrelocation-model pic -pic-level 2 -mthread-model posix -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 264.3.102 -v -dwarf-column-info -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.3.0 -stdlib=libc++ -Wall -Wextra -Wconversion -fdeprecated-macro -fdebug-compilation-dir /Users/nwh/git/cme211-notes/lecture-22 -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -fblocks -fobjc-runtime=macosx-10.11.0 -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fmax-type-align=16 -fdiagnostics-show-option -o /var/folders/cb/99c_5dyj74q81q5kdrpkqb5m0000gn/T/hello1-84fb3e.o -x c++ src/hello1.cpp
+clang -cc1 version 7.3.0 (clang-703.0.31) default target x86_64-apple-darwin15.6.0
+ignoring nonexistent directory "/usr/include/c++/v1"
 #include "..." search starts here:
 #include <...> search starts here:
- /usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2
- /usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2/x86_64-redhat-linux
- /usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../include/c++/4.9.2/backward
- /usr/lib/gcc/x86_64-redhat-linux/4.9.2/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1
  /usr/local/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.3.0/include
+ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include
  /usr/include
+ /System/Library/Frameworks (framework directory)
+ /Library/Frameworks (framework directory)
 End of search list.
-GNU C++ (GCC) version 4.9.2 20150212 (Red Hat 4.9.2-6) (x86_64-redhat-linux)
-	compiled by GNU C version 4.9.2 20150212 (Red Hat 4.9.2-6), GMP version 6.0.0, MPFR version 3.1.2, MPC version 1.0.2
-GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
-Compiler executable checksum: 954ba53e83b294b646fa1b6b73a69682
-COLLECT_GCC_OPTIONS='-v' '-Wall' '-Wextra' '-Wconversion' '-o' 'src/hello1' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- as -v --64 -o /tmp/ccHWfZ3W.o /tmp/ccgejI6U.s
-GNU assembler version 2.24 (x86_64-redhat-linux) using BFD version version 2.24
-COMPILER_PATH=/usr/libexec/gcc/x86_64-redhat-linux/4.9.2/:/usr/libexec/gcc/x86_64-redhat-linux/4.9.2/:/usr/libexec/gcc/x86_64-redhat-linux/:/usr/lib/gcc/x86_64-redhat-linux/4.9.2/:/usr/lib/gcc/x86_64-redhat-linux/
-LIBRARY_PATH=/usr/lib/gcc/x86_64-redhat-linux/4.9.2/:/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../:/lib/:/usr/lib/
-COLLECT_GCC_OPTIONS='-v' '-Wall' '-Wextra' '-Wconversion' '-o' 'src/hello1' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
- /usr/libexec/gcc/x86_64-redhat-linux/4.9.2/collect2 -plugin /usr/libexec/gcc/x86_64-redhat-linux/4.9.2/liblto_plugin.so -plugin-opt=/usr/libexec/gcc/x86_64-redhat-linux/4.9.2/lto-wrapper -plugin-opt=-fresolution=/tmp/ccK49X1Y.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --no-add-needed --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o src/hello1 /usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../lib64/crt1.o /usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../lib64/crti.o /usr/lib/gcc/x86_64-redhat-linux/4.9.2/crtbegin.o -L/usr/lib/gcc/x86_64-redhat-linux/4.9.2 -L/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../.. /tmp/ccHWfZ3W.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-redhat-linux/4.9.2/crtend.o /usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../lib64/crtn.o
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -dynamic -arch x86_64 -macosx_version_min 10.11.0 -o src/hello1 /var/folders/cb/99c_5dyj74q81q5kdrpkqb5m0000gn/T/hello1-84fb3e.o -lc++ -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.3.0/lib/darwin/libclang_rt.osx.a
 ```
 
 ### Splitting up the steps manually
@@ -91,6 +73,7 @@ int main() {
 }
 $ g++ -E -o src/hello1.i src/hello1.cpp 
 $ g++ -S -o src/hello1.s src/hello1.i
+clang: warning: treating 'cpp-output' input as 'c++-cpp-output' when in C++ mode, this behavior is deprecated
 $ g++ -c -o src/hello1.o src/hello1.s
 $ g++ -o src/hello1 src/hello1.o
 $ ./src/hello1
@@ -112,7 +95,7 @@ Hello, CME 211!
 
 From `src/hello1.i`:
 
-```
+```c++
 # 1 "hello1.cpp"
 # 1 "<command-line>"
 # 1 "/usr/include/stdc-predef.h" 1 3 4
@@ -124,7 +107,7 @@ From `src/hello1.i`:
 # 1 "/usr/include/c++/4.8/iostream" 1 3
 # 36 "/usr/include/c++/4.8/iostream" 3
 
-...
+// approximately 17,500 lines omitted!
 
 int main()
 {
@@ -133,14 +116,11 @@ return 0;
 }
 ```
 
-Approximately 17,500 lines omitted!
-
 ### Compilation
 
 * Compilation is the process of translating source code to assembly commands
 
-* The assembly commands are still human readable text (if the human knows
-assembly)
+* The assembly commands are still human readable text (if the human knows assembly)
 
 From `src/hello.s`:
 
@@ -169,14 +149,14 @@ main:
 ### Assembly
 
 * This step translates the text representation of the assembly instructions into
-the binary machine code in a `.o` file
+  the binary machine code in a `.o` file
 
 * `.o` files are called object files
 
 * Linux uses the Executable and Linkable Format (ELF) for these files
 
 * If you try to look at these files with a normal text editor you will just see
-garbage, intermixed with a few strings
+  garbage, intermixed with a few strings
 
 * Sometimes it is helpful to inspect object files with the `nm` command to see
   what symbols are defined:
@@ -185,30 +165,50 @@ Output:
 
 ```
 $ nm ./src/hello1.o
-                 U __cxa_atexit
-                 U __dso_handle
-0000000000000064 t _GLOBAL__sub_I_main
-0000000000000000 T main
-0000000000000027 t _Z41__static_initialization_and_destruction_0ii
-                 U _ZNSolsEPFRSoS_E
-                 U _ZNSt8ios_base4InitC1Ev
-                 U _ZNSt8ios_base4InitD1Ev
-                 U _ZSt4cout
-                 U _ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
-0000000000000000 b _ZStL8__ioinit
-                 U _ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+0000000000000cac s GCC_except_table2
+0000000000000cec s GCC_except_table3
+0000000000000d9c s GCC_except_table5
+                 U __Unwind_Resume
+                 U __ZNKSt3__16locale9use_facetERNS0_2idE
+                 U __ZNKSt3__18ios_base6getlocEv
+0000000000000c80 S __ZNSt3__111char_traitsIcE11eq_int_typeEii
+0000000000000ca0 S __ZNSt3__111char_traitsIcE3eofEv
+00000000000005d0 S __ZNSt3__111char_traitsIcE6lengthEPKc
+                 U __ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__initEmc
+                 U __ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev
+                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE3putEc
+                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE5flushEv
+                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE6sentryC1ERS3_
+                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE6sentryD1Ev
+00000000000005f0 S __ZNSt3__116__pad_and_outputIcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_
+00000000000001a0 S __ZNSt3__124__put_character_sequenceIcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m
+                 U __ZNSt3__14coutE
+00000000000000a0 S __ZNSt3__14endlIcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_
+                 U __ZNSt3__15ctypeIcE2idE
+                 U __ZNSt3__16localeD1Ev
+                 U __ZNSt3__18ios_base33__set_badbit_and_consider_rethrowEv
+                 U __ZNSt3__18ios_base5clearEj
+0000000000000050 S __ZNSt3__1lsINS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_PKc
+                 U __ZSt9terminatev
+0000000000000c70 S ___clang_call_terminate
+                 U ___cxa_begin_catch
+                 U ___cxa_end_catch
+                 U ___gxx_personality_v0
+0000000000000000 T _main
+                 U _memset
+                 U _strlen
 ```
 
 ### Linking
 
 * Linking is the process of building the final executable by combining (linking)
-the `.o` file(s), and possibly library files as well
+  the `.o` file(s), and possibly library files as well
 
 * The linker makes sure all of the required functions are present
 
 * If for example `foo.o` contains a call to a function called `bar()`, there has
-to be another `.o` file or library file that provides the implementation of the
-`bar()` function
+  to be another `.o` file or library file that provides the implementation of
+  the `bar()` function
 
 ### Linking example
 
@@ -262,27 +262,21 @@ Output:
 ```
 $ ls src
 bar.cpp
-bar.o
 ex1
 ex2
 ex3
 ex4
-foobar.hpp
 foo.cpp
-foo.o
+foobar.hpp
 hello1
 hello1.cpp
 hello1.i
 hello1.o
 hello1.s
-hw6
 hw6.cpp
 hw6.hpp
-main
 main.cpp
-main.o
 stanford.jpg
-test.jpg
 ```
 
 Compile and assemble source files, but don't link:
@@ -301,7 +295,7 @@ Output:
 
 ```
 $ ls src/*.o
-ls: cannot access src/*.o: No such file or directory
+ls: src/*.o: No such file or directory
 ```
 
 What symbols are present in the object files?
@@ -310,35 +304,75 @@ Output:
 
 ```
 $ nm src/foo.o
-                 U __cxa_atexit
-                 U __dso_handle
-000000000000005f t _GLOBAL__sub_I__Z3foov
-0000000000000000 T _Z3foov
-0000000000000022 t _Z41__static_initialization_and_destruction_0ii
-                 U _ZNSolsEPFRSoS_E
-                 U _ZNSt8ios_base4InitC1Ev
-                 U _ZNSt8ios_base4InitD1Ev
-                 U _ZSt4cout
-                 U _ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
-0000000000000000 b _ZStL8__ioinit
-                 U _ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+0000000000000d2c s GCC_except_table2
+0000000000000d6c s GCC_except_table3
+0000000000000e1c s GCC_except_table5
+                 U __Unwind_Resume
+0000000000000000 T __Z3foov
+                 U __ZNKSt3__16locale9use_facetERNS0_2idE
+                 U __ZNKSt3__18ios_base6getlocEv
+0000000000000d00 S __ZNSt3__111char_traitsIcE11eq_int_typeEii
+0000000000000d20 S __ZNSt3__111char_traitsIcE3eofEv
+0000000000000610 S __ZNSt3__111char_traitsIcE6lengthEPKc
+                 U __ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__initEmc
+                 U __ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev
+                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE3putEc
+                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE5flushEv
+                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE6sentryC1ERS3_
+                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE6sentryD1Ev
+0000000000000630 S __ZNSt3__116__pad_and_outputIcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_
+00000000000001a0 S __ZNSt3__124__put_character_sequenceIcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m
+                 U __ZNSt3__14coutE
+0000000000000090 S __ZNSt3__14endlIcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_
+                 U __ZNSt3__15ctypeIcE2idE
+                 U __ZNSt3__16localeD1Ev
+                 U __ZNSt3__18ios_base33__set_badbit_and_consider_rethrowEv
+                 U __ZNSt3__18ios_base5clearEj
+0000000000000040 S __ZNSt3__1lsINS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_PKc
+                 U __ZSt9terminatev
+0000000000000cf0 S ___clang_call_terminate
+                 U ___cxa_begin_catch
+                 U ___cxa_end_catch
+                 U ___gxx_personality_v0
+                 U _memset
+                 U _strlen
 $ nm src/bar.o
-                 U __cxa_atexit
-                 U __dso_handle
-000000000000005f t _GLOBAL__sub_I__Z3barv
-0000000000000000 T _Z3barv
-0000000000000022 t _Z41__static_initialization_and_destruction_0ii
-                 U _ZNSolsEPFRSoS_E
-                 U _ZNSt8ios_base4InitC1Ev
-                 U _ZNSt8ios_base4InitD1Ev
-                 U _ZSt4cout
-                 U _ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
-0000000000000000 b _ZStL8__ioinit
-                 U _ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+0000000000000d2c s GCC_except_table2
+0000000000000d6c s GCC_except_table3
+0000000000000e1c s GCC_except_table5
+                 U __Unwind_Resume
+0000000000000000 T __Z3barv
+                 U __ZNKSt3__16locale9use_facetERNS0_2idE
+                 U __ZNKSt3__18ios_base6getlocEv
+0000000000000d00 S __ZNSt3__111char_traitsIcE11eq_int_typeEii
+0000000000000d20 S __ZNSt3__111char_traitsIcE3eofEv
+0000000000000610 S __ZNSt3__111char_traitsIcE6lengthEPKc
+                 U __ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__initEmc
+                 U __ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev
+                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE3putEc
+                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE5flushEv
+                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE6sentryC1ERS3_
+                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE6sentryD1Ev
+0000000000000630 S __ZNSt3__116__pad_and_outputIcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_
+00000000000001a0 S __ZNSt3__124__put_character_sequenceIcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m
+                 U __ZNSt3__14coutE
+0000000000000090 S __ZNSt3__14endlIcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_
+                 U __ZNSt3__15ctypeIcE2idE
+                 U __ZNSt3__16localeD1Ev
+                 U __ZNSt3__18ios_base33__set_badbit_and_consider_rethrowEv
+                 U __ZNSt3__18ios_base5clearEj
+0000000000000040 S __ZNSt3__1lsINS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_PKc
+                 U __ZSt9terminatev
+0000000000000cf0 S ___clang_call_terminate
+                 U ___cxa_begin_catch
+                 U ___cxa_end_catch
+                 U ___gxx_personality_v0
+                 U _memset
+                 U _strlen
 $ nm src/main.o
-0000000000000000 T main
-                 U _Z3barv
-                 U _Z3foov
+                 U __Z3barv
+                 U __Z3foov
+0000000000000000 T _main
 ```
 
 What happens if we try to link `main.o` into an executable with out pointing to
@@ -348,10 +382,13 @@ Output:
 
 ```
 $ g++ src/main.o -o src/main
-src/main.o: In function `main':
-main.cpp:(.text+0x5): undefined reference to `foo()'
-main.cpp:(.text+0xa): undefined reference to `bar()'
-collect2: error: ld returned 1 exit status
+Undefined symbols for architecture x86_64:
+  "bar()", referenced from:
+      _main in main.o
+  "foo()", referenced from:
+      _main in main.o
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
 ```
 
 Ahhh, linker errors!  Let's do it right:
@@ -370,14 +407,14 @@ Hello from bar
 * Libraries are really just a file that contain one or more `.o` files
 
 * On Linux these files typically have a `.a` (static library) or `.so` (dynamic
-library) extension
+  library) extension
 
 * `.so` files are analogous to `.dll` files on Windows
 
 * `.dylib` files on Mac OS X and iOS are also very similar to `.so` files
 
 * Static libraries are factored into the executable at link time in the
-compilation process.
+  compilation process.
 
 * Shared (dynamic) libraries are loaded up at run time.
 
@@ -386,7 +423,7 @@ compilation process.
 From `src/hw6.cpp`:
 
 ```c++
-...
+// code omitted
 
 #include <jpeglib.h>
 
@@ -404,10 +441,10 @@ void ReadGrayscaleJPEG(std::string filename, boost::multi_array<unsigned char,2>
     s << __func__ << ": Failed to open file " << filename;
     throw std::runtime_error(s.str());
   }
-  ...
+  // code omitted
 } 
 
-...
+// code omitted
 
 #ifdef DEBUG
 int main()
@@ -427,27 +464,49 @@ Output:
 
 ```
 $ g++ -std=c++11 -Wall -Wextra -Wconversion src/hw6.cpp -o src/hw6
-/usr/lib/gcc/x86_64-redhat-linux/4.9.2/../../../../lib64/crt1.o: In function `_start':
-(.text+0x20): undefined reference to `main'
-/tmp/ccoFK0Eq.o: In function `ReadGrayscaleJPEG(std::string, boost::multi_array<unsigned char, 2ul, std::allocator<unsigned char> >&)':
-hw6.cpp:(.text+0xfe): undefined reference to `jpeg_std_error'
-hw6.cpp:(.text+0x11e): undefined reference to `jpeg_CreateDecompress'
-hw6.cpp:(.text+0x134): undefined reference to `jpeg_stdio_src'
-hw6.cpp:(.text+0x148): undefined reference to `jpeg_read_header'
-hw6.cpp:(.text+0x281): undefined reference to `jpeg_start_decompress'
-hw6.cpp:(.text+0x2c9): undefined reference to `jpeg_read_scanlines'
-hw6.cpp:(.text+0x32e): undefined reference to `jpeg_finish_decompress'
-hw6.cpp:(.text+0x33d): undefined reference to `jpeg_destroy_decompress'
-/tmp/ccoFK0Eq.o: In function `WriteGrayscaleJPEG(std::string, boost::multi_array<unsigned char, 2ul, std::allocator<unsigned char> >&)':
-hw6.cpp:(.text+0x4e4): undefined reference to `jpeg_std_error'
-hw6.cpp:(.text+0x504): undefined reference to `jpeg_CreateCompress'
-hw6.cpp:(.text+0x51a): undefined reference to `jpeg_stdio_dest'
-hw6.cpp:(.text+0x56e): undefined reference to `jpeg_set_defaults'
-hw6.cpp:(.text+0x587): undefined reference to `jpeg_set_quality'
-hw6.cpp:(.text+0x59b): undefined reference to `jpeg_start_compress'
-hw6.cpp:(.text+0x5e7): undefined reference to `jpeg_write_scanlines'
-hw6.cpp:(.text+0x606): undefined reference to `jpeg_finish_compress'
-collect2: error: ld returned 1 exit status
+src/hw6.cpp:46:67: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+  row_pointer = (unsigned char *) malloc(cinfo.output_width*cinfo.num_components);
+                                                           ~~~~~~~^~~~~~~~~~~~~~
+src/hw6.cpp:52:58: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    for (unsigned int i = 0; i < cinfo.image_width*cinfo.num_components; i++) 
+                                                  ~~~~~~~^~~~~~~~~~~~~~
+2 warnings generated.
+Undefined symbols for architecture x86_64:
+  "_jpeg_CreateCompress", referenced from:
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+  "_jpeg_CreateDecompress", referenced from:
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+  "_jpeg_destroy_decompress", referenced from:
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+  "_jpeg_finish_compress", referenced from:
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+  "_jpeg_finish_decompress", referenced from:
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+  "_jpeg_read_header", referenced from:
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+  "_jpeg_read_scanlines", referenced from:
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+  "_jpeg_set_defaults", referenced from:
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+  "_jpeg_set_quality", referenced from:
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+  "_jpeg_start_compress", referenced from:
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+  "_jpeg_start_decompress", referenced from:
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+  "_jpeg_std_error", referenced from:
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+  "_jpeg_stdio_dest", referenced from:
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+  "_jpeg_stdio_src", referenced from:
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+  "_jpeg_write_scanlines", referenced from:
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+  "_main", referenced from:
+     implicit entry/start for main executable
+ld: symbol(s) not found for architecture x86_64
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
 ```
 
 That did not work.  The linker looks for the `main` symbol when trying to build
@@ -460,7 +519,7 @@ Output:
 
 ```
 $ ls -l /usr/include/jpeglib.h 
--rw-r--r--. 1 root root 50298 Feb 24  2015 /usr/include/jpeglib.h
+ls: /usr/include/jpeglib.h: No such file or directory
 ```
 
 Let's find `libjpeg`:
@@ -469,9 +528,9 @@ Output:
 
 ```
 $ ls -l /usr/lib/libjpeg.*
-ls: cannot access /usr/lib/libjpeg.*: No such file or directory
+ls: /usr/lib/libjpeg.*: No such file or directory
 $ ls -l /usr/lib64/libjpeg.*
-ls: cannot access /usr/lib64/libjpeg.*: No such file or directory
+ls: /usr/lib64/libjpeg.*: No such file or directory
 ```
 
 Note that the library files may be in a different location on your system.
@@ -482,6 +541,14 @@ Output:
 
 ```
 $ g++ -std=c++11 -Wall -Wextra -Wconversion src/hw6.cpp -o src/hw6 -DDEBUG -I/usr/include -L/usr/lib64 -ljpeg
+src/hw6.cpp:46:67: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+  row_pointer = (unsigned char *) malloc(cinfo.output_width*cinfo.num_components);
+                                                           ~~~~~~~^~~~~~~~~~~~~~
+src/hw6.cpp:52:58: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    for (unsigned int i = 0; i < cinfo.image_width*cinfo.num_components; i++) 
+                                                  ~~~~~~~^~~~~~~~~~~~~~
+2 warnings generated.
+ld: warning: directory not found for option '-L/usr/lib64'
 $ ./src/hw6
 ```
 
@@ -491,13 +558,11 @@ $ ./src/hw6
 
 ## Make
 
-* Utility that compiles programs based on rules read in from a file called
-Makefile
+* Utility that compiles programs based on rules read in from a file called Makefile
 
 * Widely used on Linux/Unix platforms
 
-* Setup and maintenance of Makefile(s) can become rather complicated for major
-projects
+* Setup and maintenance of Makefile(s) can become rather complicated for major projects
 
 * We will look at a few simple examples
 
@@ -569,35 +634,34 @@ target: dependencies
 
 Let's run make!
 
-```
-[nwh@icme-nwh ex1] $ ls
+```sh
+$ ls
 main.cpp  makefile  sum.cpp  sum.hpp
-[nwh@icme-nwh ex1] $ make
+$ make
 g++ -Wall -Wextra -Wconversion -o main main.cpp sum.cpp
-[nwh@icme-nwh ex1] $ ls
+$ ls
 main  main.cpp	makefile  sum.cpp  sum.hpp
-[nwh@icme-nwh ex1] $ make
+$ make
 make: 'main' is up to date.
-[nwh@icme-nwh ex1] $
+$
 ```
 
 ### File changes
 
-* Make looks at time stamps on files to know when changes have been made and
-will recompile accordingly
+Make looks at time stamps on files to know when changes have been made and will
+recompile accordingly (from `src/ex1` directory):
 
-```
-[nwh@icme-nwh ex1] $ make
+```sh
+$ make
 make: 'main' is up to date.
-[nwh@icme-nwh ex1] $ touch main.cpp
-[nwh@icme-nwh ex1] $ make
+$ touch main.cpp
+$ make
 g++ -Wall -Wextra -Wconversion -o main main.cpp sum.cpp
-[nwh@icme-nwh ex1] $ touch sum.hpp
-[nwh@icme-nwh ex1] $ make
+$ touch sum.hpp
+$ make
 g++ -Wall -Wextra -Wconversion -o main main.cpp sum.cpp
-[nwh@icme-nwh ex1] $ make
+$ make
 make: 'main' is up to date.
-[nwh@icme-nwh ex1] $
 ```
 
 ### Make variables, multiple targets, and comments
@@ -622,20 +686,19 @@ clean:
 	$(RM) main
 ```
 
-Output:
+Output (from `src/ex2` directory):
 
-```
-[nwh@icme-nwh ex2] $ ls
+```sh
+$ ls
 main.cpp  makefile  sum.cpp  sum.hpp
-[nwh@icme-nwh ex2] $ make
+$ make
 g++ -Wall -Wextra -Wconversion -fsanitize=address -o main main.cpp sum.cpp
-[nwh@icme-nwh ex2] $ ls
+$ ls
 main  main.cpp	makefile  sum.cpp  sum.hpp
-[nwh@icme-nwh ex2] $ make clean
+$ make clean
 rm -f main
-[nwh@icme-nwh ex2] $ ls
+$ ls
 main.cpp  makefile  sum.cpp  sum.hpp
-[nwh@icme-nwh ex2] $ 
 ```
 
 ### Individual compilation of object files
@@ -662,24 +725,23 @@ clean:
 	$(RM) $(OBJS) $(TARGET)
 ```
 
-Output:
+Output (from `src/ex3` directory):
 
-```
-[nwh@icme-nwh ex3] $ ls
+```sh
+$ ls
 bar.cpp  foobar.hpp  foo.cpp  main.cpp	makefile  sum.cpp  sum.hpp
-[nwh@icme-nwh ex3] $ make
+$ make
 g++ -c -o main.o main.cpp -O3 -Wall -Wextra -Wconversion -std=c++11
 g++ -c -o sum.o sum.cpp -O3 -Wall -Wextra -Wconversion -std=c++11
 g++ -c -o foo.o foo.cpp -O3 -Wall -Wextra -Wconversion -std=c++11
 g++ -c -o bar.o bar.cpp -O3 -Wall -Wextra -Wconversion -std=c++11
 g++ -o main main.o sum.o foo.o bar.o
-[nwh@icme-nwh ex3] $ ls
+$ ls
 bar.cpp  bar.o	foobar.hpp  foo.cpp  foo.o  main  main.cpp  main.o  makefile  sum.cpp  sum.hpp	sum.o
-[nwh@icme-nwh ex3] $ make clean
+$ make clean
 rm -f main.o sum.o foo.o bar.o main
-[nwh@icme-nwh ex3] $ ls
+$ ls
 bar.cpp  foobar.hpp  foo.cpp  main.cpp	makefile  sum.cpp  sum.hpp
-[nwh@icme-nwh ex3] $
 ```
 
 ### Linking to a library & `run` targets
@@ -719,22 +781,22 @@ run: $(TARGET)
 	./$(TARGET)
 ```
 
-Output:
+Output (from `src/ex4` directory):
 
 ```
-[nwh@icme-nwh ex4] $ ls
+$ ls
 hw6.cpp  hw6.hpp  makefile  stanford.jpg
-[nwh@icme-nwh ex4] $ make
+$ make
 g++ -c -o hw6.o hw6.cpp -DDEBUG -O3 -std=c++11 -Wall -Wextra -Wconversion
 g++ -o hw6 hw6.o -ljpeg
-[nwh@icme-nwh ex4] $ ./hw6 
-[nwh@icme-nwh ex4] $ make clean
+$ ./hw6 
+$ make clean
 rm -f hw6.o hw6 *~
-[nwh@icme-nwh ex4] $ make run
+$ make run
 g++ -c -o hw6.o hw6.cpp -DDEBUG -O3 -std=c++11 -Wall -Wextra -Wconversion
 g++ -o hw6 hw6.o -ljpeg
 ./hw6
-[nwh@icme-nwh ex4] $ ls
+$ ls
 hw6  hw6.cpp  hw6.hpp  hw6.o  makefile	stanford.jpg  test.jpg
 ```
 
@@ -748,7 +810,7 @@ hw6  hw6.cpp  hw6.hpp  hw6.o  makefile	stanford.jpg  test.jpg
   process for larger projects.
 
 * Some people would not recommend hand writing Makefile(s) for larger projects
-(use CMake or similar)
+  (use CMake or similar)
 
 * With discipline, I believe that Make is a good tool for large projects.  This
   is what I use.  Sometimes CMake and other tools make it harder to build

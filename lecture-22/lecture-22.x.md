@@ -1,7 +1,5 @@
 # CME 211: Lecture 22
 
-Friday, November 13, 2015
-
 Topics:
 
 * Compilation process
@@ -10,7 +8,7 @@ Topics:
 ## Compilation
 
 * Although you can go from source code to an executable in one command, the
-process is actually made up of 4 steps
+  process is actually made up of 4 steps
 
   * Preprocessing
   
@@ -21,7 +19,7 @@ process is actually made up of 4 steps
   * Linking
 
 * `g++` and `clang++` (and `gcc` or `clang` for C code) are driver programs that
-invoke the appropriate tools to perform these steps
+  invoke the appropriate tools to perform these steps
 
 * This is a high level overview.  The compilation process also includes
   optimization phases during compilation and linking.
@@ -29,7 +27,7 @@ invoke the appropriate tools to perform these steps
 ### Behind the scenes
 
 We can inspect the compilation process in more detail with the `-v` compiler
-argument.  `-v` typically stands for "verbose".
+argument. `-v` typically stands for "verbose".
 
 !run
 g++ -v -Wall -Wextra -Wconversion src/hello1.cpp -o src/hello1
@@ -67,7 +65,7 @@ g++ -o src/hello1 src/hello1.o
 
 From `src/hello1.i`:
 
-```
+```c++
 # 1 "hello1.cpp"
 # 1 "<command-line>"
 # 1 "/usr/include/stdc-predef.h" 1 3 4
@@ -79,7 +77,7 @@ From `src/hello1.i`:
 # 1 "/usr/include/c++/4.8/iostream" 1 3
 # 36 "/usr/include/c++/4.8/iostream" 3
 
-...
+// approximately 17,500 lines omitted!
 
 int main()
 {
@@ -88,14 +86,11 @@ return 0;
 }
 ```
 
-Approximately 17,500 lines omitted!
-
 ### Compilation
 
 * Compilation is the process of translating source code to assembly commands
 
-* The assembly commands are still human readable text (if the human knows
-assembly)
+* The assembly commands are still human readable text (if the human knows assembly)
 
 From `src/hello.s`:
 
@@ -124,14 +119,14 @@ main:
 ### Assembly
 
 * This step translates the text representation of the assembly instructions into
-the binary machine code in a `.o` file
+  the binary machine code in a `.o` file
 
 * `.o` files are called object files
 
 * Linux uses the Executable and Linkable Format (ELF) for these files
 
 * If you try to look at these files with a normal text editor you will just see
-garbage, intermixed with a few strings
+  garbage, intermixed with a few strings
 
 * Sometimes it is helpful to inspect object files with the `nm` command to see
   what symbols are defined:
@@ -143,13 +138,13 @@ nm ./src/hello1.o
 ### Linking
 
 * Linking is the process of building the final executable by combining (linking)
-the `.o` file(s), and possibly library files as well
+  the `.o` file(s), and possibly library files as well
 
 * The linker makes sure all of the required functions are present
 
 * If for example `foo.o` contains a call to a function called `bar()`, there has
-to be another `.o` file or library file that provides the implementation of the
-`bar()` function
+  to be another `.o` file or library file that provides the implementation of
+  the `bar()` function
 
 ### Linking example
 
@@ -210,14 +205,14 @@ g++ src/main.o src/foo.o src/bar.o -o src/main
 * Libraries are really just a file that contain one or more `.o` files
 
 * On Linux these files typically have a `.a` (static library) or `.so` (dynamic
-library) extension
+  library) extension
 
 * `.so` files are analogous to `.dll` files on Windows
 
 * `.dylib` files on Mac OS X and iOS are also very similar to `.so` files
 
 * Static libraries are factored into the executable at link time in the
-compilation process.
+  compilation process.
 
 * Shared (dynamic) libraries are loaded up at run time.
 
@@ -226,7 +221,7 @@ compilation process.
 From `src/hw6.cpp`:
 
 ```c++
-...
+// code omitted
 
 #include <jpeglib.h>
 
@@ -244,10 +239,10 @@ void ReadGrayscaleJPEG(std::string filename, boost::multi_array<unsigned char,2>
     s << __func__ << ": Failed to open file " << filename;
     throw std::runtime_error(s.str());
   }
-  ...
+  // code omitted
 } 
 
-...
+// code omitted
 
 #ifdef DEBUG
 int main()
@@ -299,13 +294,11 @@ g++ -std=c++11 -Wall -Wextra -Wconversion src/hw6.cpp -o src/hw6 -DDEBUG -I/usr/
 
 ## Make
 
-* Utility that compiles programs based on rules read in from a file called
-Makefile
+* Utility that compiles programs based on rules read in from a file called Makefile
 
 * Widely used on Linux/Unix platforms
 
-* Setup and maintenance of Makefile(s) can become rather complicated for major
-projects
+* Setup and maintenance of Makefile(s) can become rather complicated for major projects
 
 * We will look at a few simple examples
 
@@ -342,101 +335,98 @@ target: dependencies
 
 Let's run make!
 
-```
-[nwh@icme-nwh ex1] $ ls
+```sh
+$ ls
 main.cpp  makefile  sum.cpp  sum.hpp
-[nwh@icme-nwh ex1] $ make
+$ make
 g++ -Wall -Wextra -Wconversion -o main main.cpp sum.cpp
-[nwh@icme-nwh ex1] $ ls
+$ ls
 main  main.cpp	makefile  sum.cpp  sum.hpp
-[nwh@icme-nwh ex1] $ make
+$ make
 make: 'main' is up to date.
-[nwh@icme-nwh ex1] $
+$
 ```
 
 ### File changes
 
-* Make looks at time stamps on files to know when changes have been made and
-will recompile accordingly
+Make looks at time stamps on files to know when changes have been made and will
+recompile accordingly (from `src/ex1` directory):
 
-```
-[nwh@icme-nwh ex1] $ make
+```sh
+$ make
 make: 'main' is up to date.
-[nwh@icme-nwh ex1] $ touch main.cpp
-[nwh@icme-nwh ex1] $ make
+$ touch main.cpp
+$ make
 g++ -Wall -Wextra -Wconversion -o main main.cpp sum.cpp
-[nwh@icme-nwh ex1] $ touch sum.hpp
-[nwh@icme-nwh ex1] $ make
+$ touch sum.hpp
+$ make
 g++ -Wall -Wextra -Wconversion -o main main.cpp sum.cpp
-[nwh@icme-nwh ex1] $ make
+$ make
 make: 'main' is up to date.
-[nwh@icme-nwh ex1] $
 ```
 
 ### Make variables, multiple targets, and comments
 
 !include src/ex2/makefile makefile
 
-Output:
+Output (from `src/ex2` directory):
 
-```
-[nwh@icme-nwh ex2] $ ls
+```sh
+$ ls
 main.cpp  makefile  sum.cpp  sum.hpp
-[nwh@icme-nwh ex2] $ make
+$ make
 g++ -Wall -Wextra -Wconversion -fsanitize=address -o main main.cpp sum.cpp
-[nwh@icme-nwh ex2] $ ls
+$ ls
 main  main.cpp	makefile  sum.cpp  sum.hpp
-[nwh@icme-nwh ex2] $ make clean
+$ make clean
 rm -f main
-[nwh@icme-nwh ex2] $ ls
+$ ls
 main.cpp  makefile  sum.cpp  sum.hpp
-[nwh@icme-nwh ex2] $ 
 ```
 
 ### Individual compilation of object files
 
 !include src/ex3/makefile makefile
 
-Output:
+Output (from `src/ex3` directory):
 
-```
-[nwh@icme-nwh ex3] $ ls
+```sh
+$ ls
 bar.cpp  foobar.hpp  foo.cpp  main.cpp	makefile  sum.cpp  sum.hpp
-[nwh@icme-nwh ex3] $ make
+$ make
 g++ -c -o main.o main.cpp -O3 -Wall -Wextra -Wconversion -std=c++11
 g++ -c -o sum.o sum.cpp -O3 -Wall -Wextra -Wconversion -std=c++11
 g++ -c -o foo.o foo.cpp -O3 -Wall -Wextra -Wconversion -std=c++11
 g++ -c -o bar.o bar.cpp -O3 -Wall -Wextra -Wconversion -std=c++11
 g++ -o main main.o sum.o foo.o bar.o
-[nwh@icme-nwh ex3] $ ls
+$ ls
 bar.cpp  bar.o	foobar.hpp  foo.cpp  foo.o  main  main.cpp  main.o  makefile  sum.cpp  sum.hpp	sum.o
-[nwh@icme-nwh ex3] $ make clean
+$ make clean
 rm -f main.o sum.o foo.o bar.o main
-[nwh@icme-nwh ex3] $ ls
+$ ls
 bar.cpp  foobar.hpp  foo.cpp  main.cpp	makefile  sum.cpp  sum.hpp
-[nwh@icme-nwh ex3] $
 ```
 
 ### Linking to a library & `run` targets
 
 !include src/ex4/makefile makefile
 
-Output:
+Output (from `src/ex4` directory):
 
 ```
-[nwh@icme-nwh ex4] $ ls
+$ ls
 hw6.cpp  hw6.hpp  makefile  stanford.jpg
-[nwh@icme-nwh ex4] $ make
+$ make
 g++ -c -o hw6.o hw6.cpp -DDEBUG -O3 -std=c++11 -Wall -Wextra -Wconversion
 g++ -o hw6 hw6.o -ljpeg
-[nwh@icme-nwh ex4] $ ./hw6 
-[nwh@icme-nwh ex4] $ make clean
+$ ./hw6 
+$ make clean
 rm -f hw6.o hw6 *~
-[nwh@icme-nwh ex4] $ make run
+$ make run
 g++ -c -o hw6.o hw6.cpp -DDEBUG -O3 -std=c++11 -Wall -Wextra -Wconversion
 g++ -o hw6 hw6.o -ljpeg
 ./hw6
-[nwh@icme-nwh ex4] $ ls
+$ ls
 hw6  hw6.cpp  hw6.hpp  hw6.o  makefile	stanford.jpg  test.jpg
 ```
 
@@ -450,7 +440,7 @@ hw6  hw6.cpp  hw6.hpp  hw6.o  makefile	stanford.jpg  test.jpg
   process for larger projects.
 
 * Some people would not recommend hand writing Makefile(s) for larger projects
-(use CMake or similar)
+  (use CMake or similar)
 
 * With discipline, I believe that Make is a good tool for large projects.  This
   is what I use.  Sometimes CMake and other tools make it harder to build
