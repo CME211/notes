@@ -721,6 +721,8 @@ will lead to very long compiler error messages.
   * http://eigen.tuxfamily.org/index.php?title=Main_Page
 
   * http://arma.sourceforge.net/
+  
+  * https://github.com/arrayfire/arrayfire
 
 ### Array views
 
