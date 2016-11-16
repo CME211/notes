@@ -1,7 +1,7 @@
-#*.o
-#*.i
-#*.s
-#src/hello1
-#src/hw6
-#src/main
-#src/test.jpg
+*.o
+*.i
+*.s
+src/hello1
+src/hw6
+src/main
+src/test.jpg
