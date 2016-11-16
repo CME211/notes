@@ -1,7 +1,5 @@
 # CME 211: Lecture 21
 
-Wednesday, November 11, 2015
-
 Topics:
 
 * Multi-dimensional data
