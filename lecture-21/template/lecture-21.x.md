@@ -207,8 +207,8 @@ void increment(boost::multi_array<double, 2>& b) {
 ```
 
 !run
-clang++ -std=c++11 -Wall -Wextra -Wconversion src/array6b.cpp -o src/array6b
-./src/array6b
+clang++ -std=c++11 -Wall -Wextra -Wconversion src/array6c.cpp -o src/array6c
+./src/array6c
 !end
 
 ### Array operations?

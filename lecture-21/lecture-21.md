@@ -49,19 +49,19 @@ Output:
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/vector_memory.cpp -o src/vector_memory
 $ ./src/vector_memory
 sizeof(a): 24
-    memory location of a: 0x7fff541738e0
- memory location of data: 0x7f9d4b500040
-difference in memory loc: 98.0343 GB
+    memory location of a: 0x7fff57a18870
+ memory location of data: 0x7ff6d3403310
+difference in memory loc: 8.51711 GB
 $ ./src/vector_memory
 sizeof(a): 24
-    memory location of a: 0x7fff5d1498e0
- memory location of data: 0x7ffddac04ad0
-difference in memory loc: 1.5091 GB
+    memory location of a: 0x7fff56bd4870
+ memory location of data: 0x7f8c5ac03310
+difference in memory loc: 114.984 GB
 $ ./src/vector_memory
 sizeof(a): 24
-    memory location of a: 0x7fff5b5a88e0
- memory location of data: 0x7ffcc2c04ad0
-difference in memory loc: 2.5961 GB
+    memory location of a: 0x7fff52c5e870
+ memory location of data: 0x7fb08bd00040
+difference in memory loc: 78.7772 GB
 ```
 
 * The size of the `std::vector` container is 24 bytes, this could be for
@@ -318,14 +318,14 @@ Output:
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/perf1.cpp -o src/perf1
 $ ./src/perf1
- boost: sum = 6.71089e+07, time = 4.4801 seconds
-direct: sum = 6.71089e+07, time = 0.1854 seconds
+ boost: sum = 6.71089e+07, time = 4.55984 seconds
+direct: sum = 6.71089e+07, time = 0.240126 seconds
 $ ./src/perf1
- boost: sum = 6.71089e+07, time = 4.4333 seconds
-direct: sum = 6.71089e+07, time = 0.186353 seconds
+ boost: sum = 6.71089e+07, time = 4.41117 seconds
+direct: sum = 6.71089e+07, time = 0.228782 seconds
 $ ./src/perf1
- boost: sum = 6.71089e+07, time = 4.39778 seconds
-direct: sum = 6.71089e+07, time = 0.184639 seconds
+ boost: sum = 6.71089e+07, time = 4.38506 seconds
+direct: sum = 6.71089e+07, time = 0.235112 seconds
 ```
 
 ### Performance
@@ -342,14 +342,14 @@ Output:
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/perf2.cpp -o src/perf2
 $ ./src/perf2
- boost: sum = 6.71089e+07, time = 3.97609 seconds
-direct: sum = 6.71089e+07, time = 0.184989 seconds
+ boost: sum = 6.71089e+07, time = 4.4622 seconds
+direct: sum = 6.71089e+07, time = 0.235016 seconds
 $ ./src/perf2
- boost: sum = 6.71089e+07, time = 3.97695 seconds
-direct: sum = 6.71089e+07, time = 0.18614 seconds
+ boost: sum = 6.71089e+07, time = 4.26261 seconds
+direct: sum = 6.71089e+07, time = 0.226978 seconds
 $ ./src/perf2
- boost: sum = 6.71089e+07, time = 3.97976 seconds
-direct: sum = 6.71089e+07, time = 0.184732 seconds
+ boost: sum = 6.71089e+07, time = 4.2159 seconds
+direct: sum = 6.71089e+07, time = 0.240271 seconds
 ```
 
 ### Compiler optimization
@@ -363,14 +363,14 @@ Output:
 ```
 $ clang++ -O3 -std=c++11 -Wall -Wextra -Wconversion src/perf1.cpp -o src/perf1
 $ ./src/perf1
- boost: sum = 6.71089e+07, time = 0.064458 seconds
-direct: sum = 6.71089e+07, time = 0.064259 seconds
+ boost: sum = 6.71089e+07, time = 0.102904 seconds
+direct: sum = 6.71089e+07, time = 0.107179 seconds
 $ ./src/perf1
- boost: sum = 6.71089e+07, time = 0.068965 seconds
-direct: sum = 6.71089e+07, time = 0.064744 seconds
+ boost: sum = 6.71089e+07, time = 0.119958 seconds
+direct: sum = 6.71089e+07, time = 0.121643 seconds
 $ ./src/perf1
- boost: sum = 6.71089e+07, time = 0.066465 seconds
-direct: sum = 6.71089e+07, time = 0.062854 seconds
+ boost: sum = 6.71089e+07, time = 0.10259 seconds
+direct: sum = 6.71089e+07, time = 0.105372 seconds
 ```
 
 Range checking disabled:
@@ -380,14 +380,14 @@ Output:
 ```
 $ clang++ -O3 -std=c++11 -Wall -Wextra -Wconversion src/perf2.cpp -o src/perf2
 $ ./src/perf2
- boost: sum = 6.71089e+07, time = 0.065588 seconds
-direct: sum = 6.71089e+07, time = 0.067835 seconds
+ boost: sum = 6.71089e+07, time = 0.102209 seconds
+direct: sum = 6.71089e+07, time = 0.102016 seconds
 $ ./src/perf2
- boost: sum = 6.71089e+07, time = 0.065887 seconds
-direct: sum = 6.71089e+07, time = 0.071683 seconds
+ boost: sum = 6.71089e+07, time = 0.104234 seconds
+direct: sum = 6.71089e+07, time = 0.105256 seconds
 $ ./src/perf2
- boost: sum = 6.71089e+07, time = 0.064704 seconds
-direct: sum = 6.71089e+07, time = 0.062087 seconds
+ boost: sum = 6.71089e+07, time = 0.101876 seconds
+direct: sum = 6.71089e+07, time = 0.117592 seconds
 ```
 
 ### Range checking
@@ -437,49 +437,48 @@ $ ./src/array3b
 $ clang++ -std=c++11 -g -fsanitize=address -Wall -Wextra -Wconversion src/array3b.cpp -o src/array3b
 $ ./src/array3b
 =================================================================
-==22629==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60700000dd00 at pc 0x00010a53d131 bp 0x7fff556c3710 sp 0x7fff556c3708
-WRITE of size 8 at 0x60700000dd00 thread T0
-==22629==atos returned: An admin user name and password is required to enter Developer Mode.
-    #0 0x10a53d130 in main (/Users/nwh/Dropbox/courses/2015-Q4-cme211/lecture-prep/lecture-21-work/./src/array3b+0x100001130)
-    #1 0x7fff9147f5c8 in start (/usr/lib/system/libdyld.dylib+0x35c8)
+==36808==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60700000df30 at pc 0x00010dc1aad5 bp 0x7fff51fe67d0 sp 0x7fff51fe67c8
+WRITE of size 8 at 0x60700000df30 thread T0
+    #0 0x10dc1aad4 in main array3b.cpp:7
+    #1 0x7fff9426d5ac in start (libdyld.dylib+0x35ac)
     #2 0x0  (<unknown module>)
 
-0x60700000dd00 is located 16 bytes to the left of 67-byte region [0x60700000dd10,0x60700000dd53)
+0x60700000df30 is located 16 bytes to the left of 67-byte region [0x60700000df40,0x60700000df83)
 allocated by thread T0 here:
-    #0 0x10a591bb0 in wrap_malloc (/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/7.0.0/lib/darwin/libclang_rt.asan_osx_dynamic.dylib+0x42bb0)
-    #1 0x7fff83776441 in _xpc_malloc (/usr/lib/system/libxpc.dylib+0x2441)
-    #2 0x7fff8377631d in _xpc_dictionary_insert (/usr/lib/system/libxpc.dylib+0x231d)
-    #3 0x7fff83778a95 in xpc_dictionary_set_string (/usr/lib/system/libxpc.dylib+0x4a95)
-    #4 0x7fff83778993 in _xpc_collect_environment (/usr/lib/system/libxpc.dylib+0x4993)
-    #5 0x7fff83775acb in _libxpc_initializer (/usr/lib/system/libxpc.dylib+0x1acb)
-    #6 0x7fff902d4a94 in libSystem_initializer (/usr/lib/libSystem.B.dylib+0x1a94)
-    #7 0x7fff6f3e1d0a  (<unknown module>)
-    #8 0x7fff6f3e1e97  (<unknown module>)
-    #9 0x7fff6f3de890  (<unknown module>)
-    #10 0x7fff6f3de825  (<unknown module>)
-    #11 0x7fff6f3de825  (<unknown module>)
-    #12 0x7fff6f3de825  (<unknown module>)
-    #13 0x7fff6f3de717  (<unknown module>)
-    #14 0x7fff6f3de988  (<unknown module>)
-    #15 0x7fff6f3d1244  (<unknown module>)
-    #16 0x7fff6f3d4c18  (<unknown module>)
-    #17 0x7fff6f3d0275  (<unknown module>)
-    #18 0x7fff6f3d0035  (<unknown module>)
+    #0 0x10dc759c0 in wrap_malloc (libclang_rt.asan_osx_dynamic.dylib+0x489c0)
+    #1 0x7fff9283364d in _xpc_malloc (libxpc.dylib+0x264d)
+    #2 0x7fff92833529 in _xpc_dictionary_insert (libxpc.dylib+0x2529)
+    #3 0x7fff92833325 in xpc_dictionary_set_string (libxpc.dylib+0x2325)
+    #4 0x7fff9283319c in _xpc_collect_environment (libxpc.dylib+0x219c)
+    #5 0x7fff92832d41 in _libxpc_initializer (libxpc.dylib+0x1d41)
+    #6 0x7fff924bfa06 in libSystem_initializer (libSystem.B.dylib+0x1a06)
+    #7 0x7fff6536e10a  (<unknown module>)
+    #8 0x7fff6536e283  (<unknown module>)
+    #9 0x7fff6536a8bc  (<unknown module>)
+    #10 0x7fff6536a851  (<unknown module>)
+    #11 0x7fff6536a851  (<unknown module>)
+    #12 0x7fff6536a851  (<unknown module>)
+    #13 0x7fff6536a742  (<unknown module>)
+    #14 0x7fff6536a9b2  (<unknown module>)
+    #15 0x7fff6535d0f0  (<unknown module>)
+    #16 0x7fff65360d97  (<unknown module>)
+    #17 0x7fff6535c275  (<unknown module>)
+    #18 0x7fff6535c035  (<unknown module>)
     #19 0x0  (<unknown module>)
 
-SUMMARY: AddressSanitizer: heap-buffer-overflow ??:0 main
+SUMMARY: AddressSanitizer: heap-buffer-overflow array3b.cpp:7 in main
 Shadow bytes around the buggy address:
-  0x1c0e00001b50: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x1c0e00001b60: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x1c0e00001b70: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x1c0e00001b80: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
-  0x1c0e00001b90: fa fa fa fa 00 00 00 00 00 00 00 00 00 fa fa fa
-=>0x1c0e00001ba0:[fa]fa 00 00 00 00 00 00 00 00 03 fa fa fa fa fa
-  0x1c0e00001bb0: 00 00 00 00 00 00 00 00 00 fa fa fa fa fa 00 00
-  0x1c0e00001bc0: 00 00 00 00 00 00 00 00 fa fa fa fa fd fd fd fd
-  0x1c0e00001bd0: fd fd fd fd fd fd fa fa fa fa fd fd fd fd fd fd
-  0x1c0e00001be0: fd fd fd fd fa fa fa fa fd fd fd fd fd fd fd fd
-  0x1c0e00001bf0: fd fd fa fa fa fa fd fd fd fd fd fd fd fd fd fd
+  0x1c0e00001b90: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x1c0e00001ba0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x1c0e00001bb0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x1c0e00001bc0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x1c0e00001bd0: fa fa fa fa fa fa fa fa fa fa 00 00 00 00 00 00
+=>0x1c0e00001be0: 00 00 00 fa fa fa[fa]fa 00 00 00 00 00 00 00 00
+  0x1c0e00001bf0: 03 fa fa fa fa fa 00 00 00 00 00 00 00 00 00 fa
+  0x1c0e00001c00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x1c0e00001c10: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x1c0e00001c20: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x1c0e00001c30: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
 Shadow byte legend (one shadow byte represents 8 application bytes):
   Addressable:           00
   Partially addressable: 01 02 03 04 05 06 07 
@@ -501,7 +500,7 @@ Shadow byte legend (one shadow byte represents 8 application bytes):
   ASan internal:           fe
   Left alloca redzone:     ca
   Right alloca redzone:    cb
-==22629==ABORTING
+==36808==ABORTING
 ```
 
 ### Range checking
@@ -513,29 +512,30 @@ Output:
 ```
 $ clang++ -g -Wall -Wextra -Wconversion src/array3b.cpp -o src/array3b
 $ valgrind ./src/array3b
-==22635== Memcheck, a memory error detector
-==22635== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
-==22635== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
-==22635== Command: ./src/array3b
-==22635== 
-==22635== Invalid write of size 8
-==22635==    at 0x10000093D: main (array3b.cpp:7)
-==22635==  Address 0x100809650 is 16 bytes after a block of size 80 in arena "client"
-==22635== 
-==22635== 
-==22635== HEAP SUMMARY:
-==22635==     in use at exit: 34,725 bytes in 422 blocks
-==22635==   total heap usage: 510 allocs, 88 frees, 41,197 bytes allocated
-==22635== 
-==22635== LEAK SUMMARY:
-==22635==    definitely lost: 0 bytes in 0 blocks
-==22635==    indirectly lost: 0 bytes in 0 blocks
-==22635==      possibly lost: 0 bytes in 0 blocks
-==22635==    still reachable: 0 bytes in 0 blocks
-==22635==         suppressed: 34,725 bytes in 422 blocks
-==22635== 
-==22635== For counts of detected and suppressed errors, rerun with: -v
-==22635== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==36817== Memcheck, a memory error detector
+==36817== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==36817== Using Valgrind-3.12.0 and LibVEX; rerun with -h for copyright info
+==36817== Command: ./src/array3b
+==36817== 
+==36817== Invalid write of size 8
+==36817==    at 0x10000109D: main (array3b.cpp:7)
+==36817==  Address 0x100a88180 is 16 bytes after a block of size 80 in arena "client"
+==36817== 
+==36817== 
+==36817== HEAP SUMMARY:
+==36817==     in use at exit: 22,458 bytes in 194 blocks
+==36817==   total heap usage: 258 allocs, 64 frees, 28,226 bytes allocated
+==36817== 
+==36817== LEAK SUMMARY:
+==36817==    definitely lost: 0 bytes in 0 blocks
+==36817==    indirectly lost: 0 bytes in 0 blocks
+==36817==      possibly lost: 2,064 bytes in 1 blocks
+==36817==    still reachable: 0 bytes in 0 blocks
+==36817==         suppressed: 20,394 bytes in 193 blocks
+==36817== Rerun with --leak-check=full to see details of leaked memory
+==36817== 
+==36817== For counts of detected and suppressed errors, rerun with: -v
+==36817== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
 ```
 
 ### Elementwise comparison
@@ -698,17 +698,17 @@ void increment(boost::multi_array<double, 2>& b) {
 Output:
 
 ```
-$ clang++ -std=c++11 -Wall -Wextra -Wconversion src/array6b.cpp -o src/array6b
-$ ./src/array6b
-1
-1
-1
-1
-1
-1
-1
-1
-1
+$ clang++ -std=c++11 -Wall -Wextra -Wconversion src/array6c.cpp -o src/array6c
+$ ./src/array6c
+2
+2
+2
+2
+2
+2
+2
+2
+2
 ```
 
 ### Array operations?
@@ -895,9 +895,9 @@ Output:
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/accumulate.cpp -o src/accumulate
 $ ./src/accumulate
- boost: sum = 6.71089e+07, time = 4.78976 seconds
-direct: sum = 6.71089e+07, time = 0.186091 seconds
- accum: sum = 6.71089e+07, time = 2.63903 seconds
+ boost: sum = 6.71089e+07, time = 4.49544 seconds
+direct: sum = 6.71089e+07, time = 0.235229 seconds
+ accum: sum = 6.71089e+07, time = 3.02097 seconds
 ```
 
 ### Boost summary
