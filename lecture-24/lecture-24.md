@@ -1,7 +1,5 @@
 # CME 211: Lecture 24
 
-Wednesday, November 18, 2015
-
 Topic: C++ Object Oriented Programming, Part Duex
 
 ## Example 1: name algorithm

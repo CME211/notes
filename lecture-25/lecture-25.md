@@ -1,7 +1,5 @@
 # CME 211: Lecture 25
 
-Friday, November 20, 2015
-
 Topic: C++ memory management
 
 ## Python memory management

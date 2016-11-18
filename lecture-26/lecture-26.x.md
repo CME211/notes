@@ -1,7 +1,5 @@
 # CME 211: Lecture 26
 
-Friday, December 4, 2015
-
 Topic:
 
 * Programming in C
