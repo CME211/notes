@@ -200,7 +200,7 @@ g++ src/main.o src/foo.o src/bar.o -o src/main
 ./src/main
 !end
 
-### Libraries
+## Libraries
 
 * Libraries are really just a file that contain one or more `.o` files
 
@@ -269,14 +269,13 @@ library.
 Let's find the `jpeglib.h` header file:
 
 !run
-ls -l /usr/include/jpeglib.h 
+locate jpeglib.h
 !end
 
 Let's find `libjpeg`:
 
 !run
-ls -l /usr/lib/libjpeg.*
-ls -l /usr/lib64/libjpeg.*
+locate libjpeg
 !end
 
 Note that the library files may be in a different location on your system.
@@ -284,12 +283,14 @@ Note that the library files may be in a different location on your system.
 Now let's compile:
 
 !run
-g++ -std=c++11 -Wall -Wextra -Wconversion src/hw6.cpp -o src/hw6 -DDEBUG -I/usr/include -L/usr/lib64 -ljpeg
+g++ -std=c++11 -Wall -Wextra -Wconversion src/hw6.cpp -o src/hw6 -DDEBUG -I/usr/local/include -L/usr/local/lib -ljpeg
 ./src/hw6
 !end
 
-* `-I/usr/include`: look in this directory for include files (optional in this case)
-* `-L/usr/lib64`: look in this directory for library files (optional in this case)
+* `-I/usr/local/include`: look in this directory for include files (optional in
+  this case)
+* `-L/usr/local/lib`: look in this directory for library files (optional in this
+  case, maybe required on Ubuntu)
 * `-ljpeg`: link to the `libjpeg.{a,so}` file (not optional here)
 
 ## Make

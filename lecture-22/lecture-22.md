@@ -37,7 +37,7 @@ Apple LLVM version 7.3.0 (clang-703.0.31)
 Target: x86_64-apple-darwin15.6.0
 Thread model: posix
 InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.11.0 -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name hello1.cpp -mrelocation-model pic -pic-level 2 -mthread-model posix -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 264.3.102 -v -dwarf-column-info -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.3.0 -stdlib=libc++ -Wall -Wextra -Wconversion -fdeprecated-macro -fdebug-compilation-dir /Users/nwh/git/cme211-notes/lecture-22 -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -fblocks -fobjc-runtime=macosx-10.11.0 -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fmax-type-align=16 -fdiagnostics-show-option -o /var/folders/cb/99c_5dyj74q81q5kdrpkqb5m0000gn/T/hello1-84fb3e.o -x c++ src/hello1.cpp
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang" -cc1 -triple x86_64-apple-macosx10.11.0 -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -emit-obj -mrelax-all -disable-free -disable-llvm-verifier -main-file-name hello1.cpp -mrelocation-model pic -pic-level 2 -mthread-model posix -mdisable-fp-elim -masm-verbose -munwind-tables -target-cpu core2 -target-linker-version 264.3.102 -v -dwarf-column-info -resource-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.3.0 -stdlib=libc++ -Wall -Wextra -Wconversion -fdeprecated-macro -fdebug-compilation-dir /Users/nwh/git/cme211-notes/lecture-22 -ferror-limit 19 -fmessage-length 0 -stack-protector 1 -fblocks -fobjc-runtime=macosx-10.11.0 -fencode-extended-block-signature -fcxx-exceptions -fexceptions -fmax-type-align=16 -fdiagnostics-show-option -o /var/folders/cb/99c_5dyj74q81q5kdrpkqb5m0000gn/T/hello1-699358.o -x c++ src/hello1.cpp
 clang -cc1 version 7.3.0 (clang-703.0.31) default target x86_64-apple-darwin15.6.0
 ignoring nonexistent directory "/usr/include/c++/v1"
 #include "..." search starts here:
@@ -50,7 +50,7 @@ ignoring nonexistent directory "/usr/include/c++/v1"
  /System/Library/Frameworks (framework directory)
  /Library/Frameworks (framework directory)
 End of search list.
- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -dynamic -arch x86_64 -macosx_version_min 10.11.0 -o src/hello1 /var/folders/cb/99c_5dyj74q81q5kdrpkqb5m0000gn/T/hello1-84fb3e.o -lc++ -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.3.0/lib/darwin/libclang_rt.osx.a
+ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -dynamic -arch x86_64 -macosx_version_min 10.11.0 -o src/hello1 /var/folders/cb/99c_5dyj74q81q5kdrpkqb5m0000gn/T/hello1-699358.o -lc++ -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.3.0/lib/darwin/libclang_rt.osx.a
 ```
 
 ### Splitting up the steps manually
@@ -262,21 +262,27 @@ Output:
 ```
 $ ls src
 bar.cpp
+bar.o
 ex1
 ex2
 ex3
 ex4
 foo.cpp
+foo.o
 foobar.hpp
 hello1
 hello1.cpp
 hello1.i
 hello1.o
 hello1.s
+hw6
 hw6.cpp
 hw6.hpp
+main
 main.cpp
+main.o
 stanford.jpg
+test.jpg
 ```
 
 Compile and assemble source files, but don't link:
@@ -464,45 +470,38 @@ Output:
 
 ```
 $ g++ -std=c++11 -Wall -Wextra -Wconversion src/hw6.cpp -o src/hw6
-src/hw6.cpp:46:67: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
-  row_pointer = (unsigned char *) malloc(cinfo.output_width*cinfo.num_components);
-                                                           ~~~~~~~^~~~~~~~~~~~~~
-src/hw6.cpp:52:58: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
-    for (unsigned int i = 0; i < cinfo.image_width*cinfo.num_components; i++) 
-                                                  ~~~~~~~^~~~~~~~~~~~~~
-2 warnings generated.
 Undefined symbols for architecture x86_64:
   "_jpeg_CreateCompress", referenced from:
-      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_jpeg_CreateDecompress", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_jpeg_destroy_decompress", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_jpeg_finish_compress", referenced from:
-      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_jpeg_finish_decompress", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_jpeg_read_header", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_jpeg_read_scanlines", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_jpeg_set_defaults", referenced from:
-      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_jpeg_set_quality", referenced from:
-      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_jpeg_start_compress", referenced from:
-      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_jpeg_start_decompress", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_jpeg_std_error", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
-      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_jpeg_stdio_dest", referenced from:
-      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_jpeg_stdio_src", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_jpeg_write_scanlines", referenced from:
-      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-47c876.o
+      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_main", referenced from:
      implicit entry/start for main executable
 ld: symbol(s) not found for architecture x86_64
@@ -518,8 +517,9 @@ Let's find the `jpeglib.h` header file:
 Output:
 
 ```
-$ ls -l /usr/include/jpeglib.h 
-ls: /usr/include/jpeglib.h: No such file or directory
+$ locate jpeglib.h
+/usr/local/Cellar/jpeg/8d/include/jpeglib.h
+/usr/local/include/jpeglib.h
 ```
 
 Let's find `libjpeg`:
@@ -527,10 +527,17 @@ Let's find `libjpeg`:
 Output:
 
 ```
-$ ls -l /usr/lib/libjpeg.*
-ls: /usr/lib/libjpeg.*: No such file or directory
-$ ls -l /usr/lib64/libjpeg.*
-ls: /usr/lib64/libjpeg.*: No such file or directory
+$ locate libjpeg
+/Applications/Xcode.app/Contents/Applications/Application Loader.app/Contents/itms/java/lib/libjpeg.dylib
+/usr/local/Cellar/jpeg/8d/lib/libjpeg.8.dylib
+/usr/local/Cellar/jpeg/8d/lib/libjpeg.a
+/usr/local/Cellar/jpeg/8d/lib/libjpeg.dylib
+/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Aliases/libjpeg
+/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Aliases/libjpeg-turbo
+/usr/local/lib/libjpeg.8.dylib
+/usr/local/lib/libjpeg.a
+/usr/local/lib/libjpeg.dylib
+/usr/local/lib/python3.5/site-packages/PIL/.dylibs/libjpeg.9.dylib
 ```
 
 Note that the library files may be in a different location on your system.
@@ -540,20 +547,14 @@ Now let's compile:
 Output:
 
 ```
-$ g++ -std=c++11 -Wall -Wextra -Wconversion src/hw6.cpp -o src/hw6 -DDEBUG -I/usr/include -L/usr/lib64 -ljpeg
-src/hw6.cpp:46:67: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
-  row_pointer = (unsigned char *) malloc(cinfo.output_width*cinfo.num_components);
-                                                           ~~~~~~~^~~~~~~~~~~~~~
-src/hw6.cpp:52:58: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
-    for (unsigned int i = 0; i < cinfo.image_width*cinfo.num_components; i++) 
-                                                  ~~~~~~~^~~~~~~~~~~~~~
-2 warnings generated.
-ld: warning: directory not found for option '-L/usr/lib64'
+$ g++ -std=c++11 -Wall -Wextra -Wconversion src/hw6.cpp -o src/hw6 -DDEBUG -I/usr/local/include -L/usr/local/lib -ljpeg
 $ ./src/hw6
 ```
 
-* `-I/usr/include`: look in this directory for include files (optional in this case)
-* `-L/usr/lib64`: look in this directory for library files (optional in this case)
+* `-I/usr/local/include`: look in this directory for include files (optional in
+  this case)
+* `-L/usr/local/lib`: look in this directory for library files (optional in this
+  case, maybe required on Ubuntu)
 * `-ljpeg`: link to the `libjpeg.{a,so}` file (not optional here)
 
 ## Make
