@@ -1,7 +1,5 @@
 # CME 211: Lecture 23
 
-Monday, November 16, 2015
-
 Topic: C++ Object Oriented Programming
 
 ## A simple class
