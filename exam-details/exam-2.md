@@ -71,8 +71,8 @@ minutes to avoid any additional time penalty.**
 1. Download the `cme211-exam-2-empty.zip` file from the link on Canvas to your
    local computer. This will require that you authenticate with Stanford Box.
 
-2. Upload the file to `corn.stanford.edu` if you plan to work on the files
-   there.
+2. Upload the file to your home directory on `corn.stanford.edu` if you plan to
+   work on the files there.
 
 ```sh
 # copy zip file to corn, replace nwh with your sunet id
@@ -109,7 +109,8 @@ $ cd cme211-exam-2
 $ zip -r cme211-exam-2.zip cme211-exam-2
 ```
 
-6. Log out of `corn.stanford.edu` and download files to your local computer.
+6. Log out of `corn.stanford.edu` and download files from your home directory on
+   `corn` to your local computer.
 
 ```sh
 # copy file to your local computer, replace nwh with your sunetid
