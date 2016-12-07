@@ -40,6 +40,7 @@ minutes to avoid any additional time penalty.**
 
 ## Rules
 
+* The exam must be your own individual work. No assistance is allowed.
 * Open book
 * Open note
 * Open computer (restricted internet use)
