@@ -76,7 +76,7 @@ equivalent to [CS 106A][cs106a] or instructor consent.
 
 - Days: Mon, Wed, Fri
 - Time: 3:00 PM - 4:20 PM
-- Location: 320-105 (Geology Corner)
+- Location: Bishop Auditorium
 
 ## Communication
 
@@ -95,15 +95,9 @@ office hours.*
 
 ## Teaching staff
 
-Instructor: Nick Henderson
-
-Head Teaching Assistant: Andreas Santucci
+Instructor: Andreas Santucci, Slaven Peles
 
 Teaching assistants:
-- Amy Shoemaker
-- Cindy Catherine Orozco Bohorquez
-- Jerry Watkins
-- Yu-Sheng Chen
 
 ## Office hours
 
