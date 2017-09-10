@@ -1,4 +1,4 @@
-# CME 211 Syllabus (Fall 2016)
+# CME 211 Syllabus (Fall 2017)
 
 *(cross listed as Earth 211)*
 
