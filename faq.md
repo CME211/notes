@@ -13,15 +13,6 @@ Last update: 2016-09-26
 
 ### Course registration
 
-- The course capacity for CME 211 is 95 students
-- 73 student are currently registered
-- We have 39 students on an internal wait list, because of a registrar error
-- There are 2 students on the registrar wait list
-- At this time we are not adding any new students to a wait list
-- Indira is going to email students on the internal wait list starting this
-  evening.  Students have 24 hours to respond.  Indira will send a code to those
-  who respond.  We will work through the internal wait list in 24 hour blocks.
-  After that, priority falls to the 2 students on the registrar wait list.
 - If you are on the registrar wait list, you must have room in your schedule to
   be added to CME211.
 - If you experience any technical issues while registering, you must submit a
@@ -30,7 +21,7 @@ Last update: 2016-09-26
 
 ### Course resources
 
-Lecture screencasts and notes will be made available to all Stanford
+Lecture notes will be made available to all Stanford
 students. Please check the [*CME211
 homepage*](http://web.stanford.edu/class/cme211/) at the start of Fall
 quarter 2016 for links.
