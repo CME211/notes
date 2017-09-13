@@ -24,7 +24,7 @@ Last update: 2016-09-26
 Lecture notes will be made available to all Stanford
 students. Please check the [*CME211
 homepage*](http://web.stanford.edu/class/cme211/) at the start of Fall
-quarter 2016 for links.
+quarter 2017 for links.
 
 ### Course prerequisites
 
