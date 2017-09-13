@@ -95,9 +95,15 @@ office hours.*
 
 ## Teaching staff
 
-Instructor: Andreas Santucci, Slaven Peles
+Instructor: 
+  - Andreas Santucci (santucci at stanford)
+  - Slaven Peles
 
-Teaching assistants:
+Teaching assistants: 
+  - Alex Tsaptsinos (alextsap at stanford)
+  - Halwest Mohammad (halwestm at stanford)
+  - Vishal Subbiah (svishal at stanford)
+  - Kevin Chen (kchen42 at stanford)
 
 ## Office hours
 
