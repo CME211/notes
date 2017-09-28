@@ -391,7 +391,7 @@ Python strings can be "formatted" with the `format` method:
 
 ```python
 r = 1
-a = 2*math.pi
+a = math.pi
 print("the area of a circle of radius {} is {}.".format(r,a))
 ```
 
