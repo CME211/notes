@@ -1,6 +1,6 @@
 # CME 211 Notes
 
-2016 CME 211 Canvas page: <https://canvas.stanford.edu/courses/47947>
+2017 CME 211 Canvas page: <https://canvas.stanford.edu/courses/70356>
 
 In each folder:
 
