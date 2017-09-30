@@ -84,7 +84,7 @@ We will be using Canvas to send announcements and as a discussion board for the
 homework projects. Please use this if you have questions regarding course
 material.
 
-Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/47947>
+Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/70356>
 
 All other correspondence should be sent to <cme211-staff@lists.stanford.edu>.
 
@@ -107,7 +107,12 @@ Teaching assistants:
 
 ## Office hours
 
-To be announced in the first week of classes and posted on Canvas.
+Held 11-1 & 4.30-6.30 Mon-Thurs.
+
+Mondays: 11am - 1pm (Alex), 4.30 - 6.30pm (Kevin)
+Tuesdays: 11am - 1pm (Vishal), 4.30 - 6.30pm (Halwest)
+Wednesday: 11am - 1pm (Alex), 4.30pm - 6.30pm (Halwest)
+Thursday: 11am - 1pm (Vishal), 4.30pm - 6.30pm (Kevin)
 
 ## Resources
 
