@@ -107,11 +107,14 @@ Teaching assistants:
 
 ## Office hours
 
-Held 11-1 & 4.30-6.30 Mon-Thurs.
+Held 11-1 & 4.30-6.30 Mon-Thurs:
 
 Mondays: 11am - 1pm (Alex), 4.30 - 6.30pm (Kevin)
+
 Tuesdays: 11am - 1pm (Vishal), 4.30 - 6.30pm (Halwest)
+
 Wednesday: 11am - 1pm (Alex), 4.30pm - 6.30pm (Halwest)
+
 Thursday: 11am - 1pm (Vishal), 4.30pm - 6.30pm (Kevin)
 
 ## Resources
