@@ -22,11 +22,11 @@ class NameClassifier:
         f = open(malefile,'r')
         for line in f:
             name = line.split()[0]
-        if name in self.namedata:
-            # Just assume a 50/50 distribution for names on both lists
-            self.namedata[name] = 0.5
-        else:
-            self.namedata[name] = 0.0
+            if name in self.namedata:
+                # Just assume a 50/50 distribution for names on both lists
+                self.namedata[name] = 0.5
+            else:
+                self.namedata[name] = 0.0
         f.close()
 
     def classify_name(self, name):
