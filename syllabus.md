@@ -101,11 +101,12 @@ Instructor:
 
 Teaching assistants: 
   - Alex Tsaptsinos (alextsap at stanford)
-  - Halwest Mohammad (halwestm at stanford)
+  - Noam Habot (nhabot at stanford)
   - Vishal Subbiah (svishal at stanford)
   - Kevin Chen (kchen42 at stanford)
 
 ## Office hours
+All office hours, except for Slaven's, are held in Huang basement.
 
 Mondays: 11am - 1pm (Alex), 4.30 - 6.30pm (Kevin)
 
@@ -114,6 +115,8 @@ Tuesdays: 11am - 1pm (Vishal), 4.30 - 6.30pm (Noam)
 Wednesday: 11am - 1pm (Alex)
 
 Thursday: 11am - 1pm (Vishal), 3pm - 5pm (Noam), 4.30pm - 6.30pm (Kevin)
+
+Friday: 4.30pm - 6pm (Slaven, Huang 060 M09)
 
 ## Resources
 
