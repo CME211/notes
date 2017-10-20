@@ -1,9 +1,9 @@
 # CME 211 -- Exam 1 -- Python
 
-Updated on 2016-10-24.
+Updated on 2017-10-20.
 
 The exam will be conducted through Canvas. The exam will be available from the
-morning of Wednesday 10/26 to Friday 10/28 at 2pm. Students will have 2 hours to
+morning of Wednesday 10/25 to Friday 10/27 at 2pm. Students will have 2 hours to
 complete the exam once it is started. There will be several multiple choice
 questions and a series of coding questions. At the end of the exam, you will be
 asked to submit a single `*.py` file through Canvas. This is the file that we
@@ -11,7 +11,7 @@ will execute and evaluate.
 
 Note: the exam will appear in the "Quizzes" section on Canvas.
 
-Sample quiz solutions from 2013, 2014, and 2015 are posted on Piazza.
+Sample quiz solutions from 2013, 2014, and 2015 are posted on Canvas.
 
 ## Details
 
