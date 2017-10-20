@@ -44,9 +44,9 @@ Sample quiz solutions from 2013, 2014, and 2015 are posted on Canvas.
 
 ## Communication
 
-* When the exam gets published on Canvas on the morning of Wednesday 10/26, it
+* When the exam gets published on Canvas on the morning of Wednesday 10/25, it
   will be known as **The-Exam-Who-Must-Not-Be-Named**. That is, nobody is
-  allowed to discuss any aspect of the exam until Friday 10/28 at 2pm.
+  allowed to discuss any aspect of the exam until Friday 10/27 at 2pm.
 * The teaching staff will not answer any questions related to the exam until it
   is over. I have tried to remove all ambiguity from the question statements.
   The teaching staff will review the questions. If you feel something is
