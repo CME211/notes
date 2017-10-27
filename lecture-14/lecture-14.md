@@ -18,7 +18,11 @@ Topics:
 
 * There is also an A+ language but that wasn't developed until the 1980s
 
-* D is a programming language that came out in 2001 and is a "re-engineering" of
+* In 1995 Sun Microsystems releases first implementation of Java programming language. The new language was supposed to be similar to C++, but with cleaner, more consistent syntax.
+
+* Microsoft releases implementation of C# (C-sharp) language in 2000 in order to provide another alternative to C++.
+
+* D is a programming language that came out in 2001 and is yet another atempt at "re-engineering" of
   C++
 
 * C++ is now a standard or specification, and multiple companies or
@@ -34,12 +38,11 @@ Topics:
 
 ### C versus C++
 
-* C is roughly a subset of C++
+* C is almost a subset of C++.
 
 * C is a lower level language that has fewer abstractions over the hardware
 
-* Even within C++ programs, the most computationally intense parts should be C
-  like for efficiency
+* Code optimization is more challenging for C++ as it is more complex language than C.
 
 * C is still used for many applications: Linux kernel, CPython interpreter, low
   power or embedded systems, etc.
@@ -162,11 +165,9 @@ std::cout << "Hello world" << std::endl;
 * `cout` is in the `std` namespace and refers to the standard output (stdout)
   stream
 
-* `endl` is in the `std` namespace and inserts `\n` and flushes the stream
+* `endl` is in the `std` namespace and inserts a newline character (`\n`) and flushes the buffer.
 
 * `<<` is the stream insertion operator
-
-* `std::endl` inserts a newline character (`\n`) and flushes the buffer
 
 * You can also put in a newline yourself, and let the buffer flush automatically
   as necessary
