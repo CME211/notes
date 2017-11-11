@@ -20,13 +20,13 @@ week #,lecture #,date,day,section,topic,assignments
 7,18,6-Nov,M,C++,"function, includes, preprocessor",
 ,19,8-Nov,W,C++,containers,
 ,20,10-Nov,F,C++,containers,"hw5 due, project pt 1 out"
-8,,13-Nov,M,C++,boost multiarray,
-,21,15-Nov,W,C++,make,
-,22,17-Nov,F,C++,oop 1,hw6 out
+8,21,13-Nov,M,C++,boost multiarray,
+,22,15-Nov,W,C++,make,
+,23,17-Nov,F,C++,oop 1,hw6 out
 thanksgiving,,,,,,
-9,23,27-Nov,M,C++,oop 2,"project pt 1 due, project pt 2 out"
-,24,29-Nov,W,C++,memory management,
-,25,1-Dec,F,C++,review question + answer, hw6 due
+9,24,27-Nov,M,C++,oop 2,"project pt 1 due, project pt 2 out"
+,25,29-Nov,W,C++,memory management,
+,q/a,1-Dec,F,C++,review question + answer, hw6 due
 10,q/a,4-Dec,M,C++,review question + answer,
 ,exam,6-Dec,W,C++,C++ exam,exam 2
 ,26,8-Dec,F,C++,"C, wrap up",
