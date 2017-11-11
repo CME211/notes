@@ -1,17 +1,20 @@
 #include <iostream>
 #include <map>
 
+// Topics covered in this example:
+// 1. standard C++ maps
+
 int main()
 {
-  std::map<int,std::string> dir;
+  std::map<char,std::string> dir;
 
-  dir[0] = std::string("north");
-  dir[1] = std::string("east");
-  dir[2] = std::string("south");
-  dir[3] = std::string("west");
+  dir['A'] = std::string("south");
+  dir['B'] = std::string("north");
+  dir['C'] = std::string("east");
+  dir['D'] = std::string("west");
 
-  std::cout << "dir[2] = " << dir[2] << std::endl;
-  std::cout << "dir[0] = " << dir[0] << std::endl;
+  std::cout << "dir[C] = " << dir['C'] << std::endl;
+  std::cout << "dir[A] = " << dir['A'] << std::endl;
 
   return 0;
 }
