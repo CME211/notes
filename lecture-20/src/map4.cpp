@@ -1,18 +1,31 @@
 #include <iostream>
 #include <map>
 
+// Topics covered in this example:
+// 1. Standard map: An ordered tree of pairs
+//   - Similar in functionality to python dictionary
+//   - Complexity of accessing map element ~> O(n)
+// 2. Accessing map elements
+//   - If nonexistant element is accessed by subscript, a new map entry is created
+//   - If nonexistant element is accessed by method at(), an exception is thrown
+
 int main()
 {
-  std::map<int,std::string> dir;
+  std::map<char, std::string> dir;
 
-  dir[0] = std::string("north");
-  dir[1] = std::string("east");
-  dir[2] = std::string("south");
-  dir[3] = std::string("west");
+  dir['A'] = std::string("north");
+  dir['B'] = std::string("east");
+  dir['C'] = std::string("south");
+  dir['D'] = std::string("west");
 
+  // Map size = 4
   std::cout << "dir.size() = " << dir.size() << std::endl;
-  std::cout << "dir[5] = " << dir[5] << std::endl;
-  std::cout << "dir.size() = " << dir.size() << std::endl;
 
+  // Try to access value with key 'G'
+  std::cout << "dir[G] = "     << dir['G']     << std::endl;
+
+  // Map size = 5
+  std::cout << "dir.size() = " << dir.size() << std::endl;
+  
   return 0;
 }

@@ -25,9 +25,11 @@ int main()
   vec.push_back(11);
   vec.push_back(42);
 
+  // Creates a copy v for each element in vec and increments the copy
   for (auto v : vec)
-    v++;
+    ++v;
 
+  // The original elements of the vector vec are unchanged
   for (auto v : vec)
     std::cout << v << std::endl;
 
@@ -61,9 +63,11 @@ int main()
   vec.push_back(11);
   vec.push_back(42);
 
-  for (auto &v : vec)
-    v++;
+  // Creates a reference v to each element in vec and increments each element.
+  for (auto& v : vec)
+    ++v;
 
+  // The original elements of the vector vec are incremented by one
   for (auto v : vec)
     std::cout << v << std::endl;
 
@@ -98,15 +102,15 @@ declared
 
 int main()
 {
-  std::map<int,std::string> dir;
+  std::map<char,std::string> dir;
 
-  dir[0] = std::string("north");
-  dir[1] = std::string("east");
-  dir[2] = std::string("south");
-  dir[3] = std::string("west");
+  dir['A'] = std::string("south");
+  dir['B'] = std::string("north");
+  dir['C'] = std::string("east");
+  dir['D'] = std::string("west");
 
-  std::cout << "dir[2] = " << dir[2] << std::endl;
-  std::cout << "dir[0] = " << dir[0] << std::endl;
+  std::cout << "dir[C] = " << dir['C'] << std::endl;
+  std::cout << "dir[A] = " << dir['A'] << std::endl;
 
   return 0;
 }
@@ -117,8 +121,8 @@ Output:
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/map1.cpp -o src/map1
 $ ./src/map1
-dir[2] = south
-dir[0] = north
+dir[C] = east
+dir[A] = south
 ```
 
 ### Map iteration
@@ -131,18 +135,26 @@ dir[0] = north
 
 int main()
 {
-  std::map<int,std::string> dir;
+  // Define a map 'dir' with characters as keys and strings as values
+  std::map<char,std::string> dir;
 
-  dir[0] = std::string("north");
-  dir[1] = std::string("east");
-  dir[2] = std::string("south");
-  dir[3] = std::string("west");
+  dir['A'] = std::string("south");
+  dir['B'] = std::string("north");
+  dir['C'] = std::string("east");
+  dir['D'] = std::string("west");
 
+  // Printing by value
   for (auto d : dir)
+  {
     std::cout << "d[" << d.first << "] = " << d.second << std::endl;
+  }
+  std::cout << std::endl;
 
-  for (auto &d : dir)
-    std::cout << "d[" << d.first << "] = " << d.second << std::endl;
+  // Printing by reference
+  for (auto& d : dir)
+  {
+      std::cout << "d[" << d.first << "] = " << d.second << std::endl;
+  }
 
   return 0;
 }
@@ -153,14 +165,15 @@ Output:
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/map2.cpp -o src/map2
 $ ./src/map2
-d[0] = north
-d[1] = east
-d[2] = south
-d[3] = west
-d[0] = north
-d[1] = east
-d[2] = south
-d[3] = west
+d[A] = south
+d[B] = north
+d[C] = east
+d[D] = west
+
+d[A] = south
+d[B] = north
+d[C] = east
+d[D] = west
 ```
 
 ### Older style iteration
@@ -173,14 +186,16 @@ d[3] = west
 
 int main()
 {
-  std::map<int,std::string> dir;
+  std::map<char,std::string> dir;
 
-  dir[0] = std::string("north");
-  dir[1] = std::string("east");
-  dir[2] = std::string("south");
-  dir[3] = std::string("west");
+  dir['A'] = std::string("south");
+  dir['B'] = std::string("north");
+  dir['C'] = std::string("east");
+  dir['D'] = std::string("west");
 
-  for (std::map<int,std::string>::iterator i = dir.begin(); i != dir.end(); i++)
+  // C++03 standard map iteration
+  // This is more cumbersome, but shows better what is going on inside the loop.
+  for (std::map<char,std::string>::iterator i = dir.begin(); i != dir.end(); i++)
     std::cout << "d[" << i->first << "] = " << i->second << std::endl;
 
   return 0;
@@ -192,10 +207,10 @@ Output:
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/map3.cpp -o src/map3
 $ ./src/map3
-d[0] = north
-d[1] = east
-d[2] = south
-d[3] = west
+d[A] = south
+d[B] = north
+d[C] = east
+d[D] = west
 ```
 
 ### Nonexistent keys
@@ -208,17 +223,22 @@ d[3] = west
 
 int main()
 {
-  std::map<int,std::string> dir;
+  std::map<char, std::string> dir;
 
-  dir[0] = std::string("north");
-  dir[1] = std::string("east");
-  dir[2] = std::string("south");
-  dir[3] = std::string("west");
+  dir['A'] = std::string("north");
+  dir['B'] = std::string("east");
+  dir['C'] = std::string("south");
+  dir['D'] = std::string("west");
 
+  // Map size = 4
   std::cout << "dir.size() = " << dir.size() << std::endl;
-  std::cout << "dir[5] = " << dir[5] << std::endl;
-  std::cout << "dir.size() = " << dir.size() << std::endl;
 
+  // Try to access value with key 'G'
+  std::cout << "dir[G] = "     << dir['G']     << std::endl;
+
+  // Map size = 5
+  std::cout << "dir.size() = " << dir.size() << std::endl;
+  
   return 0;
 }
 ```
@@ -243,17 +263,19 @@ dir.size() = 5
 
 int main()
 {
-  std::map<int,std::string> dir;
+  std::map<char, std::string> dir;
 
-  dir[0] = std::string("north");
-  dir[1] = std::string("east");
-  dir[2] = std::string("south");
-  dir[3] = std::string("west");
+  dir['A'] = std::string("north");
+  dir['B'] = std::string("east");
+  dir['C'] = std::string("south");
+  dir['D'] = std::string("west");
 
+  // Map size = 4
   std::cout << "dir.size() = " << dir.size() << std::endl;
-  std::cout << "dir.at(5) = " << dir.at(5) << std::endl;
-  std::cout << "dir.size() = " << dir.size() << std::endl;
 
+  // Throws an exception -- out of range
+  std::cout << "dir[G] = "     << dir.at('G')     << std::endl;
+  
   return 0;
 }
 ```
@@ -278,15 +300,15 @@ libc++abi.dylib: terminating with uncaught exception of type std::out_of_range: 
 
 int main()
 {
-  std::map<int,std::string> dir;
+  std::map<char, std::string> dir;
 
-  dir[0] = std::string("north");
-  dir[1] = std::string("east");
-  dir[2] = std::string("south");
-  dir[3] = std::string("west");
+  dir['A'] = std::string("north");
+  dir['B'] = std::string("east");
+  dir['C'] = std::string("south");
+  dir['D'] = std::string("west");
 
-  std::cout << "dir.count(2) = " << dir.count(2) << std::endl;
-  std::cout << "dir.count(5) = " << dir.count(5) << std::endl;
+  std::cout << "dir.count(A) = " << dir.count('A') << std::endl;
+  std::cout << "dir.count(G) = " << dir.count('G') << std::endl;
 
   return 0;
 }
@@ -297,8 +319,8 @@ Output:
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/map6.cpp -o src/map6
 $ ./src/map6
-dir.count(2) = 1
-dir.count(5) = 0
+dir.count(A) = 1
+dir.count(G) = 0
 ```
 
 ### Testing for a key
@@ -310,14 +332,14 @@ dir.count(5) = 0
 #include <map>
 
 int main() {
-  std::map<int,std::string> dir;
+  std::map<char, std::string> dir;
 
-  dir[0] = std::string("north");
-  dir[1] = std::string("east");
-  dir[2] = std::string("south");
-  dir[3] = std::string("west");
+  dir['A'] = std::string("north");
+  dir['B'] = std::string("east");
+  dir['C'] = std::string("south");
+  dir['D'] = std::string("west");
 
-  int key = 2;
+  char key = 'C';
   auto iter = dir.find(key);
   if (iter == dir.end()) {
     std::cout << "key " << key << " is not present" << std::endl;
@@ -336,7 +358,7 @@ Output:
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/map7.cpp -o src/map7
 $ ./src/map7
-key 2 is present
+key C is present
 value is south
 ```
 
@@ -350,14 +372,14 @@ value is south
 
 int main()
 {
-  std::map<int,std::string> dir;
+  std::map<char,std::string> dir;
 
-  dir[2] = std::string("south");
-  dir[3] = std::string("west");
-  dir[1] = std::string("east");
-  dir[0] = std::string("north");
+  dir['C'] = std::string("south");
+  dir['D'] = std::string("west");
+  dir['B'] = std::string("east");
+  dir['A'] = std::string("north");
 
-  for (auto &d : dir)
+  for (auto& d : dir)
     std::cout << d.first << std::endl;
 
   return 0;
@@ -369,10 +391,10 @@ Output:
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/map8.cpp -o src/map8
 $ ./src/map8
-0
-1
-2
-3
+A
+B
+C
+D
 ```
 
 ### Map and tuples
