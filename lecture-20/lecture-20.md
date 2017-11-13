@@ -618,8 +618,10 @@ DOROTHY 10
 #include <set>
 #include <string>
 
+// Open file and copy its content into a set of strings
 std::set<std::string> ReadNames(std::string filename)
 {
+  // Create a set of strings
   std::set<std::string> names;
 
   std::ifstream f(filename);
@@ -632,27 +634,43 @@ std::set<std::string> ReadNames(std::string filename)
   std::string name;
   double perc1, perc2;
   int rank;
+  // Read file
   while (f >> name >> perc1 >> perc2 >> rank)
   {
+    // Insert 'name' into the set, throw away other stuff
     names.insert(name);
   }
   f.close();
 
+  // Return set of strings
   return names;
 }
 
 int main()
 {
-  auto fnames = ReadNames("dist.female.first");
-  auto mnames = ReadNames("dist.male.first");
+  // Create set of female names
+  auto fnames = ReadNames("../dist.female.first");
+  // Create set of male names
+  auto mnames = ReadNames("../dist.male.first");
 
-  std::set<std::string> common;
+  // Create set of strings 'common' to store the intersection
+  std::set<std::string> common; // Default constructor
 
-  std::set_intersection(fnames.begin(), fnames.end(), mnames.begin(), mnames.end(),
+  // For more algorithms see http://en.cppreference.com/w/cpp/algorithm
+  // Here we use set intersection algorithm:
+  std::set_intersection(fnames.begin(), 
+                        fnames.end(), 
+                        mnames.begin(), 
+                        mnames.end(),
                         std::inserter(common, common.begin()));
 
+  // std::inserter(c, i) function template is used to inserts an element
+  // into container c at the iterator position i.
+  // Returns std::insert_iterator
+  // See: http://en.cppreference.com/w/cpp/iterator/inserter
+
   std::cout << fnames.size() << " female names" << std::endl;
-  std::cout << mnames.size() << " male names" << std::endl;
+  std::cout << mnames.size() << " male names"   << std::endl;
   std::cout << common.size() << " common names" << std::endl;
 
   return 0;
@@ -664,10 +682,9 @@ Output:
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/set.cpp -o src/set
 $ ./src/set
-ERROR: Could not read file dist.male.first
 10 female names
-0 male names
-0 common names
+10 male names
+1 common names
 ```
 
 ### Additional data structures
@@ -738,17 +755,35 @@ stored contiguously
 
 int main()
 {
-  std::list<int> l;
-  l.push_back(42);
-  l.push_back(17);
-  l.push_back(9);
+  // Create and populate list 'lst'.
+  std::list<int> lst;
+  lst.push_back(42);
+  lst.push_back(17);
+  lst.push_back(9);
+  lst.push_front(18);
 
-  auto it = l.begin();
-  advance(it, 1);
-  l.erase(it);
-
-  for (auto val : l)
+  // Print elements of the list.
+  std::cout << "Elements of the list:\n";
+  for (auto& val : lst)
     std::cout << val << std::endl;
+  std::cout << "\n";
+
+  // Create a list iterator and set it to the beginning of the list.
+  auto it = lst.begin();
+
+  // Advance list iterator to the third element of the list and erase it.
+  // (remember 0-based indexing).
+  advance(it, 2);
+  std::cout << "Erasing element " << *it << " ... \n"; 
+  //   Dereference 'it' to get value ^^^
+  lst.erase(it);
+  std::cout << "\n";
+
+  // Print elements of the list again to see the modified list.
+  std::cout << "Elements of the list:\n";
+  for (auto val : lst)
+    std::cout << val << std::endl;
+  std::cout << "\n";
 
   return 0;
 }
@@ -757,9 +792,21 @@ int main()
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/list.cpp -o src/list
 $ ./src/list
+Elements of the list:
+18
+42
+17
+9
+
+Erasing element 17 ... 
+
+Elements of the list:
+18
 42
 9
 ```
+
+
 
 ### Maps and sets
 
