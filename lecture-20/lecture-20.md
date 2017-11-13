@@ -233,7 +233,7 @@ int main()
   // Map size = 4
   std::cout << "dir.size() = " << dir.size() << std::endl;
 
-  // Try to access value with key 'G'
+  // Try to access value with key 'G' (creates new map entry with key 'G').
   std::cout << "dir[G] = "     << dir['G']     << std::endl;
 
   // Map size = 5
@@ -287,7 +287,8 @@ $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/map5.cpp -o src/map5
 $ ./src/map5
 dir.size() = 4
 dir.at(5) =
-libc++abi.dylib: terminating with uncaught exception of type std::out_of_range: map::at:  key not found
+libc++abi.dylib: terminating with uncaught exception of type std::out_of_range:
+map::at:  key not found
 ```
 
 ### Testing for a key
@@ -600,7 +601,8 @@ int main()
 Output:
 
 ```
-$ clang++ -std=c++11 -Wall -Wextra -Wconversion src/main.cpp src/readnames.cpp src/testname.cpp -o src/main
+$ clang++ -std=c++11 -Wall -Wextra -Wconversion src/main.cpp src/readnames.cpp \
+$ src/testname.cpp -o src/main
 $ ./src/main
 LINDA 3
 PETER 0
@@ -676,6 +678,21 @@ int main()
   return 0;
 }
 ```
+
+File `dist.male.names`:
+```
+JUSTIN         0.311 49.040     56
+TERRY          0.311 49.351     57
+GERALD         0.309 49.660     58
+KEITH          0.308 49.968     59
+SAMUEL         0.306 50.274     60
+WILLIE         0.302 50.576     61
+RALPH          0.282 50.859     62
+LAWRENCE       0.282 51.141     63
+NICHOLAS       0.275 51.415     64
+ROY            0.273 51.688     65
+```
+
 
 Output:
 
