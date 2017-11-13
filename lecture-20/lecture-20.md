@@ -679,7 +679,8 @@ int main()
 }
 ```
 
-File `dist.male.names`:
+The file `dist.female.names` is the same file used in the `map9.cpp` example.
+The file `dist.male.names` looks like this:
 ```
 JUSTIN         0.311 49.040     56
 TERRY          0.311 49.351     57
