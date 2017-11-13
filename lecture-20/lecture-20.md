@@ -409,14 +409,17 @@ D
 #include <tuple>
 
 int main() {
-  std::ifstream f("dist.female.first");
+  // Open file and check if successful, print error message if it fails
+  std::ifstream f("../dist.female.first");
   if (not f.good()) {
     std::cerr << "ERROR: Failed to open file" << std::endl;
     return 1;
   }
 
-  std::map<std::string,std::tuple<double,double,int>> names;
+  // Create map 'names'
+  std::map<std::string, std::tuple<double, double, int> > names;
 
+  // Load file entries into the map
   std::string name;
   double perc1, perc2;
   int rank;
@@ -424,12 +427,30 @@ int main() {
     names[name] = std::make_tuple(perc1, perc2, rank);
   }
 
-  for(auto &data : names) {
-    std::cout << data.first << " " << std::get<0>(data.second) << std::endl;
+  // Read from the map and print on std output
+  // Method std::get<0>() gets 0th element of the tuple
+  // The template parameter <0> must be a literal!
+  for(auto& data : names) {
+    std::cout << data.first << " " << std::get<2>(data.second) << std::endl;
   }
 
   return 0;
 }
+```
+
+File `dist.female.first`:
+
+```
+MARY           2.629  2.629      1
+PATRICIA       1.073  3.702      2
+LINDA          1.035  4.736      3
+BARBARA        0.980  5.716      4
+ELIZABETH      0.937  6.653      5
+JENNIFER       0.932  7.586      6
+MARIA          0.828  8.414      7
+TERRY          0.794  9.209      8
+MARGARET       0.768  9.976      9
+DOROTHY        0.727 10.703     10
 ```
 
 Output:
@@ -437,17 +458,18 @@ Output:
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/map9.cpp -o src/map9
 $ ./src/map9
-BARBARA 0.98
-DOROTHY 0.727
-ELIZABETH 0.937
-JENNIFER 0.932
-LINDA 1.035
-MARGARET 0.768
-MARIA 0.828
-MARY 2.629
-PATRICIA 1.073
-SUSAN 0.794
+BARBARA 4
+DOROTHY 10
+ELIZABETH 5
+JENNIFER 6
+LINDA 3
+MARGARET 9
+MARIA 7
+MARY 1
+PATRICIA 2
+TERRY 8
 ```
+
 
 ### Using functions
 
@@ -476,17 +498,21 @@ std::map<std::string,std::tuple<double,double,int>> ReadNames(std::string filena
 
 std::map<std::string,std::tuple<double,double,int>> ReadNames(std::string filename)
 {
+  // Create file I/O stream
   std::ifstream f(filename);
 
-  std::map<std::string,std::tuple<double,double,int>> names;
+  // Create map 'names'
+  std::map<std::string,std::tuple<double,double,int> > names;
 
   std::string name;
   double perc1, perc2;
   int rank;
+  // Read file entries and store them into the map 'names'
   while(f >> name >> perc1 >> perc2 >> rank) {
     names[name] = std::make_tuple(perc1, perc2, rank);
   }
 
+  // Return map 'filename' by value
   return names;
 }
 ```
@@ -516,15 +542,23 @@ double TestName(std::map<std::string,std::tuple<double,double,int>> names,
 double TestName(std::map<std::string,std::tuple<double,double,int>> names,
                 std::string name)
 {
-  double percentage = 0.;
+  // Variable to store name rank
+  int name_rank = 0;
 
+  // The variable 'match' is a map iterator. Function 'find(mapKey)' returns
+  // the iterator that points to the map entry with key value 'mapKey'
   auto match = names.find(name);
+
+  // Check if the iterator returns end value (i.e. 'mapKey' is not in the map).
+  // If not, read the name rank for the 'name'.
   if (match != names.end())
   {
-    percentage = std::get<0>(match->second);
+    // The name rank is the third entry (index 2) in the tuple 'match->second'.
+    // It is retrieved by calling std::get<2> function.
+    name_rank = std::get<2>(match->second);
   }
 
-  return percentage;
+  return name_rank;
 }
 ```
 
@@ -542,13 +576,18 @@ double TestName(std::map<std::string,std::tuple<double,double,int>> names,
 
 int main()
 {
-  auto names = ReadNames("dist.female.first");
+  // Read file and store its data in object 'names'.
+  // Let compiler find the type of the object.
+  auto names = ReadNames("../dist.female.first");
 
+  // Create a vector of strings. 
   std::vector<std::string> tests;
   tests.push_back("LINDA");
   tests.push_back("PETER");
   tests.push_back("DOROTHY");
 
+  // Check for each name in the vector if it is stored in object 'names'.
+  // If the name is found in object 'names' print its rank, otherwise print zero.
   for(auto test : tests)
   {
     std::cout << test << " " << TestName(names, test) << std::endl;
@@ -563,9 +602,9 @@ Output:
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/main.cpp src/readnames.cpp src/testname.cpp -o src/main
 $ ./src/main
-LINDA 1.035
+LINDA 3
 PETER 0
-DOROTHY 0.727
+DOROTHY 10
 ```
 
 ### Sets
