@@ -1,6 +1,6 @@
 # CME 211 Notes
 
-2017 CME 211 Canvas page: <https://canvas.stanford.edu/courses/70356>
+2018 CME 211 Canvas page: <https://canvas.stanford.edu/courses/87822>
 
 In each folder:
 
@@ -11,6 +11,7 @@ In each folder:
 [jupyter]: http://jupyter.org/
 
 ## Contents
+There will be 22 lectures this year.
 
 * [Lecture 00](lecture-00/): Getting started
 * [Lecture 02](lecture-02/): Introduction to Python
@@ -39,7 +40,5 @@ In each folder:
 * [Lecture 25](lecture-25/): C++ memory management
 * [Lecture 26](lecture-26/): Programming in C, wrap up
 
-## Acknowledgement
-
-Thanks to Patrick LeGresley for designing the structure of the course and these
-notes.
+## Acknowledgements
+We stand on the shoulders of giants: thanks to Patrick LeGresley and Nick Henderson for designing the structure of the course and the foundations for these notes.
