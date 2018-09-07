@@ -1,10 +1,10 @@
-# CME 211 Syllabus (Fall 2017)
+# CME 211 Syllabus (Fall 2018)
 
-*(cross listed as Earth 211)*
+_(cross listed as Earth 211)_
 
 ## Software Development for Scientists and Engineers
 
-Basic usage of the Python and C/C++ programming languages are introduced and
+Basic usage of the Python and C++ programming languages are introduced and
 used to solve representative computational problems from various science and
 engineering disciplines. Software design principles including time and space
 complexity analysis, data structures, object-oriented design, decomposition,
@@ -49,7 +49,7 @@ equivalent to [CS 106A][cs106a] or instructor consent.
 - Numerical Python (NumPy) and Scientific Python (SciPy) extensions for scientific computing
 - matplotlib for visualization
 
-### C/C++
+### C++
 
 - Compiling and linking
 - Preprocessor
@@ -74,9 +74,9 @@ equivalent to [CS 106A][cs106a] or instructor consent.
 
 ## Time and location
 
-- Days: Mon, Wed, Fri
-- Time: 3:00 PM - 4:20 PM
-- Location: Bishop Auditorium
+- Days: Tues, Thurs
+- Time: 4:30 PM - 6:20 PM
+- Location: Hewlett 201
 
 ## Communication
 
@@ -84,39 +84,30 @@ We will be using Canvas to send announcements and as a discussion board for the
 homework projects. Please use this if you have questions regarding course
 material.
 
-Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/70356>
+Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/87822>
 
 All other correspondence should be sent to <cme211-staff@lists.stanford.edu>.
 
-*Do not send questions related to course material to the staff mailing list or to
-individual staff emails (including the instructor).  We will not answer these.
+*Do not send questions related to course material to the staff mailing list or to individual staff emails (including the instructor).  We will not answer these.
 Questions may be posted to the Canvas discussion board or asked in-person during
 office hours.*
 
 ## Teaching staff
 
 Instructor: 
-  - Andreas Santucci (santucci at stanford)
-  - Slaven Peles
+  - [Andreas Santucci](https://asantucci.github.io/) (santucci at stanford)
+  - Slaven Peles (peles at stanford)
 
 Teaching assistants: 
-  - Alex Tsaptsinos (alextsap at stanford)
-  - Noam Habot (nhabot at stanford)
-  - Vishal Subbiah (svishal at stanford)
-  - Kevin Chen (kchen42 at stanford)
+  - Remmelt Ammerlaan (remmelt at stanford)
+  - Ruilin Li (ruilinli at stanford)
+  - Maxime Rivet (mrivet at stanford)
+  - Jessica Wetstone (wetstone at stanford)
 
 ## Office hours
-All office hours, except for Slaven's, are held in Huang basement.
+Formal office hours will be announced *after* the first week of classes has finished. We will have an ad-hoc office hour during the first week of class to help answer any questions with HW 0.
 
-Mondays: 11am - 1pm (Alex), 4.30 - 6.30pm (Kevin)
-
-Tuesdays: 11am - 1pm (Vishal), 4.30 - 6.30pm (Noam)
-
-Wednesday: 11am - 1pm (Alex)
-
-Thursday: 11am - 1pm (Vishal), 3pm - 5pm (Noam), 4.30pm - 6.30pm (Kevin)
-
-Friday: 4.30pm - 6pm (Slaven, Huang 060 M09)
+(All office hours, except for Slaven's, will be held in Huang basement, just outside ICME)
 
 ## Resources
 
@@ -147,13 +138,13 @@ progress in the class.
 ## Assignments
 
 There will be 7 graded assignments. Assignments will be posted on Friday
-afternoons and be due the following Friday at 2:30 pm via online submission.
-Late assignments will not be accepted.
+afternoons and be due the following Friday at 4:30 pm via online submission.
+Late assignments will **not** be accepted.
 
 Although students are expected to complete all assignments, the one assignment
 with the lowest score (by percentage) will automatically be dropped when
 computing your overall course grade. The policy of dropping the lowest score is
-in lieu of a late policy or providing extensions so please don’t ask for them.
+in lieu of a late policy or providing extensions so please don’t ask for them!
 
 ## Final Project
 
