@@ -19,13 +19,6 @@ Last update: 2018-09-07
   HelpSU request.  Feel free to ask questions on Canvas.  Keep in mind that the
   teaching staff has no control over registration.
 
-### Course resources
-
-Lecture notes will be made available to all Stanford
-students. Please check the [*CME211
-homepage*](http://web.stanford.edu/class/cme211/) at the start of Fall
-quarter 2018 for links.
-
 ### Course prerequisites
 
 The prerequisite for CME 211 in the bulletin is stated as "introductory
