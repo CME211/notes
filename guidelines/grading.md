@@ -20,7 +20,10 @@ In each category, overall feedback will be summarized with:
 Students who do not submit their assignment at all will earn an entirely separate 
 category of points, called "0". At the end of the quarter, 
 we will map categories to scalar values, e.g.
-`{"++" : 1.05, "+" : 0.94", "ok" : 0.85, "-" : 0.75, "--" : 0.55}`.
+
+`{"++" : 1.05, "+" : 0.95", "ok" : 0.85, "-" : 0.75, "--" : 0.6}`.
+
+E.g. your feedback from an assignment might be something like, `"Functionality" : "+", "code-quality" : "ok", "documentation" : "-"}` then if you were really eager to squash this multidimensional, rich feedback into a single scalar value you could compute `0.65 * 0.95 + 0.25 * 0.85 + 0.10 * 0.75 = 0.905`.
 
 ## Functionality
 
