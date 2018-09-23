@@ -1,10 +1,4 @@
-# CME 211: Lecture 15
 
-## Topics
-
-* static arrays
-* variable scope
-* looping
 
 ## Static arrays
 

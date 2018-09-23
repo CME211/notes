@@ -1,9 +1,10 @@
-# CME 211: Lecture 16
+# CME 211: Lecture 11
 
 ## Topics
 
-* conditionals
-* basic file operations in C++
+* Dynamic arrays
+* Conditionals
+* Basic file operations in C++
 
 ## Conditional statements in C++
 

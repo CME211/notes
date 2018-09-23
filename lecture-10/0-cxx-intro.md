@@ -1,4 +1,4 @@
-# CME 211: Lecture 14
+# CME 211: Lecture 10
 
 Topics:
 
@@ -6,6 +6,9 @@ Topics:
 * Hello world
 * Variables
 * Strings
+* Static arrays
+* Variable scope
+* Looping
 
 ## C++
 
