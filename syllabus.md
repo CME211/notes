@@ -117,8 +117,8 @@ Other resources are listed in the [`CME211/notes`][cme211-notes] repository.
 
 ## Grading
 
-Your overall course grade will be based on assignments (50%), two exams (12.5%
-each, 25% total), and a final project (25%).
+Your course grade will be based on assignments (50%), two exams (12.5%
+each, 25% total), and a project (25%).
 
 Course letter grades are at the discretion of the instructor. If at any time you
 have questions about your standing in the class, please contact the instructor.
@@ -162,22 +162,29 @@ code violations.
 ### Guidelines
 
 - It’s great (and encouraged) to work with other people on high level ideas,
-  concepts, and methods.  But, you must write your code on your own. Please seek
-  help early if and when you encounter problems.
+  concepts, and methods.  
+  
+  But, you must write your code on your own. 
+
+  Please seek help early and often, if and when you encounter problems.
 - Keep your code closed and separate if you are helping another student with a
   debugging or technical issue in code.
 - Do not copy code from another student (current or previous).
 - Do not give your code to another student (current or future).
-- It is acceptable to copy small blocks (a few lines) of code from public sources,
+- It is acceptable to copy small blocks (a few lines) of code from public 
+  sources,
   such as [stackoverflow.com](http://stackoverflow.com/).  You must cite your
-  source and abide by any copyright and licensing restrictions.  You do not need
-  to cite course notes, example programs provided by CME211, reference information
+  source and abide by any copyright and licensing restrictions.  You do 
+  not need
+  to cite course notes, example programs provided by CME211, reference 
+  information
   from [python.org docs](https://docs.python.org/3/), or reference information
   from [cppreference.com](http://en.cppreference.com/w/).
 - Do not use or reference work from previous students of CME211 or any solution
   files that may be out there.
 - Do not post homework PDFs or your solutions in a publicly available location.
-- Please let us know if you come across available solutions.  We will kindly ask
+- Please let us know if you come across available solutions.  
+  We will kindly ask
   the provider to remove the resource.
 
 ## Students with Documented Disabilities
