@@ -2,12 +2,6 @@
 
 _(cross listed as Earth 211)_
 
-## Time and location
-
-- Days: Tues, Thurs
-- Time: 4:30 PM - 6:20 PM
-- Location: Hewlett 201
-
 ## Software Development for Scientists and Engineers
 
 Basic usage of the Python and C++ programming languages are introduced and
@@ -27,10 +21,8 @@ equivalent to [CS 106A][cs106a] or instructor consent.
 
 - To become a productive user of unix-like and remote computing systems.
 - To become an effective user of tools for software development such as version
-  control (`git`), text editors, and build systems (`make`).
-- To be able to write Python programs of intermediate complexity for science
-  and engineering applications.
-- To be able to write C++ programs of intermediate complexity for science
+  control (`git`), text editors (vim, emacs), and build systems (`make`).
+- To be able to write Python and C++ programs of intermediate complexity for science
   and engineering applications.
 - Develop skill in [*computational thinking*][comp-think], that "is the thought
   processes involved in formulating a problem and expressing its solution(s) in
@@ -94,6 +86,13 @@ Teaching assistants:
   - Ruilin Li (ruilinli at stanford)
   - Maxime Rivet (mrivet at stanford)
   - Jessica Wetstone (wetstone at stanford)
+  
+
+## Time and location
+
+- Days: Tues, Thurs
+- Time: 4:30 PM - 6:20 PM
+- Location: Hewlett 201
 
 ## Office hours
 Formal office hours will be announced *after* the first week of classes has finished. We will have an ad-hoc office hour during the first week of class to help answer any questions with HW 0.
