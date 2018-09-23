@@ -2,6 +2,12 @@
 
 _(cross listed as Earth 211)_
 
+## Time and location
+
+- Days: Tues, Thurs
+- Time: 4:30 PM - 6:20 PM
+- Location: Hewlett 201
+
 ## Software Development for Scientists and Engineers
 
 Basic usage of the Python and C++ programming languages are introduced and
@@ -36,13 +42,13 @@ equivalent to [CS 106A][cs106a] or instructor consent.
 
 ### Linux
 
-- Remote login and file transfer using SSH, SCP, and SFTP
+- Remote login and file transfer using `ssh` and `scp`
 - Filesystem navigation (moving through and creating directories, finding files, etc.)
 - Creation and editing of code and data files
 
 ### Python
 
-- Variables, conditionals, file I/O, data structures (lists, tuples, dictionaries, sets),
+- Variables, conditionals, file I/O, data structures (lists, tuples, dictionaries, sets)
 - loops, functions, exceptions, and modules
 - Objects and references
 - Objected Oriented Programming (OOP) using classes
@@ -51,32 +57,17 @@ equivalent to [CS 106A][cs106a] or instructor consent.
 
 ### C++
 
-- Compiling and linking
-- Preprocessor
+- Creating C++ Programs: preprocessor, compiling, linking
 - Containers (vector, map, etc.)
 - Object oriented programming (classes and methods, etc.)
 - Pointers, addresses, and memory management
 - *Note that more advanced features of C++ (operator overloading, templates, etc.) will be covered in CME 212*
 
-### Building software
-
+### Software Development and Industry Practices
 - Creating and using a basic Makefile
-
-### Version control
-
-- Use of Git and Github for managing software projects
-
-### LaTeX
-
-- LaTeX markup (figures, tables, equations, references, etc.)
-- Managing a bibliography
-- Creating a ready to publish file in Adobe Acrobat (PDF) format
-
-## Time and location
-
-- Days: Tues, Thurs
-- Time: 4:30 PM - 6:20 PM
-- Location: Hewlett 201
+- Version control: use of Git and Github for managing software projects
+- LaTeX markup (figures, tables, equations, references, managing a
+  bibliography, and publishing a PDF document)
 
 ## Communication
 
@@ -94,7 +85,7 @@ office hours.*
 
 ## Teaching staff
 
-Instructor: 
+Instructors: 
   - [Andreas Santucci](https://asantucci.github.io/) (santucci at stanford)
   - Slaven Peles (peles at stanford)
 
@@ -123,7 +114,7 @@ collection.
 
 Other resources are listed in the [`CME211/notes`][cme211-notes] repository.
 
-[cme211-notes]: https://github.com/CME211/notes
+[cme211-notes]: https://github.com/CME211/notes#contents
 
 ## Grading
 
@@ -182,8 +173,8 @@ code violations.
   such as [stackoverflow.com](http://stackoverflow.com/).  You must cite your
   source and abide by any copyright and licensing restrictions.  You do not need
   to cite course notes, example programs provided by CME211, reference information
-  from [`python.org` docs](https://docs.python.org/3/), or reference information
-  from [`cppreference.com`](http://en.cppreference.com/w/).
+  from [python.org docs](https://docs.python.org/3/), or reference information
+  from [cppreference.com](http://en.cppreference.com/w/).
 - Do not use or reference work from previous students of CME211 or any solution
   files that may be out there.
 - Do not post homework PDFs or your solutions in a publicly available location.
@@ -198,5 +189,6 @@ disability must initiate the request with the Office of Accessible Education
 recommend reasonable accommodations, and prepare an Accommodation Letter for
 faculty dated in the current quarter in which the request is made. Students
 should contact the OAE as soon as possible since timely notice is needed to
-coordinate accommodations. The OAE is located at 563 Salvatierra Walk (Phone:
-723-1066, URL: <http://studentaffairs.stanford.edu/oae>).
+coordinate accommodations. The OAE is located at 563 Salvatierra Walk.
+
+(Phone: 723-1066, URL: <http://studentaffairs.stanford.edu/oae>).
