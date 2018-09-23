@@ -1,4 +1,4 @@
-# CME 211: Lecture 9
+# CME 211: Lecture 6
 
 More Object Oriented Programming (OOP) in Python
 

@@ -1,4 +1,4 @@
-# CME 211: Lecture 7
+# CME 211: Lecture 5
 
 ## Topics
 
@@ -7,6 +7,9 @@
 * Python modules
 
 * Python exceptions
+
+* Introduction to object oriented programming
+
 
 ## Python object model
 

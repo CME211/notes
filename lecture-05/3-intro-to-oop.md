@@ -1,4 +1,3 @@
-# CME 211: Lecture 8
 
 ## Introduction to OOP
 
