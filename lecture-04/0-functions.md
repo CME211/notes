@@ -1,4 +1,4 @@
-# CME 211: Lecture 5
+# CME 211: Lecture 4: Functions and Complexity Analysis
 
 ## Python functions
 

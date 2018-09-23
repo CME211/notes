@@ -1,4 +1,4 @@
-# CME 211 Lecture 6: Complexity Analysis
+# CME 211 Lecture 4: Functions and Complexity Analysis
 
 We study the complexity of algorithms to understand the resources required to
 run a program.
