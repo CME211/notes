@@ -1,4 +1,4 @@
-# CME 211 Lecture 3: Conditionals, Lists, Loops, and File IO
+# CME 211 Lecture 2: Conditionals, Lists, Loops, and File IO
 
 ## Reading
 
@@ -17,6 +17,7 @@ Relevant chapters in *Learning Python* by Mark Lutz are:
 
 We have a lot to cover in this lecture:
 
+* Python data types
 * Logical Operations
 * `if` statements
 * Python lists
