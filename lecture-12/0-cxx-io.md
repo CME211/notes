@@ -1,6 +1,11 @@
-# CME 211: Lecture 17
+# CME 211: Lecture 12
 
-Topic: Additional file I/O options in C++
+Topics:
+
+* Additional file I/O options in C++
+* Functions
+* Preprocessor & `#include` statements
+
 
 ## Command line arguments
 

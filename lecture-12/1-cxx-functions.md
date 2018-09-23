@@ -1,9 +1,3 @@
-# CME 211: Lecture 18
-
-Topics:
-
-* Functions
-* Preprocessor & `#include` statements
 
 ## Functions
 
