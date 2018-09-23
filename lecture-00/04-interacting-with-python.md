@@ -1,4 +1,4 @@
-# CME 211 Lecture 2: Interacting with Python
+# CME 211 Lecture 1: Interacting with Python
 
 * Python is a high level language that typically runs in an *interpreter*
 * An *interpreter* is a program (see `$ python3`) that executes statements from a
