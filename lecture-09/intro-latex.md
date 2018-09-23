@@ -1,6 +1,6 @@
-# CME 211: Lecture 13
+# CME 211: Lecture 9
 
-Monday, October 19, 2015
+Tuesday, October 23, 2018
 
 Topics: Introduction to LaTeX
 
