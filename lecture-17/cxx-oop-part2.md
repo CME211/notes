@@ -1,6 +1,9 @@
-# CME 211: Lecture 24
+# CME 211: Lecture 17
 
-Topic: C++ Object Oriented Programming, Part Duex
+Topics: 
+* C++ Object Oriented Programming, Part Duex
+* C++ Memory Management
+
 
 ## Example 1: name algorithm
 

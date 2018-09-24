@@ -1,6 +1,3 @@
-# CME 211: Lecture 25
-
-Topic: C++ memory management
 
 ## Python memory management
 
