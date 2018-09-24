@@ -15,7 +15,7 @@ week #,lecture #,date,day,section,topic,assignments
  ,exam,25-Oct,Thu,py,Python exam,exam 1
  ,  ,26-Oct,Fri,,,hw4 out
 6,10,30-Oct,Tue,C++,"C++ intro, static arrays, looping",
- ,11,1-Nov,Thu,C++,"conditionals, file io",
+ ,11,1-Nov,Thu,C++,"dynamic arrays, conditionals, file io",
  ,  ,2-Nov,F,,,"hw4 due, hw5 out"
 7,12,6-Nov,Tue,C++,"function, includes, preprocessor, intro to containers",
  ,13,8-Nov,Thu,C++,containers,
