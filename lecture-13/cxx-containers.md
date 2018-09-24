@@ -1,10 +1,14 @@
-# CME 211: Lecture 19
+# CME 211: Lecture 12
 
 Topics:
 
 * C++ containers
 * `vector`
 * `tuple`
+* `map`
+* `set`
+* and more
+
 
 ## C++ containers
 

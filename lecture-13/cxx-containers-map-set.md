@@ -1,11 +1,3 @@
-# CME 211: Lecture 20
-
-Topics:
-
-* C++ containers
-* `map`
-* `set`
-* and more
 
 ## Container iteration
 
