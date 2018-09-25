@@ -23,8 +23,8 @@ There will be 18 lectures this year.
 * [Lecture  8](lecture-08/): Introduction to Pandas
 * [Lecture  9](lecture-09/): Introduction to LaTeX
 * [Lecture 10](lecture-10/): Introduction to C++, static arrays, variable scope, looping
-* [Lecture 11](lecture-11/): C++ dynamic arrays, conditionals, file IO -->
-* [Lecture 12](lecture-12/): C++ functions, preprocessor, and `#include` -->
+* [Lecture 11](lecture-11/): C++ dynamic arrays, conditionals, file IO
+* [Lecture 12](lecture-12/): C++ functions, preprocessor, and `#include`
 * [Lecture 13](lecture-13/): C++ containers: `vector`, `tuple`, `map` and `set`
 * [Lecture 14](lecture-14/): Boost MultiArray
 * [Lecture 15](lecture-15/): Compilation, Makefiles
