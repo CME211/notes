@@ -11,8 +11,8 @@ if len(sys.argv) < 3:
 
 # extract arguments from sys.argv
 female_data = sys.argv[1]
-male_data = sys.argv[2]
-test_names = sys.argv[3:]
+male_data   = sys.argv[2]
+test_names  = sys.argv[3:]
 
 # Create sets for female and male names
 female = set()
