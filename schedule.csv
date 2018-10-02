@@ -2,8 +2,8 @@ week #,lecture #,date,day,section,topic,assignments
 1,1,25-Sep,Tue,py,"course intro, python as an extensible calculator",hw0 out
  ,2,27-Sep,Thu,py,"python strings, file io, lists, control",
  , ,28-Sep,Fri,,,"hw0 due, hw1 out"
-2,3,2-Oct,Tue,py,"data structures: dicts, sets, tuples; intro to functions",
- ,4,4-Oct,Thu,py,functions and complexity,
+2,3,2-Oct,Tue,py,"data structures: dicts, sets, tuples",
+ ,4,4-Oct,Thu,py,intro to functions and complexity,
  , ,5-Oct,Fri,,,"hw1 due, hw2 out"
 3,5,9-Oct,Tue,py,"data model, modules, exceptions; oop intro",
  ,6,11-Oct,Thu,py,"oop, data representation",
