@@ -1,10 +1,19 @@
 """
-My module of misc code.
+My Module: a collection of miscellaneous code.
+
+This module defines a summation sub-routine alongside a list of primes.
+These utilities may be of interest to someone with interests lying at the
+intersection of number theory and computation.
 """
 
 def summation(a,b):
     """
-    Returns the sum of numbers between, and including, a and b.
+    Returns the sum of integers  between arguments a and b, inclusive.
+
+    We anticipate the input arguments to be each integers. The output
+    under this assumption is also an integer. We remark that there
+    are simple closed form solutions for this problem, using the fact
+    that summation(0,n) = n*(n+1)/2.
     """
 
     total = 0
