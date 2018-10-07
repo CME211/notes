@@ -5,13 +5,13 @@
 \AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
 
 \begin{document}
-\title{Lecture 5: OOP and Exceptions\vspace{-5ex}}
+\title{Lecture 5: Objects, Modules, and Exceptions\vspace{-5ex}}
 \date{October 9th, 2018}
 \maketitle
 
 {\footnotesize
 \paragraph{Topics Introduced:} Python object model, 
-modules, exceptions, and object oriented programming.
+modules, and exceptions.
 }
 \vspace{-3ex}
 \section{Python Object Model}
@@ -683,6 +683,8 @@ import mymodule4
 help(mymodule4)
 \end{python}
 
+{
+\small
 \begin{verbatim}
 Help on module mymodule4:
 
@@ -699,14 +701,34 @@ DATA
 FILE
     /Users/asantucci/git/cme211-notes/lecture-05/mymodule4.py
 \end{verbatim}
+}
 
 \subsubsection{Recommended Reading}
+{ \small
+  Chapters 22 and 23 in Learning Python; Modules: The Big Picture, and Module Coding Basics
+}
+
+\section{Python Debugger} Making mistakes is part of programming. Ideally, we use tools to facilitate 
+catching errors before deploying code into production. One such tool is the \href{https://docs.python.org/3/library/pdb.html#debugger-commands}{Python Debugger}, or \texttt{pdb} for short. This allows us to interactively step through our programs, set (conditional) breakpoints, and inspect objects as they are created and modified during the course of a program's execution.
+
+\paragraph{Usage} To use the debugger, we simply import the \texttt{pdb} \textbf{m}odule as a command line argument when executing our program that needs to be debugged. E.g.
+
+\begin{shell}
+\$ python3 -m pdb mymodule5.py
+\end{shell}
+
+We will now be placed into a debugging environment, which starts execution based
+on the first line of \texttt{mymodule5.py}. We can use \href{https://docs.python.org/3/library/pdb.html#debugger-commands}{debugger commands} to step through our code. Essentials:
+
 \begin{itemize}
-\item
-  Chapter 22: Modules: The Big Picture
-\item
-  Chapter 23: Module Coding Basics
-\end{itemize}
+  \item \textbf{n}(ext): continue execution until the next line in the current function.
+  \item \textbf{s}(tep): execute the current line but stop as soon as possible (possibly within a function invoked on the same line).
+  \item \textbf{c}(ontinue): execute until the next breakpoint is encountered.
+  \item \textbf{b}(reak): if given a \texttt{line number}, a breakpoint is set at that specified line number in the current file; if given a \texttt{function} as argument, a breakpoint is set at the first executable statement within the function.
+  \item \textbf{r}(eturn): continue execution until the current function returns.
+\end{itemize} 
+
+These commands may be invoked using their complete name or the corresponding one-character short-hands. I highly recommend learning to become proficient in the debugger. It is far more extensible and effective when compared with sprinkling \texttt{print()} statements throughout your program.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
