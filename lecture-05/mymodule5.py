@@ -8,7 +8,7 @@ def summation(a,b):
     Returns the sum of integers between a and b inclusive.
     """
 
-    if (!(isinstance(a, int) and isinstance(b, int)):
+    if not (isinstance(a, int) and isinstance(b, int)):
         raise ValueError('Expected integers as input for summation.')
 
     # The rest of this program is unchanged from mymodule4...
