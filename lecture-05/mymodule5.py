@@ -1,17 +1,17 @@
 """
-My module of misc code.
+... ommitted for brevity in this example ...
 """
 
-import types
-
 def summation(a,b):
+
     """
-    Returns the sum of numbers between, and including, a and b.
+    Returns the sum of integers between a and b inclusive.
     """
 
-    if (type(a) != types.IntType or type(b) != types.IntType):
-        raise ValueError('Expected integers')
+    if (!(isinstance(a, int) and isinstance(b, int)):
+        raise ValueError('Expected integers as input for summation.')
 
+    # The rest of this program is unchanged from mymodule4...
     total = 0
     for n in range(a,b+1):
         total += n
