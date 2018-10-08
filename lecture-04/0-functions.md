@@ -399,28 +399,31 @@ function_caller(simple_function)
 ```
 
 This is useful when combined with Python's [`map`][py-map] and
-[`filter`][py-filter] functions.
+[`filter`][py-filetr] functions.
 
 [py-map]: https://docs.python.org/3/library/functions.html#map
-[py-filer]: https://docs.python.org/3/library/functions.html#filter
+[py-filter]: https://docs.python.org/3/library/functions.html#filter
 
 ### `map`
 
-The `map` function applies an input function to each element of a container and
-returns an iterator.  We'll use it to construct a list.
+The `map` function takes a mapping function and one or more iterable
+objects as input arguments. The `map` returns an
+[iterator](py-iter)
+that applies the input function to every item of the iterable object yielding the
+results. Take for example square function
 
 ```python
 def square(x):
     return x*x
 ```
 
-`map` returns an iterator:
+and a list as `map` inputs:
 
 ```python
 map(square, [1,2,3,4,5,6])
 ```
 
-iterators can be used in a `for` loop:
+The return value is an iterator can be used in a `for` loop:
 
 ```python
 for s in map(square, [1,2,3,4,5,6]):
@@ -428,11 +431,19 @@ for s in map(square, [1,2,3,4,5,6]):
 print()
 ```
 
-or we can ask for a `list`:
+The iterator does not create a new list, it simply calculates all
+mapped values. If we want to create a list with mapped values, we
+pass the iterator as the input argument of the list constructor:
 
 ```python
 list(map(square,[1,2,3,4,5,6]))
 ```
+
+In Python 2.x, the `map` function is returning a container with mapped
+data. In Python 3.x, it is programmers responsibility to decide if and
+when mapped data should be stored in memory.
+
+[py-iter]: https://stackoverflow.com/questions/9884132/what-exactly-are-iterator-iterable-and-iteration
 
 ### `filter`
 
