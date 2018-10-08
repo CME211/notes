@@ -5,7 +5,7 @@ week #,lecture #,date,day,section,topic,assignments
 2,3,2-Oct,Tue,py,"data structures: dicts, sets, tuples",
  ,4,4-Oct,Thu,py,intro to functions and complexity,
  , ,5-Oct,Fri,,,"hw1 due, hw2 out"
-3,5,9-Oct,Tue,py,"data model, modules, exceptions; oop intro",
+3,5,9-Oct,Tue,py,"object model, modules, debugger, exceptions",
  ,6,11-Oct,Thu,py,"oop, data representation",
  , ,12-Oct,Fri,,,"hw2 due, hw3 out"
 4,7,16-Oct,Tue,py,"numpy, scipy, matplotlib",
