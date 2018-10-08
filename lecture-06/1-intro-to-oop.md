@@ -1,7 +1,8 @@
+# CME 211: Lecture 6
+October 11, 2018
 
-## Introduction to OOP
+## Introduction to Object Oriented Programming
 
-OOP stands for *Object Oriented Programming*.
 
 ### Procedural programming
 
@@ -24,56 +25,45 @@ Some alternatives to *procedural programming* include:
 * *declarative programming*: making a set of declarations and asking a computer, usually via a solver, to
   produce a result where all declarations hold true:
 
-  * In a mathematical programming language (GAMS, AMPL, JuMP, CVX, CVXPY), the
+  * *equation based programming* In a mathematical programming language (GAMS, AMPL, JuMP, CVX, CVXPY, Modelica, gPROMS), the
     programmer writes down a set of equations and/or inequalities (constraints) and
-    asks a solver to find a solution.
+    asks a solver to find a solution. Some may argue that equation-based programming is just a variant of object oriented programming.
 
   * Also **Boolean satisfiability problem**:
     see <https://en.wikipedia.org/wiki/Boolean_satisfiability_problem>
 
-### OOP in a Nutshell
+### Object oriented programming in a nutshell
 
-OOP is based around the concept of "objects".  Objects have two kinds of
+Object oriented programming is based around the concept of "objects".  Objects have two kinds of
 *attributes* (accessed via `.` sytax): data attributes (or instance variables)
 and function attributes (or *methods*).  Object data is typically modified by
 object methods.
 
-OOP is still procedural programming, just with more facilities for organizing
-and modifying data.
 
-### Why OOP?
+### Why object oriented programming?
 
-* Concept of OOP has been around since 1960s
+* Concept of object oriented programming has been around since 1960s
 
 * Gained popularity in the 1980s and 1990s with the development and
   standardization of C++, and faster computers that mitigated the overhead of the
   abstractions
 
 * Abstraction, modularity, and reusability are some of the most commonly cited
-  reasons for using OOP
+  reasons for using object oriented programming
 
-* Almost all new software development uses some degree of OOP (for better or worse)
+* Almost all new software development uses some degree of object oriented programming (for better or worse)
 
-* In Python, everything is an object.  Proper use of OOP features allows
+* In Python, everything is an object.  Proper use of object oriented programming features allows
   programmers to write code that integrates nicely into the Python language
   and set of libraries.
 
-### Why not OOP?
+### Why not object oriented programming?
 
-* Proper OOP design is hard.  There is a cottage industry of tools and books.
+* Proper object oriented programming design is hard.  There is a cottage industry of tools and books.
 
-* Programmers tend to abuse OOP features leading to code bases that are *extremely*
+* Programmers tend to abuse object oriented programming features leading to code bases that are *extremely*
   difficult to work with.  (This might also mean **job security**)
 
-* CMU stops teaching OOP to freshmen: <https://existentialtype.wordpress.com/2011/03/15/teaching-fp-to-freshmen/>
-
-* Developer of ZeroMQ: [*Why should I have written ZeroMQ in C, not C++*](http://250bpm.com/blog:4)
-
-* OOP introduces many complexities in code bases. See: [Simple Made Easy](https://www.infoq.com/presentations/Simple-Made-Easy)
-
-* For fun: <http://harmful.cat-v.org/software/>
-
-![OOP Problems from Cat V](http://harmful.cat-v.org/software/_java/problem-factory.jpg)
 
 ### Abstraction
 
@@ -94,7 +84,7 @@ and modifying data.
 
 ### Objects
 
-* In OOP you express your computations in terms of *objects*, which are instances
+* In object oriented programming you express your computations in terms of *objects*, which are instances
   of *classes*
 
 * Classes are blueprints for objects
@@ -121,6 +111,7 @@ a
 * `list()` returns an object which is an instance of the *list* class
 * `append()` and `sort()` are *methods*
 * 3, 5, 19 are the *data* maintained by the object
+
 
 ### Class / object examples 2: file objects
 
@@ -176,7 +167,7 @@ IO code should be the same.
 * But you might want to create classes that are specialized to the needs of your
   applications, so they can be used (and reused) by yourself and others
 
-### OOP in Python
+### object oriented programming in Python
 
 * New kinds of objects can be created in Python by defining your own classes
 
@@ -568,19 +559,19 @@ b = SimpleClass()
 b.new_attribute
 ```
 
-### OOP Summary
+### Intro to object oriented programming summary
 
 * Object Oriented Programming is about implementing abstractions such that data,
   and the associated operations on it, are represented in a way that is more
   familiar to humans
 
-* Mechanics of OOP are about the same as procedural programming, but developing
+* Mechanics of object oriented programming are about the same as procedural programming, but developing
   good abstractions can take a lot of thought
 
 ### Recommended Reading
 
 *Learning Python, Fifth Edition* by Mark Lutz
 
-* Chapter 26: OOP: The Big Picture
+* Chapter 26: Object Oriented Programming: The Big Picture
 
 * Chapter 27: Class Coding Basics
