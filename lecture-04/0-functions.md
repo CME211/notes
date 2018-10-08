@@ -431,7 +431,7 @@ for s in map(square, [1,2,3,4,5,6]):
 print()
 ```
 
-The iterator does not create a new list, it simply calculates all
+The iterator does not create a new list, it simply allows you to calculate all
 mapped values. If we want to create a list with mapped values, we
 pass the iterator as the input argument of the list constructor:
 
@@ -439,9 +439,6 @@ pass the iterator as the input argument of the list constructor:
 list(map(square,[1,2,3,4,5,6]))
 ```
 
-In Python 2.x, the `map` function is returning a container with mapped
-data. In Python 3.x, it is programmers responsibility to decide if and
-when mapped data should be stored in memory.
 
 [py-iter]: https://stackoverflow.com/questions/9884132/what-exactly-are-iterator-iterable-and-iteration
 
@@ -458,6 +455,11 @@ def isodd(x):
 ```python
 list(filter(isodd,[1,2,3,4,5,6,7]))
 ```
+
+Note: In Python 2.x, `map` and `filter` functions return containers with mapped
+and filtered data, respecively. In Python 3.x, it is programmers responsibility
+to decide when and if mapped/filtered data should be stored in memory.
+
 
 ### Lambda functions
 
