@@ -1,6 +1,3 @@
-# CME 211: Lecture 6
-
-More Object Oriented Programming (OOP) in Python
 
 ## Python OOP topics & examples
 
