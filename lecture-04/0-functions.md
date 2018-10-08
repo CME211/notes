@@ -399,7 +399,7 @@ function_caller(simple_function)
 ```
 
 This is useful when combined with Python's [`map`][py-map] and
-[`filter`][py-filetr] functions.
+[`filter`][py-filter] functions.
 
 [py-map]: https://docs.python.org/3/library/functions.html#map
 [py-filter]: https://docs.python.org/3/library/functions.html#filter
