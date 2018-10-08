@@ -559,7 +559,7 @@ b = SimpleClass()
 b.new_attribute
 ```
 
-### Object oriented programming Summary
+### Intro to object oriented programming summary
 
 * Object Oriented Programming is about implementing abstractions such that data,
   and the associated operations on it, are represented in a way that is more

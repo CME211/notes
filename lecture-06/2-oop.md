@@ -1,5 +1,5 @@
 
-## Python OOP topics & examples
+## Python object oriented programming topics & examples
 
 ### Name example
 
@@ -138,19 +138,19 @@ print(s)
 
 Over 50+ methods in total
 
-### What is OOP?
+### What is object oriented programming?
 
 * Some will argue that putting your data in an object, and adding a bunch of put
 / get methods to interface with it, is just a glorified container and interface
 
-* Real power of OOP might be in allowing objects to interact with each other by
+* Real power of object oriented programming might be in allowing objects to interact with each other by
 overriding appropriate methods
 
 ### Particle collision
 
 ![fig/particle-collision.png](fig/particle-collision.png)
 
-### OOP design
+### Object oriented programming design
 
 ```
 p_blue = Particle(...)
@@ -177,7 +177,7 @@ class Particle:
         return "Mass: %s, Velocity: %s" % (self.mass, self.velx)
 ```
 
-OOP particle collision:
+Object oriented programming particle collision:
 
 ```python
 p_blue = Particle(4.3, 2.5)
@@ -352,7 +352,7 @@ for shape in shapes:
 
 ![fig](fig/uml-3.png)
 
-### OOP Summary
+### Object oriented programming Summary
 
 * Abstraction
 
