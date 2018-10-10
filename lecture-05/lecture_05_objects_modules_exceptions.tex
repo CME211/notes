@@ -108,7 +108,7 @@ implicit conversions between disparate types is disallowed.
   
 E.g. you can't add a number and a string in base Python, because the language rules state that operation doesn't make sense.\footnote{This is in contrast to a weakly typed language, such as Perl, wherein the type of one object may be coerced to match another type such that an operation may be carried out. E.g. if you try to use operator \texttt{+} on an integer and a string, Perl will coerce the string to an integer (using the additive identity 0) and then perform the addition.}
 
-\subsection{Assignment}
+\subsection{Assignment: Setting Up a Reference}
 \vspace{-1ex}
 We restate that everything in Python is an object: numbers, strings, functions, etc. are all objects;
 an object is simply a location in memory associated with a type and a value.
@@ -148,9 +148,14 @@ The location in the diagram which a value appears corresponds to the location in
 we first have to define a reference to the integer value 5, then use this data as part of an input to an \texttt{add} operation.}
 \end{figure}
 
-\subsection{Checking References}
+\subsection{References (Details)}
+\subsubsection{Checking References}
 We can check if two names (variables) reference the same object with the
-\href{https://docs.python.org/3/library/operator.html}{\texttt{is}} operator.
+\href{https://docs.python.org/3/library/operator.html}{\texttt{is}} operator.\footnote{
+Implementation detail in CPython: 
+the \href{https://docs.python.org/3/library/functions.html#id}{\texttt{id}} operator 
+returns the position in memory where the object is stored.
+}
 
 \begin{python}
 a = [42, 19, 73]
@@ -183,7 +188,7 @@ Check it out in
 \href{http://www.pythontutor.com/visualize.html\#code=a\%20\%3D\%20\%5B42,\%2019,\%2073\%5D\%0Ab\%20\%3D\%20a\%0Aprint(a\%20is\%20b\%29\%0Ab\%20\%3D\%20\%5B42,\%2019,\%2073\%5D\%0Aprint(a\%20is\%20b\%29\%0A\&cumulative=false\&curInstr=0\&heapPrimitives=false\&mode=display\&origin=opt-frontend.js\&py=3\&rawInputLstJSON=\%5B\%5D\&textReferences=false}{Python Tutor}.
 There's one more nuance to this diagram that we need to refine, and that is how small (magnitude) integers are stored permanently.
 
-\subsubsection{Integers and references}
+\subsubsection{Integers and References}
 Integers are objects also and need to be created in memory. Let's
 explore this a bit.
 
@@ -280,9 +285,9 @@ references to other objects, which themselves can be atomic or another ADT.}
 \end{figure}
 
 \vspace{-3ex}
-\subsection{Copying a list}
-We must emphasize that simple assignment does not give us a copy of a list, only an
-additional reference to the same list. It's natural to ask: 
+\subsection{Copying: Shallow vs. Deep Copy}
+We must emphasize that simple assignment does not give us a copy of the object (e.g. a list), only an
+additional reference to the same object (list in our example). It's natural to ask: 
 what if we really want an additional copy that can be modified without
 changing the original?
 
@@ -427,9 +432,10 @@ to set in its own file. On the other hand, we also might have a set of sub-routi
 perform integration tests on your programs. This grading utility tools have nothing to do with our Git utils, and so we place it
 in another file as well. But! All the code is useful for this class as a whole, and so we place it within a \texttt{CME211} module.
 
-\subsection{Modules} Code in Python is organized and accessed via \emph{modules}. We've already seen and used  examples such as
+\subsection{Using Modules - Practical Details} Code in Python is organized and accessed via \emph{modules}. We've already seen and used  examples such as
 \texttt{math} and \texttt{time}; they are accessed using an \texttt{import} statement.
 
+\subsubsection{Basic Usage}
 \paragraph{Import}
 Here is an example of importing and using a function from the
 \texttt{time} module:
@@ -447,7 +453,7 @@ print(type(time.time))  # <class 'builtin_function_or_method'>
 We must keep in mind that the module name/object is different 
 than the function that exists inside of the module.
 
-\subsubsection{Reference to a Function}
+\paragraph{Reference to a Function}
 Functions are also objects and may be assigned to a variable:
 
 \begin{python}
@@ -459,7 +465,7 @@ t()              # Returns time in seconds since Epoch.
 
 Everything in Python is an object!
 
-\subsubsection{Import a Single Function}
+\paragraph{Importing a Single Function}
 We can import a single function from a module:
 
 \begin{python}
@@ -471,7 +477,7 @@ print(time())       # Returns time in seconds since Epoch.
 Here, we've created an alias for the \texttt{time.time()} sub-routine. 
 Another example is \texttt{from\ math\ import\ sqrt}.
 
-\subsubsection{Import and Rename}
+\paragraph{Renaming}
 We can rename a function in the import statement using \texttt{as}.
 
 \begin{python}
@@ -480,7 +486,7 @@ print(type(timer))   # <class 'builtin_function_or_method'>
 print(timer())       # Returns time in seconds since Epoch.
 \end{python}
 
-\subsubsection{Wild card import}
+\paragraph{Wild Card Import}
 We can even import everything from a module into the global namespace with the following.
 
 \begin{python}
@@ -497,8 +503,7 @@ Modules not only allow us to partition code into separate files; they also provi
 distinct \href{https://en.wikipedia.org/wiki/Namespace}{namespaces}. A namespace
 becomes more important in larger projects, where reuse of common terms can be, at best,
 confusing, and at worst the root cause of bugs.
-
-Attribute renaming and/or wild card imports can make code less
+In general, even attribute renaming and/or wild card imports can make code less
 readable and more difficult to debug
 
 \paragraph{Example}
@@ -673,7 +678,7 @@ This part is essential. Any reasonable code will have excellent documentation.
 See 
 \href{https://github.com/CME211/notes/blob/fall_18/lecture-05/mymodule4.py}{\texttt{mymodule4.py}}.
 
-\lstinputlisting[style=python,basicstyle=\footnotesize]{mymodule4.py}
+\lstinputlisting[style=python,basicstyle=\scriptsize]{mymodule4.py}
 
 If you want to access the wonderful documentation that you've written, you can do so via 
 \texttt{help}.
@@ -763,7 +768,7 @@ a = [1, 2 3, 4]
 
 All of the above examples can be spotted by the naked-eye, so long as we know the rules for the language syntax.
 
-\subsubsection{Runtime Errors}
+\subsection{Runtime Errors}
 
 Runtime errors occur when syntactically correct code does something
 wrong (like attempt to access a list out of bounds, or divide an integer by zero).
@@ -784,7 +789,7 @@ the syntax \texttt{a[2]} is of course valid for any sliceable variable \texttt{a
 and \texttt{b['cookies']} is valid syntax for a dicionary \texttt{b} containing a key \texttt{'cookies'}.
 How can we recover from such errors? Without error handling, our program will halt!
 
-\subsubsection{Exceptions}
+\subsection{Exceptions}
 Runtime errors generate exceptions, which \href{https://en.wikipedia.org/wiki/Exception_handling}{can potentially be caught}. 
 Uncaught exceptions propagate up to the interpreter, which
 ultimately halts execution and displayes the information in a traceback.
