@@ -1,5 +1,5 @@
 
-## Python object oriented programming topics & examples
+## Python object oriented programming
 
 ### Name example
 

@@ -5,19 +5,24 @@ class NameClassifier:
     def LoadNameData(self, femalefile, malefile):
         # Creates a dictionary with the name data from the two input files
         self.namedata = {}
+        self.weights = {}
         f = open(femalefile,'r')
         for line in f:
-            self.namedata[line.split()[0]] = 1.0
+            name = line.split()[0]
+            weight = float(line.split()[1])
+            self.namedata[name] = 1.0
+            self.weights[name] = weight
         f.close()
             
         f = open(malefile,'r')
         for line in f:
             name = line.split()[0]
-        if name in self.namedata:
-            # Just assume a 50/50 distribution for names on both lists
-            self.namedata[name] = 0.5 
-        else:
-            self.namedata[name] = 0.0
+            if name in self.namedata:
+                # Probability the name is female
+                weight = float(line.split()[1])
+                self.namedata[name] = self.weights[name]/(self.weights[name]+weight)
+            else:
+                self.namedata[name] = 0.0
         f.close()
 
     def ClassifyName(self, name):

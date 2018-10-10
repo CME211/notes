@@ -167,7 +167,7 @@ IO code should be the same.
 * But you might want to create classes that are specialized to the needs of your
   applications, so they can be used (and reused) by yourself and others
 
-### object oriented programming in Python
+### Object oriented programming in Python
 
 * New kinds of objects can be created in Python by defining your own classes
 
@@ -442,7 +442,7 @@ s.add_class("gym", 4)
 s.add_class("math", 3)
 
 courses = s.get_courses()
-courses["english"] = 4
+courses["english"] = 4    # <~ Not the best idea
 
 print("GPA = {}".format(s.get_gpa()))
 print("courses = {}".format(s.get_courses()))
@@ -451,13 +451,13 @@ print("courses = {}".format(s.get_courses()))
 ### Interfaces and references
 
 * It is easy to accidentally let a method provide a reference to a mutable data
-  structure within your object
+  structure within your object.
 
 * Once you have handed out that reference someone can manipulate your internal
-  data and perhaps get the object into an unexpected state
+  data and perhaps get the object into an unexpected state.
 
 * You really need to think about what you pass out of your object if you want to
-  have strong encapsulation
+  have strong encapsulation.
 
 ### Public attributes
 
@@ -558,6 +558,42 @@ of the same class:
 b = SimpleClass()
 b.new_attribute
 ```
+
+### Iterators revisited
+
+A Python **iterator** is an object which implements methods `__iter__` and
+`__next__`. An object that contains an iterator is called **iterable**.
+Most of Python containers such as lists, tuples or sets are iterable.
+Here we show an example iterator class that returns powers of 2.
+(Source [programiz.com](https://www.programiz.com/python-programming/methods/built-in/list))
+
+
+```python
+class PowTwo:
+    def __init__(self, max):
+        self.max = max
+    
+    def __iter__(self):
+        self.num = 0
+        return self
+        
+    def __next__(self):
+        if(self.num >= self.max):
+            raise StopIteration
+        result = 2 ** self.num
+        self.num += 1
+        return result
+
+powTwo = PowTwo(5)
+powTwoIter = iter(powTwo)
+
+print(list(powTwoIter))
+```
+Python's `iter()` function returns the iterator from an iterable object.
+
+
+
+
 
 ### Intro to object oriented programming summary
 
