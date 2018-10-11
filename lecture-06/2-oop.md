@@ -11,17 +11,23 @@ class NameClassifier:
     def load_name_data(self, femalefile, malefile):
         # Creates a dictionary with the name data from the two input files
         self.namedata = {}
+        self.weights = {}
         f = open(femalefile,'r')
         for line in f:
-            self.namedata[line.split()[0]] = 1.0
+            name = line.split()[0]
+            weight = float(line.split()[1])
+            self.namedata[name] = 1.0
+            self.weights[name] = weight
         f.close()
 
         f = open(malefile,'r')
         for line in f:
             name = line.split()[0]
             if name in self.namedata:
-                # Just assume a 50/50 distribution for names on both lists
-                self.namedata[name] = 0.5
+                # Probability the name is female
+                weightm = float(line.split()[1])
+                weightf = self.weights[name]
+                self.namedata[name] = weightf/(weightf + weightm)
             else:
                 self.namedata[name] = 0.0
         f.close()
@@ -39,11 +45,12 @@ class NameClassifier:
 classifier = NameClassifier('dist.female.first', 'dist.male.first')
 
 # Setup test data
-testdata = ['PETER', 'LOIS', 'STEWIE', 'BRIAN', 'MEG', 'CHRIS']
+testdata = ['JOHN', 'TERRY', 'GRAHAM', 'CONNIE', 'MICHAEL', 'ERIC']
 
 # Invoke the classify_name() method
 for name in testdata:
-    print('{}: {}'.format(name, classifier.classify_name(name)))
+    prob_f = float(classifier.classify_name(name))*100
+    print('{}: {:5.2f}%'.format(name, prob_f))
 ```
 
 ### Student example
@@ -174,7 +181,7 @@ class Particle:
         velx = (self.mass*self.velx + other.mass*other.velx)/mass
         return Particle(mass, velx)
     def __repr__(self):
-        return "Mass: %s, Velocity: %s" % (self.mass, self.velx)
+        return "Mass: %6.3f, Velocity: %6.3f" % (self.mass, self.velx)
 ```
 
 Object oriented programming particle collision:
@@ -246,7 +253,7 @@ m.get_id()
 
 ### Overriding a method
 
-We can overrite the `__init__` method to provide special functionality when
+We can override the `__init__` method to provide special functionality when
 creating a `MovieWatcher` object.
 
 ```python

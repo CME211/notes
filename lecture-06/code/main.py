@@ -4,7 +4,6 @@ import names
 classifier = names.NameClassifier('../dist.female.first', '../dist.male.first')
 
 # Setup test data
-# testdata = ['PETER', 'LOIS', 'STEWIE', 'BRIAN', 'MEG', 'CHRIS']
 testdata = ['JOHN', 'TERRY', 'GRAHAM', 'CONNIE', 'MICHAEL', 'ERIC']
 
 # Invoke the ClassifyName() method
