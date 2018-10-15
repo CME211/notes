@@ -631,12 +631,21 @@ B = np.ones((nrows,ncols))
 
 Again we see that \texttt{numpy} is orders of magnitude faster.
 
-\paragraph{Object Overhead} The reason that 
+\paragraph{Object Overhead} The reason that our \texttt{list} of
+\texttt{list}s was so much slower than \texttt{numpy} relates in part
+to object overhead.
 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.45]{fig/object-overhead.png}
-\caption{fig}
+\caption{Recall that objects in Python are references, and that a
+  reference is simply a location in memory associated with a type and
+  a value. If we create a \texttt{list} of \texttt{list}s to represent
+  2D-tabular data, we end up with several layers of indirection. Part
+  of the practical implication of having to jump around in memory in
+  order to obtain data that ``should appear next to each other'' is
+  that we realize many more
+  \href{https://en.wikipedia.org/wiki/CPU_cache\#Cache_miss}{cache-misses}.}
 \end{figure}
 
 \subsection{Options for better performance}
@@ -647,232 +656,162 @@ One option is to completely rewrite your program in something like
 C or C++
 
 \subsubsection{Python C API}
-Python has a C API which allows the use of compiled modules
+Python has a \href{https://docs.python.org/3/c-api/intro.html}{C API}
+which allows the use of compiled modules.
 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.45]{fig/python-c-interface.png}
-\caption{fig}
+\caption{When we call the \texttt{str.find()} method, we're actually
+  making a call to native C-code. What's happening here?
+  Within the native C-code, we can
+  include a Python module that gives us a way to write C modules which
+  extend to being able to be used by the Python interpreter.}
 \end{figure}
 
 The actual implementation of \texttt{string.find()} can be viewed at:
-\href{http://svn.python.org/view/python/trunk/Objects/stringlib/fastsearch.h}{stringlib/fastsearch.h}.
+\href{https://github.com/python/cpython/blob/master/Objects/stringlib/fastsearch.h}.
 
 \subsubsection{Python compiled modules}
 
 Python code in a \texttt{.py} file is actually executed in a hybrid
 approach by a mix of the interpreter and compiled modules that come
-with Python
+with Python. See
+\href{https://docs.python.org/3/tutorial/modules.html#compiled-python-files}{compiled
+  python files}: the compilation doesn't make the code execute faster,
+it just means the definitions in a script can be loaded faster into
+memory (but once loaded, the complexity of each algorithm is the same).
 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.45]{fig/python-compiled-modules.png}
-\caption{fig}
+\caption{Perhaps closer to reality, the Python code we write sits atop
+not only an interpreter but also additional compiled modules that we
+import.}
 \end{figure}
 
-\hypertarget{extension-modules}{%
-\subsubsection{Extension modules}\label{extension-modules}}
+The same Python C API used by the developers of Python itself also
+allows other programmers to develop and build their own compiled
+extension modules.
+These modules extend the functionality of Python with high performance
+implementations of common operations.
+
+\paragraph{Commonly Used Modules: NumPy, SciPy, Matplotlib}
 
 \begin{itemize}
 \item
-  The same Python C API used by the developers of Python itself also
-  allows other programmers to develop and build their own compiled
-  extension modules
-\item
-  These modules extend the functionality of Python with high performance
-  implementations of common operations
-\item
-  Other languages, such as C++ and Fortran, are also supported by using
-  the C API
-\end{itemize}
-
-\hypertarget{numpy-scipy-matplotlib}{%
-\subsubsection{NumPy, SciPy, matplotlib}\label{numpy-scipy-matplotlib}}
-
-\begin{itemize}
-\item
-  NumPy - multidimensional arrays and fundamental operations on them
+  NumPy - multidimensional arrays and fundamental operations on them.
 \item
   SciPy - Various math functionality (linear solvers, FFT, optimization,
-  etc.) utilizing NumPy arrays
+  etc.) utilizing NumPy arrays.
 \item
-  matplotlib - plotting and data visualization
-\item
-  None of these packages seek to clone MATLAB, if you want that try
-  something like GNU Octave
+  matplotlib - plotting and data visualization.\footnote{None of these packages seek to clone (all of) MATLAB, if you want that try
+something like GNU Octave.}
 \end{itemize}
-
-\hypertarget{python-software-stack}{%
-\subsubsection{Python software stack}\label{python-software-stack}}
 
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.45]{fig/python-stack.png}
-\caption{fig}
+\caption{A schematic of how Python code sits on top of an entire set
+  of Pythonic tools, which ultimately relay human-readable language instructions into
+  machine-code.}
 \end{figure}
 
-
-
-\subsection{Motivation}
-
-
-\hypertarget{numpy}{%
-\subsection{NumPy}\label{numpy}}
-
-NumPy provides a numeric array object:
+\subsection{NumPy}
+At its core, \texttt{numpy} provides an
+\href{https://docs.scipy.org/doc/numpy/reference/arrays.html}
+{$n$-dimensional numeric array object}:
 
 \begin{python}
-\begin{Highlighting}[]
-\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.array([}\DecValTok{7}\NormalTok{, }\DecValTok{42}\NormalTok{, }\DecValTok{-3}\NormalTok{])}
-\BuiltInTok{print}\NormalTok{(a)}
-\end{Highlighting}
+import numpy as np
+a = np.array([7, 42, -3])
+print(a)                     # Prints out: "array([ 7, 42, -3])"
+
+a[1] = 19                    # Numeric arrays support item assignment.
+a                            # Corresponding element is modified.
 \end{python}
+
+\paragraph{Arrays are \emph{not} Lists}
+For performance reasons, \texttt{numpy.array}s do not store
+heterogeneous data.
+Instead, \texttt{numpy.array} is said to be
+\textbf{homogeneous}: each element is of exactly the same type and hence
+requires the same amount of storage in memory, and further each block
+of memory (i.e. element) can be interpreted in an identical
+fashion.\footnote{Note that although the types must be homogeneous, they need
+not be atomic, e.g. we can store data strucutures within an
+\texttt{array}.}
 
 \begin{python}
-\begin{Highlighting}[]
-\NormalTok{a[}\DecValTok{1}\NormalTok{]}
-\end{Highlighting}
+  a[0] = "hello"    # ValueError: invalid literal for int().
+  a.append(0)       # AttributeError: numpy.ndarray object has no attribute 'append'.
 \end{python}
+
+Further, the \textbf{size is fixed}, i.e.~you \textbf{can't append or remove}.
+
+\subsubsection{Data Types}
+Numerical analysts must pay close attention to their data types, and
+be wary of an algorithm's
+\href{https://en.wikipedia.org/wiki/Numerical_stability}{numerical
+  stability}. To that end, \texttt{numpy} allows the programmer to
+specify exactly what data type they are choosing to store in
+underlying elements of the array.
+
+\paragraph{Integers}
+Can be stored in 8, 16, 32, and 64 bit variants, and additionally they
+can be either signed or unsigned. We specify these by
+e.g. \texttt{np.int8}, \texttt{np.uint8}. For more information, see
+\href{https://docs.scipy.org/doc/numpy/reference/arrays.dtypes.html}
+{\texttt{dtype} documentation}.
+
+\paragraph{Floating Point}
+Can be stored in either 32, 64, or 128 bit variants (all signed). We
+specify these by e.g. \texttt{np.float32}, \texttt{np.float64}, etc.
+
+Complex numbers,
+strings, and Python object \emph{references} also supported by \texttt{numpy}.
+
+\paragraph{Data Type Examples}
+\begin{python}
+a = np.array([ 7, 19, -3], dtype=np.float32)
+
+a[0] = a[0]/0.     # RuntimeWarning: divide by zero encountered in true_divide. Returns inf.
+
+b = np.array([4, 7, 19], dtype=np.int8)
+b[0] = 437         # Example of overflow and wraparound. Range is [-128, 127]
+\end{python}
+
+Note that we can witness the wraparound behavior for ourselves quite
+clearly as follows.
 
 \begin{python}
-\begin{Highlighting}[]
-\NormalTok{a[}\DecValTok{1}\NormalTok{] }\OperatorTok{=} \DecValTok{19}
-\NormalTok{a}
-\end{Highlighting}
+  b[0] = 127       # Print and inspect data; stored as expected.
+  b[0] = b[0] + 1  # Attempt to increment by unit value.
+  print(b)         # Note that first element now -128.
 \end{python}
 
-\hypertarget{arrays-are-not-lists}{%
-\subsubsection{Arrays are not lists}\label{arrays-are-not-lists}}
+\subsubsection{Multidimensional Arrays}
+Arrays can have multiple dimensions called \texttt{axes}.
+The number of \emph{axes} is called the \texttt{rank}.
+These terms come from the NumPy community and should \emph{not be confused
+with linear algebra terms} for \emph{rank}, etc.
 
 \begin{python}
-\begin{Highlighting}[]
-\NormalTok{a[}\DecValTok{0}\NormalTok{] }\OperatorTok{=} \StringTok{"hello"}
-\end{Highlighting}
+# Create a two-dimensional array. I.e. two rows, each with three elements.
+a = np.array([(7, 19, -3), (4, 8, 17)], dtype=np.float64)
+
+# Array 'a' has a slew of attributes (and methods) associated with it.
+a.ndim      # Returns the number of dimensions or axes: 2
+a.dtype     # Returns the data type stored:             dtype('float64')
+a.shape     # Returns the extents of each dimension:    (2, 3)
+a.size      # Returns the number of elements:           6
 \end{python}
 
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a.append(}\DecValTok{8}\NormalTok{)}
-\end{Highlighting}
-\end{python}
-
-\hypertarget{numpy-arrays}{%
-\subsubsection{NumPy arrays}\label{numpy-arrays}}
-
-\begin{itemize}
-\item
-  NumPy arrays contain \textbf{homogeneous} data (all elements must have
-  same type)
-\item
-  Size is fixed, i.e.~you can't append or remove
-\end{itemize}
-
-\hypertarget{data-types}{%
-\subsubsection{Data types}\label{data-types}}
-
-\begin{itemize}
-\item
-  Integers
-
-  \begin{itemize}
-  
-  \item
-    8, 16, 32, and 64 bit signed and unsigned (np.int8, np.uint8, etc.)
-  \end{itemize}
-\item
-  Floating point
-
-  \begin{itemize}
-  
-  \item
-    32, 64, 128 bit (np.float32, np.float64, etc.)
-  \end{itemize}
-\item
-  Complex, strings, and Python object references also supported
-\end{itemize}
-
-\hypertarget{data-type-examples}{%
-\subsubsection{Data type examples}\label{data-type-examples}}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.array([ }\DecValTok{7}\NormalTok{, }\DecValTok{19}\NormalTok{, }\DecValTok{-3}\NormalTok{], dtype}\OperatorTok{=}\NormalTok{np.float32)}
-\NormalTok{a}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a[}\DecValTok{0}\NormalTok{] }\OperatorTok{=}\NormalTok{ a[}\DecValTok{0}\NormalTok{]}\OperatorTok{/}\FloatTok{0.}
-\NormalTok{a}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{b }\OperatorTok{=}\NormalTok{ np.array([}\DecValTok{4}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{19}\NormalTok{], dtype}\OperatorTok{=}\NormalTok{np.int8)}
-\NormalTok{b}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{b[}\DecValTok{0}\NormalTok{] }\OperatorTok{=} \DecValTok{437}
-\NormalTok{b}
-\end{Highlighting}
-\end{python}
-
-\hypertarget{multidimensional-arrays}{%
-\subsubsection{Multidimensional arrays}\label{multidimensional-arrays}}
-
-\begin{itemize}
-\item
-  Arrays can have multiple dimensions called \emph{axes}
-\item
-  The number of \emph{axes} is called the \emph{rank}
-\item
-  These terms come from the NumPy community and should not be confused
-  with linear algebra terms for \emph{rank}, etc.
-\end{itemize}
-
-\hypertarget{multidimensional-arrays-1}{%
-\subsubsection{Multidimensional
-arrays}\label{multidimensional-arrays-1}}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.array([(}\DecValTok{7}\NormalTok{, }\DecValTok{19}\NormalTok{, }\DecValTok{-3}\NormalTok{), (}\DecValTok{4}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{17}\NormalTok{)], dtype}\OperatorTok{=}\NormalTok{np.float64)}
-\NormalTok{a}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a.ndim}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a.dtype}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a.shape}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a.size}
-\end{Highlighting}
-\end{python}
-
-\hypertarget{internal-representation}{%
-\subsubsection{Internal representation}\label{internal-representation}}
+\subsubsection{Internal Representation}
+How can we think about the internal representation of a
+\texttt{numpy.array} object? The object itself contains
+\emph{attributes} (some shown above), alongside a reference to a
+fixed-width sequence of bits in memory which describe the underlying data.
 
 \begin{figure}[h]
 \centering
@@ -880,392 +819,200 @@ arrays}\label{multidimensional-arrays-1}}
 \caption{fig}
 \end{figure}
 
-\hypertarget{creating-arrays}{%
-\subsubsection{Creating arrays}\label{creating-arrays}}
+Since each element of the array is of the same type, and each requires
+the same amount of storage, we can know how to \emph{slice} into a
+particular element in our array in constant time.
+
+\subsubsection{Creating Arrays}
 
 \begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.empty((}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{))}
-\NormalTok{a}
-\end{Highlighting}
+a = np.empty((3,3))   # A 3x3 matrix of *un-initialized* entries, not necessarily zeros!
+a = np.zeros((3,3))   # A 3x3 matrix of *zero-initialized* entries.
+a = np.ones((3,3))    # A 3x3 matrix of *unit-unitialized* entries.
+
+a = np.eye(3)         # A 3x3 identity matrix.
+
+a = np.arange(9, dtype=np.float64)               # A 1D sequence of integers 0-8.
+a = np.arange(9, dtype=np.float64).reshape(3,3)  # A 2D sequence of integers 0-8...
+                                                 # ... arranged in a 3x3 layout.
 \end{python}
 
+\subsubsection{Reading data from a file}
+
+\begin{lstlisting}[language=bash]
+$ cat numbers.txt
+7. 19. -3.
+4. 8. 17.
+\end{lstlisting}
+
 \begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.zeros((}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{))}
-\NormalTok{a}
-\end{Highlighting}
+a = np.loadtxt('numbers.txt', dtype=np.float64)
+a = a + 1      # Element-wise addition!
+np.savetxt('numbers2.txt', a)
 \end{python}
 
+\subsubsection{Remove single dimension entry}
+
 \begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.ones((}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{))}
-\NormalTok{a}
-\end{Highlighting}
+a = np.arange(3)   # Think of this like a 1D row-vector.
+a.shape            # (3,)
+b = np.arange(3).reshape(3,1)  # We now realize a 2D-array: 3x1.
+print(b.shape)                 # Returns (3, 1)
+b = np.squeeze(b)              # Removes 1D entries from the shape of an array.
+print(b)                       # Now a 1D row-vector, just like 'a'.
+print(b.shape)                 # Returns (3,)
 \end{python}
 
+Perhaps another informal way of thinking about this function: it removes any
+``nested, superfluous'' dimensions.  Suppose we create a 3D array with
+six elements as follows.
+
 \begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.eye(}\DecValTok{3}\NormalTok{)}
-\NormalTok{a}
-\end{Highlighting}
+# Recall: arange simply returns an 'array' with 'range' evenly-spaced values.
+a = np.arange(6).reshape((3, 1, 2))
+
+# a[i] peels off the first dimension (i.e. returns an ndarray with shape (1, 2).
+# but the second axis has only a single element, i.e. a[i][1] is INVALID. 
+# Might as well drop this dimension via squeeze.
 \end{python}
 
+\subsubsection{Array Operations}
+
 \begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.arange(}\DecValTok{9}\NormalTok{, dtype}\OperatorTok{=}\NormalTok{np.float64)}
-\NormalTok{a}
-\end{Highlighting}
+a = np.arange(9, dtype=np.float64)   # Store values 0-8 inclusive.
+a[3:7]                               # Returns values 3-6 inclusive.
+
+a[3:7] = 0                           # Assign value zero to be referenced 
+                                     # by the fourth and up till but
+                                     # excluding the eigth element.
+# Elementwise rescaling.
+2*a
+a*a
+
+# Vector operations are supported "right out of the box".
+sum(a)
+min(a)
+max(a)
 \end{python}
 
+\paragraph{Don't Reinvent the Wheel} It can be tempting for newer
+programmers to implement everything from scratch. This leads to not
+only more code to maintain but programs which are not as
+performant. Consider implementing a procedure for calculating the 
+\href{https://en.wikipedia.org/wiki/Norm_(mathematics)\#Euclidean_norm}
+{Euclidean norm} of a vector.
+
 \begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.arange(}\DecValTok{9}\NormalTok{, dtype}\OperatorTok{=}\NormalTok{np.float64).reshape(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)}
-\NormalTok{a}
-\end{Highlighting}
+a = np.arange(9, dtype=np.float64)   # Store values 0-8 inclusive.
+
+# Bad idea.
+import math
+total = 0.
+for n in range(len(a)):
+    total += a[n]*a[n]
+
+math.sqrt(total)
+
+math.sqrt(np.dot(a,a))  # Better idea.
+np.linalg.norm(a)       # Best idea!
 \end{python}
 
-\hypertarget{reading-data-from-a-file}{%
-\subsubsection{Reading data from a
-file}\label{reading-data-from-a-file}}
+The last expression is both the most concise and most performant.
 
+\subsubsection{Speed of Array Operations}
+
+Some of the overloaded operators (e.g. \texttt{min}, \texttt{max},
+\texttt{sum}, etc.) work albeit slowly.
+In an IPython notebook:
 \begin{python}
-\begin{Highlighting}[]
-\NormalTok{$ }\FunctionTok{cat}\NormalTok{ numbers.txt}
-\ExtensionTok{7.}\NormalTok{ 19. -3.}
-\ExtensionTok{4.}\NormalTok{ 8. 17.}
-\end{Highlighting}
+%timeit total = sum(np.ones(1000000,dtype=np.int32))
+%timeit total = np.sum(np.ones(1000000,dtype=np.int32))
 \end{python}
 
+Same data, same input. Using built-in \texttt{sum} requires (on my
+machine) an average of 700 microseconds per loop, whereas the
+corresponding \texttt{numpy.sum} is about 35x faster, requiring only
+20 microseconds per loop. Why is there such a big difference?
+
+Loops you write in Python will be executed by the interpreter.
+Calling NumPy function or methods of the array object will invoke high
+performance implementations of these operations, which can be
+specialized to operate on homogeneous data.
+
+\subsubsection{Matrix Operations}
+
 \begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.loadtxt(}\StringTok{'numbers.txt'}\NormalTok{, dtype}\OperatorTok{=}\NormalTok{np.float64)}
-\NormalTok{a}
-\end{Highlighting}
+a = np.arange(9, dtype=np.float64).reshape(3,3)  # 3x3 matrix, row-major order.
+
+# Basic operations on a single matrix.
+a.transpose()
+np.trace(a)
+
+# Be careful with "matrix" multiplication!
+a*a           # Naive element wise multiplication.
+np.dot(a,a)   # True matrix-matrix multiplication.
+a @ a         # Equivalently: new matrix multiply operator in Python 3.5.
 \end{python}
 
+Note that if we use \texttt{ndarray}, then the \texttt{*} operator is
+applied elementwise, whereas if we have a \texttt{matrix} we get the
+benefit of being able to use a true matrix-multiply.
+
+\subsubsection{Array vs Matrix}
+NumPy has a dedicated matrix class
+However, the matrix class is not as widely used and there are subtle
+differences between a 2D array and a matrix.
+It is highly recommended that you use 2D arrays for maximum
+compatibility with other NumPy functions, SciPy, matplotlib, etc.
+See here for more details:
+\url{http://www.scipy.org/NumPy_for_Matlab_Users}.
+
+\subsubsection{References to an Array}
+
 \begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ a }\OperatorTok{+} \DecValTok{1}
-\NormalTok{np.savetxt(}\StringTok{'numbers2.txt'}\NormalTok{, a)}
-\end{Highlighting}
+a = np.arange(9, dtype=np.float64).reshape(3,3)
+b = a         # Recall: assignment sets up a reference.
+b[0,0] = 42   # For the ndarray referred by b, modify "first" element.
+b             # Of course, ndarray reffered to by 'b' has changed.
+a             # Hopefully not a surprise: 'a' referred to the same object...
 \end{python}
 
-\hypertarget{remove-single-dimension-entry}{%
-\subsubsection{Remove single dimension
-entry}\label{remove-single-dimension-entry}}
+\paragraph{Array slices and references}
 
 \begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.arange(}\DecValTok{3}\NormalTok{)}
-\NormalTok{a}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a.shape}
-\NormalTok{b }\OperatorTok{=}\NormalTok{ np.arange(}\DecValTok{3}\NormalTok{).reshape(}\DecValTok{3}\NormalTok{,}\DecValTok{1}\NormalTok{)}
-\BuiltInTok{print}\NormalTok{(b)}
-\BuiltInTok{print}\NormalTok{(b.shape)}
-\NormalTok{b }\OperatorTok{=}\NormalTok{ np.squeeze(b)}
-\BuiltInTok{print}\NormalTok{(b)}
-\BuiltInTok{print}\NormalTok{(b.shape)}
-\end{Highlighting}
-\end{python}
-
-\hypertarget{array-operations}{%
-\subsubsection{Array operations}\label{array-operations}}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.arange(}\DecValTok{9}\NormalTok{, dtype}\OperatorTok{=}\NormalTok{np.float64)}
-\NormalTok{a}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\CommentTok{# a slice}
-\NormalTok{a[}\DecValTok{3}\NormalTok{:}\DecValTok{7}\NormalTok{]}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\CommentTok{# assign to a slice}
-\NormalTok{a[}\DecValTok{3}\NormalTok{:}\DecValTok{7}\NormalTok{] }\OperatorTok{=} \DecValTok{0}
-\NormalTok{a}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\DecValTok{2}\OperatorTok{*}\NormalTok{a}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a}\OperatorTok{*}\NormalTok{a}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\BuiltInTok{sum}\NormalTok{(a)}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\BuiltInTok{min}\NormalTok{(a)}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\BuiltInTok{max}\NormalTok{(a)}
-\end{Highlighting}
-\end{python}
-
-\hypertarget{array-operations-1}{%
-\subsubsection{Array operations}\label{array-operations-1}}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.arange(}\DecValTok{9}\NormalTok{, dtype}\OperatorTok{=}\NormalTok{np.float64)}
-\BuiltInTok{print}\NormalTok{(a)}
-
-\CommentTok{# bad idea}
-\NormalTok{total }\OperatorTok{=} \FloatTok{0.}
-\ControlFlowTok{for}\NormalTok{ n }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\BuiltInTok{len}\NormalTok{(a)):}
-\NormalTok{    total }\OperatorTok{+=}\NormalTok{ a[n]}\OperatorTok{*}\NormalTok{a[n]}
-
-\NormalTok{math.sqrt(total)}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\CommentTok{# better idea}
-\ImportTok{import}\NormalTok{ math}
-\NormalTok{math.sqrt(np.dot(a,a))}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\CommentTok{# best idea}
-\NormalTok{np.linalg.norm(a)}
-\end{Highlighting}
-\end{python}
-
-\hypertarget{speed-of-array-operations}{%
-\subsubsection{Speed of array
-operations}\label{speed-of-array-operations}}
-
-\begin{python}
-\begin{Highlighting}[]
-\OperatorTok{%}\NormalTok{timeit total }\OperatorTok{=} \BuiltInTok{sum}\NormalTok{(np.ones(}\DecValTok{1000000}\NormalTok{,dtype}\OperatorTok{=}\NormalTok{np.int32))}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\OperatorTok{%}\NormalTok{timeit total }\OperatorTok{=}\NormalTok{ np.}\BuiltInTok{sum}\NormalTok{(np.ones(}\DecValTok{1000000}\NormalTok{,dtype}\OperatorTok{=}\NormalTok{np.int32))}
-\end{Highlighting}
-\end{python}
-
-\hypertarget{loops-vs.array-operations}{%
-\subsubsection{Loops vs.~array
-operations}\label{loops-vs.array-operations}}
-
-\begin{itemize}
-\item
-  Loops you write in Python will be executed by the interpreter
-\item
-  Some of the overloaded operators (e.g. \texttt{min}, \texttt{max},
-  \texttt{sum}, etc.) work albeit slowly
-\item
-  Calling NumPy function or methods of the array object will invoke high
-  performance implementations of these operations
-\end{itemize}
-
-\hypertarget{matrix-operations}{%
-\subsubsection{Matrix operations}\label{matrix-operations}}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.arange(}\DecValTok{9}\NormalTok{, dtype}\OperatorTok{=}\NormalTok{np.float64).reshape(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)}
-\NormalTok{a}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a.transpose()}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{np.trace(a)}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a}\OperatorTok{*}\NormalTok{a }\CommentTok{# element wise multiplication}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{np.dot(a,a) }\CommentTok{# matrix-matrix multiplication}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\CommentTok{# new matrix multiply operator in Python 3.5}
-\NormalTok{a }\OperatorTok{@}\NormalTok{ a}
-\end{Highlighting}
-\end{python}
-
-\hypertarget{array-vs-matrix}{%
-\subsubsection{array vs matrix}\label{array-vs-matrix}}
-
-\begin{itemize}
-\item
-  NumPy has a dedicated matrix class
-\item
-  However, the matrix class is not as widely used and there are subtle
-  differences between a 2D array and a matrix
-\item
-  It is highly recommended that you use 2D arrays for maximum
-  compatibility with other NumPy functions, SciPy, matplotlib, etc.
-\item
-  See here for more details:
-\end{itemize}
-
-\url{http://www.scipy.org/NumPy_for_Matlab_Users}
-
-(\texttt{array\textquotesingle{}\ or}matrix'? Which should I use?)
-
-\hypertarget{references-to-an-array}{%
-\subsubsection{References to an array}\label{references-to-an-array}}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.arange(}\DecValTok{9}\NormalTok{, dtype}\OperatorTok{=}\NormalTok{np.float64).reshape(}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)}
-\NormalTok{a}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{b }\OperatorTok{=}\NormalTok{ a}
-\NormalTok{b[}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{] }\OperatorTok{=} \DecValTok{42}
-\NormalTok{b}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a}
-\end{Highlighting}
-\end{python}
-
-\hypertarget{array-slices-and-references}{%
-\subsubsection{Array slices and
-references}\label{array-slices-and-references}}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.arange(}\DecValTok{9}\NormalTok{, dtype}\OperatorTok{=}\NormalTok{np.float64)}
-\NormalTok{a}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{b }\OperatorTok{=}\NormalTok{ a[}\DecValTok{2}\NormalTok{:}\DecValTok{7}\NormalTok{]}
-\NormalTok{b}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{b[}\DecValTok{2}\NormalTok{] }\OperatorTok{=} \DecValTok{-1}
-\NormalTok{b}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a}
-\end{Highlighting}
+a = np.arange(9, dtype=np.float64)
+b = a[2:7]    # Create a reference to the underlying data, elements 3:7 inclusive.
+b[2] = -1     # When we modify this data... (third elem in 'b', i.e. fifth elem in 'a')
+a             # ... 'a' also refers to the same data. Whence 'a' mutated.
 \end{python}
 
 \hypertarget{array-copies}{%
 \subsubsection{Array copies}\label{array-copies}}
 
 \begin{python}
-\begin{Highlighting}[]
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.arange(}\DecValTok{9}\NormalTok{, dtype}\OperatorTok{=}\NormalTok{np.float64)}
-\NormalTok{a}
-\end{Highlighting}
+a = np.arange(9, dtype=np.float64)
+b = a.copy()       # Set up a reference to a *copy* of the array.
+b[4] = -1          # Mutating 'b' doesn't affect object referred by 'a'.
+a
 \end{python}
 
+\subsubsection{Universal functions (ufunc)s}
+
+Within \texttt{numpy}, there is a subclass
+\href{https://docs.scipy.org/doc/numpy-1.15.1/reference/ufuncs.html#universal-functions-ufunc}
+{\texttt{ufunc}} which operate on \texttt{ndarray}s in an elementwise fashion.
 \begin{python}
-\begin{Highlighting}[]
-\NormalTok{b }\OperatorTok{=}\NormalTok{ a.copy()}
-\NormalTok{b}
-\end{Highlighting}
+import numpy
+import math
+a = np.arange(9, dtype=np.float64)
+math.sqrt(a)   # Error: only size-1 arrays can be converted to Python scalars.
+np.sqrt(a)     # Works: square root operator is applied element-wise.
 \end{python}
 
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{b[}\DecValTok{4}\NormalTok{] }\OperatorTok{=} \DecValTok{-1}
-\NormalTok{b}
-\end{Highlighting}
-\end{python}
+We can think of \href{https://docs.scipy.org/doc/numpy-1.15.1/reference/ufuncs.html#universal-functions-ufunc}{\texttt{ufunc}}s as a vectorized wrapper for a function
+which usually operates on a single datum at a time (typically scalars).
 
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{a}
-\end{Highlighting}
-\end{python}
-
-\hypertarget{universal-functions-ufuncs}{%
-\subsubsection{Universal functions
-(ufuncs)}\label{universal-functions-ufuncs}}
-
-\begin{python}
-\begin{Highlighting}[]
-\ImportTok{import}\NormalTok{ numpy}
-\NormalTok{a }\OperatorTok{=}\NormalTok{ np.arange(}\DecValTok{9}\NormalTok{, dtype}\OperatorTok{=}\NormalTok{np.float64)}
-\NormalTok{a}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\ImportTok{import}\NormalTok{ math}
-\NormalTok{math.sqrt(a)}
-\end{Highlighting}
-\end{python}
-
-\begin{python}
-\begin{Highlighting}[]
-\NormalTok{np.sqrt(a)}
-\end{Highlighting}
-\end{python}
-
-\hypertarget{beyond-just-arrays}{%
-\subsubsection{Beyond just arrays}\label{beyond-just-arrays}}
-
+\subsubsection{Beyond Just Arrays}
 \begin{itemize}
 \item
   NumPy has some support for some useful operations beyond the usual
@@ -1290,9 +1037,7 @@ references}\label{array-slices-and-references}}
   more
 \end{itemize}
 
-\hypertarget{warning}{%
-\subsubsection{Warning}\label{warning}}
-
+\subsubsection{Warning}
 \begin{itemize}
 \item
   Once you start making use of extension modules such as NumPy, SciPy,
@@ -1303,11 +1048,8 @@ references}\label{array-slices-and-references}}
   isn't the model we advise) you may run into issues
 \end{itemize}
 
-\hypertarget{further-reading}{%
-\subsubsection{Further Reading}\label{further-reading}}
-
+\subsubsection{Further Reading}
 \begin{itemize}
-
 \item
   MATLAB users: \url{http://www.scipy.org/NumPy_for_Matlab_Users}
 \item
