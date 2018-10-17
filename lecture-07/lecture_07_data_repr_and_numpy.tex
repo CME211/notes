@@ -913,11 +913,12 @@ for n in range(len(a)):
 
 math.sqrt(total)
 
-math.sqrt(np.dot(a,a))  # Better idea.
-np.linalg.norm(a)       # Best idea!
+math.sqrt(np.dot(a,a))  # Better idea: 1-liner and more performant than interpreted loop.
+np.linalg.norm(a)       # Best idea! (Not necessarily faster still, just more concise).
 \end{python}
 
-The last expression is both the most concise and most performant.
+The last expression is both the most concise and at least as
+performant as any other.
 
 \subsubsection{Speed of Array Operations}
 
