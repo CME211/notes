@@ -66,7 +66,7 @@ Specifically, it is very easy to load data from MS Excel files
 We have some basketball data from: <http://www.basketball-reference.com/>
 
 ```python
-nba = pd.read_csv("nba-2015.csv")
+nba = pd.read_csv("nba-2018.csv")
 ```
 
 Let's inspect the data with the `head` method:
@@ -78,7 +78,13 @@ nba.head(10)
 ### Exercise:
 Modify the call to the `head` method to show more or fewer rows.
 
-The output above does not show all of the columns!  We can inspect the set of
+```python
+# Show slice of data rows
+nba[100:130]
+```
+
+The output above does not show all of the columns! The dots denote skipped
+columns. We can inspect the set of
 columns in a Pandas data fram by looking at the `columns` attribute.
 
 ```python
@@ -89,7 +95,8 @@ nba.columns
 Write a loop to nicely print out the column headers.
 
 ```python
-# code here
+for label in nba.columns:
+    print("{} ".format(label), end = ' ')
 ```
 
 ## Column glossary
@@ -131,6 +138,8 @@ mean:
 | PTS    | Total points                    |
 ```
 
+The `info()` method shows basic information about Pandas' `DataFrame`
+class:
 ```python
 nba.info()
 ```
@@ -148,6 +157,8 @@ nba.info()
 ```
 
 * A *Series* object is a single column in the table
+  * When single row is selected it is retuned as a Series
+  * When multiple rows are selected they are returned as a DataFrame
 * A *DataFrame* object is the table
 
 ### Column selection
@@ -183,25 +194,46 @@ nba[200:205]
 
 ```python
 # we can compute a boolean series with python inequality operators
-(nba['PTS'] >= 1000).head(10)
+(nba['PTS'] >= 20).head(10)
 ```
+The result is true for every player who averaged more than 20 points
+per game.
 
 ```python
 # we can select all rows that pass a filter
-nba[nba['PTS'] >= 1500]
+nba[nba['PTS'] >= 20]
+```
+
+Or, we can use a filter to find a player statistcs by name:
+```python
+nba[nba['Player'] == 'Stephen Curry']
 ```
 
 ## Column modifications
 
+An important statistics in basketball is assist to turnover ratio,
+yet it is not included in the original data set. We can create a
+column with such statistics like this:
 ```python
 # let's create a new column
-nba['ASB'] = nba['AST'] + nba['STL'] + nba['BLK']
-nba.head()
+nba['ATO'] = nba['AST']/nba['TOV']
+nba.head(7)
 ```
+As you can see, some of the ratios are infinity. This is for players
+who played few games, had no turnovers, but did assist. These are
+not relevant data points for this analysis, so we can filter them
+out like this:
+```python
+# Pandas uses overloaded bitwise operators for logical operations
+nba[(nba['ATO'] >= 3.0) & (nba['TOV'] > 0) & (nba['G'] > 40)]
+```
+Note that logical operations use overloaded bitwise operators
+`&`, `|` and '~', rather than Python's logical operators `and`,
+`or` and `not`.
 
 ```python
 # let's delete the column we just made
-del nba['ASB']
+del nba['ATO']
 nba.head()
 ```
 
@@ -214,55 +246,72 @@ nba['PTS'].hist()
 
 ```python
 # scatter plot of two columns
-plt.plot(nba['G'],nba['FGA'],'o',alpha=0.2)
+plt.plot(nba['G'],nba['FG%'],'o',alpha=0.2)
 plt.xlabel('games played')
 plt.ylabel('field goal %')
 ```
 
 ```python
 # scatter matrix of multiple columns
-pd.tools.plotting.scatter_matrix(nba[['AST','FG','TRB','PF']], alpha=0.2)
+pd.plotting.scatter_matrix(nba[['AST','FG','TRB','PF']], alpha=0.2)
 plt.tight_layout()
 ```
 
 ## Grouping and aggregation
 
 In this data set, a player may have multiple rows based on teams they played for
-during the year.  Let's get the total points for all players.
+during the year.  Let's get the total number of games played for all players.
 
 ```python
-player_pts = nba[['Player','PTS']].groupby('Player').agg({'PTS':np.sum})
+nba_notot = nba[nba['Tm'] != 'TOT'] # Remove totals from team names
+player_games = nba_notot[['Player','G']].groupby('Player').agg({'G':np.sum})
+# creates dataframe with player names as string labels
 # this is an example of "method chaining"
 ```
 
 ```python
-player_pts.head()
+player_games.head()
 ```
 
 ```python
-player_pts.loc['Arron Afflalo']
+player_games.loc['Dwyane Wade']
 ```
 
 ```python
-nba[nba['Player'] == 'Arron Afflalo']
+nba[nba['Player'] == 'Dwyane Wade']
 ```
 
 ## Exercises
 
-List players who have played for more than one team. (Hint: use the `count()`
-method on the object returned from `groupby`)
+Let us find most travelled journeyman in the NBA.
 
 What is the max number of teams any player has played for?
 
 ```python
-# code here
+# Top ten journeymen
+player_teams = nba[['Player','Tm']].groupby('Player').count()
+player_teams.sort_values(by=['Tm'], ascending=False)[0:10]
 ```
 
 What is the highest scoring team?
 What is the lowest scoring team?
 
 ```python
-# code here
+nba['TPTS']=nba['PTS']*nba['G']/82.0 # Compute total points per game
+fnba = nba[nba['Tm']!='TOT']         # Filter out totals for players on multiple teams
+teams_points = fnba[['Tm','TPTS']].groupby('Tm').agg({'TPTS':np.sum})   # Sum for each team
+```
+
+```python
+# Top five scoring teams
+best = teams_points.sort_values(by='TPTS', ascending=False)
+best.head(5)
+```
+
+```python
+# Bottom five scoring teams
+worst = teams_points.sort_values(by='TPTS')
+worst.head(5)
 ```
 
 What is highest scoring position?  What is lowest scoring position?  How many
