@@ -1,4 +1,4 @@
-# CME 211: Lecture 11
+# CME 211: Lecture 8
 
 ## SciPy
 
