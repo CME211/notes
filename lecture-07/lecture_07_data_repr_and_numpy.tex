@@ -420,7 +420,14 @@ Canonical resource: ``What Every Computer Scientist Should Know About
 Floating-Point Arithmetic'' by Goldberg
 (\href{https://ece.uwaterloo.ca/~dwharder/NumericalAnalysis/02Numerics/Double/paper.pdf}{link}).
 Floating point numbers in Python are double precision (64-bit).
-Additionally, \texttt{numpy} has support for 16-bit and 32-bit floating point formats.
+Additionally, \texttt{numpy} has support for 16-bit and 32-bit
+floating point formats.
+For now, perhaps one essential reminder is that you should never
+directly compare floating point data-types for exact equality using
+the \texttt{==} operator. Instead, consider using
+\href{https://docs.python.org/3/library/math.html#math.isclose}{\texttt{math.isclose}},
+which allows us to compare a floating point object with another to
+within a certain tolerance of precision.
 
 \vspace{-2ex}
 \subsubsection{Correctness}
