@@ -670,20 +670,50 @@ E.g. see \texttt{tex/references.bib}:
 \includegraphics[scale=0.4]{fig/bibtex-example.png}
 \caption{\footnotesize We demonstrate the formatting of a
   \href{http://www.bibtex.org/Using/}{\texttt{.bib}} file. For more
-  details, see the \href{http://www.bibtex.org/Format/}{BibTex file format specification}.}
+  details, see the \href{http://www.bibtex.org/Format/}{BibTex format specs}.}
+\end{figure}
+
+\vspace{-2ex}
+\subsection{Citations}
+Citations in \LaTeX \, simply use the \texttt{cite} command, where the
+argument specifies which entry in the BibTex file to use.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.425]{fig/citations.png}
+\caption{\footnotesize
+  We use \texttt{cite} to indicate a reference toward a
+  bibliographic citation. This is different from referencing a labeled
+object, described earlier in section \ref{sec: labels}!}
+\end{figure}
+
+Resulting PDF:
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.375]{fig/demo-pdf.png}
+\caption{\footnotesize
+  We emphasize that the references are dynamic. Want to switch
+ to lexicographic ordering of listings in the bibliography? No need to
+switch all of our citations, simply update the bibliography style in a
+single place! Re-compiling our document (a couple times) will yield
+updated references.}
 \end{figure}
 
 \paragraph{Typesetting with BibTeX Reference}
 This can be annoying at first! In order to get
 references correct, we
-must take a couple passes through the document. 
+\href{https://tex.stackexchange.com/a/53236/48589}{must take a couple
+  passes}
+through the document.
 
-{\small
+{\footnotesize
 \begin{verbatim}
-$ pdflatex demo
-$ bibtex demo
-$ pdflatex demo
-$ pdflatex demo
+$ pdflatex demo     # Take args to \cite, write to .aux file.
+$ bibtex demo       # Formats these according to user-specs, write to .bbl file.
+$ pdflatex demo     # Inserts the .bbl file into .tex file at point of \bibliography.
+                    # Correct labels for \cite commands written in .aux file.
+$ pdflatex demo     # Only now does LaTeX know what correct labels to include in doc.
 \end{verbatim}
 }
 
@@ -696,37 +726,11 @@ There are also applications \emph{specifically} for doing this:
 \href{http://jabref.sourceforge.net}{Jabref} (any OS), and
 \href{http://www.mendeley.com}{Mendeley}.
 
-\subsection{Citations}
-Citations in \LaTeX \, simply use the \texttt{cite} command, where the
-argument specifies which entry in the BibTex file to use.
-
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.5]{fig/citations.png}
-\caption{\footnotesize
-  We use \texttt{cite} to indicate a reference toward a
-  bibliographic citation. This is different from referencing a labeled
-object, described earlier in section \ref{sec: labels}!}
-\end{figure}
-
-Resulting PDF:
-
-\begin{figure}[!h]
-\centering
-\includegraphics[scale=0.4]{fig/demo-pdf.png}
-\caption{\footnotesize
-  We emphasize that the references are dynamic. Want to switch
- to lexicographic ordering of listings in the bibliography? No need to
-switch all of our citations, simply update the bibliography style in a
-single place! Re-compiling our document (a couple times) will yield
-updated references.}
-\end{figure}
-
 \vspace{-2ex}
 \section{A note on LaTeX errors}
 
 LaTeX will dump error messages and start a prompt on errors:
-{\small
+{\footnotesize
 \begin{verbatim}
 $ pwd
 /Users/nwh/Dropbox/courses/2015-Q4-cme211/lecture-prep/lecture-13-work/tex
