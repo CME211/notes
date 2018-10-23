@@ -1,8 +1,10 @@
 # CME 211 -- Exam 1 -- Python
 Updated on 2018-10-22.
 
-There are two announcements on Canvas that hold the ground truth for the Python midterm. 
+There are two announcements on Canvas that hold the ground truth for the Python midterm; the remaining details in this document are general guidelines, adapted from past years exam expectations.
+
 [Announcement 1](https://canvas.stanford.edu/courses/87822/discussion_topics/281648)
+
 [Announcement 2](https://canvas.stanford.edu/courses/87822/discussion_topics/280739)
 
 The exam will be conducted through Canvas. The exam will be available from the
