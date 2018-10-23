@@ -1,8 +1,12 @@
 # CME 211 -- Exam 1 -- Python
 Updated on 2018-10-22.
 
+There are two announcements on Canvas that hold the ground truth for the Python midterm. 
+[Announcement 1](https://canvas.stanford.edu/courses/87822/discussion_topics/281648)
+[Announcement 2](https://canvas.stanford.edu/courses/87822/discussion_topics/280739)
+
 The exam will be conducted through Canvas. The exam will be available from the
-morning of Thursday 10/25 to Friday 10/26 at 4:30 pm. Students will have approximately three
+morning of Thursday 10/25. Students will have approximately three
 hours to
 complete the exam once it is started. This year's exam will consist primarily of
 applied programming questions. The main submissions will be a single `.py` script alongside
@@ -43,7 +47,7 @@ Note: We anticipate the exam will appear in the "Quizzes" section on Canvas.
 
 * When the exam gets published on Canvas on the morning of Thursday 10/25, it
   will be known as **The-Exam-Who-Must-Not-Be-Named**. That is, nobody is
-  allowed to discuss any aspect of the exam until Friday 10/26 after 4:30 pm.
+  allowed to discuss any aspect of the exam until Friday 10/26.
 * The teaching staff will not answer any questions related to the exam until it
   is over. We have tried to remove all ambiguity from the question statements.
   The teaching staff will review the questions. If you feel something is
