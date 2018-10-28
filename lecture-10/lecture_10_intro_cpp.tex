@@ -1,0 +1,1580 @@
+\documentclass[12pt,letterpaper,twoside]{article}
+\usepackage{cme211}
+\usepackage{algorithm2e}
+
+\def\D{\mathrm{d}}
+\usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
+\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
+
+\begin{document}
+\title{Lecture 10: Intro to C++\vspace{-5ex}}
+\date{October 30th, 2018}
+\maketitle
+
+{\footnotesize
+\paragraph{Topics Introduced:} Introduction to C++: variables,
+strings, static arrays, and looping.
+}
+\vspace{-3ex}
+\section{History}
+\vspace{-2.5ex}
+\paragraph{``C with Classes''}
+\href{https://en.wikipedia.org/wiki/Bjarne_Stroustrup}{Bjarne
+  Stroustrup} first
+\href{https://en.wikipedia.org/wiki/C%2B%2B#History}{started writing ``C with Classes'' in 1979}. 
+  Bjarne was inspired to create a new language after writing his PhD
+  thesis using
+  \href{https://en.wikipedia.org/wiki/Simula}{Simula}.\footnote{Simula
+    (for simulations)
+    was written in the 60's in Oslo, Norway by Dahl and Nygaard. It's
+    considered \emph{the} first object-oriented programming language,
+    and featured classes, inheritance, and garbage collection.} He felt that Simula
+  had features that were tremendously helpful for
+  writing complex software, but that it lacked the raw speed of a language
+  like C which made in impracticable.
+  ``C with Classes'' added features to the C compiler such as
+  \emph{classes}, \emph{strong typing}, and \emph{default
+    arguments}.\footnote{C is statically typed, but weakly enforced:
+    i.e. even though all data has a type
+    implicit conversions may be performed. This programmer is prone to unintended
+    conversions
+    and corresponding unexpected results.}
+
+  \paragraph{C++: A Non-Trivial Incremental Improvement over ``C with Classes''}
+  In C, there is an increment operator, \texttt{++}. In
+  the early 80's ``C with Classes'' was
+  \href{https://en.wikipedia.org/wiki/The_C\%2B\%2B_Programming_Language}{renamed to C++}
+  alongside the introduction of new features like \emph{operator overloading},
+  \emph{references}, and \emph{type-safe free-store memory allocation}. These
+  developments took place at
+  \href{https://en.wikipedia.org/wiki/Bell_Labs}{AT\&T Bell Labs},
+  where languages
+  like B and C were also developed.
+
+  \paragraph{Early Updates to the Language} The first edition of
+  \href{https://en.wikipedia.org/wiki/The_C\%2B\%2B_Programming_Language}{The
+    C++ Programming language} was released in 1985, and this became
+  the definitive reference for the language. In 1989, C++
+  2.0 was released, which featured multiple inheritance, abstract
+  classes, const member functions. Later, features like templates,
+  exceptions, additional casts, and a boolean data type were
+  added. Beyond that, the language evolved very slowly until the
+  release of
+  \href{https://en.wikipedia.org/wiki/C\%2B\%2B11}{C++11},
+  which added significant new functionality,
+  including expanding the standard library.
+
+  \paragraph{Major-Minor Revision System}
+  The language is now on a
+  major-minor revision system, wherein
+  \href{https://en.wikipedia.org/wiki/C\%2B\%2B14}{C++14}
+  introduced minor updates,
+  and
+  \href{https://en.wikipedia.org/wiki/C\%2B\%2B17}{C++17} introduced
+  more notable features.
+  CME211 will primarily introduce C++11; we'll
+  discuss aspects of C++17 in CME212.
+
+  \subsection{Philosophy} Since inception, the development of C++ has
+  been guided by the following pragmatic tenants.
+
+  \begin{itemize}
+  \item New features shall be immediately applicable to real world programs.
+  \item No implicit violations of the type system ({\footnotesize allows explicit
+    conversions by the programmer}).
+  \item User created types shall have the same support and performance
+    as built-in types.
+  \item There should be no language beneath C++ except Assembly language.
+  \end{itemize}
+  C++ is one of the most
+  ubiquitous programming languages, behind Java and C.
+
+  \paragraph{Other Languages Since C++}
+  There is also an A+ language, developed in the 1980s.
+  Microsoft released implementation of C\# language in 2000 in
+  order to provide another alternative to C++.
+  D came out in 2001 and is yet another
+  atempt at ``re-engineering'' of C++. None of these are tremendously
+  compelling over C++, which has strict language standards with
+  multiple companies and organizations implementing said standards.
+
+  \paragraph{Further Comparison Against C}
+  C is \emph{almost} a subset of C++. It's certainly
+  a lower level language that has fewer abstractions over the
+  hardware. C is still used for many applications: Linux kernel, CPython
+  interpreter, low power or embedded systems, etc.
+  Although C has fewer abstractions when compared with C++, this
+  doesn't make it ``faster''; it's still worth using today for certain
+  applications which don't require the abstractions afforded by C++.
+
+\section{Hello World of the C++ Language}
+In this lecture, we are going to start with a C++ source file and modify
+it to show various things about C++. If you desire to compile and
+execute subsequent code block on your own, please modify the provided
+source (or start a new source file): \texttt{src/hello.cpp}.
+
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  /* Hello world program (this is a comment)...
+     ... and this form of comment can span multiple lines. */
+  // This is also a comment, but only goes to the end of the line.
+  std::cout << "Hello world" << std::endl;
+  return 0; // Return value of the function, where a non-zero indicates error.
+}
+\end{cpp}
+
+\paragraph{\texttt{\#include} Statements}
+These are analogous to Python \texttt{import}
+  statements: it's how functionality from other
+  \href{https://en.cppreference.com/w/cpp/preprocessor/include}{source
+    files are included} into other programs.
+  The \texttt{\textless{}iostream\textgreater{}} library has standard C++ input
+  output functionality.
+
+\paragraph{\texttt{main} Program}
+Each program is required to have exactly one
+\href{https://en.cppreference.com/w/cpp/language/main_function}
+{\texttt{main} function}, and it is the \emph{entry-point} for the program.
+I.e. code from the \texttt{main} function body will be executed upon starting
+the program in a procedural fashion.
+
+
+\paragraph{\texttt{return} Statements}
+The
+\href{https://en.cppreference.com/w/cpp/language/return}{\texttt{return}
+  statement} terminates the current function and returns the resulting
+argument (if specified). The
+  type of the return value must match the specified output type of the
+  function (\texttt{int} in this case).
+
+\paragraph{Comments}
+There are two forms of \href{https://en.cppreference.com/w/cpp/comment}{comments in C++}.
+Text between \texttt{/*} and \texttt{*/} signifies a comment
+which \emph{can} span multiple lines, whereas a \texttt{//}
+specifies an \emph{inline} comment.
+
+\subsection{Compilation}
+C++ programs have to be compiled from human readable source code into
+\href{https://en.wikipedia.org/wiki/Assembly_language}{assembly instructions} and
+ultimately machine code, which is ultimately used when the program
+actually executes. The assembler is responsible for low-level
+operations such as moving data from one location into another (from
+\texttt{RAM} into a \texttt{register}) or performing a simple
+logical or arithmetic instruction (e.g. bitwise \texttt{and}, or
+addition \texttt{+}).
+
+\paragraph{Portability}
+Since the
+assembler is tied so closely with the \emph{actual} machine architecture, it
+shouldn't be surprising to learn that 
+athough C++ source code can be made portable (i.e. capable of
+compilation across multiple
+machines or operating systems such as Linux, Windows, or Mac) the executables are specific to an
+operating system \emph{and} underlying processor.
+
+\paragraph{Compiling on Rice}
+We use
+\href{https://en.wikipedia.org/wiki/GNU_Compiler_Collection}{GNU compilers}, available with most any Linux
+distribution.
+
+\begin{verbatim}
+$ ls
+hello.cpp
+$ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp  -o hello
+$ ls
+hello  hello.cpp
+\end{verbatim}
+
+What's going on here?
+\href{https://gcc.gnu.org/onlinedocs/gcc/G_002b_002b-and-GCC.html}{\texttt{g++}}
+is the actual GNU C++ compiler program. The option
+\texttt{-std=c++11} informs the compiler to use the C++11 language
+standard. Note that not all
+\href{https://en.cppreference.com/w/cpp/compiler_support}{compilers support}
+all language features.
+The flags \texttt{-Wall}, \texttt{-Wconversion}, \texttt{-Wextra} enable all warnings.
+The penultimate step specifies \texttt{hello.cpp} as the name of the
+C++ source file to compile.
+Lastly, we specify the name of the output file to take on a name
+similar to our source code file; the default is
+\texttt{a.out}.\footnote{\href{https://en.wikipedia.org/wiki/A.out}{Why
+    \texttt{a.out}?} It signifies that the resulting file is
+  \emph{Assembler Output}.}
+
+\subsection{Execution}
+
+When we're in the same working directory as our executable generated
+from the step above:
+{\small
+\begin{verbatim}
+$ ./hello 
+Hello world
+\end{verbatim}
+}
+\vspace{-3ex}
+\paragraph{Why \texttt{./} Is Required}
+Turns out that the \texttt{./} \href{http://www.linfo.org/dot_slash.html}{is required}.
+The shell accepts \emph{commands}. When we specify that we
+want to run a program, the first thing the shell does is look along
+the \texttt{system path} variable in order to find an executable
+matching the command specified. In general, to execute a program that
+is not on the system path, we must specify its path completely.
+The \texttt{.} specifies the
+\emph{current working directory}, and the \texttt{/} is used as a path
+delimiter on linux systems. Therefore, specifying \texttt{./} before a
+command specifies to the shell that it should look in the current
+working directory in order to run the appropriate executable.
+\vspace{-3.5ex}
+\section{Language Basics and Overview}
+\vspace{-2.25ex}
+\subsection{Streams}
+Standard C++ uses ``streams'' for both input and output.
+A \href{https://en.wikipedia.org/wiki/Stream_(computing)}{stream in
+  computing} is a sequence of data elements made available over time.
+The pedagogical mental model is a sequence of items arriving on a
+conveyor belt.
+
+\vspace{-3ex}
+\paragraph{Output Streams (\texttt{operator$<\hspace{-2pt}<$})} If we want to print data to console (or
+write data to a file), we must use an \emph{output} stream.
+The \texttt{operator$<\hspace{-2pt}<$} is a binary infix operator which accepts as
+argument an \emph{output stream}
+and an object to insert into the output stream.
+See \href{https://en.cppreference.com/w/cpp/io/basic_ostream/operator_ltlt}
+{stream insertion operator}.
+
+\begin{verbatim}
+std::cout << "Hello world" << std::endl;
+\end{verbatim}
+
+The object \texttt{cout} is in the \texttt{std} namespace and refers to the
+standard output (stdout) stream.
+Note that because \texttt{operator$<\hspace{-2pt}<$} is a binary infix operator,
+this means the above expression is evaluated as
+\texttt{(std::cout << "Hello world") << std::endl;}. This also lets us
+realize that \texttt{(std::cout << "Hello world")} \emph{must} return
+an output stream object since the result fed into another
+\texttt{operator$<\hspace{-2pt}<$}. In contrast, the \texttt{std::endl} is simply
+a character denoting a newline, and flushes the output buffer to
+console (or file).
+
+You can also put in a newline yourself, and let the buffer flush
+automatically as necessary.
+
+\begin{cpp}
+#include <iostream>
+int main() { std::cout << "Hello world\n"; }
+\end{cpp}
+
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o newline
+$ ./newline
+Hello world
+\end{verbatim}
+
+\paragraph{Input Streams (\texttt{operator$>\hspace{-2pt}>$})} If we want to read in data
+from console (or from a file), we must use an \emph{input} stream,
+which is specified by the \texttt{operator$>\hspace{-2pt}>$} operator.
+
+\subsection{Namespaces, Libraries and Scope (Resolution)}
+When we do \texttt{\#include}
+that is somewhat analogous to an import
+in Python, giving us access to functionality defined in another file.
+In C++ the access to even fundamental functionality like outputting to
+the screen requires specifying the proper include file(s).
+Include files in C++ work a bit differently when it comes to
+namespaces.
+However, namespaces in C++ still generally serve the same purpose as
+namespaces in Python.
+
+\vspace{-2ex}
+\subsubsection{Namespaces}
+In Python the name of the namespace comes from the file name, and
+everything in the file is automatically in that one namespace.
+A C++ include file might contain functions, classes, etc. that are not
+in a namespace at all.
+An include file could also contain functions, classes, etc. from
+multiple namespaces.
+Namespaces can also span multiple include files.
+
+\paragraph{Example: Namespace for the C++ Standard Library}
+The C++ Standard Library is all the built in functionality that is
+part of the C++ language.
+The namespace for this library is \texttt{std}.
+\texttt{iostream} contains \texttt{cout} in the \texttt{std} namespace.
+By default, when using \texttt{cout}, we need to specify the namespace
+and fully qualify the symbol as \texttt{std::cout}.
+
+\paragraph{Scope Resolution Operator}
+Perhaps unsurprisingly, the \texttt{::} is called the scope resolution
+operator. It's used to indicate what namespace something comes from.
+If a namespace is required that will typically be listed in the
+documentation, or by inspecting the include file.
+Will talk about namespaces more when we start writing our own include
+files.
+
+\vspace{-2ex}
+\subsubsection{Common Mistakes}
+\textbf{Forgetting to \texttt{\#include\textless{}iostream\textgreater{}}:}
+\begin{cpp}
+int main() { std::cout << "Hello world" << std::endl; }
+\end{cpp}
+
+{\footnotesize
+\begin{verbatim}
+hello.cpp: In function ‘int main()’:
+hello.cpp:1:14: error: ‘cout’ is not a member of ‘std’
+ int main() { std::cout << "Hello world" << std::endl; }
+              ^
+hello.cpp:1:44: error: ‘endl’ is not a member of ‘std’
+ int main() { std::cout << "Hello world" << std::endl; }
+                                            ^
+\end{verbatim}
+}
+Note the helpful error messages we are receiving. The syntax
+\texttt{hello.cpp:1:14} localizes the origin of the first error to
+\texttt{hello.cpp}, on line \texttt{1} and starting at character
+position \texttt{14}.
+
+\textbf{Another mistake is forgetting the \texttt{std} namespace:}
+\begin{cpp}
+#include <iostream>
+int main() { cout << "Hello world" << endl; }
+\end{cpp}
+
+{\footnotesize
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
+hello.cpp: In function ‘int main()’:
+hello.cpp:2:14: error: ‘cout’ was not declared in this scope
+ int main() { cout << "Hello world" << endl; }
+              ^
+hello.cpp:2:14: note: suggested alternative:
+In file included from hello.cpp:1:0:
+/usr/include/c++/5/iostream:61:18: note:   ‘std::cout’
+   extern ostream cout;  /// Linked to standard output
+                  ^      /// ... Terminal output truncated. Similar error for 'endl' is reported.
+\end{verbatim}
+}
+Here, the compiler recognizes that \texttt{cout} is an object not
+found within the current scope. It subsequently suggests we consider
+the object declared within the \texttt{iostream} library at line 61
+and starting whose identifier appears at character position \texttt{18}.
+
+\paragraph{Other Idioms for Namespaces}
+Analagous to a wildcard import in Python:
+\begin{cpp}
+#include <iostream>
+using namespace std;   // Not considered good practice.
+
+int main() {
+  cout << "Hello world" << endl;
+  return 0;
+}
+\end{cpp}
+
+{\footnotesize
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
+$ ./hello
+\end{verbatim}
+}
+
+Better practice is to be specific about our imports, akin to
+\texttt{from numpy import dot}.
+\begin{cpp}
+#include <iostream>
+using std::cout;    // Good practice...
+using std::endl;    // ... except when writing a header file!
+
+int main() {
+  cout << "Hello world" << endl;
+  return 0;
+}
+\end{cpp}
+
+\subsection{Blocks of Code and Scope}
+Blocks of code (e.g. code comprising a function, conditional,
+loop, etc.) are indicated by enclosing them in curly brackets.
+
+\begin{cpp}
+#include <iostream>
+int main(){std::cout<<"Hello world"<<std::endl;return 0;}
+\end{cpp}
+
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
+$ ./hello5       # Still prints "Hello world" on the next line.
+\end{verbatim}
+
+There are very few places where whitespace matters to the compiler.
+
+\paragraph{Bracket Style} Like using tabs vs. spaces, or Emacs
+vs. Vim, this one gets personal!
+
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  std::cout << "Hello world" << std::endl;
+}
+\end{cpp}
+
+Or! Equally valid, but requires an additional ``line'' of
+code. Benefit is that the braces \emph{always} line up, whence we can
+check the limits of scope easily. In contrast, the former method of
+using braces means that we much match a closing \texttt{\}} brace with
+either a type-specifier (in the case of a function or namespace
+definition) or a control-flow structure.
+\begin{cpp}
+#include <iostream>
+
+int main()
+{
+  std::cout << "Hello world" << std::endl;
+}
+\end{cpp}
+
+\subsubsection{Scope}
+A variable declared within a block is only accessible from within that
+block.
+Blocks are denoted by curly brackets, typically the same brackets that
+denote a function, loop or conditional body, etc.
+Sub-blocks can declare different variables that have the same name as
+variables at broader scope.
+Variables should not be declared with excessive scope.
+
+\paragraph{We can't access variables from \emph{narrower} scopes} Example:
+
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  { int n = 5; }     # Narrow most scope. Not accessible from rest of 'main()'.
+  std::cout << "n = " << n << std::endl;
+}
+\end{cpp}
+
+If we compile with warning flags, we're instructed that our variable
+\texttt{n} in fact goes unused. Further, regardless of warning flags
+used we realize an error on line 8 when we attempt to reference a
+variable \texttt{a} which is not available in scope.
+{
+  \footnotesize
+\begin{verbatim}
+$ g++ -Wall -Wconversion -Wextra scope.cpp -o scope
+scope.cpp: In function 'int main()':
+scope.cpp:5:9: warning: unused variable 'n' [-Wunused-variable]
+     int n = 5;
+         ^
+scope.cpp:8:26: error: 'n' was not declared in this scope
+   std::cout << "n = " << n << std::endl;
+   ^
+\end{verbatim}
+}
+
+\paragraph{We \emph{can} access variables from \emph{wider} scopes}
+Note that if we try to re-declare a variable in the same scope, we
+would realize an error. It's possible to access variables from a
+parent scope. However, it's also possible to declare new variables in
+a (narrower) scope with the same identifiers. E.g. 
+\begin{cpp}
+#include <iostream>
+#include <string>
+
+int main() {
+  std::string n = "Hi";
+  std::cout << "n = " << n << std::endl;
+  {
+    int n = 5;                                  // New scope, doesn't yet contain a variable 'n'.
+    { std::cout << "n = " << n << std::endl; }  // We *can* access variables in parent scope.
+  }
+}
+\end{cpp}
+{\footnotesize
+\begin{verbatim}
+$ g++ -Wall -Wconversion -Wextra scope.cpp -o scope
+$ ./scope
+n = Hi
+n = 5
+\end{verbatim}
+}
+
+\subsection{\texorpdfstring{Return value from \texttt{main()}}{Return value from main()}}
+If missing (as in above examples), the return value for \texttt{main}
+is inferred to be identically zero.
+Unix systems adhere to the
+\href{https://en.wikipedia.org/wiki/Exit_status#POSIX}{POSIX
+  Standard for exit processes}, wherein programs shall
+return \texttt{0} under normal conditions and
+non-zero upon error.
+
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  std::cout << "Hello world" << std::endl;
+  return 7;
+}
+\end{cpp}
+
+Recall that in a shell, we use \texttt{\$} to perform
+\href{https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html#Shell-Parameter-Expansion}{parameter
+  expansion}, i.e. we can think of it as forcing evaluation on its
+argument.
+Separately, the
+\href{https://www.gnu.org/software/bash/manual/bash.html#Special-Parameters}{special
+  parameter \texttt{?}} holds the return value
+for the last command executed.
+
+{\footnotesize
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wconversion -Wextra hello.cpp -o hello
+$ ./hello 
+Hello world
+$ echo $?
+7
+$ ls
+a.out  hello  hello.cpp
+$ echo $?
+0
+\end{verbatim}
+}
+
+\subsection{Variables}
+\subsubsection{Implications of a Typed Language}
+C++ is
+\href{https://en.wikipedia.org/wiki/Strong_and_weak_typing#Definitions_of_%22strong%22_or_%22weak%22}{\emph{typed}}, we must specify the type of each object at
+the time of creation. See \texttt{src/variables.cpp}.
+
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  a = 2;               // Not at all valid...
+  b = 3;               // ... we must specify data types!
+  c = a + b;           // None of these expressions are valid C++ code.
+}
+\end{cpp}
+
+Output:
+
+{\footnotesize
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
+variables.cpp: In function ‘int main()’:
+variables.cpp:4:3: error: ‘a’ was not declared in this scope
+   a = 2;
+   ^
+variables.cpp:5:3: error: ‘b’ was not declared in this scope
+   b = 3;
+   ^
+variables.cpp:6:3: error: ‘c’ was not declared in this scope
+   c = a + b;
+   ^
+\end{verbatim}
+}
+
+\subsubsection{Variable Declaration}
+Declaring an object to be of a certain type is much different from initializing the data to a
+particular value.
+
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int a;
+  int b, c;
+  c = a + b;
+  std::cout << "c = " << c << std::endl;
+}
+\end{cpp}
+
+When we declare an object as a certain type in the above example,
+we're allocating storage for the variable somewhere in memory. But we
+haven't specified a value for initialization, whence we simply reuse
+whatever bits were ``leftover'' at that particular address in memory
+from whatever program or part of the operating system used it last.
+{
+\footnotesize
+\begin{verbatim}
+$ g++ -std=c++11 variables.cpp -o variables
+$ ./variables
+c = 32767
+\end{verbatim}
+}
+If the variable we're declaring is
+atomic (i.e. a real value or a character) then
+\href{https://en.cppreference.com/w/cpp/language/default_initialization}{default initialization}
+results in nothing being done,
+i.e. the value is indeterminate.
+
+\subsubsection{Compiler Warnings}
+Suppose we add an expression to our script which evaluates \texttt{a +
+  b}. If we use the right compiler flags, we can trigger an
+informative warning.
+{\footnotesize
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
+variables.cpp: In function ‘int main()’:
+variables.cpp:9:12: warning: ‘a’ is used uninitialized in this function [-Wuninitialized]
+   c = a + b;
+            ^
+variables.cpp:9:12: warning: ‘b’ is used uninitialized in this function [-Wuninitialized]
+\end{verbatim}
+}
+
+The mantra is: ``enable them, read them, and fix them.''
+We will not have any sympathy if you have bugs that would have been
+caught by enabling warnings. Read:
+you will lose points if compilation of your program generates
+warnings.
+
+\subsubsection{Initializing Variables}
+This can be done in the same step as declaration.
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int a = 2;         // Declare and initialize.
+  int b;             // Declare and leave uninitialized.
+
+  b = 3;             // Assign a value.
+  int c = a + b;     // Result is well defined to be 5.
+  std::cout << "c = " << c << std::endl;
+}
+\end{cpp}
+
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
+$ ./variables 
+c = 5
+\end{verbatim}
+
+\section{Revisiting Type System of C++}
+C++ is \emph{strongly} typed, whence assigning a string to
+an integral data type yields a type-error.
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int a;
+  a = "hello";
+}
+\end{cpp}
+
+{\footnotesize
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
+variables.cpp: In function ‘int main()’:
+variables.cpp:10:5: error: invalid conversion from ‘const char*’ to ‘int’ [-fpermissive]
+   a = "hello";
+     ^
+\end{verbatim}
+}
+
+\subsection{C++ \emph{Allows} (Certain) Implicit Conversions}
+\paragraph{Truncation}
+Even though C++ is strongly typed and prohibits eggregious implicit
+conversions from disparately different data types, it still allows for
+\href{https://en.cppreference.com/w/c/language/conversion}{implicit
+  conversions} between ``like'' types.\footnote{This can be
+  nuanced. For example, a static array can be cast to a pointer.}
+This could catch the novice programmer by surprise.
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int a, b;   # Declare 'a' and 'b' to both be integers.
+  a = 2.7;    # Oops! C++ will implicitly truncate float to convert to int type on LHS of `=`.
+  b = 3;
+  int c = a + b;  # Adds to 5, since 'a' holds the integer value 2.
+
+  std::cout << "c = " << c << std::endl;
+}
+\end{cpp}
+
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
+variables.cpp: In function ‘int main()’:
+variables.cpp:6:5: warning: conversion to ‘int’ alters ‘double’ constant value [-Wfloat-conversion]
+   a = 2.7;
+     ^
+\end{verbatim}
+
+We could perhaps more explicitly describe what's happening in the
+assignment to variable \texttt{a} above using the following valid
+sytanx, which relies on an explicit type cast.
+
+\begin{cpp}
+  a = (int)2.7; // int(2.7) would also work
+\end{cpp}
+
+If the above definition of \texttt{a} is used, we no longer realize a
+warning message, since we explicitly told the compiler what our
+intentions were. The output is still the same.
+
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
+$ ./variables 
+c = 5
+\end{verbatim}
+
+\paragraph{Numeric Promotion}
+Implicit conversions can also work to our
+advantage, for example, if an integer is added
+to a floating point value, the result is (perhaps as one might expect)
+a floating point value; formally the language specifies rules on
+\href{https://en.cppreference.com/w/cpp/language/implicit_conversion}{numeric promotion}.
+
+\begin{cpp}
+#include<iostream>
+int main() {
+  int a = 2;
+  float b = 3.14;
+  float c = a + b;
+}
+\end{cpp}
+
+Here, the \texttt{operator+} applies implicit conversion to get a
+common real type between the \texttt{int} and
+\texttt{float}. The coercion happens within the stack frame belonging
+to \texttt{operator+} and does not affect the state of variable
+\texttt{a} in the scope of \texttt{main}. 
+
+\paragraph{An Example with Double Precision Floating Point} We take a moment to
+showcase how we can define a double precision floating point
+variable, using keyword \texttt{double}. Note that when
+\texttt{operator*} acts on \texttt{a}, its datatype is implicitly
+coerced (widened) to a double precision floating point before the
+multiply is actually executed.
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int    a = 2;
+  double b = 3.14;
+  double c = a*b;   # In this expression, 'a' implicitly cast to double.
+  std::cout << "c = " << c << std::endl;
+}
+\end{cpp}
+
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wconversion -Wextra variables.cpp -o variables
+$ ./variables6
+c = 6.28
+\end{verbatim}
+
+\paragraph{Rounding} As an aside, we mention that the \texttt{round}
+function is implemented in the \texttt{cmath} header, but is
+\emph{not} part of the standard (\texttt{std}) namespace.
+\begin{cpp}
+#include <iostream>
+#include <cmath>
+
+int main() {
+  double c = 2.7;
+  int a = (int)round(c);  // Note: round() is *not* in std namespace.
+}
+\end{cpp}
+
+The resulting value of variable \texttt{a} above is the integer value three,
+since \texttt{round} obeys the expected convention.
+Note that we still need the explicit cast to prevent a warning, since
+there is a difference between a floating point value with zero
+fractional component and the corresponding integer in so far as their
+internal data representation is concerned.
+
+\subsection{Key Data Types}
+Basic C++ has all of the data types that we talked about when we looked at
+computer representation of data in conjunction with \texttt{numpy}. This includes
+various (un)signed integers,
+floating points (single, double,
+and extended precision), Booleans, and
+strings. \href{https://en.cppreference.com/w/cpp/language/type}{C++ Types}.
+
+\subsubsection{Boolean}
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  bool equal = 2 == 3;
+  std::cout << equal << std::endl;
+  std::cout << bool(true) << std::endl;  // Note: use of all lowercase.
+}
+\end{cpp}
+
+Here, we'll see that when passed to
+\texttt{operator$<\hspace{-2pt}<$}, our Boolean is implicitly
+cast to \texttt{int}.
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wconversion -Wextra boolean.cpp -o boolean
+$ ./boolean
+0
+1
+\end{verbatim}
+
+\vspace{-3ex}
+\subsubsection{Strings}
+There are two options for strings in C++
+An array of null-terminated characters (C-style). Or! 
+A string class, which is much safer and easier to use, complete with
+built-in methods.
+
+\begin{cpp}
+#include <iostream>
+#include <string>
+
+int main() {
+  std::string hello = "Hello world";
+  std::cout << hello << std::endl;    # Compiles without warning. Prints "Hello world" when executed.
+}
+\end{cpp}
+
+\paragraph{String Concatenation}
+If we use a \texttt{string} class object, the \texttt{operator+} is
+overloaded to signify concatenation of strings. The next example
+prints \texttt{Hello world} to console, with no warnings encountered
+during compilation (with warning flags enabled).\footnote{If we try to do this with a C-style character-array, we would
+yield an error since there will be no overloaded version of
+\texttt{operator+} which is designed to accept these two particular
+lengths of character sequences.
+}
+\begin{cpp}
+#include <iostream>
+#include <string>
+
+int main() {
+  std::string hello = "Hello";
+  std::string world = " world";
+  std::cout << (hello + world) << std::endl;
+}
+\end{cpp}
+
+\paragraph{String Finding} Unsurprisingly, there
+is a \texttt{find} method within the string class.
+\begin{cpp}
+#include <iostream>
+#include <string>
+
+int main() {
+  std::string hello = "Hello";
+  std::string lo = "lo";
+  std::cout << hello.find(lo) << std::endl;
+}
+\end{cpp}
+
+It simply prints the (zero-indexed) location where the match starts
+(if one is found), else a
+\href{https://en.cppreference.com/w/cpp/string/basic_string/npos}{sentinel
+  value \texttt{npos}}  is used.
+{\footnotesize
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wconversion -Wextra string.cpp -o string
+$ ./string
+3
+\end{verbatim}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Static Arrays}
+Static means known at compile time. All objects must be typed. So what
+does it mean to declare a statically allocated \href{https://en.cppreference.com/w/cpp/language/array}{array}? It means that we
+specify not only the type but also the size (length) in a way that can
+be determined at compile time;
+\texttt{src/array.cpp}.
+
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int a[3]; // Array referenced via a with 3 integer elements
+
+  a[0] = 0;
+  a[1] = a[0] + 1;
+  a[2] = a[1] + 1;
+
+  std::cout << "a[0] = " << a[0] << std::endl;
+  std::cout << "a[1] = " << a[1] << std::endl;
+  std::cout << "a[2] = " << a[2] << std::endl;
+
+  return 0;
+}
+\end{cpp}
+
+The integer literal three appears in our source code, and the compiler
+can see this symbol and understand that we are requesting an array
+to store exactly three integers.
+Compiling:
+
+\begin{verbatim}
+$ g++ -Wall -Wconversion -Wextra array.cpp -o array
+$ ./array
+a[0] = 0
+a[1] = 1
+a[2] = 2
+\end{verbatim}
+
+\hypertarget{out-of-bounds-access}{%
+\subsection{Out of bounds access}\label{out-of-bounds-access}}
+
+Accessing static arrays (or any array for that matter) out of bounds
+leads to undefined behavior and is a particularly nasty problem. Modify
+\texttt{src/array.cpp} to the following:
+
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int a[3]; // Array has 3 elements
+
+
+  a[0] = 0;
+  a[1] = a[0] + 1;
+  a[2] = a[1] + 1;
+  a[3] = a[2] + 1; // Out of bounds access
+
+
+  std::cout << "a[0] = " << a[0] << std::endl;
+  std::cout << "a[1] = " << a[1] << std::endl;
+  std::cout << "a[2] = " << a[2] << std::endl;
+  std::cout << "a[3] = " << a[3] << std::endl;
+
+  return 0;
+}
+\end{cpp}
+
+Now, compile and run:
+
+\begin{verbatim}
+$ g++ -Wall -Wconversion -Wextra array.cpp -o array
+$ ./array
+a[0] = 0
+a[1] = 1
+a[2] = 2
+a[3] = 3
+\end{verbatim}
+
+Nothing ``bad'' happened here. But, the behavior is undefined to
+persist if we compile on another machine. This could
+have caused the universe to collapse, and we're lucky it did not. If
+the out-of-bounds access is eggregious enough to trip the Operating
+System to the fact that the executable is accessing memory that is
+outside the bounds of what the program was alloted, we can encounter a
+segfault. Otherwise, the memory gets silently corrupted; it could be
+the case that the bits which are referenced by \texttt{a[3]} were
+actually being used by another variable, and in assigning \texttt{a[3]
+  = 3} its possible we just corrupted these data.
+
+\subsection{Address Sanitizer}
+We can instruct the executable to detect out of bound memory access in
+static arrays. To do this we enable the
+\href{https://en.wikipedia.org/wiki/AddressSanitizer}{``address
+  sanitizer''} at compile time. This functionality is so essential it has been incorporated into GNU (and other) compilers.
+It adds much needed instrumentation around memory accesses
+We remark that the compiled program will use more memory and run slower!
+
+Let's enable this with \texttt{g++}:
+
+\begin{verbatim}
+$ g++ -Wall -Wconversion -Wextra -g -fsanitize=address array.cpp -o array
+\end{verbatim}
+Here, the \texttt{-g} flag adds debugging symbols to the output
+executable. This is required for \texttt{address sanitizer}.
+The \texttt{-fsanitize=address} enables the address sanitizer itself.
+
+\subsection{Testing Address Sanitizer}
+The output can be verbose. We omit some of the output for clarity.
+
+{\footnotesize
+\begin{verbatim}
+=================================================================
+==22830==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffebe31bd3c at \
+    pc 0x000000400dde bp 0x7ffebe31bd00 sp 0x7ffebe31bcf0 \
+    WRITE of size 4 at 0x7ffebe31bd3c thread T0
+    #0 0x400ddd in main ~/cme211-2018/notes/lecture-10/src/array.cpp:12
+    #1 0x7eff93d8f82f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x2082f)
+    #2 0x400c28 in _start \ 
+       (~/cme211-2018/notes/lecture-10/src/array+0x400c28)
+
+Address 0x7ffebe31bd3c is located in stack of thread T0 at offset 44 in frame
+    #0 0x400d05 in main ~/cme211-2018/notes/lecture-10/src/array.cpp:3
+
+  This frame has 1 object(s):
+    [32, 44) 'a' <== Memory access at offset 44 overflows this variable
+
+SUMMARY: AddressSanitizer: stack-buffer-overflow ~/cme211/notes/lecture-10/src/array.cpp:12 main
+Shadow bytes around the buggy address:
+  0x100057c5b780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100057c5b790: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x100057c5b7a0: 00 00 f1 f1 f1 f1 00[04]f4 f4 f3 f3 f3 f3 00 00
+  0x100057c5b7b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x100057c5b7c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  ... Output ommitted ...
+  ASan internal:         fe
+==22830==ABORTING
+\end{verbatim}
+}
+
+\paragraph{Interpretation}
+What's important from the above? We are told that we have a
+\texttt{WRITE} of size 4 bytes (the size of an \texttt{int} on the platform/compiler
+I was using) at hexadecimal memory address given by
+\texttt{0x7ffebe31bd3c}. Specifically, the line starting with
+\texttt{\#0} indicates that the invalid write occurs on line 12 of
+\texttt{array.cpp}. We then told that variable \texttt{a}, which was
+declared on line \texttt{3} of our program, occupies the contiguous
+sequence of bits that start at a 32-byte offset relative from the main
+stack frame and go up through (but not including) the 44th byte
+offset. Since each integer element of the array requires \texttt{4}
+bytes, we see that we in fact have storage for \texttt{(44 - 32) / 4 =
+  3} elements. We are told that we tried to access the memory just
+beyond the bounds, i.e. that ``Memory access at offset 44 overflows
+this variable''.
+The memory neighborhood that was corrupted is displayed and marked by a \texttt{=>}.
+
+\subsection{GDB and Address Sanitizer}
+We can use the \href{https://www.gnu.org/software/gdb/}{GNU debugger
+  \texttt{gdb}}
+to get more precise information
+about the error. If you took the effort to learn how to use the Python
+debugger \texttt{pdb}, then the basic comands available to you in
+\texttt{gdb} will be familiar. This tool is totally separate from
+\texttt{address sanitizer}, but they also play nicely together. For
+example, we can use \texttt{address sanitizer} to enable the detection
+of out of bounds memory access, treating them like errors. Then, using
+\texttt{gdb}, we can request a \texttt{backtrace} of the call stack to
+see how we arrived at our error.
+
+{\footnotesize
+\begin{verbatim}
+$ export ASAN_OPTIONS=abort_on_error=1
+$ gdb ./array
+...
+(Gdb) run
+Starting program:
+~/cme211-notes/lecture-10/src/array
+
+... [lots of output, same as what we showed first time with address sanitizer above] ...
+
+(gdb) backtrace
+#0  0x00007ffff47b8cc9 in __GI_raise (sig=sig@entry=6) at
+../nptl/sysdeps/unix/sysv/linux/raise.c:56
+#1  0x00007ffff47bc0d8 in __GI_abort () at abort.c:89
+#2  0x00007ffff4e66829 in ?? () from /usr/lib/x86_64-linux-gnu/libasan.so.0
+#3  0x00007ffff4e5d3ec in ?? () from /usr/lib/x86_64-linux-gnu/libasan.so.0
+#4  0x00007ffff4e64012 in ?? () from /usr/lib/x86_64-linux-gnu/libasan.so.0
+#5  0x00007ffff4e63121 in __asan_report_error () from
+/usr/lib/x86_64-linux-gnu/libasan.so.0
+#6  0x00007ffff4e5d7f7 in __asan_report_store4 () from
+/usr/lib/x86_64-linux-gnu/libasan.so.0
+#7  0x0000000000400c64 in main () at array.cpp:12
+\end{verbatim}
+}
+
+Specifically, we first \texttt{run} our
+executable until the out-of-bounds memory access is detected by
+\texttt{address sanitizer}, and since we've set the
+\texttt{abort\_on\_error} flag our executable halts within the
+debugger accordingly. Then, we simply call
+\href{https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_42.html}{\texttt{backtrace}}
+such that we can see how our program arrived at the error in question.
+The last line shows that line 12 of our \texttt{array.cpp} program is
+responsible for triggering the error. We may use \texttt{q} to quit
+out of the debugger and return to console.
+
+\subsection{Multidimensional Static Arrays}
+See \texttt{src/md\_array.cpp}:
+
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  // declare a 2D array
+  int a[2][2];
+
+  a[0][0] = 0;
+  a[1][0] = 1;
+  a[0][1] = 2;
+  a[1][1] = 3;
+
+  std::cout << "a = " << a << std::endl;
+
+  std::cout << "a[0][0] = " << a[0][0] << std::endl;
+  std::cout << "a[1][0] = " << a[1][0] << std::endl;
+  std::cout << "a[0][1] = " << a[0][1] << std::endl;
+  std::cout << "a[1][1] = " << a[1][1] << std::endl;
+
+  return 0;
+}
+\end{cpp}
+
+Compile and run:
+
+{\footnotesize
+\begin{verbatim}
+$ g++ -Wall -Wconversion -Wextra md_array.cpp -o md_array
+$ ./md_array
+a = 0x7fffe2a9e8d0
+a[0][0] = 0
+a[1][0] = 1
+a[0][1] = 2
+a[1][1] = 3
+\end{verbatim}
+}
+
+Note: the first output line prints the memory address.
+
+\hypertarget{array-operations}{%
+\subsection{Array operations}\label{array-operations}}
+
+You can't do assignment with C++ static arrays. Let's modify
+\texttt{src/md\_array.cpp}:
+
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  // declare a 2D array
+  int a[2][2];
+
+  // declare another 2D array
+  int b[2][2];
+
+  b = a;   // Yields an error!
+}
+\end{cpp}
+
+If we attempt to compile:
+{\footnotesize
+\begin{verbatim}
+$ g++ -Wall -Wconversion -Wextra md_array.cpp -o md_array
+md_array.cpp: In function 'int main()':
+md_array.cpp:10:5: error: invalid array assignment
+   b = a;
+   ^
+\end{verbatim}
+}
+The \texttt{operator=} has not been overloaded to handle array
+assignment. There's something related that we could do, which is to
+assign $b$ to \emph{point} to the same sequence of bits that
+\texttt{a} refers to, but this requires a bit more understanding of
+pointers and addresses than we have time for today.
+
+\section{C++ \texttt{for}-loop}
+Start with an example. See \texttt{src/for\_loop1.cpp}:
+
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  for (int i = 0; i < 10; ++i) {
+    std::cout << "i = " << i << std::endl;
+  }
+  return 0;
+}
+\end{cpp}
+
+Compile and run:
+
+\begin{verbatim}
+$ g++ -Wall -Wconversion -Wextra for_loop1.cpp -o for_loop1
+$ ./for_loop1
+i = 0
+i = 1
+i = 2
+... You know how this works by now :-)
+i = 9
+\end{verbatim}
+
+\subsection{Anatomy of a for loop} There are a few key
+ingredients. The most basic C++ syntax affords a lower level of
+abstraction than does Python for-loops; this is remedied in C++11. 
+\begin{cpp}
+for (expression1; expression2; expression3) { /* loop body */ }
+\end{cpp}
+
+How does this work?
+\begin{itemize}
+  \item \texttt{expression1} is evaluated \emph{exactly
+  once} at the start of the loop.
+\item \texttt{expression2} is a conditional statement evaluated at the start of
+\emph{each loop iteration}, where we terminate if the conditional statement returns \texttt{false}.
+\item Finally, \texttt{expression3} is one which is evaluated at the
+  \emph{end} of \emph{each iteration}.
+  \end{itemize}
+
+\paragraph{\texorpdfstring{Another \texttt{for} loop
+example}{Another for loop example}}
+
+File \texttt{src/for\_loop2.cpp}:
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int n, sum;
+
+  sum = 0;
+  for (n = 0; n < 101; ++n) {
+    sum += n;
+  }
+
+  std::cout << "sum = " << sum << std::endl;
+  return 0;
+}
+\end{cpp}
+
+Output:
+
+\begin{verbatim}
+$ g++ -Wall -Wconversion -Wextra for_loop2.cpp -o for_loop2
+$ ./for_loop2
+sum = 5050
+\end{verbatim}
+
+\subsubsection{Increment and Decrement}
+These are operators that can be applied to (implicitly convertible)
+numeric types in any context, but are quite useful in control-flow.
+Specifically, increment (\texttt{++}) and decrement (\texttt{-\/-}) are just
+shorthand for incrementing or decrementing by one.
+
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int n = 2;
+  std::cout << "n = " << n << std::endl;
+  n++;
+  std::cout << "n = " << n << std::endl;
+  ++n;
+  std::cout << "n = " << n << std::endl;
+  n--;
+  std::cout << "n = " << n << std::endl;
+  --n;
+  std::cout << "n = " << n << std::endl;
+
+  return 0;
+}
+\end{cpp}
+
+Output:
+
+\begin{verbatim}
+$ g++ -Wall -Wconversion -Wextra increment.cpp -o increment
+$ ./increment
+n = 2
+n = 3
+n = 4
+n = 3
+n = 2
+\end{verbatim}
+
+
+\subsubsection{Pre vs. Post Increment}
+You can put them before or after a variable, but the exact
+interpretation/computation performed is \emph{slightly} different:
+\texttt{++x} \emph{first} increments data referenced by variable \texttt{x} and
+\emph{then} returns the value, whereas you can think of \texttt{x++}
+as \emph{first}
+returning the value originally held by \texttt{x} and \emph{then}
+incrementing the underlying data referenced by \texttt{x}.
+See \texttt{src/increment.cpp}
+
+Example (\texttt{src/increment2.cpp}):
+
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int a = 1;
+  std::cout << "            a: " << a   << std::endl;
+  std::cout << "return of a++: " << a++ << std::endl;
+  std::cout << "            a: " << a   << std::endl;
+  std::cout << "return of ++a: " << ++a << std::endl;
+  std::cout << "            a: " << a   << std::endl;
+  return 0;
+}
+\end{cpp}
+
+Output:
+
+\begin{verbatim}
+            a: 1
+return of a++: 1
+            a: 2
+return of ++a: 3
+            a: 3
+\end{verbatim}
+
+So, we see that using pre or post-increment doesn't really matter
+unless we directly capture the value returned by the increment
+expression; if we simply wish to use the variable that we increment in
+a \emph{separate} expression at a \emph{latter} point in the program,
+there is no difference.
+
+\subsection{Iterating through an array}
+\texttt{src/for\_loop3.cpp}:
+
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int n = 5;
+  double a[16];
+
+  /* Initialize a to zeros. */
+
+  for (int n = 0; n < 16; n++) {
+    a[n] = 0.;
+  }
+
+  std::cout << "a[0] = " << a[0] << std::endl;
+  std::cout << "n = " << n << std::endl;
+
+  return 0;
+}
+\end{cpp}
+
+\begin{verbatim}
+$ g++ -Wall -Wconversion -Wextra for_loop3.cpp -o for_loop3
+$ ./for_loop3
+a[0] = 0
+n = 5
+\end{verbatim}
+
+\subsection{Syntactic Variations on for loop}
+We might not declare a variable in the first expression of a
+\texttt{for}-loop, instead relying on a variable which already exists.
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int n = 0, sum = 0;
+  // here n is declared with excessive scope
+  // n is not needed outside of the for loop
+  for (; n <= 100;) {
+    sum += n;
+    n++;
+  }
+  std::cout << "sum = " << sum << std::endl;
+
+  return 0;
+}
+\end{cpp}
+
+Alternatively, perhaps we want to control how our loop counters are
+modified with each iteration in a way can't be described by a single
+expression; the following is a toy example since we could clearly
+place the simple expression \texttt{n++} in third argument of the \texttt{for}-loop.
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int sum = 0;
+  // n may be declared in the first for loop expression
+  for (int n = 0; n <= 100;) {
+    sum += n;
+    n++;
+  }
+  std::cout << "sum = " << sum << std::endl;
+
+  return 0;
+}
+\end{cpp}
+
+\subsubsection{Infinite loops}
+See \texttt{src/inf\_loop.cpp}:
+
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  for (;;) {
+  }
+
+  return 0;
+}
+\end{cpp}
+
+\begin{verbatim}
+$ ./inf_loop
+\end{verbatim}
+This can generally be terminated with \texttt{Ctrl-c}.
+If that doesn't work use \texttt{Ctrl-z} to background and then kill
+that job number.
+
+\subsubsection{\texorpdfstring{\texttt{for} loop brackets}{for loop brackets}}
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int sum = 0;
+
+  for (int n = 0; n < 101; n++)
+    sum += n; // One statement loop body, does not have to be enclosed
+
+  std::cout << "sum = " << sum << std::endl;
+
+  return 0;
+}
+\end{cpp}
+
+\subsubsection{Common mistake}
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int n, sum, product;
+
+  sum = 0;
+  product = 1;
+  for (n = 1; n < 11; n++)
+    sum += n;
+    product *= n; // Not part of for loop
+
+
+  std::cout << "sum = " << sum << std::endl;
+  std::cout << "product = " << product << std::endl;
+
+  return 0;
+}
+\end{cpp}
+
+\subsubsection{Common mistake}
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int n;
+
+  int sum = 0;
+  for (n = 0; n < 101; n++); // no loop body
+  {
+    sum += n;
+  }
+
+  std::cout << "sum = " << sum << std::endl;
+
+  return 0;
+}
+\end{cpp}
+
+\subsubsection{Nested loops example}
+\begin{cpp}
+
+#include <iostream>
+
+int main() {
+  double a[3][3];
+
+  /* Initialize a to zeros. */
+
+  for (int n = 0, i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+      a[i][j] = n;
+      n++;
+    }
+  }
+
+  /* Print a. */
+
+  for (int i = 0; i < 3; i++) {
+    std::cout << a[i][0];
+    for (int j = 1; j < 3; j++) {
+      std::cout << " " << a[i][j];
+    }
+    std::cout << std::endl;
+  }
+
+  return 0;
+}
+\end{cpp}
+
+\subsubsection{\texorpdfstring{\texttt{while} loop}{while loop}}
+\begin{cpp}
+
+#include <iostream>
+
+int main() {
+  int n = 0, sum = 0;
+  while (n <= 100) {
+    sum += n;
+    n++;
+  }
+  std::cout << "sum = " << sum << std::endl;
+
+  return 0;
+}
+\end{cpp}
+
+\subsubsection{Common mistake}
+\begin{cpp}
+#include <iostream>
+
+int main() {
+  int n = 0, sum = 0;
+
+  while (n <= 100); // no loop body
+  {
+    sum += n;
+    n++;
+  }
+  std::cout << "sum = " << sum << std::endl;
+
+  return 0;
+}
+\end{cpp}
+
+\subsubsection{\texorpdfstring{\texttt{do}-\texttt{while} loop}{do-while loop}}
+\begin{itemize}
+\item
+  A while loop may execute zero times if the conditional is not true on
+  initial evaluation
+\item
+  C/C++ has a do-while loop that is very similar to a while loop, but
+  always executes at least once
+\end{itemize}
+
+\begin{cpp}
+do {
+  // loop body
+} while (expression);
+\end{cpp}
+
+Note the semicolon at the very end!
+
+\subsection{Recommended reading}
+\begin{itemize}
+\item
+  \textbf{C++ Primer, Fifth Edition} by Lippman et al.
+\item
+  Available on Safari ProQuest:
+  \url{http://proquest.safaribooksonline.com/book/programming/cplusplus/9780133053043}
+\item
+  Chapter 1: Getting Started, Sections 1.1 - 1.3
+\item
+  Chapter 2: Variables and Basic Types, Sections 2.1 - 2.2
+\item
+  Chapter 3: Strings, Vectors, and Arrays: Sections 3.1 - 3.2
+\end{itemize}
+
+\hypertarget{resources}{%
+\subsection{Resources}\label{resources}}
+
+\begin{itemize}
+\item
+  Online C++ compiler for small tests:
+  \url{http://coliru.stacked-crooked.com/}
+\item
+  \url{http://www.cppreference.com}
+\item
+  \url{http://www.cplusplus.com}
+\item
+  \url{http://www.linfo.org/index.html}
+\end{itemize}
+
+\end{document}
