@@ -917,8 +917,7 @@ a[1] = 1
 a[2] = 2
 \end{verbatim}
 
-\hypertarget{out-of-bounds-access}{%
-\subsection{Out of bounds access}\label{out-of-bounds-access}}
+\subsection{Out of Bounds Access $\leadsto$ Undefined Behavior}
 
 Accessing static arrays (or any array for that matter) out of bounds
 leads to undefined behavior and is a particularly nasty problem. Modify
@@ -957,16 +956,31 @@ a[2] = 2
 a[3] = 3
 \end{verbatim}
 
-Nothing ``bad'' happened here. But, the behavior is undefined to
-persist if we compile on another machine. This could
-have caused the universe to collapse, and we're lucky it did not. If
-the out-of-bounds access is eggregious enough to trip the Operating
+\paragraph{Undefined Behavior}
+Nothing ``bad'' happened here. But, the \href{https://en.cppreference.com/w/cpp/language/ub}{behavior is undefined} to
+persist if we re-run our program, let alone attempt to compile and run
+on another machine. From the reference manual:
+
+\begin{quote}
+  Compilers are not required to diagnose undefined behavior... and the
+  compiled program is not required to do anything
+  meaningful.
+\end{quote}
+
+If the out-of-bounds access is eggregious enough to trip the Operating
 System to the fact that the executable is accessing memory that is
 outside the bounds of what the program was alloted, we can encounter a
-segfault. Otherwise, the memory gets silently corrupted; it could be
+\href{https://en.wikipedia.org/wiki/Segmentation_fault}{segfault}.\footnote{It's \emph{possible}
+that we could have overwritten the bits that were holding the state of
+e.g. our disk-drive (causing a DVD to be ejected), or OS volume
+(causing the volume to change), and without hardware protection in
+place to trigger a segfault and notify the operating system, undesired
+behaviors could be realized.} If we are so unlucky that the out-of-bounds access is
+\emph{not} eggregious enough to trip a segfault, the memory simply
+gets silently corrupted; it could be
 the case that the bits which are referenced by \texttt{a[3]} were
-actually being used by another variable, and in assigning \texttt{a[3]
-  = 3} its possible we just corrupted these data.
+actually being used by another variable within our program, and in
+assigning to \texttt{a[3]} its possible we corrupted these data. 
 
 \subsection{Address Sanitizer}
 We can instruct the executable to detect out of bound memory access in
@@ -988,7 +1002,7 @@ The \texttt{-fsanitize=address} enables the address sanitizer itself.
 \subsection{Testing Address Sanitizer}
 The output can be verbose. We omit some of the output for clarity.
 
-{\footnotesize
+{\scriptsize
 \begin{verbatim}
 =================================================================
 ==22830==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7ffebe31bd3c at \
@@ -1346,22 +1360,20 @@ a[0] = 0
 n = 5
 \end{verbatim}
 
+\vspace{-2ex}
 \subsection{Syntactic Variations on for loop}
 We might not declare a variable in the first expression of a
-\texttt{for}-loop, instead relying on a variable which already exists.
+\texttt{for}-loop.
 \begin{cpp}
 #include <iostream>
 
 int main() {
-  int n = 0, sum = 0;
-  // here n is declared with excessive scope
-  // n is not needed outside of the for loop
+  int n = 0, sum = 0;   // n declared with excessive scope...
   for (; n <= 100;) {
     sum += n;
     n++;
-  }
+  }                     // n is not needed outside of the for loop...
   std::cout << "sum = " << sum << std::endl;
-
   return 0;
 }
 \end{cpp}
@@ -1423,7 +1435,7 @@ int main() {
 }
 \end{cpp}
 
-\subsubsection{Common mistake}
+\subsubsection{Common mistakes}
 \begin{cpp}
 #include <iostream>
 
@@ -1444,7 +1456,6 @@ int main() {
 }
 \end{cpp}
 
-\subsubsection{Common mistake}
 \begin{cpp}
 #include <iostream>
 
@@ -1470,9 +1481,7 @@ int main() {
 
 int main() {
   double a[3][3];
-
   /* Initialize a to zeros. */
-
   for (int n = 0, i = 0; i < 3; i++) {
     for (int j = 0; j < 3; j++) {
       a[i][j] = n;
@@ -1481,16 +1490,12 @@ int main() {
   }
 
   /* Print a. */
-
   for (int i = 0; i < 3; i++) {
     std::cout << a[i][0];
-    for (int j = 1; j < 3; j++) {
+    for (int j = 1; j < 3; j++)
       std::cout << " " << a[i][j];
-    }
     std::cout << std::endl;
   }
-
-  return 0;
 }
 \end{cpp}
 
@@ -1546,7 +1551,7 @@ do {
 \end{cpp}
 
 Note the semicolon at the very end!
-
+\newpage
 \subsection{Recommended reading}
 \begin{itemize}
 \item
