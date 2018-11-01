@@ -441,6 +441,587 @@ See: <http://xkcd.com/292/>
 ![fig](fig/goto.png)
 
 
+## Functions
+
+* Functions allow us to decompose a program into smaller components
+
+* It is easier to implement, test, and debug portions of a program in isolation
+
+* Allows work to be spread among many people working mostly independently
+
+* If done properly it can make your program easier to understand and maintain
+
+  * Eliminate duplicated code
+
+  * Reuse functions across multiple programs
+
+### C/C++ function
+
+Example:
+
+```c++
+int sum(int a, int b) {
+  int c = a + b;
+  return c;
+}
+```
+
+Components:
+
+```c++
+return_type function_name(argument_type1 argument_var1, ...) {
+   // function body
+   return return_var; // return_var must have return_type
+}
+```
+
+### `sum` function in use
+
+`src/sum1.cpp`
+
+```c++
+#include <iostream>
+
+int sum(int a, int b) {
+  int c = a + b;
+  return c;
+}
+
+int main() {
+  int a = 2, b = 3;
+
+  int c = sum(a,b);
+  std::cout << "c = " << c << std::endl;
+
+  return 0;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion sum1.cpp -o sum1
+$ ./sum1
+c = 5
+```
+
+### Order matters
+
+`src/sum2.cpp`:
+
+```c++
+#include <iostream>
+
+int main() {
+  int a = 2, b = 3;
+
+  // the compiler does not yet know about sum()
+  int c = sum(a,b);
+  std::cout << "c = " << c << std::endl;
+
+  return 0;
+}
+
+int sum(int a, int b) {
+  int c = a + b;
+  return c;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion sum2.cpp -o sum2
+sum2.cpp: In function 'int main()':
+sum2.cpp:7:18: error: 'sum' was not declared in this scope
+  int c = sum(a,b);
+                 ^
+```
+
+### Function declarations and definitions
+
+* A function *definition* is the code that implements the function
+
+* It is legal to call a function if it has been defined or *declared* previously
+
+* A function *declaration* specifies the function name, input argument type(s),
+  and output type.  The function *declaration* need not specify the
+  implementation (code) for the function.
+
+`src/sum3.cpp`:
+
+```c++
+#include <iostream>
+
+// Forward declaration or prototype
+int sum(int a, int b);
+
+int main() {
+  int a = 2, b = 3;
+  
+  int c = sum(a,b);
+  std::cout << "c = " << c << std::endl;
+  
+  return 0;
+}
+
+// Function definition
+int sum(int a, int b) {
+  int c = a + b;
+  return c;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion sum3.cpp -o sum3
+$ ./sum3
+c = 5
+```
+
+### Data types
+
+`src/datatypes1.cpp`
+
+```c++
+#include <iostream>
+
+int sum(int a, int b) {
+  int c;
+  c = a + b;
+  return c;
+}
+
+int main() {
+  double a = 2.7, b = 3.8;
+
+  int c = sum(a,b);
+  std::cout << "c = " << c << std::endl;
+
+  return 0;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion datatypes1.cpp -o datatypes1
+datatypes1.cpp: In function 'int main()':
+datatypes1.cpp:14:18: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]
+  int c = sum(a,b);
+              ^
+datatypes1.cpp:14:18: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]
+$ ./datatypes1
+c = 5
+```
+
+### Implicit casting
+
+`src/datatypes2.cpp`:
+
+```c++
+#include <iostream>
+
+int sum(int a, int b) {
+  double c = a + b;
+  return c; // we are not returning the correct type
+}
+
+int main() {
+  double a = 2.7, b = 3.8;
+
+  int c = sum(a,b);
+  std::cout << "c = " << c << std::endl;
+
+  return 0;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion datatypes2.cpp -o datatypes2
+datatypes2.cpp: In function 'int sum(int, int)':
+datatypes2.cpp:6:10: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]
+  return c;
+         ^
+datatypes2.cpp: In function 'int main()':
+datatypes2.cpp:13:18: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]
+  int c = sum(a,b);
+              ^
+datatypes2.cpp:13:18: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]
+$ ./datatypes2
+c = 5
+```
+
+### Explicit casting
+
+`src/datatypes3.cpp`
+
+```c++
+#include <iostream>
+
+int sum(int a, int b) {
+  double c = a + b;
+  return (int)c;
+}
+
+int main() {
+  double a = 2.7, b = 3.8;
+
+  int c = sum((int)a,(int)b);
+  std::cout << "c = " << c << std::endl;
+
+  return 0;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion datatypes3.cpp -o datatypes3
+```
+
+### `void`
+
+* Use the `void` keyword to indicate absence of data
+
+* `src/void1.cpp`
+
+```c++
+#include <iostream>
+
+void printHeader(void) {
+  std::cout << "-------------------------" << std::endl;
+  std::cout << "      MySolver v1.0      " << std::endl;
+  std::cout << "-------------------------" << std::endl;
+}
+
+int main() {
+  printHeader();
+  return 0;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion void1.cpp -o void1
+$ ./void1
+-------------------------
+      MySolver v1.0
+-------------------------
+```
+
+### `void` and `return`
+
+`src/void2.cpp`:
+
+```c++
+#include <iostream>
+
+void printHeader(void) {
+  std::cout << "-------------------------" << std::endl;
+  std::cout << "      MySolver v1.0      " << std::endl;
+  std::cout << "-------------------------" << std::endl;
+  return 0;
+}
+
+int main() {
+  printHeader();
+  return 0;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion void2.cpp -o void2
+void2.cpp: In function 'void printHeader()':
+void2.cpp:8:10: error: return-statement with a value, in function returning 'void' [-fpermissive]
+  return 0;
+         ^
+```
+
+### `void` and `return`
+
+`src/void3.cpp`:
+
+```c++
+#include <iostream>
+
+void printHeader(void) {
+  std::cout << "-------------------------" << std::endl;
+  std::cout << "      MySolver v1.0      " << std::endl;
+  std::cout << "-------------------------" << std::endl;
+  return;
+}
+
+int main() {
+  printHeader();
+  return 0;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion void3.cpp -o void3
+```
+
+### Ignoring return value
+
+`src/ignore.cpp`:
+
+```c++
+#include <iostream>
+
+int sum(int a, int b) {
+  int c = a + b;
+  return c;
+}
+
+int main() {
+  int a = 2, b = 3;
+
+  sum(a,b); // legal to ignore return value if you want
+
+  return 0;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion ignore.cpp -o ignore
+$ ./ignore
+```
+
+### Function scope
+
+`src/scope1.cpp`:
+
+```c++
+#include <iostream>
+
+int sum(void) {
+  // a and b are not in the function scope
+  int c = a + b;
+  return c;
+}
+
+int main() {
+  int a = 2, b = 3;
+
+  int c = sum();
+  std::cout << "c = " << c << std::endl;
+
+  return 0;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion scope1.cpp -o scope1
+scope1.cpp: In function 'int sum()':
+scope1.cpp:5:11: error: 'a' was not declared in this scope
+  int c = a + b;
+          ^
+scope1.cpp:5:15: error: 'b' was not declared in this scope
+  int c = a + b;
+              ^
+...
+```
+
+### Global scope
+
+`src/scope2.cpp`:
+
+```c++
+#include <iostream>
+
+// an be accessed from anywhere in the file (bad, bad, bad)
+int a;
+
+void increment(void) {
+  a++;
+}
+
+int main() {
+  a = 2;
+
+  std::cout << "a = " << a << std::endl;
+  increment();
+  std::cout << "a = " << a << std::endl;
+
+  return 0;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion scope2.cpp -o scope2
+$ ./scope2
+a = 2
+a = 3
+```
+
+### Passing arguments
+
+`src/passing1.cpp`:
+
+```c++
+#include <iostream>
+
+void increment(int a) {
+  a++;
+  std::cout << "a = " << a << std::endl;
+}
+
+int main() {
+  int a = 2;
+
+  increment(a);
+  std::cout << "a = " << a << std::endl;
+
+  return 0;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion passing1.cpp -o passing1
+$ ./passing1
+a = 3
+a = 2
+```
+
+### Passing arguments
+
+`src/passing2.cpp`:
+
+```c++
+#include <iostream>
+
+void increment(int a[2]) {
+  a[0]++;
+  a[1]++;
+}
+
+int main() {
+  int a[2] = {2, 3};
+
+  std::cout << "a[0] = " << ", " << "a[1] = " << std::endl;
+  increment(a);
+  std::cout << "a[0] = " << ", " << "a[1] = " << std::endl;
+  
+  return 0;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion passing2.cpp -o passing2
+$ ./passing2
+a[0] = 2, a[1] = 3
+a[0] = 3, a[1] = 4
+a[0] = 3, a[1] = 4
+```
+
+### Pass by value
+
+* C/C++ default to pass by value, which means that when calling a function the
+arguments are copied
+
+* However, you need to be careful and recognize what is being copied
+
+* In the case of a number like `int a`, what is being copied is the value of the
+  number
+
+* For a static array like `int a[2]`, what is being passed and copied is the
+location in memory where the array data is stored
+
+* Will discuss pass by reference when we get to data structures
+
+
+### Towards modularity
+
+`src/main4.cpp`:
+
+```c++
+#include <iostream>
+
+int sum(int a, int b);
+
+int main() {
+  int a = 2, b = 3;
+
+  int c = sum(a,b);
+  std::cout << "c = " << c << std::endl;
+
+  return 0;
+}
+```
+
+`src/sum4.cpp`:
+
+```c++
+int sum(int a, int b) {
+  int c = a + b;
+  return c;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion main4.cpp sum4.cpp -o sum4
+$ ./sum4
+c = 5
+```
+
+### Maintaining consistency
+
+`src/main5.cpp`:
+
+```c++
+#include <iostream>
+
+int sum(int a, int b);
+
+int main() {
+  int a = 2, b = 3;
+
+  int c = sum(a,b);
+  std::cout << "c = " << c << std::endl;
+
+  return 0;
+}
+```
+
+`src/sum5.cpp`:
+
+```c++
+double sum(double a, double b) {
+  double c = a + b;
+  return c;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wextra -Wconversion main5.cpp sum5.cpp -o sum5
+/tmp/ccCKlsvX.o: In function main':
+main5.cpp:(.text+0x21): undefined reference to sum(int, int)'
+collect2: error: ld returned 1 exit status
+```
+
 
 ## C/C++ memory model
 
