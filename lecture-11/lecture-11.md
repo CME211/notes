@@ -3,6 +3,7 @@
 ## Topics
 
 * Conditionals
+* Functions
 * Dynamic arrays
 * Basic file operations in C++
 
@@ -845,11 +846,13 @@ scope1.cpp:5:15: error: 'b' was not declared in this scope
 // an be accessed from anywhere in the file (bad, bad, bad)
 int a;
 
-void increment(void) {
+void increment(void) 
+{
   a++;
 }
 
-int main() {
+int main() 
+{
   a = 2;
 
   std::cout << "a = " << a << std::endl;
@@ -876,12 +879,14 @@ a = 3
 ```c++
 #include <iostream>
 
-void increment(int a) {
+void increment(int a) 
+{
   a++;
   std::cout << "a = " << a << std::endl;
 }
 
-int main() {
+int main() 
+{
   int a = 2;
 
   increment(a);
@@ -907,12 +912,14 @@ a = 2
 ```c++
 #include <iostream>
 
-void increment(int a[2]) {
+void increment(int a[2]) 
+{
   a[0]++;
   a[1]++;
 }
 
-int main() {
+int main() 
+{
   int a[2] = {2, 3};
 
   std::cout << "a[0] = " << ", " << "a[1] = " << std::endl;
@@ -1044,7 +1051,7 @@ the *heap*
 
 ### Static array example
 
-Static arrays are allocated on the stack. They can hold only a limeted amount of data.
+Static arrays are allocated on the stack. They can hold only a limited amount of data.
 
 `src/stack4.cpp`:
 
