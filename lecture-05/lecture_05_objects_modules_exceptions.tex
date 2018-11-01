@@ -374,7 +374,7 @@ print(c)          # ... and this will be reflected here.
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.45]{fig/tuples-and-immutability.png}
-\caption{In this memory diagram, the integers and strings need not be duplicated 
+\caption{\footnotesize In this memory diagram, the integers and strings need not be duplicated 
 (since the integers appearing are in the set $\{-5, \ldots, 256\}$ and strings may
 be reused). However, the important part is that while we can never change the fact that 
 \texttt{c} is a tuple of length two, where each element is a list, we can modify the underlying
@@ -406,12 +406,11 @@ Python implements garbage collection via \href{https://en.wikipedia.org/wiki/Ref
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.35]{fig/gc-2.png}
-\caption{The first example on the left depicts a case where each integer is referenced by two variables, i.e. 
-lists \texttt{b} and \texttt{c} (which in this example happen to refer to the same list). In the second example in the middle, we depict
-a case where a string ``greetings'' is referenced by a single variable \texttt{a}. In the last example on the right, we have a single 
-unreferenced list, where the elements themselves are ``a'' and ``b''. However, since the list is not aliased to any variable, these 
-character elements are inaccessible. Even though strings are immutable, Python doesn't require we store them throughout the program's entirety.
-Whence we may garbage collect these data (each of the characters, and in fact the list as well).}
+\caption{\footnotesize On the left, we depict a case where each integer is referenced by two variables, i.e. 
+lists \texttt{b} and \texttt{c} (which in this example happen to refer to the same list). In the last example on the right, we have a single 
+unreferenced list, where the elements themselves are ``a'' and ``b''. However, the list is not aliased to any variable, whence these 
+character elements are inaccessible. Strings are immutable, but Python doesn't require we store them throughout the program's entirety.
+Whence we may garbage collect these data (both characters and the list).}
 \end{figure}
 
 \subsection{Recommended Reading}
