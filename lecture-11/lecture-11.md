@@ -2,8 +2,8 @@
 
 ## Topics
 
-* Dynamic arrays
 * Conditionals
+* Dynamic arrays
 * Basic file operations in C++
 
 
@@ -48,37 +48,6 @@ n is positive
 Note: brackets `{...}` are not needed for a single line `if` block.  However, I
 recommend always putting them in.
 
-### `else if`
-
-```c++
-#include <iostream>
-
-int main() {
-  int n = -3;
-
-  std::cout << "n = " << n << std::endl;
-
-  if (n > 0) 
-  {
-    std::cout << "n is positive" << std::endl;
-  }
-  else 
-    if (n < 0) 
-    {
-      std::cout << "n is negative" << std::endl;
-    }
-
-  return 0;
-}
-```
-
-Output:
-
-```
-$ ./if2
-n = -3
-n is negative
-```
 
 ### `else`
 
@@ -148,7 +117,8 @@ int main()
   for (unsigned int n = 0; n < 10; n++) 
   {
     std::cout << n << std::endl;
-    if (n > 3) break;
+    if (n > 3) 
+      break;
   }
 
   return 0;
@@ -197,13 +167,13 @@ $ ./continue
 
 ### Logical operators
 
-* C++ has two choices for logical operators
+* C++ has two choices for logical operators:
 
-  * Newer style `and`, `or`, `not`
+  * C++11 standard: `and`, `or`, `not`
 
-  * Older style `&&`, `||`,
+  * Backward compatible: `&&`, `||`, `~`
 
-* Latter are backwards compatible with C
+* Latter are also compatible with C.
 
 
 ### Logical AND
@@ -336,8 +306,12 @@ switch (choice) {
   default: std::cout << "Bad choice\n";
 }
 ```
+The switch argument `choice` must be of an integral type (`int`, `char`, etc.).
 
 ### `switch` and `enum` example
+
+Enumeration types allow you to write switch statements in a more
+intuitive way.
 
 ```c++
 enum direction 
@@ -378,7 +352,8 @@ you are going right
 
 ### Advantage
 
-Compiler warnings will tell you if you are missing some cases.
+Most compiler will give you a warning if you don't use all enumeration
+elements in switch statement cases.
 
 ```c++
 switch (d)
@@ -432,9 +407,12 @@ you are going rightupdown
 
 ### Ternary operator
 
-This is called the "ternary" operator:
+Operator `? :` allows you to write single line conditionals. 
+The operator takes three arguments, a logical statement and two return
+statements.
 
 ```c++
+// a = |b|
 a = b < 0 ? -b : b;
 ```
 
@@ -450,7 +428,7 @@ else
 Anatomy:
 
 ```
-[conditional] ? [return expression if true] : [return expression if false];
+[logical expression] ? [return expression if true] : [return expression if false];
 ```
 
 ### `goto`
@@ -466,10 +444,11 @@ See: <http://xkcd.com/292/>
 
 ## C/C++ memory model
 
-* All data in your application is stored in the same physical memory
-
 * The memory used by each application is logically divided into the *stack* and
 the *heap*
+
+* Both, stack and heap memory are stored on the same physical device.
+
 
 ## Stack
 
@@ -483,6 +462,8 @@ the *heap*
 
 
 ### Static array example
+
+Static arrays are allocated on the stack. They can hold only a limeted amount of data.
 
 `src/stack4.cpp`:
 
@@ -554,7 +535,7 @@ For example,
 int  a = 42;
 int* b = &a;
 ```
-will assign address of integer `a` to the pointer to integer `b`.
+will assign address of integer `a` to the pointer `b`.
 
 ### Dereferencing operator `*`
 
@@ -750,35 +731,6 @@ Best way to define `a` and `b`:
 ```c++
 double* a;
 double  b;
-```
-
-
-### Many uses of `*`
-
-`src/pointer3.cpp`:
-
-```c++
-#include <iostream>
-
-int main() {
-  int a = 4;
-  int *b = &a;
-
-  // * used for dereferencing, multiplication, and storage
-  *b = *b**b;
-
-  std::cout << "a = " << a << std::endl;
-
-  return 0;
-}
-```
-
-Output:
-
-```
-$ g++ -std=c++11 -Wall -Wextra -Wconversion src/pointer3.cpp -o src/pointer3
-$ ./src/pointer3
-a = 16
 ```
 
 
