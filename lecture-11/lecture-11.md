@@ -6,6 +6,464 @@
 * Conditionals
 * Basic file operations in C++
 
+
+
+## Conditional statements in C++
+
+C++ has three conditional statements:
+
+* `if`
+
+* `switch`
+
+* C++ ternary operator: `(x == y) ? a : b`
+
+### C++ `if`
+
+```c++
+#include <iostream>
+
+int main() 
+{
+  int n = 2;
+
+  std::cout << "n = " << n << std::endl;
+  if (n > 0) 
+  {
+    std::cout << "n is positive" << std::endl;
+  }
+
+  return 0;
+}
+```
+
+Output:
+
+```
+$ ./if1 
+n = 2
+n is positive
+```
+
+Note: brackets `{...}` are not needed for a single line `if` block.  However, I
+recommend always putting them in.
+
+### `else if`
+
+```c++
+#include <iostream>
+
+int main() {
+  int n = -3;
+
+  std::cout << "n = " << n << std::endl;
+
+  if (n > 0) 
+  {
+    std::cout << "n is positive" << std::endl;
+  }
+  else 
+    if (n < 0) 
+    {
+      std::cout << "n is negative" << std::endl;
+    }
+
+  return 0;
+}
+```
+
+Output:
+
+```
+$ ./if2
+n = -3
+n is negative
+```
+
+### `else`
+
+```c++
+#include <iostream>
+
+int main() 
+{
+  int n = 0;
+
+  std::cout << "n = " << n << std::endl;
+
+  if (n > 0) 
+  {
+    std::cout << "n is positive" << std::endl;
+  }
+  else if (n < 0) 
+  {
+    std::cout << "n is negative" << std::endl;
+  }
+  else 
+  {
+    std::cout << "n is zero" << std::endl;
+  }
+
+  return 0;
+}
+```
+
+Output:
+
+```
+$ ./if3
+n = 0
+n is zero
+```
+
+### Common mistakes
+
+Empty `if` due to extraneous semi-colon:
+
+```c++
+if (n < 0);
+  std::cout << "n is negative" << std::endl;
+```
+
+Assignment in the conditional expression:
+
+```c++
+if (n = 0)
+  std::cout << "n is zero" << std::endl;
+```
+
+Note: some people recommend always putting the 'literal' before the variable.
+This is known as a
+[Yoda Condition](https://en.wikipedia.org/wiki/Yoda_conditions).
+
+### `break`
+
+The `break` keyword breaks out of the current loop.
+
+```c++
+#include <iostream>
+
+int main() 
+{
+  for (unsigned int n = 0; n < 10; n++) 
+  {
+    std::cout << n << std::endl;
+    if (n > 3) break;
+  }
+
+  return 0;
+}
+```
+
+Output:
+
+```
+$ ./break
+0
+1
+2
+3
+4
+```
+
+### `continue`
+
+The `continue` keyword moves to the next loop iteration. 
+
+```c++
+#include <iostream>
+
+int main() 
+{
+  for (unsigned int n = 0; n < 10; n++) 
+  {
+    if (n < 7) 
+      continue;
+    std::cout << n << std::endl;
+  }
+
+  return 0;
+}
+```
+
+Output:
+
+```
+$ ./continue
+7
+8
+9
+```
+
+### Logical operators
+
+* C++ has two choices for logical operators
+
+  * Newer style `and`, `or`, `not`
+
+  * Older style `&&`, `||`,
+
+* Latter are backwards compatible with C
+
+
+### Logical AND
+
+```c++
+#include <iostream>
+
+int main() 
+{
+  int a = 7;
+  int b = 42;
+
+  // the following are equivalent
+
+  if (a == 7 and b == 42)
+    std::cout << "a == 7 and b == 42 is true" << std::endl;
+  
+  if (a == 7 && b == 42)
+    std::cout << "a == 7 && b == 42 is true" << std::endl;
+  
+  return 0;
+}
+```
+
+Output:
+
+```
+$ ./logical1
+a == 7 and b == 42 is true
+a == 7 && b == 42 is true
+```
+
+### `0` is false, everything else is true
+
+```c++
+#include <iostream>
+
+int main() 
+{
+  int a[] = {-1, 0, 1, 2};
+  
+  for (int n = 0; n < 4; n++) 
+  {
+    if (a[n])
+      std::cout << a[n] << " is true" << std::endl;
+    else
+      std::cout << a[n] << " is false" << std::endl;
+  }
+  
+  return 0;
+}
+```
+
+Output:
+
+```
+$ ./logical2
+-1 is true
+0 is false
+1 is true
+2 is true
+```
+
+### Bitwise results
+
+```c++
+#include <iostream>
+
+int main() 
+{
+  int a = 1;
+  int b = 2;
+  
+  if (a)
+    std::cout << "a is true" << std::endl;
+  else
+    std::cout << "a is false" << std::endl;
+  
+  if (b)
+    std::cout << "b is true" << std::endl;
+  else
+    std::cout << "b is false" << std::endl;
+  
+  if (a & b)
+    std::cout << "a & b is true" << std::endl;
+  else
+    std::cout << "a & b is false" << std::endl;
+  
+  return 0;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wconversion -Wextra logical3.cpp -o logical3
+$ ./logical3
+a is true
+b is true
+a & b is false
+```
+
+### `switch`
+
+* `if`, `else if`, `else`, etc. gets verbose if you have many paths of execution
+
+* Can use a switch statement instead:
+
+```c++
+if (choice == `C')
+  clearRecord();
+else if (choice == `D')
+  deleteRecord();
+else if (choice == `A')
+  addRecord();
+else if (choice == `P')
+  printRecord();
+else
+  std::cout << "Bad choice\n";
+```
+
+Becomes:
+
+```
+switch (choice) {
+  case `C': clearRecord(); break;
+  case `D': deleteRecord(); break;
+  case `A': addRecord(); break;
+  case `P': printRecord(); break;
+  default: std::cout << "Bad choice\n";
+}
+```
+
+### `switch` and `enum` example
+
+```c++
+enum direction 
+{
+  left,
+  right,
+  up,
+  down
+};
+
+int main() 
+{
+  direction d = right;
+  
+  std::string txt = "you are going ";
+  switch (d) 
+  {
+    case left:
+      txt += "left"; break;
+    case right:
+      txt += "right"; break;
+    case up:
+      txt += "up"; break;
+    case down:
+      txt += "down"; break;
+  }
+  std::cout << txt << std::endl;
+  return 0;
+}
+```
+
+Output:
+
+```
+$ ./switch1
+you are going right
+```
+
+### Advantage
+
+Compiler warnings will tell you if you are missing some cases.
+
+```c++
+switch (d)
+{
+  case left:
+    txt += "left"; break;
+  case right:
+    txt += "right"; break;
+  case down:
+    txt += "down"; break;
+}
+```
+
+Output:
+
+```
+$ g++ -Wall -Wconversion -Wextra switch2.cpp -o switch2
+switch2.cpp: In function 'int main()':
+switch2.cpp:16:10: warning: enumeration value 'up' not handled in switch [-Wswitch]
+switch (d)
+^
+```
+
+### Common mistake
+
+Neglecting to add `break` in each case.
+
+```c++
+std::string txt = "you are going ";
+switch (d) 
+{
+  case left:
+    txt += "left";
+  case right:
+    txt += "right";
+  case up:
+    txt += "up";
+  case down:
+    txt += "down";
+}
+std::cout << txt << std::endl;
+```
+
+Output:
+
+```
+$ g++ -Wall -Wconversion -Wextra switch3.cpp -o switch3
+$ ./switch3
+you are going rightupdown
+```
+
+### Ternary operator
+
+This is called the "ternary" operator:
+
+```c++
+a = b < 0 ? -b : b;
+```
+
+Equivalent code:
+
+```c++
+if (b < 0)
+  a = -b;
+else
+  a = b;
+```
+
+Anatomy:
+
+```
+[conditional] ? [return expression if true] : [return expression if false];
+```
+
+### `goto`
+
+"If you find yourself using a `goto` statement within a program, then you have not
+thought about the problem and its implementation for long enough"
+
+See: <http://xkcd.com/292/>
+
+![fig](fig/goto.png)
+
+
+
 ## C/C++ memory model
 
 * All data in your application is stored in the same physical memory
@@ -594,462 +1052,6 @@ $ valgrind ./src/new5 4
 ==61060== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 ```
 
-
-
-
-
-## Conditional statements in C++
-
-C++ has three conditional statements:
-
-* `if`
-
-* `switch`
-
-* C++ ternary operator: `(x == y) ? a : b`
-
-## C++ `if`
-
-```c++
-#include <iostream>
-
-int main() 
-{
-  int n = 2;
-
-  std::cout << "n = " << n << std::endl;
-  if (n > 0) 
-  {
-    std::cout << "n is positive" << std::endl;
-  }
-
-  return 0;
-}
-```
-
-Output:
-
-```
-$ ./if1 
-n = 2
-n is positive
-```
-
-Note: brackets `{...}` are not needed for a single line `if` block.  However, I
-recommend always putting them in.
-
-### `else if`
-
-```c++
-#include <iostream>
-
-int main() {
-  int n = -3;
-
-  std::cout << "n = " << n << std::endl;
-
-  if (n > 0) 
-  {
-    std::cout << "n is positive" << std::endl;
-  }
-  else 
-    if (n < 0) 
-    {
-      std::cout << "n is negative" << std::endl;
-    }
-
-  return 0;
-}
-```
-
-Output:
-
-```
-$ ./if2
-n = -3
-n is negative
-```
-
-### `else`
-
-```c++
-#include <iostream>
-
-int main() 
-{
-  int n = 0;
-
-  std::cout << "n = " << n << std::endl;
-
-  if (n > 0) 
-  {
-    std::cout << "n is positive" << std::endl;
-  }
-  else if (n < 0) 
-  {
-    std::cout << "n is negative" << std::endl;
-  }
-  else 
-  {
-    std::cout << "n is zero" << std::endl;
-  }
-
-  return 0;
-}
-```
-
-Output:
-
-```
-$ ./if3
-n = 0
-n is zero
-```
-
-### Common mistakes
-
-Empty `if` due to extraneous semi-colon:
-
-```c++
-if (n < 0);
-  std::cout << "n is negative" << std::endl;
-```
-
-Assignment in the conditional expression:
-
-```c++
-if (n = 0)
-  std::cout << "n is zero" << std::endl;
-```
-
-Note: some people recommend always putting the 'literal' before the variable.
-This is known as a
-[Yoda Condition](https://en.wikipedia.org/wiki/Yoda_conditions).
-
-### `break`
-
-The `break` keyword breaks out of the current loop.
-
-```c++
-#include <iostream>
-
-int main() 
-{
-  for (unsigned int n = 0; n < 10; n++) 
-  {
-    std::cout << n << std::endl;
-    if (n > 3) break;
-  }
-
-  return 0;
-}
-```
-
-Output:
-
-```
-$ ./break
-0
-1
-2
-3
-4
-```
-
-### `continue`
-
-The `continue` keyword moves to the next loop iteration. 
-
-```c++
-#include <iostream>
-
-int main() 
-{
-  for (unsigned int n = 0; n < 10; n++) 
-  {
-    if (n < 7) 
-      continue;
-    std::cout << n << std::endl;
-  }
-
-  return 0;
-}
-```
-
-Output:
-
-```
-$ ./continue
-7
-8
-9
-```
-
-### Logical operators
-
-* C++ has two choices for logical operators
-
-  * Newer style `and`, `or`, `not`
-
-  * Older style `&&`, `||`,
-
-* Latter are backwards compatible with C
-
-### Logical AND
-
-```c++
-#include <iostream>
-
-int main() 
-{
-  int a = 7;
-  int b = 42;
-
-  // the following are equivalent
-
-  if (a == 7 and b == 42)
-    std::cout << "a == 7 and b == 42 is true" << std::endl;
-  
-  if (a == 7 && b == 42)
-    std::cout << "a == 7 && b == 42 is true" << std::endl;
-  
-  return 0;
-}
-```
-
-Output:
-
-```
-$ ./logical1
-a == 7 and b == 42 is true
-a == 7 && b == 42 is true
-```
-
-### `0` is false, everything else is true
-
-```c++
-#include <iostream>
-
-int main() 
-{
-  int a[] = {-1, 0, 1, 2};
-  
-  for (int n = 0; n < 4; n++) 
-  {
-    if (a[n])
-      std::cout << a[n] << " is true" << std::endl;
-    else
-      std::cout << a[n] << " is false" << std::endl;
-  }
-  
-  return 0;
-}
-```
-
-Output:
-
-```
-$ ./logical2
--1 is true
-0 is false
-1 is true
-2 is true
-```
-
-### Bitwise results
-
-```c++
-#include <iostream>
-
-int main() 
-{
-  int a = 1;
-  int b = 2;
-  
-  if (a)
-    std::cout << "a is true" << std::endl;
-  else
-    std::cout << "a is false" << std::endl;
-  
-  if (b)
-    std::cout << "b is true" << std::endl;
-  else
-    std::cout << "b is false" << std::endl;
-  
-  if (a & b)
-    std::cout << "a & b is true" << std::endl;
-  else
-    std::cout << "a & b is false" << std::endl;
-  
-  return 0;
-}
-```
-
-Output:
-
-```
-$ g++ -Wall -Wconversion -Wextra logical3.cpp -o logical3
-$ ./logical3
-a is true
-b is true
-a & b is false
-```
-
-### `switch`
-
-* `if`, `else if`, `else`, etc. gets verbose if you have many paths of execution
-
-* Can use a switch statement instead:
-
-```c++
-if (choice == `C')
-  clearRecord();
-else if (choice == `D')
-  deleteRecord();
-else if (choice == `A')
-  addRecord();
-else if (choice == `P')
-  printRecord();
-else
-  std::cout << "Bad choice\n";
-```
-
-Becomes:
-
-```
-switch (choice) {
-  case `C': clearRecord(); break;
-  case `D': deleteRecord(); break;
-  case `A': addRecord(); break;
-  case `P': printRecord(); break;
-  default: std::cout << "Bad choice\n";
-}
-```
-
-### `switch` and `enum` example
-
-```c++
-enum direction 
-{
-  left,
-  right,
-  up,
-  down
-};
-
-int main() 
-{
-  direction d = right;
-  
-  std::string txt = "you are going ";
-  switch (d) 
-  {
-    case left:
-      txt += "left"; break;
-    case right:
-      txt += "right"; break;
-    case up:
-      txt += "up"; break;
-    case down:
-      txt += "down"; break;
-  }
-  std::cout << txt << std::endl;
-  return 0;
-}
-```
-
-Output:
-
-```
-$ ./switch1
-you are going right
-```
-
-### Advantage
-
-Compiler warnings will tell you if you are missing some cases.
-
-```c++
-switch (d)
-{
-  case left:
-    txt += "left"; break;
-  case right:
-    txt += "right"; break;
-  case down:
-    txt += "down"; break;
-}
-```
-
-Output:
-
-```
-$ g++ -Wall -Wconversion -Wextra switch2.cpp -o switch2
-switch2.cpp: In function 'int main()':
-switch2.cpp:16:10: warning: enumeration value 'up' not handled in switch [-Wswitch]
-switch (d)
-^
-```
-
-### Common mistake
-
-Neglecting to add `break` in each case.
-
-```c++
-std::string txt = "you are going ";
-switch (d) 
-{
-  case left:
-    txt += "left";
-  case right:
-    txt += "right";
-  case up:
-    txt += "up";
-  case down:
-    txt += "down";
-}
-std::cout << txt << std::endl;
-```
-
-Output:
-
-```
-$ g++ -Wall -Wconversion -Wextra switch3.cpp -o switch3
-$ ./switch3
-you are going rightupdown
-```
-
-### Ternary operator
-
-This is called the "ternary" operator:
-
-```c++
-a = b < 0 ? -b : b;
-```
-
-Equivalent code:
-
-```c++
-if (b < 0)
-  a = -b;
-else
-  a = b;
-```
-
-Anatomy:
-
-```
-[conditional] ? [return expression if true] : [return expression if false];
-```
-
-### `goto`
-
-"If you find yourself using a `goto` statement within a program, then you have not
-thought about the problem and its implementation for long enough"
-
-See: <http://xkcd.com/292/>
-
-![fig](fig/goto.png)
 
 
 
