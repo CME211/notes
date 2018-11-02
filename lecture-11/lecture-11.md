@@ -172,7 +172,7 @@ $ ./continue
 
   * C++11 standard: `and`, `or`, `not`
 
-  * Backward compatible: `&&`, `||`, `~`
+  * Backward compatible: `&&`, `||`, `!`
 
 * Latter are also compatible with C.
 
