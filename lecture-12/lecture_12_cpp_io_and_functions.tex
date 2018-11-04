@@ -1001,9 +1001,18 @@ stream: the idea is that we read characters such as \texttt{0-9}, \texttt{A-F}, 
 accumulate the results until we run into a character that is \emph{not} associated with
 a numeric representation of data.
 
+\paragraph{Determining \# Lines to Read via IO State Flags} Lastly, we comment
+on the use of the expression \texttt{while(std::cin >> ...)}: what guides the control-flow,
+i.e. how can the expression be evaluated in a way which makes sense to use in a predicate
+statement? It turns out that \texttt{std::cin} keeps track of 
+\href{https://en.cppreference.com/w/cpp/io/ios_base/iostate}
+{\texttt{std::ios\_base::iostate}} and specifically whether the last extraction succeeded
+or whether an end-of-file bit has been encountered.
+
 \subsubsection{Heterogeneous Data Types on each Line}
 See \texttt{src/dist.female.first}:
 
+{\small
 \begin{verbatim}
 MARY           2.629  2.629      1
 PATRICIA       1.073  3.702      2
@@ -1011,6 +1020,7 @@ PATRICIA       1.073  3.702      2
 KAREN          0.667 12.742     13
 BETTY          0.666 13.408     14
 \end{verbatim}
+}
 Such a file requires a little bit more care in order to parse properly. Note the data types!
 
 \begin{cpp}
@@ -1033,23 +1043,19 @@ else {
 
 \subsubsection{Varying \# of Columns/Variables in each Line/Observation}
 What if lines have a varying amount of data to load? E.g. a circle may be defined by an 
-$(x,y)$ coordinate pair and a radius, whereas a line segment, triangle, and rectangle 
+$(x,y, \texttt{radius})$ triplet, whereas a line segment, triangle, and rectangle 
 require that we 
-specify the two, three, or four (corner) points respectively.
+specify the two, three, or four $(x,y)$ corner points respectively.
 
+{\small
 \begin{verbatim}
 $ cat geometry1.txt
 workspace 0 0 10 10
 circle 3 7 1
 triangle 4 6 8 6 5 7
 rectangle 1 1 8 2
-
-$ cat geometry2.txt
-workspace 0 0 10 10
-circle 3 7 1
-line 0 0 3 2
-rectangle 1 1 8 2
 \end{verbatim}
+}
 
 {\small
 \begin{cpp}
@@ -1059,23 +1065,16 @@ if (f.is_open()) {
   while (f >> shape) {
     int nval;
     // Determine the shape and how many values need to be read
-    if (shape == "workspace" or shape == "rectangle")
-      nval = 4;
-    else if (shape == "circle")
-      nval = 3;
-    else if (shape == "triangle")
-      nval = 6;
+    if (shape == "workspace" or shape == "rectangle") nval = 4;
+    else if (shape == "circle")                       nval = 3;
+    else if (shape == "triangle")                     nval = 6;
     else {
-      std::cerr << "ERROR: Unknown shape '" << shape;
-      std::cerr << "'" << std::endl;
+      std::cerr << "ERROR: Unknown shape '" << shape << "'" << std::endl;
       return 1;
     }
-
-  // Read appropriate number of values
   float val[6];
-  for (int n = 0; n < nval; n++) {
+  for (int n = 0; n < nval; n++)    // Read appropriate number of values
     f >> val[n];
-  }
 \end{cpp}
 }
 
@@ -1099,7 +1098,7 @@ else {
 }
 \end{cpp}
 
-\section{String stream}
+\section{String Stream}
 A \href{https://en.cppreference.com/w/cpp/io/basic_stringstream}
 {\texttt{std::basic\_stringstream}} offers a convenient way to manipulate strings in a way similar to what we learned above with IO devices.
 
@@ -1116,7 +1115,11 @@ based on the path delimiter (\texttt{/}) and then for each
 folder (string) returned, consider whether we are applying a 
 reversal (via \texttt{..}), a nullpotent operator (one of \texttt{.} or the empty string  \texttt{""}), or 
 if we're actually specifying a new sub-folder (i.e. any other sequence of characters). An implementation may use a \texttt{stringstream} (and perhaps 
-\texttt{vector}, which we'll learn about soon); from \texttt{simplifyPath.cpp}.
+\texttt{vector}, which we'll learn about soon). Consider \texttt{simplifyPath.cpp},
+and realize that when we use \texttt{std::getline()}, that it also can be used in a predicate
+since it utilizes 
+\href{https://en.cppreference.com/w/cpp/io/ios_base/iostate}{\texttt{std::ios\_base::iostate}} 
+state flags.
 
 \begin{cpp}
 std::string simplifyPath(std::string path) {
@@ -1144,89 +1147,89 @@ requires a few lines of code, and it's much easier to simply treat the string
 secondary argument set to \texttt{/}; the \texttt{stringstream} 
 abstraction yields a more concise program.
 
-\subsection{Using \texttt{stringstream} to Test for Extraction}
-\paragraph{Convert an Argument to a Numeric Representation} First recall that
-arguments passed from command line are held in an array of \texttt{char*}s, so if we'd
-like to treat the data as numeric, we require creation of the appropriate data-type.
-We can do this, for example, with 
-\href{https://en.cppreference.com/w/cpp/string/basic_string/stol}{\texttt{std::stoi}} 
-(string to integer); but what if the input argument isn't extracted properly?
+% \subsection{Using \texttt{stringstream} to Test for Extraction}
+% \paragraph{Convert an Argument to a Numeric Representation} First recall that
+% arguments passed from command line are held in an array of \texttt{char*}s, so if we'd
+% like to treat the data as numeric, we require creation of the appropriate data-type.
+% We can do this, for example, with 
+% \href{https://en.cppreference.com/w/cpp/string/basic_string/stol}{\texttt{std::stoi}} 
+% (string to integer); but what if the input argument isn't extracted properly?
 
-\begin{cpp}
-#include <iostream>
+% \begin{cpp}
+% #include <iostream>
 
-int main(int argc, char* argv[]) {
-        if (argc < 2) return 1;
-        // std::stoi handles signed integers, but ...
-        unsigned n = std::stoi(argv[1]);  // ... assignment to 'n' forces implicit conversion to unsigned!
-        std::cout << "You input n = " << n << std::endl;
-}
-\end{cpp}
+% int main(int argc, char* argv[]) {
+%         if (argc < 2) return 1;
+%         // std::stoi handles signed integers, but ...
+%         unsigned n = std::stoi(argv[1]);  // ... assignment to 'n' forces implicit conversion to unsigned!
+%         std::cout << "You input n = " << n << std::endl;
+% }
+% \end{cpp}
 
-We can compile this program with all our favorite warning flags: this is \emph{not}
-sufficient to guard against a malformed input being fed as argument during any particular
-\emph{invocation} of the program. I.e. our compile time check is not sufficient to test
-whether the argument provided when instantiating the program is suitable.
-\begin{verbatim}
-g++ -std=c++11 -Wall -Wextra -Wconversion -Wpedantic extraction1.cpp -o extraction1
-./extraction1 256
-You input n = 256          # Looks ok!
-./extraction1 -1
-You input n = 4294967295   # Oops: implicit cast from signed to unsigned.
-\end{verbatim}
+% We can compile this program with all our favorite warning flags: this is \emph{not}
+% sufficient to guard against a malformed input being fed as argument during any particular
+% \emph{invocation} of the program. I.e. our compile time check is not sufficient to test
+% whether the argument provided when instantiating the program is suitable.
+% \begin{verbatim}
+% g++ -std=c++11 -Wall -Wextra -Wconversion -Wpedantic extraction1.cpp -o extraction1
+% ./extraction1 256
+% You input n = 256          # Looks ok!
+% ./extraction1 -1
+% You input n = 4294967295   # Oops: implicit cast from signed to unsigned.
+% \end{verbatim}
 
-What if we tried to read from standard input, using \texttt{operator>>} instead of 
-reading an argument from \texttt{argv[]}? The result is the same: warning flags don't
-catch an error at compile time, but a malformed input during run-time can 
-yield undesirable behavior.
+% What if we tried to read from standard input, using \texttt{operator>>} instead of 
+% reading an argument from \texttt{argv[]}? The result is the same: warning flags don't
+% catch an error at compile time, but a malformed input during run-time can 
+% yield undesirable behavior.
 
-\begin{cpp}
-#include <iostream>
- int main() {
-        unsigned n;
-        std::cin >> n;
-        std::cout << "You input n = " << n << std::endl;
-}
-\end{cpp}
+% \begin{cpp}
+% #include <iostream>
+ % int main() {
+%         unsigned n;
+%         std::cin >> n;
+%         std::cout << "You input n = " << n << std::endl;
+% }
+% \end{cpp}
 
-See \texttt{src/extraction2.cpp}. When we compile and run the program, we don't provide any
-arguments from the command line, but instead when the main program begins executing 
-it hangs when the expression \texttt{std::cin >> n} is encountered and waits for user 
-input from console. We can try inputting either \texttt{256} or \texttt{-1} at this time
-and observe a result identical to what we did above, since a similar implicit conversion
-is happening. How can we guard against this? \texttt{stringstream} to the rescue.
+% See \texttt{src/extraction2.cpp}. When we compile and run the program, we don't provide any
+% arguments from the command line, but instead when the main program begins executing 
+% it hangs when the expression \texttt{std::cin >> n} is encountered and waits for user 
+% input from console. We can try inputting either \texttt{256} or \texttt{-1} at this time
+% and observe a result identical to what we did above, since a similar implicit conversion
+% is happening. How can we guard against this? \texttt{stringstream} to the rescue.
 
-\begin{cpp}
-#include <iostream>
-#include <sstream>
+% \begin{cpp}
+% #include <iostream>
+% #include <sstream>
 
-int main(int argc, char *argv[]) {
-  // Setup a string stream to access the command line argument
-  std::string arg = argv[1];
-  std::stringstream ss;
-  ss << arg;
+% int main(int argc, char *argv[]) {
+%   // Setup a string stream to access the command line argument
+%   std::string arg = argv[1];
+%   std::stringstream ss;
+%   ss << arg;
 
-  // Attempt to extract an integer from the string stream
-  int n = 0;
-  if (ss >> n)    // Test for extraction success!
-    std::cout << "n = " << n << std::endl;
-  else
-    std::cerr << "ERROR: string stream extraction failed" << std::endl;
+%   // Attempt to extract an integer from the string stream
+%   int n = 0;
+%   if (ss >> n)    // Test for extraction success!
+%     std::cout << "n = " << n << std::endl;
+%   else
+%     std::cerr << "ERROR: string stream extraction failed" << std::endl;
 
-  return 0;
-}
-\end{cpp}
+%   return 0;
+% }
+% \end{cpp}
 
-\begin{verbatim}
-$ ./extraction3
-n = 42
-$ ./extraction3
-n = -17
-$ ./extraction3
-ERROR: string stream extraction failed
-$ ./extraction3
-n = 3
-\end{verbatim}
+% \begin{verbatim}
+% $ ./extraction3
+% n = 42
+% $ ./extraction3
+% n = -17
+% $ ./extraction3
+% ERROR: string stream extraction failed
+% $ ./extraction3
+% n = 3
+% \end{verbatim}
 
 
 
