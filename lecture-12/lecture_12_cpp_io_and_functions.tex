@@ -1099,103 +1099,103 @@ else {
 }
 \end{cpp}
 
-\subsection{String stream}
+\section{String stream}
 A \href{https://en.cppreference.com/w/cpp/io/basic_stringstream}
-{\texttt{std::basic\_stringstream}} offers a convenient way to manipulate strings 
-in a way similar to what we learned above with IO devices.
+{\texttt{std::basic\_stringstream}} offers a convenient way to manipulate strings in a way similar to what we learned above with IO devices.
 
+\subsection{Using \texttt{stringstream} to Enable IO-Like Operations on \texttt{string}s}
 \paragraph{Example: Simplify a Directory Path} Suppose you're given a Unix-style absolute path, and are asked to simplify it. E.g. 
-\begin{itemize} \item \texttt{/myfolder/} $\leadsto$ \texttt{/myfolder}, or
-\item \texttt{/a/./b/../../c/} $leadsto$ \texttt{/c}, and perhaps lastly 
-\item \texttt{/a//b////c/d//././/..} $\leadsto$ \texttt{/a/b/c}.   \end{itemize}
+\begin{itemize} 
+  \item \texttt{/myfolder/} $\leadsto$ \texttt{/myfolder}, or
+  \item \texttt{/a/./b/../../c/} $\leadsto$ \texttt{/c}, and perhaps lastly 
+  \item \texttt{/a//b////c/d//././/..} $\leadsto$ \texttt{/a/b/c}.   
+\end{itemize}
+
 There are many solutions. One might attempt to split the input string 
 based on the path delimiter (\texttt{/}) and then for each 
 folder (string) returned, consider whether we are applying a 
-reversal (via \texttt{..}), a nullpotent operator (one of \texttt{.} or the empty string 
-\texttt{""}), or 
-if we're actually specifying a new sub-folder (i.e. any other sequence of characters).
-There's another approach that we could take using a string-stream.
+reversal (via \texttt{..}), a nullpotent operator (one of \texttt{.} or the empty string  \texttt{""}), or 
+if we're actually specifying a new sub-folder (i.e. any other sequence of characters). An implementation may use a \texttt{stringstream} (and perhaps 
+\texttt{vector}, which we'll learn about soon); from \texttt{simplifyPath.cpp}.
 
 \begin{cpp}
-int main(std::string path) {     string res, tmp;     vector<string> stk;     stringstream ss(path);     while(getline(ss,tmp,'/')) {         if (tmp == "" or tmp == ".")      continue;         if (tmp == ".." and !stk.empty()) stk.pop_back();         else if (tmp != "..")             stk.push_back(tmp);     }     for(auto str : stk) res += "/"+str;     return res.empty() ? "/" : res; }
-\end{cpp}
-
-Output:
-
-\begin{verbatim}
-$ ./extraction1
-Usage:
-./extraction1 <name data> [nnames]
-
-Read at most nnames (optional)
-\end{verbatim}
-
-\subsubsection{Convert argument to number}
-\begin{cpp}
-#include <limits>
-
-int main(int argc, char *argv[]) {
-  if (argc < 2) {
-    std::cout << "Usage:" << std::endl;
-    std::cout << " " << argv[0] << " <name data> [nnames]" << std::endl << std::endl;
-    std::cout << " Read at most nnames (optional)" << std::endl;
-    return 0;
-  }
-
-  // Setup string for the filename to be read
-  std::string filename = argv[1];
-
-  // Determine maximum number of names to read
-  int nnames = std::numeric_limits<int>::max();
-  if (argc == 3) {
-    nnames = std::stoi(argv[2]);
-  }
-
-  std::ifstream f;
-  f.open(filename);
-\end{cpp}
-
-\subsubsection{Convert argument to number}
-\begin{verbatim}
-$ ./extraction1 dist.female.first
-Read 10 names.
-$ ./extraction1 dist.female.first 7
-Read 7 names.
-$ ./extraction1 dist.female.first 3
-Read 3 names.
-\end{verbatim}
-
-\subsubsection{Testing extraction}
-\begin{cpp}
-#include <iostream>
-#include <sstream>
-
-int main(int argc, char *argv[]) {
-  // Setup a string stream to access the command line argument
-  std::string arg = argv[1];
-  std::stringstream ss;
-  ss << arg;
-
-  // Attempt to extract an integer from the string stream
-  int n = 0;
-  ss >> n;
-  std::cout << "n = " << n << std::endl;
-
-  return 0;
+std::string simplifyPath(std::string path) {
+  std::string res, tmp;     
+  std::vector<std::string> stk;    
+  std::stringstream ss(path);     
+  while(getline(ss,tmp,'/')) {         
+    if (tmp == "" or tmp == ".")      continue;         
+    if (tmp == ".." and !stk.empty()) stk.pop_back();         
+    else if (tmp != "..")             stk.push_back(tmp);    
+  }     
+  for(auto str : stk) res += "/" + str;     
+  return res.empty() ? "/" : res; 
 }
 \end{cpp}
 
-\subsubsection{Testing extraction}
+\paragraph{Advantage of \texttt{stringstream}} In this situation, one might ask:
+``why not simply take the string \texttt{path} and manually split on \texttt{/}?''.
+Well, in order to do this in C++ we'd need to do something like: (i)
+use \texttt{str.find()} twice to search for a \emph{pair} of delimiting \texttt{/},
+after which we (ii) extract the sequence of characters in between, and continue until
+no more delimiting \texttt{/} are found in the string. Implementing (i) and (ii) 
+requires a few lines of code, and it's much easier to simply treat the string 
+\texttt{path} as a \texttt{stringstream}, wherein we can use \texttt{getline} with a 
+secondary argument set to \texttt{/}; the \texttt{stringstream} 
+abstraction yields a more concise program.
+
+\subsection{Using \texttt{stringstream} to Test for Extraction}
+\paragraph{Convert an Argument to a Numeric Representation} First recall that
+arguments passed from command line are held in an array of \texttt{char*}s, so if we'd
+like to treat the data as numeric, we require creation of the appropriate data-type.
+We can do this, for example, with 
+\href{https://en.cppreference.com/w/cpp/string/basic_string/stol}{\texttt{std::stoi}} 
+(string to integer); but what if the input argument isn't extracted properly?
+
+\begin{cpp}
+#include <iostream>
+
+int main(int argc, char* argv[]) {
+        if (argc < 2) return 1;
+        // std::stoi handles signed integers, but ...
+        unsigned n = std::stoi(argv[1]);  // ... assignment to 'n' forces implicit conversion to unsigned!
+        std::cout << "You input n = " << n << std::endl;
+}
+\end{cpp}
+
+We can compile this program with all our favorite warning flags: this is \emph{not}
+sufficient to guard against a malformed input being fed as argument during any particular
+\emph{invocation} of the program. I.e. our compile time check is not sufficient to test
+whether the argument provided when instantiating the program is suitable.
 \begin{verbatim}
-$ ./extraction2 42
-n = 42
-$ ./extraction2 -17
-n = -17
-$ ./extraction2 hello
-n = 0
+g++ -std=c++11 -Wall -Wextra -Wconversion -Wpedantic extraction1.cpp -o extraction1
+./extraction1 256
+You input n = 256          # Looks ok!
+./extraction1 -1
+You input n = 4294967295   # Oops: implicit cast from signed to unsigned.
 \end{verbatim}
 
-\subsubsection{Extraction failures}
+What if we tried to read from standard input, using \texttt{operator>>} instead of 
+reading an argument from \texttt{argv[]}? The result is the same: warning flags don't
+catch an error at compile time, but a malformed input during run-time can 
+yield undesirable behavior.
+
+\begin{cpp}
+#include <iostream>
+ int main() {
+        unsigned n;
+        std::cin >> n;
+        std::cout << "You input n = " << n << std::endl;
+}
+\end{cpp}
+
+See \texttt{src/extraction2.cpp}. When we compile and run the program, we don't provide any
+arguments from the command line, but instead when the main program begins executing 
+it hangs when the expression \texttt{std::cin >> n} is encountered and waits for user 
+input from console. We can try inputting either \texttt{256} or \texttt{-1} at this time
+and observe a result identical to what we did above, since a similar implicit conversion
+is happening. How can we guard against this? \texttt{stringstream} to the rescue.
+
 \begin{cpp}
 #include <iostream>
 #include <sstream>
@@ -1208,7 +1208,7 @@ int main(int argc, char *argv[]) {
 
   // Attempt to extract an integer from the string stream
   int n = 0;
-  if (ss >> n)
+  if (ss >> n)    // Test for extraction success!
     std::cout << "n = " << n << std::endl;
   else
     std::cerr << "ERROR: string stream extraction failed" << std::endl;
@@ -1217,7 +1217,6 @@ int main(int argc, char *argv[]) {
 }
 \end{cpp}
 
-\subsubsection{Extraction failures}
 \begin{verbatim}
 $ ./extraction3
 n = 42
