@@ -452,7 +452,7 @@ Variables should not be declared with excessive scope.
 #include <iostream>
 
 int main() {
-  { int n = 5; }     # Narrow most scope. Not accessible from rest of 'main()'.
+  { int n = 5; }     // Narrow most scope. Not accessible from rest of 'main()'.
   std::cout << "n = " << n << std::endl;
 }
 \end{cpp}
@@ -687,10 +687,10 @@ This could catch the novice programmer by surprise.
 #include <iostream>
 
 int main() {
-  int a, b;   # Declare 'a' and 'b' to both be integers.
-  a = 2.7;    # Oops! C++ will implicitly truncate float to convert to int type on LHS of `=`.
+  int a, b;   // Declare 'a' and 'b' to both be integers.
+  a = 2.7;    // Oops! C++ will implicitly truncate float to convert to int type on LHS of `=`.
   b = 3;
-  int c = a + b;  # Adds to 5, since 'a' holds the integer value 2.
+  int c = a + b;  // Adds to 5, since 'a' holds the integer value 2.
 
   std::cout << "c = " << c << std::endl;
 }
@@ -756,7 +756,7 @@ multiply is actually executed.
 int main() {
   int    a = 2;
   double b = 3.14;
-  double c = a*b;   # In this expression, 'a' implicitly cast to double.
+  double c = a*b;   // In this expression, 'a' implicitly cast to double.
   std::cout << "c = " << c << std::endl;
 }
 \end{cpp}
@@ -829,7 +829,7 @@ built-in methods.
 
 int main() {
   std::string hello = "Hello world";
-  std::cout << hello << std::endl;    # Compiles without warning. Prints "Hello world" when executed.
+  std::cout << hello << std::endl;    // Compiles without warning. Prints "Hello world" when executed.
 }
 \end{cpp}
 
