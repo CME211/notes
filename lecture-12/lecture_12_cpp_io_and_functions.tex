@@ -8,7 +8,7 @@
 
 \begin{document}
 \title{Lecture 12: Functions and File IOin C++, \\ Preprocessor Step of Compilation\vspace{-5ex}}
-\date{November 3rd, 2018}
+\date{November 5th, 2018}
 \maketitle
 
 {\footnotesize
@@ -17,14 +17,15 @@ formatting, (file) IO, pre-processor and \texttt{\#include}.
 }
 \vspace{-3ex}
 
-\section{Functions}
+\section{Functions in C++}
 Functions allow us to decompose a program into smaller components
 It is easier to implement, test, and debug portions of a program in isolation;
 further, decomposition allows work to be spread among many people working mostly
-independently.
-If done properly it can make your program easier to understand and
+independently. When done properly, resulting programs are easier to understand and
 maintain: we seek to eliminate duplicated code and reuse functions across 
-multiple programs.
+multiple programs. 
+\href{https://en.wikipedia.org/wiki/Don%27t_repeat_yourself#DRY_vs_WET_solutions}
+{Don't Repeat Yourself (DRY vs. WET code)}.
 
 
 \begin{cpp}
@@ -36,7 +37,7 @@ int sum(int a, int b) {
 
 Components:
 
-{\small
+{\footnotesize
 \begin{verbatim}
 return_type function_name(argument_type1 argument_var1, ...) {
    // function body
@@ -60,17 +61,15 @@ int main() {
 }
 \end{cpp}
 
-Output:
+We can compile with \texttt{g++ -Wall -Wextra -Wconversion sum1.cpp -o sum1} and run:
 
 \begin{verbatim}
-$ g++ -Wall -Wextra -Wconversion sum1.cpp -o sum1
 $ ./sum1
 c = 5
 \end{verbatim}
 
 \subsection{Order of Declaration Matters}
-Consider \texttt{src/sum2.cpp}, wherein we attempt to define our \texttt{sum} function
-\emph{after} we use it within \texttt{main}.
+Consider \texttt{src/sum2.cpp}: we attempt to \emph{use} a function \emph{before} defining it. This yields an error.
 
 \begin{cpp}
 #include <iostream>
@@ -102,17 +101,17 @@ sum2.cpp:7:18: error: 'sum' was not declared in this scope
 \end{verbatim}
 }
 \paragraph{Function Declaration}
-A function \emph{declaration} specifies the function name, input
-argument type(s), and output type only. The function \emph{declaration}
+A \href{https://en.cppreference.com/w/cpp/language/function}{function \emph{declaration}} 
+specifies the function name, input
+argument type(s), and output type only; it 
 need not specify the implementation (code) for the function, however it does
 critically specify the information needed from a compiler in order to validate
-that the function is being used correctly (and that our program's type-system is 
-well-respected).
+its use within a program.
 
 \paragraph{Function Definition}
 A function \emph{definition} is the code that implements the function, and 
 it is legal to call a function if it has been defined or
-\emph{simply declared} previously. \texttt{src/sum3.cpp}:
+\emph{simply declared}; see \texttt{src/sum3.cpp}.
 
 \begin{cpp}
 #include <iostream>
@@ -132,18 +131,21 @@ int sum(int a, int b) {
   return c;
 }
 \end{cpp}
-
-Output:
-
+{\small
 \begin{verbatim}
 $ g++ -Wall -Wextra -Wconversion sum3.cpp -o sum3
 $ ./sum3
 c = 5
 \end{verbatim}
+}
 
 \subsection{Functions, Data Types, and Implicit Casting}
 \subsubsection{Arguments (and Return Types) Cast to Match Function Declaration}
-What happens if we provide arguments ``with incorrect type''? It really depends on what sub-routines the compiler finds (i.e. what we've defined and \texttt{\#include}d).
+What happens if we provide arguments ``with incorrect type''? It really depends on what sub-routines the compiler finds (i.e. what we've defined and \texttt{\#include}d).\footnote{In CME 212, we'll emphasize a bit more details around
+\href{https://en.cppreference.com/w/cpp/language/lookup}{lookup}, which may involve 
+\href{https://en.cppreference.com/w/cpp/language/adl}{inspecting arguments via argument dependent lookup} (and possibly template argument deduction) to disambiguate overloaded functions, 
+and how the compiler
+determines which sub-routine to execute when a \href{https://en.cppreference.com/w/cpp/language/identifiers#Names}{\texttt{name}} is encountered.} 
 Consider \texttt{src/datatypes1.cpp}.
 
 \begin{cpp}
@@ -160,11 +162,13 @@ int main() {
 }
 \end{cpp}
 
-Here, the compiler runs into \texttt{sum(a,b)} and sees that there is only a single 
+\paragraph{A sub-routine accepting numeric inputs is found, but implicit casting required}
+Above, the compiler runs into \texttt{sum(a,b)} and sees that there is only a single 
 \texttt{sum()} function defined. This is good news, however the function happens to require
 \texttt{int}eger arguments. We learned previously that although C++ is strongly typed,
-some implicit casting does still occur, and some of those can be between numeric types.
-Here, if we enable warning flags in the compilation process, we are told that our variables \texttt{a} and \texttt{b} are implicitly being cast to \texttt{int} such that we can
+some implicit casting can occur between numeric types.
+With warning flags enabled, we are told that
+variables \texttt{a} and \texttt{b} are implicitly being cast to \texttt{int} such that we can
 proceed with evaluating \texttt{sum(a,b)}. Output:
 
 {\small
@@ -185,19 +189,15 @@ Consider \texttt{src/datatypes2.cpp}:
 
 \begin{cpp}
 #include <iostream>
-
 int sum(int a, int b) {
   double c = a + b;
   return c; // we are not returning the correct type
 }
 
 int main() {
-  double a = 2.7, b = 3.8;
-
+  int a = 2, b = 3;
   int c = sum(a,b);
   std::cout << "c = " << c << std::endl;
-
-  return 0;
 }
 \end{cpp}
 
@@ -208,11 +208,6 @@ datatypes2.cpp: In function 'int sum(int, int)':
 datatypes2.cpp:6:10: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]
   return c;
          ^
-datatypes2.cpp: In function 'int main()':
-datatypes2.cpp:13:18: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]
-  int c = sum(a,b);
-              ^
-datatypes2.cpp:13:18: warning: conversion to 'int' from 'double' may alter its value [-Wconversion]
 $ ./datatypes2
 c = 5
 \end{verbatim}
@@ -232,19 +227,19 @@ int sum(int a, int b) {
 
 int main() {
   double a = 2.7, b = 3.8;
-
   int c = sum((int)a,(int)b);
   std::cout << "c = " << c << std::endl;
-
-  return 0;
 }
 \end{cpp}
 
-Output:
+Output after compiling with \texttt{g++ -Wall -Wextra -Wconversion datatypes3.cpp -o datatypes3}:
 
+{\small
 \begin{verbatim}
-$ g++ -Wall -Wextra -Wconversion datatypes3.cpp -o datatypes3
+$ ./datatypes3
+c = 5
 \end{verbatim}
+}
 
 \subsection{\texttt{void} Data Type: Absent/Unspecified}
 We can think of using the \texttt{void} keyword to indicate absence of data, e.g.
@@ -266,7 +261,7 @@ int main() {
 \end{cpp}
 
 Output:
-
+{\small
 \begin{verbatim}
 $ g++ -Wall -Wextra -Wconversion void1.cpp -o void1
 $ ./void1
@@ -274,6 +269,7 @@ $ ./void1
       MySolver v1.0
 -------------------------
 \end{verbatim}
+}
 
 \subsubsection{\texttt{void} Functions \emph{Cannot} Return Data} Attempting to return
 a non-\texttt{void} (or absent) value from a \texttt{void} function results in a compiler 
@@ -324,10 +320,12 @@ int main() {
 }
 \end{cpp}
 
-Output:
+Output after compiling with \texttt{g++ -Wall -Wextra -Wconversion void3.cpp -o void3}:
 
 \begin{verbatim}
-$ g++ -Wall -Wextra -Wconversion void3.cpp -o void3
+-------------------------
+      MySolver v1.0      
+-------------------------
 \end{verbatim}
 
 \subsubsection{Ignoring Return Value} This is simply done by not \emph{using} the return
@@ -405,13 +403,14 @@ int main() {
 \end{cpp}
 
 It's maybe not surprising that the program outputs \texttt{a = 2} followed by \texttt{a = 3}. However, the problem here really lies in the fact that variable \texttt{a} is being used within \texttt{main} and also this very same variable is always being used by our \texttt{increment} function; this is likely to lead to a subtle bug at best. Output:
-
+{\small
 \begin{verbatim}
 $ g++ -Wall -Wextra -Wconversion scope2.cpp -o scope2
 $ ./scope2
 a = 2
 a = 3
 \end{verbatim}
+}
 
 \subsection{Passing Arguments (by \emph{value})}
  We strive to be explicit about what the arguments our
@@ -431,19 +430,19 @@ int main() {
 
   increment(a);
   std::cout << "a = " << a << std::endl;
-
-  return 0;
 }
 \end{cpp}
 
 Output:
 
+{\small
 \begin{verbatim}
 $ g++ -Wall -Wextra -Wconversion passing1.cpp -o passing1
 $ ./passing1
 a = 3
 a = 2
 \end{verbatim}
+}
 
 \subsubsection{Passing Pointer Arguments (still by \emph{value})}
 We must be careful of what is being copied! If we pass a pointer, the value gets 
@@ -462,11 +461,9 @@ void increment(int a[2]) {
 int main() {
   int a[2] = {2, 3};
 
-  std::cout << "a[0] = " << ", " << "a[1] = " << std::endl;
+  std::cout << "a[0] = " << a[0] << ", " << "a[1] = " << a[1] << std::endl;
   increment(a);
-  std::cout << "a[0] = " << ", " << "a[1] = " << std::endl;
-  
-  return 0;
+  std::cout << "a[0] = " << a[0] << ", " << "a[1] = " << a[1] << std::endl;
 }
 \end{cpp}
 
@@ -476,6 +473,8 @@ $ ./passing2
 a[0] = 2, a[1] = 3
 a[0] = 3, a[1] = 4
 \end{verbatim}
+
+\paragraph{If we \emph{copy} a pointer, the value of the pointer refers to the same underlying data}
 C++ defaults to pass by value, which means that when calling a
 function the arguments are copied into a new stack-frame.
 However, you need to be careful and recognize what is being copied!
@@ -513,13 +512,13 @@ int sum(int a, int b) {
 \end{cpp}
 
 Output:
-
+{\small
 \begin{verbatim}
 $ g++ -Wall -Wextra -Wconversion main4.cpp sum4.cpp -o sum4
 $ ./sum4
 c = 5
 \end{verbatim}
-
+}
 \subsubsection{Linker Errors} We'll discuss in a later lecture the details of the 
 compilation process. One step is to ensure that each function being used has a valid 
 definition. Suppose we have a prototype for a function, but no corresponding definition?
@@ -533,11 +532,8 @@ int sum(int a, int b);
 
 int main() {
   int a = 2, b = 3;
-
   int c = sum(a,b);
   std::cout << "c = " << c << std::endl;
-
-  return 0;
 }
 \end{cpp}
 
@@ -552,12 +548,14 @@ double sum(double a, double b) {
 
 Output:
 
+{\small
 \begin{verbatim}
 $ g++ -Wall -Wextra -Wconversion main5.cpp sum5.cpp -o sum5
 /tmp/ccCKlsvX.o: In function main':
 main5.cpp:(.text+0x21): undefined reference to sum(int, int)'
 collect2: error: ld returned 1 exit status
 \end{verbatim}
+}
 
 \section{Command line arguments}
 Let's consider how we can pass arguments from the command line to a C++ program. 
@@ -592,6 +590,7 @@ int main(int argc, char *argv[]) {
 
 Output:
 
+{\small
 \begin{verbatim}
 $ ./argv1 hello.txt 3.14 42
 0 ./argv1
@@ -599,6 +598,7 @@ $ ./argv1 hello.txt 3.14 42
 2 3.14
 3 42
 \end{verbatim}
+}
 
 \subsection{Formatting ({\small a Minimum Number of}) Command Line Arguments}
 If our program requires a minimum number of inputs in order to execute, we must
@@ -625,8 +625,6 @@ int main(int argc, char *argv[]) {
   std::cout << "filename = " << filename << std::endl;
   std::cout << "param1 = "   << param1   << std::endl;
   std::cout << "param2 = "   << param2   << std::endl;
-
-  return 0;
 }
 \end{cpp}
 
@@ -666,10 +664,13 @@ int main() {
 }
 \end{cpp}
 
+{\small
 \begin{verbatim}
 $ ./formatting1
 a = 2
 \end{verbatim}
+}
+
 Even though \texttt{a} is type \texttt{double}, it has no fractional part, so the 
 default formatting options encourage only the minimum number of digits to be 
 displayed accurately.
@@ -678,6 +679,7 @@ displayed accurately.
 \subsection{Manipulators and Formatting Flags}
 Just like Python, a significant amount of flexibility in string formatting is offered.
 
+\vspace{-2ex}
 \subsubsection{Manipulators} 
 \href{https://en.cppreference.com/w/cpp/io/manip}{Manipulators}
 are helper functions that allow us to control 
@@ -698,14 +700,20 @@ int main() {
 
 Compiling and running, we see that
 
+{\small
 \begin{verbatim} g++ -std=c++11 formatting_flags.cpp -o formatting_flags
 ./formatting_flags
 The decimal number 42 in decimal: 42 
 The decimal number 42 in octal:   52 
-The decimal number 42 in hex:     2a \end{verbatim}
-This should seem familiar since
+The decimal number 42 in hex:     2a 
+\end{verbatim}
+}
+
+This should seem familiar, perhaps after we recall that in 
+\href{https://simple.wikipedia.org/wiki/Hexadecimal_numeral_system}{hex} 
+A-F maps to {\small \{10, $\ldots$, 15\}}.
 \[
-  42 = 4\times 10^1 + 2\times 10^0 = 5\times 8^1  + 2\times 8^0 = 2\times 16^1 + 10\times 16^0.
+  42 = {\bf 4} \times 10^1 + {\bf 2}\times 10^0 = {\bf 5}\times 8^1  + {\bf 2}\times 8^0 = {\bf 2}\times 16^1 + {\bf 10}\times 16^0.
 \]
 
 \subsubsection{Formatting Flags and \texttt{setf}} 
@@ -736,6 +744,7 @@ with  formatting flags (e.g. \texttt{std::ios\_base::dec}).
     std::cout << "The number 42 in hex:     " << 42 << std::endl;
 } \end{cpp}
 
+\paragraph{\texttt{setf} Updates Internal Flags (with Boolean Logic)}
 Let \texttt{fl} denote the state of our internal formatting flags.
 Then, the one-argument \texttt{setf} sub-routine simply applies the 
 bitmask with something like
@@ -840,8 +849,7 @@ int main() {
 }
 \end{cpp}
 
-Output:
-
+{\small
 \begin{verbatim}
 $ ./formatting6
 Minimum Field width...currently set to 0
@@ -853,6 +861,7 @@ Minimum Field width...currently set to 0
          12.345
                         12.345
 \end{verbatim}
+}
 
 \subsubsection{Fill character}
 What if instead of a minimum output field width (via \texttt{std::ios\_base::width()} 
@@ -963,9 +972,12 @@ See \texttt{src/file1.cpp}. Recall
 how the stream insertion \texttt{operator>>} 
 behaves: it returns a reference to the remaining stream after reading a unit of data 
 from the stream. Basic signature:
+
 \begin{cpp}
 basic_istream& operator>>( int& value );
 \end{cpp}
+
+\paragraph{Return Type is a Reference to an Input Stream}
 This signature tells us that the output type is a reference to (denoted by the trailing\texttt{\&} after the type) a \texttt{basic\_istream} object, and that the input argument 
 accepts an integer by reference (i.e. a variable we wish to mutate).
 I.e. if we have an expression like \texttt{f >> uid}, then we can think of this as
@@ -1036,9 +1048,7 @@ if (f.is_open()) {
   }
   f.close();
 }
-else {
-  std::cerr << "ERROR: Failed to open file" << std::endl;
-}
+else { std::cerr << "ERROR: Failed to open file" << std::endl; }
 \end{cpp}
 
 \subsubsection{Varying \# of Columns/Variables in each Line/Observation}
