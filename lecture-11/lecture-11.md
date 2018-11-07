@@ -1044,11 +1044,11 @@ collect2: error: ld returned 1 exit status
 
 ## Using `const` types
 
-You can define a constant in C++ by using `const` data types. You can
+Constants in C++ are defined by using `const` data types. You can
 initialize constants, but you cannot assign new values to them after they
 are defined.
 
-You specify constant data type by adding keyword `const` after the type name.
+A constant data type is specified by adding keyword `const` after the type name.
 If the keyword `const` is put at the begining of the statement, it will apply
 to the next word in C++ statement. The next word must be a type name. See,
 for example, code in `const1.cpp`:
@@ -1058,8 +1058,8 @@ for example, code in `const1.cpp`:
 
 int main() 
 {
-  const int a = 2; // The two definitions are equivalent and
-  int const b = 3; // specify constant integers.
+  const int a = 2; // The two definitions are equivalent.
+  int const b = 3; // Both define constant integers.
 
   int c = a + b;
   std::cout << "c = " << c << std::endl;
@@ -1069,7 +1069,7 @@ int main()
   return 0;
 }
 ```
-If we try to build this code, the compiler will return error like this:
+If we try to build this code, the compiler will return an error like this:
 ```
 $ g++ -Wall -Wextra -Wconversion -pedantic -o const1 const1.cpp 
 const1.cpp:11:5: error: cannot assign to variable 'a' with const-qualified type
