@@ -4,6 +4,7 @@
 
 * Conditionals
 * Functions
+* `const` types
 * Dynamic arrays
 * Basic file operations in C++
 
