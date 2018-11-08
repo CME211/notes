@@ -765,7 +765,7 @@ int main()
   std::string h = "Hello";
   int a = 42;
 
-  auto t = std::make_tuple(h, a);
+  std::tuple<std::string, int> t(h, a); // tuple constructor
 
   std::cout << "t[0] = " << std::get<0>(t) << std::endl;
   std::cout << "t[1] = " << std::get<1>(t) << std::endl;
@@ -809,8 +809,8 @@ int main() {
     double perc1, perc2;
     int rank;
     while (f >> name >> perc1 >> perc2 >> rank) {
-      names.emplace_back(name, perc1, perc2, rank);
-    }
+      names.emplace_back(name, perc1, perc2, rank); // emplace method takes 
+    }                                               // constructor's arguments
     f.close();
   }
   else {
