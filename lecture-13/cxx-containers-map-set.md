@@ -311,8 +311,8 @@ int main()
   return 0;
 }
 ```
-
-Output:
+Since keys are unique, the output of `count` can be either zero (key not found)
+or one (key found). Sample output of `src/map6.cpp` is:
 
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/map6.cpp -o src/map6
@@ -502,14 +502,14 @@ std::map<std::string,std::tuple<double,double,int>> ReadNames(std::string filena
   std::ifstream f(filename);
 
   // Create map 'names'
-  std::map<std::string,std::tuple<double,double,int> > names;
+  std::map<std::string, std::tuple<double, double, int> > names;
 
   std::string name;
   double perc1, perc2;
   int rank;
   // Read file entries and store them into the map 'names'
   while(f >> name >> perc1 >> perc2 >> rank) {
-    names[name] = std::make_tuple(perc1, perc2, rank);
+    names[name] = std::make_tuple(perc1, perc2, rank); // Function that creates a tuple
   }
 
   // Return map 'filename' by value
@@ -528,7 +528,7 @@ std::map<std::string,std::tuple<double,double,int>> ReadNames(std::string filena
 #include <string>
 #include <tuple>
 
-double TestName(std::map<std::string,std::tuple<double,double,int>> names,
+double TestName(std::map<std::string, std::tuple<double, double, int>> names,
                 std::string name);
 ```
 
