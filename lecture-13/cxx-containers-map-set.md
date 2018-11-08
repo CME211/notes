@@ -483,7 +483,7 @@ TERRY 8
 #include <string>
 #include <tuple>
 
-std::map<std::string,std::tuple<double,double,int> > ReadNames(std::string filename);
+std::map<std::string, std::tuple<double, double, int> > ReadNames(std::string filename);
 
 #endif /* READNAMES_HPP */
 ```
@@ -655,7 +655,7 @@ int main()
   auto mnames = ReadNames("../dist.male.first");
 
   // Create set of strings 'common' to store the intersection
-  std::set<std::string> common; // Default constructor
+  std::set<std::string> common; // Default set constructor
 
   // For more algorithms see http://en.cppreference.com/w/cpp/algorithm
   // Here we use set intersection algorithm:
@@ -752,11 +752,11 @@ $ ./src/array
 ## Linked lists
 
 * Ordered data sequence similar to a C++ vector or Python list, but data is not
-stored contiguously
+stored contiguously.
 
-* Sense of order is maintained via links
+* The access to individual list elements is maintained by links.
 
-* There is additional storage overhead for the links
+* There is additional storage overhead for the links.
 
 * But this allows for insertion and removal operations in constant time
 
@@ -827,27 +827,27 @@ Elements of the list:
 
 ### Maps and sets
 
-* Python dictionaries and sets are internally implemented by using hashing
+* Python dictionaries and sets are internally implemented by using hashing.
 
 * For hashing implementation, time complexity for data access is (amortized)
-constant time
+constant time.
 
 * Instances of C++ `std::map` and `std::set` are internally implemented using a tree
-data structure
+data structure.
 
-* For a tree, time complexity for data access is `O(log n)`
+* For a tree, time complexity for data access is `O(log n)`.
 
-* Reference: <http://www.cplusplus.com/reference/map/map/operator[]/>
+* Reference: <http://www.cplusplus.com/reference/map/map/operator[]/>.
 
 ### Unordered maps and sets
 
 * In the C++ 2011 standard the `std::unordered_map` and `set::unordered_set`
-were added
+were added.
 
-* Like Python, internal implementation is based on hashing
+* Like Python, internal implementation is based on hashing.
 
-* Faster access, but entries are no longer ordered (but that usually doesn't
-  matter)
+* Faster access, but entries are no longer ordered (that usually doesn't
+  matter).
 
 ### Unordered map example
 
