@@ -3,7 +3,10 @@
 
 int main()
 {
-  std::vector<int> v;
+  std::vector<int> v(3);
+  v[0] = 6;
+  v[1] = 5;
+  v[2] = 7;
 
   std::cout << "v.size() = " << v.size() << std::endl;
 

@@ -19,7 +19,7 @@ int main()
     ++v;
 
   // The original elements of the vector vec are incremented by one
-  for (auto v : vec)
+  for (const auto& v : vec)
     std::cout << v << std::endl;
 
   return 0;

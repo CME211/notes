@@ -5,7 +5,7 @@
 
 int main() {
   std::ifstream f;
-  std::vector<std::tuple<int,int,int,int>> data;
+  std::vector<std::tuple<int, int, int, int> > data;
 
   f.open("u.data");
   if (f.is_open()) {
