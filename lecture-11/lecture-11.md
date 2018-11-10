@@ -4,6 +4,7 @@
 
 * Conditionals
 * Functions
+* `const` types
 * Dynamic arrays
 * Basic file operations in C++
 
@@ -461,7 +462,8 @@ See: <http://xkcd.com/292/>
 Example:
 
 ```c++
-int sum(int a, int b) {
+int sum(int a, int b) 
+{
   int c = a + b;
   return c;
 }
@@ -513,7 +515,8 @@ c = 5
 ```c++
 #include <iostream>
 
-int main() {
+int main() 
+{
   int a = 2, b = 3;
 
   // the compiler does not yet know about sum()
@@ -523,7 +526,8 @@ int main() {
   return 0;
 }
 
-int sum(int a, int b) {
+int sum(int a, int b) 
+{
   int c = a + b;
   return c;
 }
@@ -557,7 +561,8 @@ sum2.cpp:7:18: error: 'sum' was not declared in this scope
 // Forward declaration or prototype
 int sum(int a, int b);
 
-int main() {
+int main() 
+{
   int a = 2, b = 3;
   
   int c = sum(a,b);
@@ -567,7 +572,8 @@ int main() {
 }
 
 // Function definition
-int sum(int a, int b) {
+int sum(int a, int b) 
+{
   int c = a + b;
   return c;
 }
@@ -588,13 +594,15 @@ c = 5
 ```c++
 #include <iostream>
 
-int sum(int a, int b) {
+int sum(int a, int b) 
+{
   int c;
   c = a + b;
   return c;
 }
 
-int main() {
+int main() 
+{
   double a = 2.7, b = 3.8;
 
   int c = sum(a,b);
@@ -624,12 +632,14 @@ c = 5
 ```c++
 #include <iostream>
 
-int sum(int a, int b) {
+int sum(int a, int b) 
+{
   double c = a + b;
   return c; // we are not returning the correct type
 }
 
-int main() {
+int main() 
+{
   double a = 2.7, b = 3.8;
 
   int c = sum(a,b);
@@ -663,15 +673,17 @@ c = 5
 ```c++
 #include <iostream>
 
-int sum(int a, int b) {
+int sum(int a, int b) 
+{
   double c = a + b;
-  return (int)c;
+  return static_cast<int>(c);
 }
 
-int main() {
+int main() 
+{
   double a = 2.7, b = 3.8;
 
-  int c = sum((int)a,(int)b);
+  int c = sum(static_cast<int>(a), static_cast<int>(b));
   std::cout << "c = " << c << std::endl;
 
   return 0;
@@ -683,6 +695,7 @@ Output:
 ```
 $ g++ -Wall -Wextra -Wconversion datatypes3.cpp -o datatypes3
 ```
+
 
 ### `void`
 
@@ -1030,7 +1043,59 @@ collect2: error: ld returned 1 exit status
 ```
 
 
-## C/C++ memory model
+## Using `const` types
+
+Constants in C++ are defined by using `const` data types. You can
+initialize constants, but you cannot assign new values to them after they
+are defined.
+
+A constant data type is specified by adding keyword `const` after the type name.
+If the keyword `const` is put at the begining of the statement, it will apply
+to the next word in C++ statement. The next word must be a type name. See,
+for example, code in `const1.cpp`:
+
+```c++
+#include <iostream>
+
+int main() 
+{
+  const int a = 2; // The two definitions are equivalent.
+  int const b = 3; // Both define constant integers.
+
+  int c = a + b;
+  std::cout << "c = " << c << std::endl;
+  
+  a = 3; // triggers compiler error
+
+  return 0;
+}
+```
+If we try to build this code, the compiler will return an error like this:
+```
+$ g++ -Wall -Wextra -Wconversion -pedantic -o const1 const1.cpp 
+const1.cpp:11:5: error: cannot assign to variable 'a' with const-qualified type
+      'const int'
+  a = 3; // triggers compiler error
+  ~ ^
+const1.cpp:5:13: note: variable 'a' declared const here
+  const int a = 2; // The two definitions are equivalent and
+  ~~~~~~~~~~^~~~~
+1 error generated.
+```
+
+Using `const` types has a number of advantages:
+* Easier to read code -- you explicitly
+specify what you want and what you don't want to change in a given scope.
+* Less debugging -- unintended overwriting of constants will be caught at
+compile time.
+* Better performance -- you allow the compiler to perform more aggressive
+optimization when you specify what is constant and what is variable.
+The value of using `const` types will become more obvious as we learn about
+pointers and data containers.
+
+
+
+## Pointers and C/C++ memory model
 
 * The memory used by each application is logically divided into the *stack* and
 the *heap*
@@ -1044,14 +1109,16 @@ the *heap*
 
 * It is the operating system that specifies the size of the stack
 
-* Stack memory is automatically managed for you by the compiler / operating system
+* Stack memory is automatically managed for you by the compiler / operating
+system
 
 * Limited to local variables of fixed size
 
 
 ### Static array example
 
-Static arrays are allocated on the stack. They can hold only a limited amount of data.
+Static arrays are allocated on the stack. They can hold only a limited amount
+of data.
 
 `src/stack4.cpp`:
 
@@ -1096,6 +1163,7 @@ like total memory)
 variable which stores a memory address
 
 * When you are done using the memory you need to free the memory
+
 
 ### Pointers
 
@@ -1270,7 +1338,7 @@ int* func(void) {
 }
 
 int main() {
-  int *a = func();
+  int* a = func();
 
   std::cout << " a = " << a << std::endl;
   std::cout << "*a = " << *a << std::endl;
@@ -1291,6 +1359,64 @@ $ ./src/func
  a = 0x7fff5bcf4acc
 *a = 32767
 ```
+
+### Constant pointers
+
+Keyword `const` is used to define different pointer types. To understand
+what each pointer type is, you should read the statement from the right to the
+left. Here are a few examples:
+* `int const* p;` -- `p` is a pointer to constant integer. This means you
+cannot change value `*p` that pointer points to, but you can change the memory
+address stored in `p`.
+* `int* const p;` -- `p` is a constant pointer to integer. This means you can
+change value `*p` that pointer points to, but you cannot change the memory
+address stored in `p`.
+* `int const* const p;` -- `p` is a constant pointer to a constant integer.
+You cannot change the address in `p` nor the value at that address `*p`.
+
+Let us take a look at the example in `const2.cpp`:
+```c++
+#include <iostream>
+
+int main()
+{
+  int a = 4;
+  int c = 5;
+  const int* b = &a; // cannot change data pointed by b
+  int* const d = &c; // cannot change address stored in d
+  
+  std::cout << "*b = " << *b << "\n";
+  std::cout << "*d = " << *d << "\n\n";
+  
+  *b = c; // compiler error
+  b = &c;  
+  std::cout << "*b = " << *b << "\n\n";
+
+  d = &a; // compiler error
+  *d = a;
+  std::cout << "*d = " << *d << "\n";
+  
+  
+  return 0;
+}
+```
+If we try to build this code, we get compiler errors preventing us from
+compiling the code that would modify `const` values:
+```
+$ g++ -Wall -Wextra -Wconversion -pedantic -o const2 const2.cpp 
+const2.cpp:13:6: error: read-only variable is not assignable
+  *b = c; // compiler error
+  ~~ ^
+const2.cpp:17:5: error: cannot assign to variable 'd' with const-qualified type
+      'int *const'
+  d = &a; // compiler error
+  ~ ^
+const2.cpp:8:14: note: variable 'd' declared const here
+  int* const d = &c; // cannot change address stored in d
+  ~~~~~~~~~~~^~~~~~
+2 errors generated.
+```
+
 
 
 ### Common mistake: pointer declaration
@@ -1351,7 +1477,11 @@ src/pointer4.cpp:4:9: note: initialize the variable 'a' to silence this warning
 $ ./src/pointer4
 /bin/sh: line 1: 61024 Segmentation fault: 11  ./src/pointer4
 ```
-
+An uninitialized pointer has an arbitrary value. The compiler will warn us if
+we try to use an uninitialized pointer, but will allow us to run the code.
+In this case, we are lucky to get a segmentation fault. We could
+have pulled a value from an arbitrary memory location and run with it without
+realizing we have a bug in the code. 
 
 ### Suggestion
 
@@ -1374,6 +1504,12 @@ $ g++ -std=c++11 -Wall -Wextra -Wconversion src/pointer5.cpp -o src/pointer5
 $ ./src/pointer5
 /bin/sh: line 1: 61031 Segmentation fault: 11  ./src/pointer5
 ```
+
+Setting uninitialized pointers to `nullptr` guarantees that segmentation fault
+will occur if we try to dereference that pointer. This runtime error protects
+us from possible undefined behavior, which is more difficult to detect and
+debug.
+
 
 ### Dynamic memory allocation
 
@@ -1398,17 +1534,17 @@ the *starting address*
 int main(int argc, char *argv[]) 
 {
   if (argc < 2) return 1;
-  unsigned int n = std::stoi(argv[1]);
+  int n = std::stoi(argv[1]);
 
   // Allocate storage for n double values and
   // store the starting address in a
   double *a = new double[n];
   std::cout << "a = " << a << std::endl;
 
-  for (unsigned int i = 0; i < n; i++)
+  for (int i = 0; i < n; i++)
     a[i] = i+3; 
 
-  for (unsigned int i = 0; i < n; i++)
+  for (int i = 0; i < n; i++)
     std::cout << "a[" << i << "] = " << a[i] << std::endl;
 
   // Free the memory
@@ -1423,10 +1559,6 @@ Output:
 
 ```
 $ g++ -std=c++11 -Wall -Wextra -Wconversion src/new1.cpp -o src/new1
-src/new1.cpp:6:20: warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
-  unsigned int n = std::stoi(argv[1]);
-               ~   ^~~~~~~~~~~~~~~~~~
-1 warning generated.
 $ ./src/new1 2
 a = 0x7fb562e00000
 a[0] = 3
@@ -1441,6 +1573,94 @@ a[3] = 6
 a = 0x7fc033c031a0
 ```
 
+### Pointers as a function arguments
+
+Passing pointers as function arguments provides functions access to possibly
+large data objects at the cost of copying one integer. Take a look at
+example in `pinter6.cpp`:
+
+```c++
+#include <iostream>
+
+void plus2(int* a, int N)
+{
+  for(int i = 0; i < N; ++i)
+  {
+    a[i] += 2;
+  }
+}
+
+void print_array(int const* a, int N)
+{
+  for(int i = 0; i < N; ++i)
+  {
+    std::cout << a[i] << "\n";
+  }
+}
+
+int main()
+{
+  int N = 5;
+  int* x = new int[N];
+
+  for(int i=0; i<N; ++i)
+    x[i] = i*2;
+  std::cout << "\nPrint array:\n";
+  print_array(x, N);
+
+  plus2(x, N);
+  std::cout << "\nPrint array + 2:\n";
+  print_array(x, N);
+
+  delete [] x;
+  
+  return 0;
+```
+By passing a pointer to the array `x` as a function argument, we can access all
+the elements of that array with a subscript operator `[]` within the
+function. Note that the pointer contains only the address of the first
+element in the array. We are responsible for passing the size of the array to
+the function separately. The output looks like this:
+```
+$ g++ -Wall -Wconversion -Wextra -o pointer6 pointer6.cpp 
+$ ./pointer6 
+
+Print array:
+0
+2
+4
+6
+8
+
+Print array + 2:
+2
+4
+6
+8
+10
+```
+Function `print_array` is not supposed to modify elements of the array. To
+ensure that, we use a pointer to constant integer as a handle to the array.
+Let us try to modify the array data within `print_array` function: 
+```c++
+void print_array(int const* a, int N)
+{
+  a[0] = 5;
+  for(int i = 0; i < N; ++i)
+  {
+    std::cout << a[i] << "\n";
+  }
+}
+```
+Rebuilding `pointer6.cpp` with this modification gives an error like this:
+```
+$ g++ -Wall -Wconversion -Wextra -o pointer6 pointer6.cpp
+pointer6.cpp:17:8: error: read-only variable is not assignable
+  a[0] = 5; // compiler error
+  ~~~~ ^
+1 error generated.
+```
+
 
 ### Out of bounds access
 
@@ -1453,7 +1673,7 @@ a = 0x7fc033c031a0
 int main(int argc, char *argv[]) 
 {
   if (argc < 2) return 1;
-  unsigned int n = std::stoi(argv[1]);
+  int n = std::stoi(argv[1]);
 
   double *a = new double[n];
   std::cout << "a = " << a << std::endl;
@@ -1461,10 +1681,10 @@ int main(int argc, char *argv[])
   delete[] a;
   std::cout << "a = " << a << std::endl;
 
-  for (unsigned int i = 0; i < n; i++)
+  for (int i = 0; i < n; i++)
     a[i] = i+3; 
 
-  for (unsigned int i = 0; i < n; i++)
+  for (int i = 0; i < n; i++)
     std::cout << "a[" << i << "] = " << a[i] << std::endl;
 
   return 0;
@@ -1480,14 +1700,25 @@ a = 0xe98040
 a = 0xe98040
 a[0] = 3
 a[1] = 4
-$ ./src/new2 1048576
-a = 0x7f8bf1c0b010
-a = 0x7f8bf1c0b010
-Segmentation fault (core dumped)
+$ ./new2 5
+a = 0x7f9803402500
+a = 0x7f9803402500
+a[0] = 3
+a[1] = 4.24399e-314
+a[2] = 4.24399e-314
+a[3] = 4.24399e-314
+a[4] = 7
 ```
+Deleting the array does not reset the address in the array pointer to
+`nullptr`. We are left with a dangling pointer. Writing to it, causes
+undefined behavior.
 
 
 ### Suggestion
+
+After deleting the array, set the pointer to `nullptr`. If you try to write
+to it again before allocating memory, a segmentation fault will occur at
+runtime. This is lesser evil than undefined behavior.
 
 `src/new3.cpp`:
 
@@ -1595,7 +1826,7 @@ $ valgrind ./src/new5 4
 
 
 
-### C++ file I/O
+## C++ file I/O
 
 * Like outputting to the screen, file I/O is also handled via streams
 

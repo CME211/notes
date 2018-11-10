@@ -29,8 +29,8 @@ std::set<std::string> ReadNames(std::string filename)
 
 int main()
 {
-  auto fnames = ReadNames("dist.female.first");
-  auto mnames = ReadNames("dist.male.first");
+  auto fnames = ReadNames("dist.female.first"); // create set of female names
+  auto mnames = ReadNames("dist.male.first");   // create set of male names
 
   std::set<std::string> common;
 

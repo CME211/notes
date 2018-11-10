@@ -1,4 +1,4 @@
-# CME 211: Lecture 12
+# CME 211: Lecture 13
 
 Topics:
 
@@ -12,25 +12,26 @@ Topics:
 
 ## C++ containers
 
-* Static arrays are very limiting
+* Static arrays are created on stack and can hold limited amount of data.
 
-* You could build your own data structures like lists, dictionaries, etc.
+* You could use dynamic arrays to build your own data structures like lists, dictionaries, etc.
 
-* But the C++ standard library includes many containers that are similar to what
-you have already seen in Python
+* But, the C++ standard library includes many containers that are similar to what
+you have already seen in Python.
 
 * Some of these include: `vector`, `map`, `set`, `tuple`, etc.
 
 ## Vector
 
-* A vector in C++ is analogous to a list in Python
+* A vector in C++ standard librarry is analogous to a list in Python.
 
-* Vectors are objects, so they have methods associated with them
+* Vectors are objects, so they have methods associated with them.
 
 * Just like the Python list, a vector can change in size to accommodate the
-addition or removal of items
+addition or removal of items.
 
-* Unlike Python lists, the vector is restricted to containing homogeneous data
+* Unlike Python lists, the vector is restricted to containing homogeneous data, i.e. all vector elements
+must be of the same type.
 
 ### Our first vector
 
@@ -126,7 +127,7 @@ access an item of a `vector`.
 
 int main()
 {
-  std::vector<int> v;
+  std::vector<int> v; // default constructor, creates an empty vector
   v.push_back(42);
   v.push_back(-7);
   v.push_back(19);
@@ -148,14 +149,14 @@ v[1] = -7
 v[2] = 19
 ```
 
-### `operator[]`
+### Subscript `operator[]`
 
 On C++ containers, like `vector`, the square brakets `[]` are called
 `operator[]`.  This is a special method for C++ objects and may be overloaded.
 For now, we just need to use them for `vector`s.
 
 Valid `vector` indices for a vector named `v` are in the range
-`[0,v.size())`.  Attempting to access element outside of those bounds leads to undefined behavior.  Next halloween, I am going to dress up as "undefined behavior".  It is a particulary scary thing.
+`[0,v.size())`.  Attempting to access element outside of those bounds leads to undefined behavior.
 
 `src/vector4a.cpp`:
 
@@ -165,10 +166,10 @@ Valid `vector` indices for a vector named `v` are in the range
 
 int main()
 {
-  std::vector<int> v;
-  v.push_back(42);
-  v.push_back(-7);
-  v.push_back(19);
+  std::vector<int> v(3); // Constructor creating vector with 3 elements
+  v[0] = 42;
+  v[1] = -7;
+  v[2] = 19;
 
   std::cout << "v[-1] = " << v[-1] << std::endl;
   std::cout << "v[3] = " << v[3] << std::endl;
@@ -186,7 +187,7 @@ v[-1] = 0
 v[3] = 0
 ```
 
-Hmm, not thing bad happened yet!  It is hard to track down these bugs.
+Hmm, nothing bad happened yet!  It is hard to track down these bugs.
 
 ### `operator[]`
 
@@ -225,10 +226,10 @@ Part of `src/vector4c.cpp`
 
 int main()
 {
-  std::vector<int> v;
-  v.push_back(42);
-  v.push_back(-7);
-  v.push_back(19);
+  std::vector<int> v(3);
+  v[0] = 42;
+  v[1] = -7;
+  v[2] = 19;
 
   std::cout << "v[3] = " << v[3] << std::endl;
 
@@ -249,17 +250,17 @@ The program compiled and ran with no problem.  Of course we got junk output for
 
 What happened here:
 
-* When a `vector` is declared in C++, some amount of memory is allocated for the
-  storage of the element.  Often, more storage is allocated than initially
-  needed by the vector to allow for efficient addition of new items at the end
-  of the vector.
+* When a `vector` is declared in C++, some amount of memory is allocated on the 
+  heap for the storage of the element.  Often, more storage is allocated than
+  initially needed by the vector to allow for efficient addition of new items
+  at the end of the vector.
 
 * Thus, trying to access `v[3]` in this case does not access memory out of
   bounds from the context of the lower level memory allocation, but is still
-  undefined behavior.  There is not guarantee that there will be extra space.
+  undefined behavior. There is not guarantee that there will be extra space.
 
-* `operator[]` for `vector` takes in an unsigned integer as its argument.  There
-  for in `v[-1]` the `-1` is converted to a very large positive integer, which
+* Subscript `operator[]` for `vector` takes in an unsigned integer as its argument.
+  There for in `v[-1]` the `-1` is converted to a very large positive integer, which
   turns out to be out of range of the allocated memory for the vector.  This
   leads to the address sanitizer churning out error messages.
 
@@ -276,10 +277,10 @@ slower than `operator[]`.
 
 int main()
 {
-  std::vector<int> v;
-  v.push_back(42);
-  v.push_back(-7);
-  v.push_back(19);
+  std::vector<int> v(3);
+  v[0] = 42;
+  v[1] = -7;
+  v[2] = 19;
 
   std::cout << "v.at(1) = " << v.at(1) << std::endl;
   std::cout << "v.at(3) = " << v.at(3) << std::endl;
@@ -300,6 +301,7 @@ libc++abi.dylib: terminating with uncaught exception of type std::out_of_range: 
 (I am at home writing these notes on my Mac.  You will see `clang++` as the
 compiler.  For the context of this class consider this to be equivalent to `g++`.)
 
+
 ### Modifying an element
 
 `src/vector6.cpp`:
@@ -310,10 +312,10 @@ compiler.  For the context of this class consider this to be equivalent to `g++`
 
 int main()
 {
-  std::vector<int> v;
-  v.push_back(42);
-  v.push_back(-7);
-  v.push_back(19);
+  std::vector<int> v(3);
+  v[0] = 42;
+  v[1] = -7;
+  v[2] = 19;
 
   v[1] = 73;
 
@@ -333,6 +335,7 @@ v[0] = 42
 v[1] = 73
 v[2] = 19
 ```
+
 ### Insert
 
 `src/vector7.cpp`:
@@ -343,10 +346,10 @@ v[2] = 19
 
 int main()
 {
-  std::vector<int> v;
-  v.push_back(42);
-  v.push_back(-7);
-  v.push_back(19);
+  std::vector<int> v(3);
+  v[0] = 42;
+  v[1] = -7;
+  v[2] = 19;
 
   v.insert(1, 73);
 
@@ -385,10 +388,10 @@ We have to us an **iterator** for this.
 
 int main()
 {
-  std::vector<int> v;
-  v.push_back(42);
-  v.push_back(-7);
-  v.push_back(19);
+  std::vector<int> v(3);
+  v[0] = 42;
+  v[1] = -7;
+  v[2] = 19;
 
   //  Declare an iterator
   std::vector<int>::iterator iter;
@@ -433,12 +436,12 @@ The `erase()` method also uses an iterator.
 
 int main()
 {
-  std::vector<int> v;
-  v.push_back(42);
-  v.push_back(-7);
-  v.push_back(19);
-  v.push_back(73);
-  v.push_back(0);
+  std::vector<int> v(3);
+  v[0] = 42;
+  v[1] = -7;
+  v[2] = 19;
+  v[3] = 73;
+  v[4] =  0;
 
   // remove fourth element
   v.erase(v.begin()+3);
@@ -466,6 +469,22 @@ v[3] = 0
 `src/sort.cpp`:
 
 ```c++
+#include <algorithm>
+#include <iostream>
+#include <vector>
+
+int main()
+{
+  // Using initializer list to initialize vector
+  std::vector<int> v {42, -7, 19, 73, 0};
+
+  std::sort(v.begin(), v.end());
+
+  for(unsigned int n = 0; n < v.size(); n++)
+    std::cout << "v[" << n << "] = " << v[n] << std::endl;
+
+  return 0;
+}
 ```
 
 Output:
@@ -491,12 +510,7 @@ v[4] = 73
 
 int main()
 {
-  std::vector<int> v;
-  v.push_back(42);
-  v.push_back(-7);
-  v.push_back(19);
-  v.push_back(73);
-  v.push_back(0);
+  std::vector<int> v {42, -7, 19, 73, 0};
 
   int sum = std::accumulate(v.begin(), v.end(), 0);
   std::cout << "sum = " << sum << std::endl;
@@ -522,10 +536,7 @@ sum = 127
 
 int main()
 {
-  std::vector<int> v1;
-  v1.push_back(42);
-  v1.push_back(-7);
-  v1.push_back(19);
+  std::vector<int> v {42, -7, 19};
 
   std::vector<int> v2 = v1;
   v2[1] = 73; 
@@ -552,6 +563,9 @@ v2[0] = 42
 v2[1] = 73
 v2[2] = 19
 ```
+Assignment operator `=` creates a deep copy of the vector.
+
+
 ### Function that returns a vector
 
 `src/vector11.cpp`:
@@ -626,6 +640,8 @@ int main() {
   return 0;
 }
 ```
+Passing vector by value creates a deep copy inside the function scope.
+Once the function returns, the copy of the vector is destroyed.
 
 Output:
 
@@ -646,7 +662,7 @@ v[2] = 19
 ```c++
 #include <iostream>
 
-void increment(int &a)
+void increment(int& a)
 {
   a++;
   std::cout << "a = " << a << std::endl;
@@ -680,24 +696,31 @@ $
 #include <iostream>
 #include <vector>
 
-void increment(std::vector<int> &v) {
+void increment(std::vector<int>& v) 
+{
   for (unsigned int n = 0; n < v.size(); n++) {
     v[n]++;
     std::cout << "v[" << n << "] = " << v[n] << std::endl;
   }
 }
 
-int main() {
+void print(const std::vector<int>& v) 
+{
+  for (unsigned int n = 0; n < v.size(); n++) {
+    std::cout << "v[" << n << "] = " << v[n] << std::endl;
+  }
+}
+
+int main() 
+{
   std::vector<int> v;
   v.push_back(42);
   v.push_back(-7);
   v.push_back(19);
 
   increment(v);
+  print(v);
 
-  for (unsigned int n = 0; n < v.size(); n++) {
-    std::cout << "v[" << n << "] = " << v[n] << std::endl;
-  }
   return 0;
 }
 ```
@@ -713,17 +736,20 @@ v[0] = 43
 v[1] = -6
 v[2] = 20
 ```
+Only reference to `std::vector` is passed to functions `increment()`
+and `print()`. If the vector is passed to a function by constant reference
+the function cannot modify the vector.
 
 ## Tuple
 
-* A tuple is another sequence object available in C++
+* A tuple is another sequence object available in C++.
 
-* Tuples have fixed size established at the time of creation
+* Tuples have fixed size established at the time of creation.
 
-* Elements in the tuple can be modified
+* Elements in the tuple can be modified.
 
 * Elements need not be homogeneous, but the data types cannot be changed after
-you create the tuple
+you create the tuple.
 
 ### Our first tuple
 
@@ -739,7 +765,7 @@ int main()
   std::string h = "Hello";
   int a = 42;
 
-  auto t = std::make_tuple(h, a);
+  std::tuple<std::string, int> t(h, a); // tuple constructor
 
   std::cout << "t[0] = " << std::get<0>(t) << std::endl;
   std::cout << "t[1] = " << std::get<1>(t) << std::endl;
@@ -783,8 +809,8 @@ int main() {
     double perc1, perc2;
     int rank;
     while (f >> name >> perc1 >> perc2 >> rank) {
-      names.emplace_back(name, perc1, perc2, rank);
-    }
+      names.emplace_back(name, perc1, perc2, rank); // emplace method takes 
+    }                                               // constructor's arguments
     f.close();
   }
   else {

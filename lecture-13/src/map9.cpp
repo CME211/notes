@@ -34,7 +34,7 @@ int main() {
   // Read from the map and print on std output
   // Method std::get<0>() gets 0th element of the tuple
   // The template parameter <0> must be a literal!
-  for(auto& data : names) {
+  for(const auto& data : names) {
     std::cout << data.first << " " << std::get<2>(data.second) << std::endl;
   }
 
