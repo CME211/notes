@@ -59,8 +59,9 @@ int main()
   for (auto& v : vec)
     ++v;
 
-  // The original elements of the vector vec are incremented by one
-  for (auto v : vec)
+  // The original elements of the vector vec are incremented by one.
+  // Here using constant reference to read vector elements.
+  for (const auto& v : vec)
     std::cout << v << std::endl;
 
   return 0;
@@ -79,10 +80,10 @@ $ ./src/iter2
 
 ## Map
 
-* A C++ map is analogous to a dictionary in Python
+* A C++ map is analogous to a dictionary in Python.
 
 * Need to specify data type for both the key and the value when instance is
-declared
+declared.
 
 ### Our first map
 
@@ -94,7 +95,7 @@ declared
 
 int main()
 {
-  std::map<char,std::string> dir;
+  std::map<char, std::string> dir;
 
   dir['A'] = std::string("south");
   dir['B'] = std::string("north");
@@ -128,22 +129,22 @@ dir[A] = south
 int main()
 {
   // Define a map 'dir' with characters as keys and strings as values
-  std::map<char,std::string> dir;
+  std::map<char, std::string> dir;
 
   dir['A'] = std::string("south");
   dir['B'] = std::string("north");
   dir['C'] = std::string("east");
   dir['D'] = std::string("west");
 
-  // Printing by value
+  // Printing by value (usually not a good idea)
   for (auto d : dir)
   {
     std::cout << "d[" << d.first << "] = " << d.second << std::endl;
   }
   std::cout << std::endl;
 
-  // Printing by reference
-  for (auto& d : dir)
+  // Printing by constant reference
+  for (const auto& d : dir)
   {
       std::cout << "d[" << d.first << "] = " << d.second << std::endl;
   }
@@ -178,7 +179,7 @@ d[D] = west
 
 int main()
 {
-  std::map<char,std::string> dir;
+  std::map<char, std::string> dir;
 
   dir['A'] = std::string("south");
   dir['B'] = std::string("north");
@@ -187,12 +188,16 @@ int main()
 
   // C++03 standard map iteration
   // This is more cumbersome, but shows better what is going on inside the loop.
-  for (std::map<char,std::string>::iterator i = dir.begin(); i != dir.end(); i++)
+  for (std::map<char, std::string>::iterator i = dir.begin(); i != dir.end(); i++)
     std::cout << "d[" << i->first << "] = " << i->second << std::endl;
 
   return 0;
 }
 ```
+Iterator is a pointer, so here we are using pointer dereferencig operator `->`
+to access `first` and `second` component of the map. Expression `i->first` is
+equivalent to `(*i).first` - that is dereferencing pointer `i`, and then accessing
+element `first` of the object pointed by `i`. 
 
 Output:
 
@@ -205,7 +210,7 @@ d[C] = east
 d[D] = west
 ```
 
-### Nonexistent keys
+### Keys not in the `map`
 
 `src/map4.cpp`:
 
@@ -245,7 +250,7 @@ dir[5] =
 dir.size() = 5
 ```
 
-### Nonexistent keys
+### Method `at()` and `map` container
 
 `src/map5.cpp`:
 
@@ -306,8 +311,8 @@ int main()
   return 0;
 }
 ```
-
-Output:
+Since keys are unique, the output of `count` can be either zero (key not found)
+or one (key found). Sample output of `src/map6.cpp` is:
 
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/map6.cpp -o src/map6
@@ -365,19 +370,21 @@ value is south
 
 int main()
 {
-  std::map<char,std::string> dir;
+  std::map<char, std::string> dir;
 
   dir['C'] = std::string("south");
   dir['D'] = std::string("west");
   dir['B'] = std::string("east");
   dir['A'] = std::string("north");
 
-  for (auto& d : dir)
+  for (const auto& d : dir)
     std::cout << d.first << std::endl;
 
   return 0;
 }
 ```
+Keys of a `map` are always sorted. The order in which key-value pairs are added
+to the `map` does not matter.
 
 Output:
 
@@ -423,7 +430,7 @@ int main() {
   // Read from the map and print on std output
   // Method std::get<0>() gets 0th element of the tuple
   // The template parameter <0> must be a literal!
-  for(auto& data : names) {
+  for(const auto& data : names) {
     std::cout << data.first << " " << std::get<2>(data.second) << std::endl;
   }
 
@@ -476,7 +483,7 @@ TERRY 8
 #include <string>
 #include <tuple>
 
-std::map<std::string,std::tuple<double,double,int>> ReadNames(std::string filename);
+std::map<std::string, std::tuple<double, double, int> > ReadNames(std::string filename);
 
 #endif /* READNAMES_HPP */
 ```
@@ -495,14 +502,14 @@ std::map<std::string,std::tuple<double,double,int>> ReadNames(std::string filena
   std::ifstream f(filename);
 
   // Create map 'names'
-  std::map<std::string,std::tuple<double,double,int> > names;
+  std::map<std::string, std::tuple<double, double, int> > names;
 
   std::string name;
   double perc1, perc2;
   int rank;
   // Read file entries and store them into the map 'names'
   while(f >> name >> perc1 >> perc2 >> rank) {
-    names[name] = std::make_tuple(perc1, perc2, rank);
+    names[name] = std::make_tuple(perc1, perc2, rank); // Function that creates a tuple
   }
 
   // Return map 'filename' by value
@@ -521,7 +528,7 @@ std::map<std::string,std::tuple<double,double,int>> ReadNames(std::string filena
 #include <string>
 #include <tuple>
 
-double TestName(std::map<std::string,std::tuple<double,double,int>> names,
+double TestName(std::map<std::string, std::tuple<double, double, int>> names,
                 std::string name);
 ```
 
@@ -648,7 +655,7 @@ int main()
   auto mnames = ReadNames("../dist.male.first");
 
   // Create set of strings 'common' to store the intersection
-  std::set<std::string> common; // Default constructor
+  std::set<std::string> common; // Default set constructor
 
   // For more algorithms see http://en.cppreference.com/w/cpp/algorithm
   // Here we use set intersection algorithm:
@@ -745,11 +752,11 @@ $ ./src/array
 ## Linked lists
 
 * Ordered data sequence similar to a C++ vector or Python list, but data is not
-stored contiguously
+stored contiguously.
 
-* Sense of order is maintained via links
+* The access to individual list elements is maintained by links.
 
-* There is additional storage overhead for the links
+* There is additional storage overhead for the links.
 
 * But this allows for insertion and removal operations in constant time
 
@@ -820,27 +827,27 @@ Elements of the list:
 
 ### Maps and sets
 
-* Python dictionaries and sets are internally implemented by using hashing
+* Python dictionaries and sets are internally implemented by using hashing.
 
 * For hashing implementation, time complexity for data access is (amortized)
-constant time
+constant time.
 
 * Instances of C++ `std::map` and `std::set` are internally implemented using a tree
-data structure
+data structure.
 
-* For a tree, time complexity for data access is `O(log n)`
+* For a tree, time complexity for data access is `O(log n)`.
 
-* Reference: <http://www.cplusplus.com/reference/map/map/operator[]/>
+* Reference: <http://www.cplusplus.com/reference/map/map/operator[]/>.
 
 ### Unordered maps and sets
 
 * In the C++ 2011 standard the `std::unordered_map` and `set::unordered_set`
-were added
+were added.
 
-* Like Python, internal implementation is based on hashing
+* Like Python, internal implementation is based on hashing.
 
-* Faster access, but entries are no longer ordered (but that usually doesn't
-  matter)
+* Faster access, but entries are no longer ordered (that usually doesn't
+  matter).
 
 ### Unordered map example
 

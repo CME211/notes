@@ -26,8 +26,8 @@ int main()
     std::cout << "d[" << d.first << "] = " << d.second << std::endl;
   std::cout << std::endl;
 
-  // Printing by reference
-  for (auto& d : dir)
+  // Printing by constant reference
+  for (const auto& d : dir)
     {
       std::cout << "d[" << d.first << "] = " << d.second << std::endl;
     }

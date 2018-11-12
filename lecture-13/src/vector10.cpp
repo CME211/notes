@@ -3,10 +3,7 @@
 
 int main()
 {
-  std::vector<int> v1;
-  v1.push_back(42);
-  v1.push_back(-7);
-  v1.push_back(19);
+  std::vector<int> v1 {42, -7, 19};
 
   std::vector<int> v2 = v1;
   v2[1] = 73; 

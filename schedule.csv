@@ -20,8 +20,8 @@ week #,lecture #,date,day,section,topic,assignments
 7,12,6-Nov,Tue,C++,"function, includes, preprocessor, intro to containers",
  ,13,8-Nov,Thu,C++,containers,
 ,,10-Nov,F,,,"hw5 due, project pt 1 out"
-8,14,13-Nov,Tue,C++,boost multiarray,
-,15,15-Nov,Thu,C++,make,
+8,14,13-Nov,Tue,C++,make,
+,15,15-Nov,Thu,C++,boost multiarray,
 ,,17-Nov,F,,,hw6 out
 thanksgiving,,,,,,
 9,16,27-Nov,Tue,C++,oop 1,"project pt 1 due, project pt 2 out"

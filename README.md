@@ -26,8 +26,8 @@ There will be 18 lectures this year.
 * [Lecture 11](lecture-11/): C++ conditionals, file IO, dynamic memory
 * [Lecture 12](lecture-12/): C++ functions, IO formatting and stringstreams, preprocessor, and     `#include`
 * [Lecture 13](lecture-13/): C++ containers: `vector`, `tuple`, `map` and `set`
-* [Lecture 14](lecture-14/): Boost MultiArray
-* [Lecture 15](lecture-15/): Compilation, Makefiles
+* [Lecture 14](lecture-14/): Compilation, Makefiles
+* [Lecture 15](lecture-15/): Boost MultiArray
 * [Lecture 16](lecture-16/): C++ object oriented programming part 1
 * [Lecture 17](lecture-17/): C++ object oriented programming part 2, memory management
 * [Lecture 18](lecture-18/): Programming in C, wrap up, and what is next
