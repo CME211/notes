@@ -1,0 +1,1101 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{cxx-oop-partII}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{oop-part-ii-c}{%
+\section{OOP Part II: C++}\label{oop-part-ii-c}}
+
+\hypertarget{topics}{%
+\subsection{Topics}\label{topics}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Recap: Encapsulation
+\item
+  Recap: Abstraction
+\item
+  Inheritance
+
+  \begin{itemize}
+  \tightlist
+  \item
+    virtual methods
+  \end{itemize}
+\item
+  Polymorphism
+\item
+  Abstract classes
+
+  \begin{itemize}
+  \tightlist
+  \item
+    pure virtual methods
+  \end{itemize}
+\item
+  Composition
+\end{enumerate}
+
+\hypertarget{recap-encapsulation}{%
+\subsection{1. Recap: Encapsulation}\label{recap-encapsulation}}
+
+\begin{itemize}
+\tightlist
+\item
+  Encapsulation hides the details of an object's state from unauthorized
+  parties.
+\item
+  Only the object's instance and its methods have access to these
+  values.
+\item
+  Achieved in C++ by maintaining private member variables
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+cp}{\PYZsh{}}\PY{c+cp}{include} \PY{c+cpf}{\PYZlt{}iostream\PYZgt{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{class} \PY{n+nc}{Student\PYZus{}Encapsulation\PYZus{}Example} \PY{p}{\PYZob{}}
+            \PY{c+c1}{// By default, these variables are private}
+            \PY{k+kt}{int} \PY{n}{id\PYZus{}}\PY{p}{;}
+            \PY{k+kt}{double} \PY{n}{gpa\PYZus{}}\PY{p}{;}
+            \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{vector}\PY{o}{\PYZlt{}}\PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string}\PY{o}{\PYZgt{}} \PY{n}{courses\PYZus{}}\PY{p}{;}
+          
+          \PY{k}{public}\PY{o}{:}
+            \PY{n}{Student\PYZus{}Encapsulation\PYZus{}Example}\PY{p}{(}\PY{k+kt}{int} \PY{n}{id}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{this}\PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}}\PY{n}{id\PYZus{}} \PY{o}{=} \PY{n}{id}\PY{p}{;}
+            \PY{p}{\PYZcb{}}\PY{p}{;}
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Student\PYZus{}Encapsulation\PYZus{}Example} \PY{n}{s} \PY{o}{=} \PY{n}{Student\PYZus{}Encapsulation\PYZus{}Example}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{// what will happen when I run this code?}
+        \PY{n}{s}\PY{p}{.}\PY{n}{id\PYZus{}}
+\end{Verbatim}
+
+
+    \hypertarget{aside-initializer-list-construction}{%
+\paragraph{Aside: Initializer-list
+construction}\label{aside-initializer-list-construction}}
+
+In the above example, we used the syntax
+
+\begin{verbatim}
+Student_Encapsulation_Example(int id){
+    this->id_ = id;
+};
+\end{verbatim}
+
+for our constructor. In C++11, the initializer list syntax was
+introduced for constructors, so we could have written:
+
+\begin{verbatim}
+Student_Encapsulation_Example(int id): id_(id){};
+\end{verbatim}
+
+There are various benefits to using this syntax which we will see later
+in this lecture. We will also use it for the rest of the examples.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{class} \PY{n+nc}{Student\PYZus{}Encapsulation\PYZus{}Example2} \PY{p}{\PYZob{}}
+            \PY{c+c1}{// By default, these variables are private}
+            \PY{k+kt}{int} \PY{n}{id\PYZus{}}\PY{p}{;}
+            \PY{k+kt}{double} \PY{n}{gpa\PYZus{}}\PY{p}{;}
+            \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{vector}\PY{o}{\PYZlt{}}\PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string}\PY{o}{\PYZgt{}} \PY{n}{courses\PYZus{}}\PY{p}{;}
+          
+          \PY{k}{public}\PY{o}{:}
+            \PY{n}{Student\PYZus{}Encapsulation\PYZus{}Example2}\PY{p}{(}\PY{k+kt}{int} \PY{n}{id}\PY{p}{)}\PY{o}{:} \PY{n}{id\PYZus{}}\PY{p}{(}\PY{n}{id}\PY{p}{)}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{;}
+            
+            \PY{c+c1}{//This is the default constructor, which takes no arguments}
+            \PY{c+c1}{//Members are instantiated to their default values}
+            \PY{n}{Student\PYZus{}Encapsulation\PYZus{}Example2}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{;}
+            
+            \PY{k+kt}{int} \PY{n+nf}{get\PYZus{}id}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{return} \PY{n}{id\PYZus{}}\PY{p}{;}
+            \PY{p}{\PYZcb{}}
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Student\PYZus{}Encapsulation\PYZus{}Example2} \PY{n}{se} \PY{o}{=} \PY{n}{Student\PYZus{}Encapsulation\PYZus{}Example2}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{se}\PY{p}{.}\PY{n}{get\PYZus{}id}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Student\PYZus{}Encapsulation\PYZus{}Example2} \PY{n}{default\PYZus{}se} \PY{o}{=}  \PY{n}{Student\PYZus{}Encapsulation\PYZus{}Example2}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{// What will this return?}
+        \PY{n}{default\PYZus{}se}\PY{p}{.}\PY{n}{get\PYZus{}id}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{recap-abstraction}{%
+\subsubsection{2. Recap: Abstraction}\label{recap-abstraction}}
+
+Abstraction is the principle of hiding unecessary details from other
+objects (Closely related to encapsulation). Other objects don't need to
+know the details about the inside of another object's class and
+\emph{how} its methods work. All that is required is knowledge of what
+the methods do, and how to interact with them.
+
+To illustrate this, we will create two new examples of a Student class,
+each with the following methods:
+
+\begin{itemize}
+\tightlist
+\item
+  A constructor that takes an integer id as input
+\item
+  An \texttt{add\_course()} method that takes a string and gradepoint as
+  input, and returns nothing
+\item
+  A \texttt{print\_course\_roster()} method that prints out the current
+  roster for the student, and returns nothing
+\item
+  A \texttt{get\_gpa()} method that returns the student's current gpa
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{class} \PY{n+nc}{Student\PYZus{}Abstraction\PYZus{}Example1} \PY{p}{\PYZob{}}
+            \PY{k+kt}{int} \PY{n}{id\PYZus{}}\PY{p}{;}
+            \PY{k+kt}{double} \PY{n}{gpa\PYZus{}}\PY{p}{;}
+            \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{vector}\PY{o}{\PYZlt{}}\PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string}\PY{o}{\PYZgt{}} \PY{n}{courses\PYZus{}}\PY{p}{;}
+            \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{vector}\PY{o}{\PYZlt{}}\PY{k+kt}{double}\PY{o}{\PYZgt{}} \PY{n}{course\PYZus{}grades\PYZus{}}\PY{p}{;}
+          
+          \PY{k}{public}\PY{o}{:}
+            \PY{n}{Student\PYZus{}Abstraction\PYZus{}Example1}\PY{p}{(}\PY{k+kt}{int} \PY{n}{id}\PY{p}{)}\PY{o}{:}\PY{n}{id\PYZus{}}\PY{p}{(}\PY{n}{id}\PY{p}{)}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{;}
+            
+            \PY{k+kt}{void} \PY{n+nf}{add\PYZus{}course}\PY{p}{(}\PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string} \PY{n}{name}\PY{p}{,} \PY{k+kt}{double} \PY{n}{gradepoint}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{n}{courses\PYZus{}}\PY{p}{.}\PY{n}{push\PYZus{}back}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{;}
+                \PY{n}{course\PYZus{}grades\PYZus{}}\PY{p}{.}\PY{n}{push\PYZus{}back}\PY{p}{(}\PY{n}{gradepoint}\PY{p}{)}\PY{p}{;}
+                \PY{k+kt}{double} \PY{n}{sumgradepoints} \PY{o}{=} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{accumulate}\PY{p}{(}
+                    \PY{n}{course\PYZus{}grades\PYZus{}}\PY{p}{.}\PY{n}{begin}\PY{p}{(}\PY{p}{)}\PY{p}{,} 
+                    \PY{n}{course\PYZus{}grades\PYZus{}}\PY{p}{.}\PY{n}{end}\PY{p}{(}\PY{p}{)}\PY{p}{,} 
+                    \PY{l+m+mf}{0.0}\PY{p}{)}\PY{p}{;}
+                \PY{n}{gpa\PYZus{}} \PY{o}{=} \PY{n}{sumgradepoints} \PY{o}{/} \PY{p}{(}\PY{k+kt}{double}\PY{p}{)}\PY{k}{this}\PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}}\PY{n}{course\PYZus{}grades\PYZus{}}\PY{p}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+            \PY{p}{\PYZcb{}}\PY{p}{;}
+            
+            \PY{k+kt}{void} \PY{n+nf}{print\PYZus{}course\PYZus{}roster}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{for} \PY{p}{(}\PY{k+kt}{int} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{;} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{n}{courses\PYZus{}}\PY{p}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{;} \PY{n}{i}\PY{o}{+}\PY{o}{+}\PY{p}{)}\PY{p}{\PYZob{}}
+                    \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{cout} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{courses\PYZus{}}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{endl}\PY{p}{;}
+                \PY{p}{\PYZcb{}}
+            \PY{p}{\PYZcb{}}
+            
+            \PY{k+kt}{double} \PY{n+nf}{get\PYZus{}gpa}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{return} \PY{n}{gpa\PYZus{}}\PY{p}{;}
+            \PY{p}{\PYZcb{}}
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{struct} \PY{n}{Student\PYZus{}Course}\PY{p}{\PYZob{}}
+            \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string} \PY{n}{course\PYZus{}}\PY{p}{;}
+            \PY{k+kt}{double} \PY{n}{course\PYZus{}grade\PYZus{}}\PY{p}{;}
+            \PY{n}{Student\PYZus{}Course}\PY{p}{(}\PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string} \PY{n}{course}\PY{p}{,}
+                           \PY{k+kt}{double} \PY{n}{grade}\PY{p}{)}\PY{o}{:}
+                \PY{n}{course\PYZus{}}\PY{p}{(}\PY{n}{course}\PY{p}{)}\PY{p}{,} \PY{n}{course\PYZus{}grade\PYZus{}}\PY{p}{(}\PY{n}{grade}\PY{p}{)}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{;}
+        \PY{p}{\PYZcb{}}\PY{p}{;}
+        
+        \PY{k}{class} \PY{n+nc}{Student\PYZus{}Abstraction\PYZus{}Example2} \PY{p}{\PYZob{}}
+            \PY{k+kt}{int} \PY{n}{id\PYZus{}}\PY{p}{;}
+            \PY{k+kt}{double} \PY{n}{gpa\PYZus{}}\PY{p}{;}
+            \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{vector}\PY{o}{\PYZlt{}}\PY{n}{Student\PYZus{}Course}\PY{o}{\PYZgt{}} \PY{n}{courses\PYZus{}}\PY{p}{;}
+          
+          \PY{k}{public}\PY{o}{:}
+            \PY{n}{Student\PYZus{}Abstraction\PYZus{}Example2}\PY{p}{(}\PY{k+kt}{int} \PY{n}{id}\PY{p}{)}\PY{o}{:}\PY{n}{id\PYZus{}}\PY{p}{(}\PY{n}{id}\PY{p}{)}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{;}
+            
+            \PY{k+kt}{void} \PY{n+nf}{add\PYZus{}course}\PY{p}{(}\PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string} \PY{n}{name}\PY{p}{,} \PY{k+kt}{double} \PY{n}{gradepoint}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{n}{courses\PYZus{}}\PY{p}{.}\PY{n}{emplace\PYZus{}back}\PY{p}{(}\PY{n}{name}\PY{p}{,}\PY{n}{gradepoint}\PY{p}{)}\PY{p}{;}
+                \PY{k+kt}{double} \PY{n}{sumgradepoints} \PY{o}{=} 
+                    \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{accumulate}\PY{p}{(}\PY{n}{courses\PYZus{}}\PY{p}{.}\PY{n}{begin}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                                    \PY{n}{courses\PYZus{}}\PY{p}{.}\PY{n}{end}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                                    \PY{l+m+mf}{0.0}\PY{p}{,}
+                                    \PY{p}{[}\PY{p}{]}\PY{p}{(}\PY{k+kt}{double} \PY{n}{curr\PYZus{}sum}\PY{p}{,} \PY{n}{Student\PYZus{}Course} \PY{n}{course}\PY{p}{)}\PY{p}{\PYZob{}}
+                                        \PY{k}{return} \PY{n}{curr\PYZus{}sum} \PY{o}{+} \PY{n}{course}\PY{p}{.}\PY{n}{course\PYZus{}grade\PYZus{}}\PY{p}{;}\PY{p}{\PYZcb{}}
+                                   \PY{p}{)}\PY{p}{;}
+                \PY{n}{gpa\PYZus{}} \PY{o}{=} \PY{n}{sumgradepoints} \PY{o}{/} \PY{p}{(}\PY{k+kt}{double}\PY{p}{)}\PY{n}{courses\PYZus{}}\PY{p}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+            \PY{p}{\PYZcb{}}
+            
+            \PY{k+kt}{void} \PY{n+nf}{print\PYZus{}course\PYZus{}roster}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{for} \PY{p}{(}\PY{k+kt}{int} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{;} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{n}{courses\PYZus{}}\PY{p}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{;} \PY{n}{i}\PY{o}{+}\PY{o}{+}\PY{p}{)}\PY{p}{\PYZob{}}
+                    \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{cout} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{courses\PYZus{}}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{.}\PY{n}{course\PYZus{}} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{endl}\PY{p}{;}
+                \PY{p}{\PYZcb{}}
+            \PY{p}{\PYZcb{}}
+            
+            \PY{k+kt}{double} \PY{n+nf}{get\PYZus{}gpa}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{return} \PY{n}{gpa\PYZus{}}\PY{p}{;}
+            \PY{p}{\PYZcb{}}
+            
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Student\PYZus{}Abstraction\PYZus{}Example1} \PY{n}{s1} \PY{o}{=} \PY{n}{Student\PYZus{}Abstraction\PYZus{}Example1}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{;}
+        \PY{n}{s1}\PY{p}{.}\PY{n}{add\PYZus{}course}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{CME 211}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+m+mf}{3.4}\PY{p}{)}\PY{p}{;}
+        \PY{n}{s1}\PY{p}{.}\PY{n}{print\PYZus{}course\PYZus{}roster}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+        
+        \PY{n}{Student\PYZus{}Abstraction\PYZus{}Example2} \PY{n}{s2} \PY{o}{=} \PY{n}{Student\PYZus{}Abstraction\PYZus{}Example2}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{;}
+        \PY{n}{s2}\PY{p}{.}\PY{n}{add\PYZus{}course}\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{CME 211}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+m+mf}{3.4}\PY{p}{)}\PY{p}{;}
+        \PY{n}{s2}\PY{p}{.}\PY{n}{print\PYZus{}course\PYZus{}roster}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{s1}\PY{p}{.}\PY{n}{get\PYZus{}gpa}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{s2}\PY{p}{.}\PY{n}{get\PYZus{}gpa}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    To a user of this code, the two Student classes function identically,
+though their internal implementations of the course roster are
+different.
+
+How would a C++ developer communicate to users the functionality of the
+Student class? One way is through the header file for the student class,
+which would contain:
+
+    \emph{file: Student.hpp}
+
+\begin{verbatim}
+class Student {
+    Student(int id);
+    void add_course(std::string name, double gradepoint);
+    void print_course_roster();
+    double get_gpa();
+}
+\end{verbatim}
+
+    \emph{file: Student.cpp}
+
+\begin{verbatim}
+#include <vector>
+#include <iostream>
+
+#include "Student.hpp"
+
+struct Student_Course{
+    std::string course_;
+    double course_grade_;
+    Student_Course(std::string course, double grade):course_(course), course_grade_(grade){};
+};
+
+class Student{
+    int id_;
+    double gpa_;
+    std::vector<Student_Course> courses_;
+  
+  public:
+    Student(int id):id_(id){};
+    
+    void add_course(std::string name, double gradepoint){
+        courses_.emplace_back(name,gradepoint);
+        double sumgradepoints = std::accumulate(courses_.begin(),
+                                               courses_.end(),
+                                               0.0,
+                                               [](double curr_sum, Student_Course course){
+                                                   return curr_sum + course.course_grade_;}
+                                              );
+        gpa_ = sumgradepoints / (double)courses_.size();
+    }
+    
+    void print_course_roster(){
+        for (int i = 0; i < courses_.size(); i++){
+            std::cout << courses_[i].course_ << std::endl;
+        }
+    }
+    
+    double get_gpa(){
+        return gpa_;
+    }
+    
+}
+\end{verbatim}
+
+    What if instead of just changing the implementation details of our
+Student class, we actually wanted to create different kinds of Students?
+
+For example: Suppose that Students could either be SPCD or live on
+campus, and we wanted the Student object to have different functionality
+based on this distinction.
+
+This leads us to the principle of \textbf{Inheritance}.
+
+\hypertarget{inheritance}{%
+\subsubsection{3. Inheritance}\label{inheritance}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+cp}{\PYZsh{}}\PY{c+cp}{include} \PY{c+cpf}{\PYZlt{}iostream\PYZgt{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{class} \PY{n+nc}{Student} \PY{p}{\PYZob{}}
+            \PY{k+kt}{int} \PY{n}{id\PYZus{}}\PY{p}{;}
+            \PY{k+kt}{double} \PY{n}{gpa\PYZus{}}\PY{p}{;}
+            \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{vector}\PY{o}{\PYZlt{}}\PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string}\PY{o}{\PYZgt{}} \PY{n}{courses\PYZus{}}\PY{p}{;}
+            \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{vector}\PY{o}{\PYZlt{}}\PY{k+kt}{double}\PY{o}{\PYZgt{}} \PY{n}{course\PYZus{}grades\PYZus{}}\PY{p}{;}
+          
+          \PY{k}{public}\PY{o}{:}
+            \PY{n}{Student}\PY{p}{(}\PY{k+kt}{int} \PY{n}{id}\PY{p}{)}\PY{o}{:}\PY{n}{id\PYZus{}}\PY{p}{(}\PY{n}{id}\PY{p}{)}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{;}
+            
+            \PY{k+kt}{void} \PY{n+nf}{add\PYZus{}course}\PY{p}{(}\PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string} \PY{n}{name}\PY{p}{,} \PY{k+kt}{double} \PY{n}{gradepoint}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{n}{courses\PYZus{}}\PY{p}{.}\PY{n}{push\PYZus{}back}\PY{p}{(}\PY{n}{name}\PY{p}{)}\PY{p}{;}
+                \PY{n}{course\PYZus{}grades\PYZus{}}\PY{p}{.}\PY{n}{push\PYZus{}back}\PY{p}{(}\PY{n}{gradepoint}\PY{p}{)}\PY{p}{;}
+                \PY{k+kt}{double} \PY{n}{sumgradepoints} \PY{o}{=} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{accumulate}\PY{p}{(}
+                    \PY{n}{course\PYZus{}grades\PYZus{}}\PY{p}{.}\PY{n}{begin}\PY{p}{(}\PY{p}{)}\PY{p}{,} 
+                    \PY{n}{course\PYZus{}grades\PYZus{}}\PY{p}{.}\PY{n}{end}\PY{p}{(}\PY{p}{)}\PY{p}{,} 
+                    \PY{l+m+mf}{0.0}\PY{p}{)}\PY{p}{;}
+                \PY{n}{gpa\PYZus{}} \PY{o}{=} \PY{n}{sumgradepoints} \PY{o}{/} \PY{p}{(}\PY{k+kt}{double}\PY{p}{)}\PY{n}{course\PYZus{}grades\PYZus{}}\PY{p}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+            \PY{p}{\PYZcb{}}\PY{p}{;}
+            
+            \PY{k}{const} \PY{k+kt}{void} \PY{n+nf}{print\PYZus{}course\PYZus{}roster}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{for} \PY{p}{(}\PY{k+kt}{int} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{;} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{n}{courses\PYZus{}}\PY{p}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{;} \PY{n}{i}\PY{o}{+}\PY{o}{+}\PY{p}{)}\PY{p}{\PYZob{}}
+                    \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{cout} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{courses\PYZus{}}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{endl}\PY{p}{;}
+                \PY{p}{\PYZcb{}}
+            \PY{p}{\PYZcb{}}
+            
+            \PY{k}{const} \PY{k+kt}{double} \PY{n+nf}{get\PYZus{}gpa}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{return} \PY{n}{gpa\PYZus{}}\PY{p}{;}
+            \PY{p}{\PYZcb{}}
+            
+            \PY{k}{const} \PY{k+kt}{double} \PY{n+nf}{get\PYZus{}id}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{return} \PY{n}{id\PYZus{}}\PY{p}{;}
+            \PY{p}{\PYZcb{}}
+            
+            \PY{k}{virtual} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string} \PY{n}{get\PYZus{}dorm}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{return} \PY{l+s}{\PYZdq{}}\PY{l+s}{No dorm assigned}\PY{l+s}{\PYZdq{}}\PY{p}{;}
+            \PY{p}{\PYZcb{}}
+            
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{class} \PY{n+nc}{SCPD\PYZus{}Student} \PY{o}{:} \PY{k}{public} \PY{n}{Student} \PY{p}{\PYZob{}}
+            \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string} \PY{n}{location\PYZus{}}\PY{p}{;}
+          \PY{k}{public}\PY{o}{:}
+            \PY{c+c1}{// Note that the constructor for Student }
+            \PY{c+c1}{// is explicitly called with the parameter (\PYZdq{}id\PYZdq{})}
+            \PY{c+c1}{// To pass a parameter to the parent, }
+            \PY{c+c1}{// we must use the initializer list construction}
+            \PY{c+c1}{// If we don\PYZsq{}t explicitly call the parent constructor,}
+            \PY{c+c1}{// then the default parent constructor is called}
+            \PY{n}{SCPD\PYZus{}Student}\PY{p}{(}\PY{k+kt}{int} \PY{n}{id}\PY{p}{,} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string} \PY{n}{location}\PY{p}{)} \PY{o}{:} \PY{n}{Student}\PY{p}{(}\PY{n}{id}\PY{p}{)}\PY{p}{,} \PY{n}{location\PYZus{}}\PY{p}{(}\PY{n}{location}\PY{p}{)} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{;}
+            
+            \PY{k}{const} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string} \PY{n}{get\PYZus{}location}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{return} \PY{n}{location\PYZus{}}\PY{p}{;}
+            \PY{p}{\PYZcb{}}
+        
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{class} \PY{n+nc}{Local\PYZus{}Student} \PY{o}{:} \PY{k}{public} \PY{n}{Student} \PY{p}{\PYZob{}}
+            \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string} \PY{n}{dorm\PYZus{}}\PY{p}{;}
+          \PY{k}{public}\PY{o}{:}
+            \PY{n}{Local\PYZus{}Student}\PY{p}{(}\PY{k+kt}{int} \PY{n}{id}\PY{p}{,} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string} \PY{n}{dorm}\PY{p}{)} \PY{o}{:} \PY{n}{Student}\PY{p}{(}\PY{n}{id}\PY{p}{)}\PY{p}{,} \PY{n}{dorm\PYZus{}}\PY{p}{(}\PY{n}{dorm}\PY{p}{)} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{;}
+            
+            \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{string} \PY{n}{get\PYZus{}dorm}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{return} \PY{n}{dorm\PYZus{}}\PY{p}{;}
+            \PY{p}{\PYZcb{}}
+            
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{SCPD\PYZus{}Student} \PY{n}{remote\PYZus{}student} \PY{o}{=} \PY{n}{SCPD\PYZus{}Student}\PY{p}{(}\PY{l+m+mi}{34}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{Minneapolis}\PY{l+s}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+        \PY{n}{Local\PYZus{}Student} \PY{n}{local} \PY{o}{=} \PY{n}{Local\PYZus{}Student}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,} \PY{l+s}{\PYZdq{}}\PY{l+s}{Lyman}\PY{l+s}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{// Parent methods are inherited by children automatically}
+        \PY{n}{local}\PY{p}{.}\PY{n}{get\PYZus{}gpa}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{// Methods defined in the child class are also accessible}
+        \PY{n}{remote\PYZus{}student}\PY{p}{.}\PY{n}{get\PYZus{}location}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{// What about methods defined in a sibling class?}
+        \PY{n}{local}\PY{p}{.}\PY{n}{get\PYZus{}location}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{virtual-methods}{%
+\paragraph{3.1 Virtual methods}\label{virtual-methods}}
+
+Notice that we used the \textbf{virtual} keyword in the Student class
+when defining our method \texttt{get\_dorm()}
+
+\begin{verbatim}
+    virtual std::string get_dorm(){
+        return "No dorm assigned";
+    }
+\end{verbatim}
+
+This tells the compiler that the function can be overridden in a derived
+class, though it doesn't have to be.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{local}\PY{p}{.}\PY{n}{get\PYZus{}dorm}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{remote\PYZus{}student}\PY{p}{.}\PY{n}{get\PYZus{}dorm}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    Let's take a closer look at the syntax that we used to establish the
+inheritance relationship:
+\texttt{class\ Local\_Student\ :\ public\ Student}
+
+Note that we used the \textbf{public} keyword. This meant that all of
+the \texttt{public} and \texttt{protected} members and methods of the
+Student class were also public in the Local\_Student class, which is why
+we were able to call \texttt{get\_gpa()}.
+
+\textbf{private} inheritance is also an option, though less common.
+
+What is so useful about establishing inheritance relationships this way?
+\textbf{Polymorphism}
+
+    \hypertarget{polymorphism}{%
+\subsubsection{4. Polymorphism}\label{polymorphism}}
+
+The concept that a different version of a method can be called based on
+the inheritance structure of the classes. This allows us to interact
+with ``Student'' objects whose underlying functionality is dictated by
+their actual type.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{vector}\PY{o}{\PYZlt{}}\PY{n}{Student}\PY{o}{*}\PY{o}{\PYZgt{}} \PY{n}{students\PYZus{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{students\PYZus{}}\PY{p}{.}\PY{n}{push\PYZus{}back}\PY{p}{(}\PY{o}{\PYZam{}}\PY{n}{local}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{students\PYZus{}}\PY{p}{.}\PY{n}{push\PYZus{}back}\PY{p}{(}\PY{o}{\PYZam{}}\PY{n}{remote\PYZus{}student}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{for} \PY{p}{(}\PY{k+kt}{int} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{;} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{n}{students\PYZus{}}\PY{p}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{;} \PY{n}{i}\PY{o}{+}\PY{o}{+}\PY{p}{)}\PY{p}{\PYZob{}}
+            \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{cout} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{Student }\PY{l+s}{\PYZdq{}} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{students\PYZus{}}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}}\PY{n}{get\PYZus{}id}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{: }\PY{l+s}{\PYZdq{}} 
+                \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{students\PYZus{}}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}}\PY{n}{get\PYZus{}dorm}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{endl}\PY{p}{;}
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    Note that if we hadn't included the \texttt{virtual} keyword, then the
+base class's version of \texttt{get\_dorm()} would have been called,
+even for the local student.
+
+The \texttt{virtual} keyword signals to the compiler that we don't want
+\textbf{static linkage} for this function (function call determined
+before the program is executed).
+
+Intead, we want the selection of which version of \texttt{get\_dorm()}
+to call to be dictated by the kind of object for which it is called -
+this is called \textbf{dynamic linkage} or late binding.
+
+    \hypertarget{abstract-classes}{%
+\subsubsection{5. Abstract Classes}\label{abstract-classes}}
+
+Based on the way we defined our Student class so far, we can still
+instantiate it (Create objects of type ``Student'')
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Student} \PY{n}{base} \PY{o}{=} \PY{n}{Student}\PY{p}{(}\PY{l+m+mi}{22}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{base}\PY{p}{.}\PY{n}{get\PYZus{}dorm}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    What if we wanted to prevent people from creating a Student object on
+its own, and force all students to belong to one of the child classes
+(either Local\_Students or SCPD\_Students)? Then, we would want to
+create an \textbf{abstract class} - a class that specifies some of the
+functionality of its children, but cannot be instantiated.
+
+We will illustrate this by moving on to another example from the Python
+OOP lecture.
+
+    \hypertarget{example}{%
+\paragraph{Example}\label{example}}
+
+    \begin{verbatim}
+import math
+
+class Shape:
+    def GetArea(self):
+        raise RuntimeError("Not implemented yet")
+
+class Circle(Shape):
+    def __init__ (self, x, y, radius):
+        self.x = x
+        self.y = y
+        self.radius = radius
+
+    def GetArea(self):
+        area = math.pi * math.pow(self.radius, 2)
+        return area
+
+class Rectangle(Shape):
+    def __init__ (self, x0, y0, x1, y1):
+        self.x0 = x0
+        self.y0 = y0
+        self.x1 = x1
+        self.y1 = y1
+
+    def GetArea(self):
+        xDistance = self.x1 - self.x0
+        yDistance = self.y1 - self.y0
+        return abs(xDistance * yDistance)
+\end{verbatim}
+
+    Recall - in this example, Shape is an abstract class which cannot be
+instantiated. Here is the same code, but implemented in C++:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{class} \PY{n+nc}{Shape} \PY{p}{\PYZob{}}
+          \PY{k}{public}\PY{o}{:}
+            \PY{c+c1}{//Notice, the virtual keyword and \PYZdq{}= 0\PYZdq{} }
+            \PY{k}{virtual} \PY{k+kt}{double} \PY{n}{GetArea}\PY{p}{(}\PY{p}{)} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{;}
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+cp}{\PYZsh{}}\PY{c+cp}{include} \PY{c+cpf}{\PYZlt{}math.h\PYZgt{}}
+        
+        \PY{k}{class} \PY{n+nc}{Circle}\PY{o}{:} \PY{k}{public} \PY{n}{Shape} \PY{p}{\PYZob{}}
+            \PY{k+kt}{double} \PY{n}{x\PYZus{}}\PY{p}{;}
+            \PY{k+kt}{double} \PY{n}{y\PYZus{}}\PY{p}{;}
+            \PY{k+kt}{double} \PY{n}{radius\PYZus{}}\PY{p}{;}
+            
+          \PY{k}{public}\PY{o}{:}
+            \PY{n}{Circle}\PY{p}{(}\PY{k+kt}{double} \PY{n}{x}\PY{p}{,} 
+                   \PY{k+kt}{double} \PY{n}{y}\PY{p}{,} 
+                   \PY{k+kt}{double} \PY{n}{radius}\PY{p}{)}\PY{o}{:}
+                \PY{n}{x\PYZus{}}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{n}{radius\PYZus{}}\PY{p}{(}\PY{n}{radius}\PY{p}{)}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{;}
+            
+            \PY{k+kt}{double} \PY{n+nf}{GetArea}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{return} \PY{n}{M\PYZus{}PI} \PY{o}{*} \PY{n}{radius\PYZus{}} \PY{o}{*} \PY{n}{radius\PYZus{}}\PY{p}{;}
+            \PY{p}{\PYZcb{}}\PY{p}{;}
+            
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{class} \PY{n+nc}{Rectangle}\PY{o}{:} \PY{k}{public} \PY{n}{Shape} \PY{p}{\PYZob{}}
+            \PY{k+kt}{double} \PY{n}{x0\PYZus{}}\PY{p}{;}
+            \PY{k+kt}{double} \PY{n}{y0\PYZus{}}\PY{p}{;}
+            \PY{k+kt}{double} \PY{n}{x1\PYZus{}}\PY{p}{;}
+            \PY{k+kt}{double} \PY{n}{y1\PYZus{}}\PY{p}{;}
+            
+          \PY{k}{public}\PY{o}{:}
+            \PY{n}{Rectangle}\PY{p}{(}\PY{k+kt}{double} \PY{n}{x0}\PY{p}{,} 
+                      \PY{k+kt}{double} \PY{n}{y0}\PY{p}{,} 
+                      \PY{k+kt}{double} \PY{n}{x1}\PY{p}{,} 
+                      \PY{k+kt}{double} \PY{n}{y1}\PY{p}{)}\PY{o}{:}
+            \PY{n}{x0\PYZus{}}\PY{p}{(}\PY{n}{x0}\PY{p}{)}\PY{p}{,} \PY{n}{y0\PYZus{}}\PY{p}{(}\PY{n}{y0}\PY{p}{)}\PY{p}{,} \PY{n}{x1\PYZus{}}\PY{p}{(}\PY{n}{x1}\PY{p}{)}\PY{p}{,} \PY{n}{y1\PYZus{}}\PY{p}{(}\PY{n}{y1}\PY{p}{)}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{;} 
+            
+            \PY{k+kt}{double} \PY{n+nf}{GetArea}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{return} \PY{n}{abs}\PY{p}{(}\PY{n}{x0\PYZus{}} \PY{o}{\PYZhy{}} \PY{n}{x1\PYZus{}}\PY{p}{)} \PY{o}{*} \PY{n}{abs}\PY{p}{(}\PY{n}{y0\PYZus{}} \PY{o}{\PYZhy{}} \PY{n}{y1\PYZus{}}\PY{p}{)}\PY{p}{;}
+            \PY{p}{\PYZcb{}}
+            
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{// First, what happens if we try to instantiate Shape?}
+        \PY{n}{Shape} \PY{n}{shape} \PY{o}{=} \PY{n}{Shape}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Rectangle} \PY{n}{rect} \PY{o}{=} \PY{n}{Rectangle}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{rect}\PY{p}{.}\PY{n}{GetArea}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Circle} \PY{n}{circ} \PY{o}{=} \PY{n}{Circle}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{circ}\PY{p}{.}\PY{n}{GetArea}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{pure-virtual-methods}{%
+\paragraph{5.1 Pure virtual methods}\label{pure-virtual-methods}}
+
+Recap: What did we just observe?
+
+\begin{itemize}
+\tightlist
+\item
+  We declared a function \texttt{virtual\ double\ GetArea()\ =\ 0;} in
+  the Shape class. The =0 syntax told the compiler that this was a
+  \textbf{pure virtual} function, meaning that it cannot be executed in
+  the base class.
+\item
+  Any class with \textgreater{}= 1 pure virtual function is understood
+  to be an \textbf{abstract class} in C++, meaning that it cannot be
+  instantiated.
+\end{itemize}
+
+    \textbf{Q: Does the concept of polymorphism still apply even with an
+abstract class, such as ``Shape''?} A: Yes. It is still valid to have a
+pointer of type Shape.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{vector}\PY{o}{\PYZlt{}}\PY{n}{Shape}\PY{o}{*}\PY{o}{\PYZgt{}} \PY{n}{my\PYZus{}vector}\PY{p}{;}
+        
+        \PY{n}{my\PYZus{}vector}\PY{p}{.}\PY{n}{emplace\PYZus{}back}\PY{p}{(}\PY{o}{\PYZam{}}\PY{n}{circ}\PY{p}{)}\PY{p}{;}
+        \PY{n}{my\PYZus{}vector}\PY{p}{.}\PY{n}{emplace\PYZus{}back}\PY{p}{(}\PY{o}{\PYZam{}}\PY{n}{rect}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kt}{double} \PY{n}{total\PYZus{}area} \PY{o}{=} \PY{l+m+mf}{0.0}\PY{p}{;}
+        \PY{k}{for} \PY{p}{(}\PY{k+kt}{int} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{;} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{n}{my\PYZus{}vector}\PY{p}{.}\PY{n}{size}\PY{p}{(}\PY{p}{)}\PY{p}{;} \PY{n}{i}\PY{o}{+}\PY{o}{+}\PY{p}{)}\PY{p}{\PYZob{}}
+            \PY{n}{total\PYZus{}area} \PY{o}{+}\PY{o}{=} \PY{n}{my\PYZus{}vector}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}}\PY{n}{GetArea}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{total\PYZus{}area}
+\end{Verbatim}
+
+
+    \hypertarget{composition}{%
+\subsubsection{Composition}\label{composition}}
+
+    Composition is another type of relationship between objects. Composition
+is when objects relate in a ``has a'' relationship.
+
+Here is an example where we create a \texttt{Point2D} class to define
+point-specific methods, and then re-implement our Circle class to
+\textbf{have} a \texttt{Point2D} to represent its center.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+cp}{\PYZsh{}}\PY{c+cp}{include} \PY{c+cpf}{\PYZlt{}iostream\PYZgt{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{class} \PY{n+nc}{Point2D}
+        \PY{p}{\PYZob{}}
+        \PY{k}{private}\PY{o}{:}
+            \PY{k+kt}{double} \PY{n}{x\PYZus{}}\PY{p}{;}
+            \PY{k+kt}{double} \PY{n}{y\PYZus{}}\PY{p}{;}
+         
+        \PY{k}{public}\PY{o}{:}
+            \PY{c+c1}{// A default constructor}
+            \PY{n}{Point2D}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{;}
+         
+            \PY{n}{Point2D}\PY{p}{(}\PY{k+kt}{double} \PY{n}{x}\PY{p}{,} \PY{k+kt}{double} \PY{n}{y}\PY{p}{)}\PY{o}{:} \PY{n}{x\PYZus{}}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,} \PY{n}{y\PYZus{}}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{;}
+         
+            \PY{c+c1}{// An overloaded output operator}
+            \PY{k}{friend} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{ostream}\PY{o}{\PYZam{}} \PY{k}{operator}\PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}}\PY{p}{(}\PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{ostream}\PY{o}{\PYZam{}} \PY{n}{out}\PY{p}{,} \PY{k}{const} \PY{n}{Point2D} \PY{o}{\PYZam{}}\PY{n}{point}\PY{p}{)}
+            \PY{p}{\PYZob{}}
+                \PY{n}{out} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{(}\PY{l+s}{\PYZdq{}} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{point}\PY{p}{.}\PY{n}{x\PYZus{}} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{, }\PY{l+s}{\PYZdq{}} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{point}\PY{p}{.}\PY{n}{y\PYZus{}} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{)}\PY{l+s}{\PYZdq{}}\PY{p}{;}
+                \PY{k}{return} \PY{n}{out}\PY{p}{;}
+            \PY{p}{\PYZcb{}}
+         
+        \PY{p}{\PYZcb{}}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Point2D} \PY{n}{p} \PY{o}{=} \PY{n}{Point2D}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{cout} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{p} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{endl}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k}{class} \PY{n+nc}{Circle2}\PY{o}{:} \PY{k}{public} \PY{n}{Shape} \PY{p}{\PYZob{}}
+            \PY{n}{Point2D} \PY{n}{center\PYZus{}}\PY{p}{;}
+            \PY{k+kt}{double} \PY{n}{radius\PYZus{}}\PY{p}{;}
+            
+          \PY{k}{public}\PY{o}{:}
+            \PY{n}{Circle2}\PY{p}{(}\PY{k+kt}{double} \PY{n}{x}\PY{p}{,} \PY{k+kt}{double} \PY{n}{y}\PY{p}{,} \PY{k+kt}{double} \PY{n}{radius}\PY{p}{)}\PY{o}{:}\PY{n}{center\PYZus{}}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{,} \PY{n}{radius\PYZus{}}\PY{p}{(}\PY{n}{radius}\PY{p}{)}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{;}
+            
+            \PY{c+c1}{// A default constructor}
+            \PY{n}{Circle2}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{;}
+            
+            \PY{k+kt}{double} \PY{n+nf}{GetArea}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{return} \PY{n}{M\PYZus{}PI} \PY{o}{*} \PY{n}{radius\PYZus{}} \PY{o}{*} \PY{n}{radius\PYZus{}}\PY{p}{;}
+            \PY{p}{\PYZcb{}}\PY{p}{;}
+            
+            \PY{k}{const} \PY{n}{Point2D}\PY{o}{*} \PY{n+nf}{GetLocation}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZob{}}
+                \PY{k}{return} \PY{o}{\PYZam{}}\PY{n}{center\PYZus{}}\PY{p}{;}
+            \PY{p}{\PYZcb{}}
+            
+        \PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Circle2} \PY{n}{circle} \PY{o}{=} \PY{n}{Circle2}\PY{p}{(}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{circle}\PY{p}{.}\PY{n}{GetArea}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{cout} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{o}{*}\PY{p}{(}\PY{n}{circle}\PY{p}{.}\PY{n}{GetLocation}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{endl}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{Circle2} \PY{n}{circle2} \PY{o}{=} \PY{n}{Circle2}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{// What value will this return?}
+        \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{cout} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{o}{*}\PY{p}{(}\PY{n}{circle2}\PY{p}{.}\PY{n}{GetLocation}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZlt{}}\PY{o}{\PYZlt{}} \PY{n}{std}\PY{o}{:}\PY{o}{:}\PY{n}{endl}\PY{p}{;}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
