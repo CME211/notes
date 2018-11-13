@@ -804,16 +804,13 @@ hw6  hw6.cpp  hw6.hpp  hw6.o  makefile	stanford.jpg  test.jpg
 
 ### Make
 
-* Automation tool for expressing how your C/C++/Fortran code should be compiled
+* Automation tool for expressing how your C/C++/Fortran/LaTeX code should be built.
 
-* Good for small projects
+* Good for single platform projects.
 
 * But be careful with dependencies.  It is **very** important to understand this
   process for larger projects.
 
-* Some people would not recommend hand writing Makefile(s) for larger projects
-  (use CMake or similar)
-
-* With discipline, I believe that Make is a good tool for large projects.  This
-  is what I use.  Sometimes CMake and other tools make it harder to build
-  projects.
+* Hand writing Makefile(s) for cross-platform projects is not 
+  recommended. You should consider using configuration tools
+  such as [CMake](https://cmake.org/).
