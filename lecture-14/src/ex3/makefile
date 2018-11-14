@@ -1,5 +1,6 @@
 CXX := g++
 CXXFLAGS := -O3 -Wall -Wextra -Wconversion -std=c++11
+RM := -rm
 
 TARGET := main
 OBJS := main.o sum.o foo.o bar.o
