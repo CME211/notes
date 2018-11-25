@@ -1,0 +1,867 @@
+\documentclass[12pt,letterpaper,twoside]{article}
+\usepackage{cme211}
+\usepackage{algorithm2e}
+
+\def\D{\mathrm{d}}
+\usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
+\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
+
+\begin{document}
+\title{Lecture 16: C++ OOP\vspace{-5ex}}
+\date{November 27th, 2018}
+\maketitle
+
+{\footnotesize
+\paragraph{Topics:} Object oriented programming in C++.
+}
+\vspace{-3ex}
+
+\section{Classes in C++}
+A \href{https://en.cppreference.com/w/cpp/language/classes}{class in C++} 
+is a user-defined type. To simplify slightly, classes may contain
+\begin{enumerate}   \item \href{https://en.cppreference.com/w/cpp/language/data_members}{Data attributes}, and
+  \item \href{https://en.cppreference.com/w/cpp/language/member_functions}
+    {Methods} (function attributes).
+\end{enumerate}
+
+Members must be defined at once in the class definition, and new members cannot
+be added to an already defined class (unlike members of namespaces). 
+
+\subsection{Accessing Attributes}
+Let's consider a first example for how we may define our own 
+\href{https://en.cppreference.com/w/cpp/language/data_members}
+{data-attributes};
+from \texttt{src/class1.cpp}:
+
+\begin{cpp}
+#include <string>
+
+class user {           // Class definition.
+  // Data attributes.
+  int id;              // Uninitialized variable.
+  int zz = 0;          // Member Initialization is a C++11 feature.
+  std::string name;    // Default-initialized to "" by string-constructor.
+};
+
+int main() {
+  user u;              // Object (an instance of the class).
+  return 0;
+}
+\end{cpp}
+
+Note that our class definition can impose default values for attributes.
+If we're diligent with our compiler warnings, the compiler instructs us of 
+an unused variable; output:
+
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wextra -Wconversion src/class1.cpp -o src/class1
+src/class1.cpp:5:7: warning: private field 'id' is not used [-Wunused-private-field]
+  int id;
+      ^
+1 warning generated.
+$ ./src/class1
+\end{verbatim}
+
+Running the program doesn't product any output, expectedly. Naturally, 
+we might try to use (or access) an attribute, to perhaps initialize its value.
+
+\subsubsection{Classes: Member Access is Private by Default}
+It's correct to use dot notation (\texttt{.}) to access attributes, but we 
+the compiler guards against (malicious) users;
+\texttt{src/class2.cpp}:
+
+\begin{cpp}
+#include <iostream>
+#include <string>
+
+class user {
+  int id;
+  std::string name;
+};
+
+int main() {
+  user u;
+  u.id = 7; // Member access via dot notation.
+  std::cout << "u.id = " << u.id << std::endl;
+  return 0;
+}
+\end{cpp}
+
+We've earned a nice error (available even without the warning flags);
+output:
+
+\begin{verbatim}
+$ g++ -Wall -Wextra -Wconversion src/class2.cpp -o src/class2
+src/class2.cpp:13:5: error: 'id' is a private member of 'user'
+  u.id = 7; // Member access via dot notation
+    ^
+src/class2.cpp:6:7: note: implicitly declared private here
+  int id;
+      ^
+src/class2.cpp:14:31: error: 'id' is a private member of 'user'
+  std::cout << "u.id = " << u.id << std::endl;
+                              ^
+src/class2.cpp:6:7: note: implicitly declared private here
+  int id;
+      ^
+2 errors generated.
+\end{verbatim}
+
+\subsubsection{Structs: Member Access is Public by Default} Structs and
+classes are interchangeable, they simply have different defaults for
+\href{https://en.cppreference.com/w/cpp/language/access}{access specifiers}. 
+Whereas a 
+class defaults to having members be private, a struct defaults to public access;
+\texttt{src/struct1.cpp}:
+
+\begin{cpp}
+#include <iostream>
+#include <string>
+
+struct user {
+  int id;
+  std::string name;
+};
+
+int main() {
+  user u;
+  u.id = 7;
+  std::cout << "u.id = " << u.id << std::endl;
+  return 0;
+}
+\end{cpp}
+
+\begin{verbatim}
+$ g++ -Wall -Wextra -Wconversion src/struct1.cpp -o src/struct1
+$ ./src/struct1 
+u.id = 7
+\end{verbatim}
+
+\subsection{Public, Private, and Access Specifiers}
+C++ is strict about member access: we need to understand
+the default behaviors, and also how to override defaults via access specifiers.
+
+\begin{itemize}
+\item
+  \texttt{private}: attribute or method only accessible from within
+  member(s) of the same class.
+\item
+  \texttt{public}: attribute or method accessible by any-user via dot
+  notation.
+\item
+  Default access specifier for \texttt{class} is \texttt{private}.
+\item
+  Default access specifier for \texttt{struct} is \texttt{public}.
+\end{itemize}
+
+It's even possible to provision that a private attribute be accessible from
+select methods (themselves not a part of the class) using \href{https://en.cppreference.com/w/cpp/language/friend}{friend}s.
+
+\subsubsection{Overriding Default Access, a \texttt{class} Example}
+
+\texttt{src/class3.cpp}:
+\begin{cpp}
+#include <iostream>
+#include <string>
+
+class user {
+ public: // everything after this will be public
+  int id;
+  std::string name;
+};
+
+int main() {
+  user u;
+  u.id = 7;
+  u.name = "Leland";
+  std::cout << "u.id = " << u.id << std::endl;
+  std::cout << "u.name = " << u.name << std::endl;
+  return 0;
+}
+\end{cpp}
+
+\begin{verbatim}
+$ g++ -Wall -Wextra -Wconversion src/class3.cpp -o src/class3
+$ ./src/class3
+u.id = 7
+u.name = Leland
+\end{verbatim}
+
+\subsubsection{Overriding Default Access, a \texttt{struct} Example}
+
+From \texttt{src/struct2.cpp}:
+\begin{cpp}
+#include <iostream>
+#include <string>
+
+struct user {
+  int id;
+ private: // everything after this will be private
+  std::string name;
+};
+
+int main() {
+  user u;
+  u.id = 7;
+  u.name = "Leland";
+  std::cout << "u.id = " << u.id << std::endl;
+  std::cout << "u.name = " << u.name << std::endl;
+  return 0;
+}
+\end{cpp}
+
+\begin{verbatim}
+$ g++ -Wall -Wextra -Wconversion src/struct2.cpp -o src/struct2
+src/struct2.cpp:13:5: error: 'name' is a private member of 'user'
+  u.name = "Leland";
+    ^
+src/struct2.cpp:7:15: note: declared private here
+  std::string name;
+              ^
+src/struct2.cpp:15:33: error: 'name' is a private member of 'user'
+  std::cout << "u.name = " << u.name << std::endl;
+                                ^
+src/struct2.cpp:7:15: note: declared private here
+  std::string name;
+              ^
+2 errors generated.
+\end{verbatim}
+
+\subsubsection{Mix and Match: Selectively Making Members Public}
+\texttt{src/class4.cpp}:
+
+\begin{cpp}
+#include <iostream>
+#include <string>
+
+class user {
+  int id;
+ public:
+  std::string name;
+ private:
+  int age;
+};
+
+int main() {
+  user u;
+  u.id = 7;
+  u.name = "Leland";
+  u.age = 12;
+
+  std::cout << "u.id = " << u.id << std::endl;
+  std::cout << "u.name = " << u.name << std::endl;
+  std::cout << "u.age = " << u.age << std::endl;
+
+  return 0;
+}
+\end{cpp}
+
+Output:
+
+\begin{verbatim}
+$ g++ -Wall -Wextra -Wconversion src/class4.cpp -o src/class4
+src/class4.cpp:14:5: error: 'id' is a private member of 'user'
+  u.id = 7;
+    ^
+src/class4.cpp:5:7: note: implicitly declared private here
+  int id;
+      ^
+src/class4.cpp:16:5: error: 'age' is a private member of 'user'
+  u.age = 12;
+    ^
+src/class4.cpp:9:7: note: declared private here
+  int age;
+      ^
+src/class4.cpp:18:31: error: 'id' is a private member of 'user'
+  std::cout << "u.id = " << u.id << std::endl;
+                              ^
+src/class4.cpp:5:7: note: implicitly declared private here
+  int id;
+      ^
+src/class4.cpp:20:32: error: 'age' is a private member of 'user'
+  std::cout << "u.age = " << u.age << std::endl;
+                               ^
+src/class4.cpp:9:7: note: declared private here
+  int age;
+      ^
+4 errors generated.
+\end{verbatim}
+
+\subsection{Size and Layout of Classes are Static}
+It's important to recognize that unlike Python, we can't simply add members to
+a class ``on-the-fly''. Recognize that a class is a (compound) \emph{type}, and
+the compiler must be able to reason about it (and its size, for example). 
+It has a particular layout in memory, which we'll learn more about in 
+CME 212, which naturally depends on the number of objects being stored and 
+their type.
+\texttt{src/struct3.cpp}:
+
+\begin{cpp}
+#include <iostream>
+
+struct user { int id; };
+
+int main() {
+  user u;
+  u.id = 7;
+  u.age = 12;   // Leads to an error: no attribute named 'age'.
+  return 0;
+}
+\end{cpp}
+
+\begin{verbatim}
+$ g++ -Wall -Wextra -Wconversion src/struct3.cpp -o src/struct3
+src/struct3.cpp:10:5: error: no member named 'age' in 'user'
+  u.age = 12;
+  ~ ^
+1 error generated.
+\end{verbatim}
+
+\subsection{Methods}
+Let's define our first method; \texttt{src/class5.cpp}:
+
+\begin{cpp}
+#include <iostream>
+
+class user {
+  // data member initialization is a C++11 feature
+  int id = 7;
+  int getId(void) { return id; }
+};
+
+int main() {
+  user u;
+  std::cout << "u.getId() = " << u.getId() << std::endl;
+  return 0;
+}
+\end{cpp}
+
+We might be at first surprised by the output; we must recall that 
+\texttt{class}es default to private access. Our method \texttt{getId} is
+not accessible from \emph{outside} of class \texttt{user}.
+
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wextra -Wconversion src/class5.cpp -o src/class5
+src/class5.cpp:13:36: error: 'getId' is a private member of 'user'
+  std::cout << "u.getId() = " << u.getId() << std::endl;
+                                   ^
+src/class5.cpp:6:7: note: implicitly declared private here
+  int getId(void) {
+      ^
+1 error generated.
+\end{verbatim}
+
+If we take care to override the default access behavior,
+\texttt{src/class6.cpp}:
+
+\begin{cpp}
+#include <iostream>
+
+class user {
+  int id = 7;
+ public:
+  int getId(void) { return id; }
+};
+
+int main() {
+  user u;
+  std::cout << "u.getId() = " << u.getId() << std::endl;
+  return 0;
+}
+\end{cpp}
+
+Our program now compiles and executes without error.
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wextra -Wconversion src/class6.cpp -o src/class6
+$ ./src/class6
+u.getId() = 7
+\end{verbatim}
+
+\subsection{Naming Conventions and Passing/Initializing Arguments}
+Suppose we have a set of attributes associated with a class. We may want
+to provide methods which facilitate initialization/modification and retrieval.
+As an implementation detail, we must take care to disambiguate 
+between the argument passed to the method and the underlying attribute we
+wish to modify;
+\texttt{src/class7.cpp}:
+
+\begin{cpp}
+#include <iostream>
+
+class user {
+  int id = 1;
+ public:
+  int getId(void) { return id; }
+  void setId(int id) { id = id; }   // Oops, this doesn't assign/over-write out attribute.
+};
+
+int main() {
+  user u;
+  u.setId(7);
+  std::cout << "u.getId() = " << u.getId() << std::endl;
+  u.setId(42);
+  std::cout << "u.getId() = " << u.getId() << std::endl;
+  return 0;
+}
+\end{cpp}
+
+Output:
+
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wextra -Wconversion src/class7.cpp -o src/class7
+src/class7.cpp:7:27: warning: explicitly assigning value of variable of type 
+                              'int' to itself [-Wself-assign]
+  void setId(int id) { id = id; }
+                       ~~ ^ ~~
+1 warning generated.
+$ ./src/class7
+u.getId() = 1
+u.getId() = 1
+\end{verbatim}
+
+\subsubsection{Total Disambiguation via Distinct Identifiers}
+We could simply choose different 
+variable names for arguments used to initialize corresponding attributes;
+\texttt{src/class8.cpp}:
+
+\begin{cpp}
+#include <iostream>
+
+class user {
+  int id = 1;
+ public:
+  int getId(void) { return id; }
+  void setId(int id_) { id = id_; }
+};
+
+int main() {
+  user u;
+  u.setId(7);
+  std::cout << "u.getId() = " << u.getId() << std::endl;
+  u.setId(42);
+  std::cout << "u.getId() = " << u.getId() << std::endl;
+  return 0;
+}
+\end{cpp}
+
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wextra -Wconversion src/class8.cpp -o src/class8
+$ ./src/class8
+u.getId() = 7
+u.getId() = 42
+\end{verbatim}
+
+\subsubsection{Keyword \texttt{this}} We can also use keyword 
+\href{https://en.cppreference.com/w/cpp/language/this}{\texttt{this}}, whose
+value is an address of the object in context. We can use the \texttt{->} 
+operator as a syntactic sugar for de-referencing the memory address and 
+accessing the corresponding member attribute; see
+\texttt{src/class9.cpp}:
+
+\begin{cpp}
+#include <iostream>
+
+class user {
+  int id = 1;
+ public:
+  int getId(void) { return id; }
+  void setId(int id) { this->id = id; }  // Note use of this->
+};
+
+int main() {
+  user u;
+  u.setId(7);
+  std::cout << "u.getId() = " << u.getId() << std::endl;
+  u.setId(42);
+  std::cout << "u.getId() = " << u.getId() << std::endl;
+  return 0;
+}
+\end{cpp}
+
+Now this behaves as intended.
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wextra -Wconversion src/class9.cpp -o src/class9
+$ ./src/class9
+u.getId() = 7
+u.getId() = 42
+\end{verbatim}
+
+\section{Constructor} There are a few essential ingredients which are 
+essential to each class.\footnote{These include 
+  default, copy, and move constructors, as well as copy/move 
+  assignment operators, and finally a destructor. We'll learn about how 
+  to define these and use them for performant computing in CME 212.}
+A \href{https://en.cppreference.com/w/cpp/language/initializer_list}
+{constructor} is a special type of member function which is used for 
+initialization of objects of the corresponding class type. Put differently,
+anytime an object of a particular class is created, \emph{some type} of 
+constructor is called (which one depends on the context of use). 
+
+\subsection{Default Constructors}
+In C++, there
+is a notion of a 
+\href{https://en.cppreference.com/w/cpp/language/default_constructor}
+{\emph{default constructor}} which can be called with \emph{no} arguments.
+In C++, if no user-declared constructor is defined, one is generated 
+automatically by the compiler. The behavior of the default constructor
+is to simply default initialize each member attribute in turn.
+We can replace the default constructor with a custom constructor by
+defining a method name with the same name as the class.
+
+\paragraph{Comparison with Methods}
+\emph{Unlike} other methods, the constructor 
+does \emph{not} return anything, not even void!
+\emph{Like}
+ other methods, the constructor can take arguments; we can even define
+\emph{multiple} constructors which differ in the number (and types) of arguments
+which are accepted. We can think of each of these constructors as being totally distinct methods for initialization, which happen to share the same name, but
+can be uniquely found given a well-written constructor call.
+
+\paragraph{Example: Default Constructor}
+Here, we define a non-default constructor.
+\begin{cpp} class user {
+  int id;
+ public:
+  user() { this->id = 43; }   // This is a default-Constructor.
+  int getId(void) { return id; }
+};
+\end{cpp}
+Since we have provided a definition for a default constructor (i.e. one which
+accepts \emph{no} arguments), the compiler no longer defines one for us.
+It's also possible to create \emph{another} constructor 
+(separate from the default constructor);
+\texttt{src/class10.cpp}:
+
+\begin{cpp}
+#include <iostream>
+
+class user {
+  int id;
+ public:
+  user(int id) { this->id = id; }   // This is a Constructor.
+  int getId(void) { return id; }
+};
+
+int main() {
+  user u(13);
+  std::cout << "u.getId() = " << u.getId() << std::endl;
+  return 0;
+}
+\end{cpp}
+
+Now, we have a one-argument constructor which can initialize \texttt{id} 
+attribute to the value passed as argument.
+Output:
+
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wextra -Wconversion src/class10.cpp -o src/class10
+$ ./src/class10
+u.getId() = 13
+\end{verbatim}
+
+\subsubsection{If Any User-Constructor Defined, Default Constructor \emph{not} Auto-generated}
+Note that if \emph{any} user-defined constructor is provided, then the compiler \emph{foregoes defining} a default constructor; \footnote{We emphasize that 
+the default constructor default-initializes each 
+member (in this case simply an \texttt{id} variable), and since the 
+\texttt{int} type is atomic and doesn't have a constructor, its value is 
+left uninitialized}
+\texttt{src/class11.cpp}:
+
+\begin{cpp}
+#include <iostream>
+
+class user {
+  int id;
+ public:
+  user(int id) { this->id = id; }
+  int getId(void) { return id; }
+};
+
+int main() {
+  user u;
+  std::cout << "u.getId() = " << u.getId() << std::endl;
+  return 0;
+}
+\end{cpp}
+
+Output:
+
+{\footnotesize
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wextra -Wconversion src/class11.cpp -o src/class11
+src/class11.cpp:11:8: error: no matching constructor for initialization of 'user'
+  user u;
+       ^
+src/class11.cpp:6:3: note: candidate constructor not viable: requires single argument 'id', 
+                     but no arguments were provided
+  user(int id) { this->id = id; }
+  ^
+src/class11.cpp:3:7: note: candidate constructor (the implicit copy constructor) 
+                     not viable: requires 1 argument, but 0 were provided
+class user {
+      ^
+src/class11.cpp:3:7: note: candidate constructor (the implicit move constructor) 
+                     not viable: requires 1 argument, but 0 were provided
+1 error generated.
+\end{verbatim}
+}
+
+Reasons for this behavior will be illuminated in CME 212 
+when we learn about 
+\href{https://en.wikipedia.org/wiki/Invariant_(mathematics)}{invariants}.
+
+\subsection{Circle Example}
+\texttt{src/circle1.cpp}:
+\begin{cpp}
+#include <cmath>
+#include <iostream>
+
+class circle {
+  double x, y, r;
+ public:
+  circle(double x, double y, double r) {
+    this->x = x;
+    this->y = y;
+    this->r = r;
+  }
+  double getArea(void) {
+    return M_PI*r*r;
+  }
+};
+
+int main() {
+  circle c(1.2, 3.4, 2.);
+  std::cout << "c.getArea() = " << c.getArea() << std::endl;
+  return 0;
+}
+\end{cpp}
+
+Output:
+
+\begin{verbatim}
+$ g++ -Wall -Wextra -Wconversion src/circle1.cpp -o src/circle1
+$ ./src/circle1 
+c.getArea() = 12.5664
+\end{verbatim}
+
+\section{Program Decomposition: {\large Organizing into Multiple Files}}
+We've discussed before that the user-interface for a class may be read by
+one set of users;
+\texttt{src/circle2.hpp}:
+
+\begin{cpp}
+#ifndef CIRCLE2_HPP
+#define CIRCLE2_HPP
+
+class circle {
+  double x, y, r;
+ public:
+  circle(double x, double y, double r);
+  double getArea(void);
+};
+
+#endif /* CIRCLE2_HPP */
+\end{cpp}
+
+And implementation details may be stored in another file;
+\texttt{src/circle2.cpp}:
+
+\begin{cpp}
+#include <cmath>
+
+#include "circle2.hpp"
+
+circle::circle(double x, double y, double r) {
+  this->x = x;
+  this->y = y;
+  this->r = r;
+}
+
+double circle::getArea(void) {
+  return M_PI*r*r;
+}
+\end{cpp}
+
+We can call \texttt{\#include} our header file within our \texttt{main}
+program;
+\texttt{src/main2.cpp}:
+
+\begin{cpp}
+#include <iostream>
+#include "circle2.hpp"
+
+int main() {
+  circle c(1.2, 3.4, 2.);
+  std::cout << "c.getArea() = " << c.getArea() << std::endl;
+  return 0;
+}
+\end{cpp}
+
+And finally, instruct our compiler where to look for implementation details
+(for both \texttt{main} and \texttt{circle}); here we use \texttt{-I} to specify
+to the compiler where we shall look for external header files.
+\begin{verbatim}
+$ g++ -Wall -Wextra -Wconversion src/circle2.cpp src/main2.cpp -o src/main2 -I./src
+$ ./src/main2
+c.getArea() = 12.5664
+\end{verbatim}
+
+\subsubsection{Example: Namespace and Class Decomposition}
+
+A \texttt{circle} is really just one of many possible \texttt{geometry}s;
+\texttt{src/circle3.hpp}:
+\begin{cpp}
+#ifndef CIRCLE3_HPP
+#define CIRCLE3_HPP
+
+namespace geometry {
+
+  class circle {
+      double x, y, r;
+    public:
+      circle(double x, double y, double r);
+      double getArea(void);
+      double getPerimeter(void); 
+  };
+}
+#endif /* CIRCLE3_HPP */
+\end{cpp}
+
+Having laid out our interface, we can proceed with an implementation;
+\texttt{src/circle3a.cpp}:
+
+\begin{cpp}
+#include <cmath>
+#include "circle3.hpp"
+
+namespace geometry {
+  circle::circle(double x, double y, double r) {
+    this->x = x;
+    this->y = y;
+    this->r = r;
+  }
+  double circle::getArea(void) {
+    return M_PI*r*r;
+  }
+}
+
+\end{cpp}
+
+Perhaps we wish to place methods in separate files, splitting apart \texttt{getArea} from \texttt{getPerimiter};
+\texttt{src/circle3b.cpp}:
+
+\begin{cpp}
+#include <cmath>
+#include "circle3.hpp"
+
+namespace geometry {
+  double circle::getPerimeter(void) {
+    return 2.*M_PI*r;
+  }
+}
+\end{cpp}
+
+We've still laid everything out in a single header file, since we've learned 
+that a class can't be dynamically added to;
+\texttt{src/main3.cpp}:
+
+\begin{cpp}
+#include <iostream>
+#include "circle3.hpp"
+
+int main() {
+  geometry::circle c(1.2, 3.4, 1.8);
+  std::cout << "c.getArea() = " << c.getArea() << std::endl;
+  std::cout << "c.getPerimeter() = " << c.getPerimeter() << std::endl;
+  return 0;
+}
+\end{cpp}
+
+We instruct our compiler where to look for implementations of 
+\texttt{getArea} (\texttt{circle3a}, \texttt{getPerimiter} 
+(\texttt{circle3b}), and where to look for the main sub-routine; output:
+
+\begin{verbatim}
+$ g++ -Wall -Wextra -Wconversion src/circle3a.cpp src/circle3b.cpp src/main3.cpp \
+  -o src/main3 -I./src
+$ ./src/main3
+c.getArea() = 10.1788
+c.getPerimeter() = 11.3097
+\end{verbatim}
+
+\section{Objects and Containers}
+Since a class is just a (user-defined, possibly compound) type, the compiler
+understands how much space each instantiated object will require, and we can
+for example store instances of our class-object as elements in a container;
+\texttt{src/container.cpp}:
+
+\begin{cpp}
+#include <iostream>
+#include <vector>
+#include "circle3.hpp"
+
+int main() {
+  std::vector<geometry::circle> circles;
+  circles.emplace_back(8.3, 4.7, 0.5);
+  circles.emplace_back(4.1, 2.3, 1.4);
+  circles.emplace_back(-3.2, 0.8, 14.4);
+
+  for(auto& c : circles)   # C++11 mechanism for for-loop.
+    std::cout << "c.getArea() = " << c.getArea() << std::endl;
+  return 0;
+}
+\end{cpp}
+
+We could of course index into our vector to retrieve each element as well,
+using the canonical syntax: 
+\texttt{for (unsigned i = 0; i < circles.size(); i++)}. Notice that if we did
+not use a \texttt{\&} to declare a reference, that we would be creating a new
+copy of each \texttt{circle} before using it in the for-loop, whence it's 
+prefereable instead to use a reference;
+output:
+
+\begin{verbatim}
+$ g++ -std=c++11 -Wall -Wextra -Wconversion src/circle3a.cpp src/circle3b.cpp \ 
+  src/container.cpp -o src/container -I./src
+$ ./src/container 
+c.getArea() = 0.785398
+c.getArea() = 6.15752
+c.getArea() = 651.441
+\end{verbatim}
+
+\section{Appendix: Use of keyword \texttt{static}} We've mentioned 
+previously a concept
+of \emph{statically allocated} arrays, i.e. an array whose length is known at 
+compile time. Such an array can be allocated on the stack 
+(in temporary memory, where the compiler disposes of the object when 
+it goes out of scope) 
+or on the heap (persistent storage, wherein the user must clean up after 
+themselves). Totally separate from this concept, the keyword \texttt{static} 
+appears in two \emph{different} (and unrelated) contexts in C++.
+
+\begin{quotation}   Inside a class, \texttt{static} declares members that are 
+  not bound to class instances.
+
+  Outside a class definition, it refers to a type of storage duration. \end{quotation}
+
+\paragraph{Storage Duration: Automatic vs. Static} 
+All objects are associated with a kind of 
+\href{https://en.cppreference.com/w/cpp/language/storage_duration}
+{storage duration}. The default is \emph{automatic} storage duration, wherein the storage is allocated for the object at the beginning of the enclosing code block and deallocated at the end. In contrast, we could also request \emph{static} storage duration, wherein the object is allocated \emph{once} when the program begins, and deallocated \emph{once} when the program ends: only one instance of the object exists.
+
+\paragraph{Static Members} If keyword 
+\href{https://en.cppreference.com/w/cpp/language/static}
+{\texttt{static} is used within a class}
+definition, it indicates that the member shall \emph{not} be associated
+with any particular object(s) of the class; instead, they are independent
+variables (or functions) which happen to have static storage duration.
+
+\section{Reading}\label{reading}
+
+\textbf{C++ Primer, Fifth Edition} by Lippman et al.
+
+\begin{itemize}
+\item
+  Section 1.5: Introducing Classes
+\end{itemize}
+ \end{document}
