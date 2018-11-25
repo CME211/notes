@@ -287,7 +287,7 @@ src/class4.cpp:9:7: note: declared private here
 4 errors generated.
 \end{verbatim}
 
-\subsection{Size and Layout of Classes are Static}
+\subsection{Size and Layout of Classes are Static ({\small i.e. known at compile time})}
 It's important to recognize that unlike Python, we can't simply add members to
 a class ``on-the-fly''. Recognize that a class is a (compound) \emph{type}, and
 the compiler must be able to reason about it (and its size, for example). 
@@ -645,6 +645,7 @@ c.getArea() = 12.5664
 \end{verbatim}
 
 \section{Program Decomposition: {\large Organizing into Multiple Files}}
+\subsection{User-Interface (\texttt{.hpp}) vs. Implementation Details (\texttt{.cpp})}
 We've discussed before that the user-interface for a class may be read by
 one set of users;
 \texttt{src/circle2.hpp}:
@@ -706,7 +707,7 @@ $ ./src/main2
 c.getArea() = 12.5664
 \end{verbatim}
 
-\subsubsection{Example: Namespace and Class Decomposition}
+\subsection{Example: Class Decomposition with a Namespace}
 
 A \texttt{circle} is really just one of many possible \texttt{geometry}s;
 \texttt{src/circle3.hpp}:
@@ -806,7 +807,7 @@ int main() {
   circles.emplace_back(4.1, 2.3, 1.4);
   circles.emplace_back(-3.2, 0.8, 14.4);
 
-  for(auto& c : circles)   # C++11 mechanism for for-loop.
+  for(auto& c : circles)   # C++11 mechanism for a for-loop (by reference).
     std::cout << "c.getArea() = " << c.getArea() << std::endl;
   return 0;
 }
@@ -815,7 +816,8 @@ int main() {
 We could of course index into our vector to retrieve each element as well,
 using the canonical syntax: 
 \texttt{for (unsigned i = 0; i < circles.size(); i++)}. Notice that if we did
-not use a \texttt{\&} to declare a reference, that we would be creating a new
+not use an ampersand (\texttt{\&}) to declare a reference, 
+that we would be creating a new
 copy of each \texttt{circle} before using it in the for-loop, whence it's 
 prefereable instead to use a reference;
 output:
@@ -858,10 +860,6 @@ variables (or functions) which happen to have static storage duration.
 
 \section{Reading}\label{reading}
 
-\textbf{C++ Primer, Fifth Edition} by Lippman et al.
-
-\begin{itemize}
-\item
-  Section 1.5: Introducing Classes
-\end{itemize}
+\textbf{C++ Primer, Fifth Edition} by Lippman et al.:
+Section 1.5: Introducing Classes.
  \end{document}
