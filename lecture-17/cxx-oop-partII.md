@@ -1,12 +1,12 @@
 # Object Oriented Programming Part II: C++
 
 ## Topics
-1. [Recap: Encapsulation](#recap:-encapsulation)
+1. [Recap: Encapsulation](#encapsulation)
 
-2. [Recap: Abstraction](#recap:-abstraction)
+2. [Recap: Abstraction](#abstraction)
 
 3. [Inheritance](#inheritance)
-    3.1 [Virtual methods](#virtual-methods)
+    * [Virtual methods](#virtual-methods)
 
 4. [Polymorphism](#polymorphism)
 
@@ -15,7 +15,7 @@
 
 6. [Composition](#composition)
 
-##Recap: Encapsulation
+## Encapsulation
 
 * Encapsulation hides the details of an object's state from unauthorized parties.
 * The values of attributes and the existence of certain methods can be hidden from other objects or users.
@@ -77,7 +77,7 @@ if (s == s_3){
 
 Note in the example above that the comparison operator `==` for s is able to access the 'id' attribute of s3, because both are instances of the StudentEncapsulationExample class.
 
-###Aside: Initializer-list construction
+### Aside: Initializer-list construction
 
 In the above example, we used the syntax 
 
@@ -140,7 +140,7 @@ Student_Encapsulation_Example2 default_se =  Student_Encapsulation_Example2();
 default_se.get_id()
 ```
 
-##Recap: Abstraction
+## Abstraction
 
 Abstraction is the principle of hiding unecessary details from other objects (Closely related to encapsulation).  Other objects don't need to know the details about the inside of another object's class and *how* its methods work.  All that is required is knowledge of what the methods do, and how to interact with them.
 
@@ -346,7 +346,7 @@ A (silly) example: Suppose that Students could either be SPCD or live on campus,
 
 This leads us to the principle of **Inheritance**.
 
-##Inheritance
+## Inheritance
 
 
 ```c++
@@ -461,7 +461,7 @@ remote_student.get_location()
 local.get_location()
 ```
 
-####Virtual methods
+#### Virtual methods
 
 Notice that we used the **virtual** keyword in the Student class when defining our method `get_dorm()`
 
@@ -547,7 +547,7 @@ loc.dorm_
 
 What is so useful about establishing inheritance relationships this way? **Polymorphism**
 
-##Polymorphism
+## Polymorphism
 
 The concept that a different version of a method can be called based on the inheritance structure of the classes.  This allows us to interact with "Student" objects whose underlying functionality is dictated by their actual type.
 
@@ -627,7 +627,7 @@ What happened when instead of creating a vector of pointers to Student objects, 
 
 **TL;DR**: In order to make use of polymorphism, use pointers to objects of the Base class type
 
-##Abstract Classes
+## Abstract Classes
 
 Based on the way we defined our Student class so far, we can still instantiate it (i.e. create objects of type "Student").
 
@@ -647,7 +647,7 @@ Then we would want to create an **abstract class** - a class that specifies some
 
 We will illustrate this by moving on to another example from the Python Object Oriented Programming lecture.
 
-####Abstract Class Example
+#### Abstract Class Example
 
 ```python
 import math
@@ -795,7 +795,7 @@ Square sq = Square(0,0,5);
 sq.GetArea()
 ```
 
-####Pure virtual methods
+#### Pure virtual methods
 
 Recap: What did we just observe?
 
@@ -826,7 +826,7 @@ for (int i = 0; i < my_vector.size(); i++){
 total_area
 ```
 
-##Composition
+## Composition
 
 Composition is another type of relationship between objects.  Composition occurs when objects relate in a "has a" relationship.
 
