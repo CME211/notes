@@ -1,5 +1,6 @@
 # this is a makefile variable, note := for direct assignment
 CXX := g++
+RM := -rm
 
 # this is a makefile comment
 #CXXFLAGS := -Wall -Wextra -Wconversion

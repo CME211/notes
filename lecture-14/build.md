@@ -1,10 +1,11 @@
-# CME 211: Lecture 15
+# CME 211: Lecture 14
 
 
 Topics:
 
 * Compilation process
 * Make for building software
+* Debuggers
 
 ## Compilation
 
@@ -558,6 +559,7 @@ $ ./src/hw6
   case, maybe required on Ubuntu)
 * `-ljpeg`: link to the `libjpeg.{a,so}` file (not optional here)
 
+
 ## Make
 
 * Utility that compiles programs based on rules read in from a file called Makefile
@@ -631,6 +633,7 @@ target: dependencies
 
 * `build_command`: a **tab-indented** shell command (or sequence) to build the
   target from dependencies.
+
 
 ### Let's run the example
 
@@ -804,16 +807,350 @@ hw6  hw6.cpp  hw6.hpp  hw6.o  makefile	stanford.jpg  test.jpg
 
 ### Make
 
-* Automation tool for expressing how your C/C++/Fortran code should be compiled
+* Automation tool for expressing how your C/C++/Fortran/LaTeX code should be built.
 
-* Good for small projects
+* Good for single platform projects.
 
 * But be careful with dependencies.  It is **very** important to understand this
   process for larger projects.
 
-* Some people would not recommend hand writing Makefile(s) for larger projects
-  (use CMake or similar)
 
-* With discipline, I believe that Make is a good tool for large projects.  This
-  is what I use.  Sometimes CMake and other tools make it harder to build
-  projects.
+* Hand writing Makefile(s) for cross-platform projects is not 
+  recommended. You should consider using configuration tools
+  such as [CMake](https://cmake.org/).
+
+
+## Debugging with command line debuggers
+
+Command line debuggers such as GDB and LLDB come without graphical
+bells and whistles, but can be as effective when you get some
+experience with them. Once you learn how to use a console-based
+debugger, it will be fairly straightforward to learn almost any
+graphics-based one.
+
+Let's use this simple C++ code in file [student.cpp](src/student.cpp)
+to introduce LLDB basics:
+```c++
+#include <string>
+
+
+// Definition of the class Student
+class Student
+{
+public:
+  // Constructor
+  Student(std::string name, int studentID)
+  {
+    name_      = name; // set break point here
+    studentID_ = studentID;
+  }
+
+  // Destructor
+  ~Student()
+  {
+    studentID_ = 0;
+  }
+
+private:
+  std::string name_; // Student's name
+  int studentID_;    // Student's ID number
+};
+
+
+int main()
+{
+  // The instance of Student on the stack.
+  Student icmeStudent("Terry Gilliam", 123444);
+
+  // The instance of Student on the heap.
+  Student* pGeographyStudent = new Student("Terry Jones", 123555);
+
+  delete pGeographyStudent;
+    
+  return 0;
+}
+```
+
+### Compiling code for debugging
+
+In order to enable debugging, we need to compile the code with `-g` flag to
+tell compiler to enable debugging symbols in the executable. It is also
+highly desirable to turn off optimization with flag `-O0`, so that the debugger
+can keep track of what line in the source code is being executed. We can
+build our code by
+```
+clang++ -g -O0 -o student student.cpp
+```
+This code produces no output, so to see what is going on inside we need
+to use debugger.
+
+### Starting debugger
+
+To start debugger simply enter `lldb` followed by the executable name
+on the command line:
+```
+$ lldb student
+(lldb) target create "student"
+Current executable set to 'student' (x86_64).
+(lldb)
+```
+To run the executable, enter `run` at the debugger command prompt.
+```
+(lldb) run
+Process 27818 launched: '/Users/peles/lectures/classes/debug' (x86_64)
+Process 27818 exited with status = 0 (0x00000000) 
+(lldb)
+```
+This tells us that the code ran without any errors. By the way, most difficult
+bugs to find are those when your code produces believable results and
+returns no errors. These are situations when you need a debugger the most.
+
+### Setting break points
+
+Running the code in a debugger by itself does not give you much information.
+You typically want to pause at certain places in the code and review what
+is going on there. You can set up break points (i.e. places for quiet reflection)
+in your code by using debugger `breakpoint` command. We want to set a breakpoint
+inside the constructor of the Student class at line 11:
+```
+(lldb) breakpoint set --file student.cpp --line 11
+Breakpoint 1: where = student`Student::Student(std::__1::basic_string<char,
+std::__1::char_traits<char>, std::__1::allocator<char> >, int) + 158 at
+student.cpp:11, address = 0x0000000100000d0e
+(lldb) 
+```
+Note that GDB command for setting the break point is different: `break student.cpp:11`.
+Now, when we run the code, we stop at the break points we set. The first is the
+constructor for `icmeStudent` instance of class `Student`.
+```
+(lldb) run
+Process 27952 launched: '/Users/peles/lectures/classes/debug' (x86_64)
+Process 27952 stopped
+* thread #1: tid = 0x29cb6f, 0x0000000100000cfe student`Student::Student(this=
+0x00007fff5fbffa58, name="Terry Gilliam", studentID=123444) + 158 at student.cpp:11,
+queue = 'com.apple.main-thread',
+stop reason = breakpoint 1.1
+    frame #0: 0x0000000100000cfe student`Student::Student(this=0x00007fff5fbffa58,
+    name="Terry Gilliam", studentID=123444) + 158 at student.cpp:11
+   8   	  // Constructor
+   9   	  Student(std::string name, int studentID)
+   10  	  {
+-> 11  	    name_      = name; // set break point here
+   12  	    studentID_ = studentID;
+   13  	  }
+   14  	
+(lldb)
+```
+Now that we stopped the code execution at the place we wanted,
+we would like to inspect variable values there. 
+You can view the variables in the curret scope by typing
+```
+(lldb) frame variable
+(Student *) this = 0x00007fff5fbffa58
+(std::__1::string) name = "Terry Gilliam"
+(int) studentID = 123444
+(lldb)
+```
+In `gdb` there are separate commands for local arguments in the frame
+`info args` and local variables in the frame `info locals`.
+To continue execution of the code simply type `continue` or `c` at the
+debugger command prompt. That gets us to the next break point inside
+the constructor for the Georgraphy student instance of the class `Student`
+(who happens to be Terry Jones).
+```
+(lldb) continue
+Process 27952 resuming
+Process 27952 stopped
+* thread #1: tid = 0x29cb6f, 0x0000000100000cfe student`Student::Student(
+this=0x0000000100104b40, name="Terry Jones", studentID=123555) + 158
+at student.cpp:11, queue = 'com.apple.main-thread', stop reason =
+breakpoint 1.1
+    frame #0: 0x0000000100000cfe student`Student::Student(
+    this=0x0000000100104b40, name="Terry Jones", studentID=123555)
+    + 158 at student.cpp:11
+   8   	  // Constructor
+   9   	  Student(std::string name, int studentID)
+   10  	  {
+-> 11  	    name_      = name; // set break point here
+   12  	    studentID_ = studentID;
+   13  	  }
+   14  	
+(lldb) 
+```
+We can take a look at the varibales again:
+```
+(lldb) frame variable name
+(std::__1::string) name = "Terry Jones"
+(lldb) frame variable name_
+(std::__1::string) name_ = ""
+(lldb)
+```
+At this point in the code execution,
+the constructor argument `name` is set to `Terry Jones`,
+while `Student` member variable `name_` has been initialized
+to an empty string, but it has not yet been assigned the value
+passed to the constructor.
+
+### Navigating through the code
+
+We saw that command `continue` resumes the code execution
+and gets us to the next break point. Command `next` will execute
+the current and stop at the next line of the code. 
+In this situation, the command `step` will do the same.
+```
+(lldb) next
+   ...
+   (some cryptic stuff)
+   ...
+   9   	  Student(std::string name, int studentID)
+   10  	  {
+   11  	    name_      = name; // set break point here
+-> 12  	    studentID_ = studentID;
+   13  	  }
+   14  	
+   15  	  // Destructor
+(lldb) frame variable name_
+(std::__1::string) name_ = "Terry Jones"
+(lldb) step
+   ...
+   (some cryptic stuff)
+   ...
+   9   	  Student(std::string name, int studentID)
+   10  	  {
+   11  	    name_      = name; // set break point here
+   12  	    studentID_ = studentID;
+-> 13  	  }
+   14  	
+   15  	  // Destructor
+(lldb)
+```
+The difference between commands `next` and `step` is if the next line
+of the code is a function the command `next` will call the function and
+stop at the next line of the code.
+```
+(lldb) next
+   (...)
+   32  	  // The instance of Student on the heap.
+   33  	  Student* pGeographyStudent = new Student("Terry Jones", 123555);
+   34  	
+-> 35  	  delete pGeographyStudent;
+   36  	    
+   37  	  return 0;
+   38  	}
+(lldb) next
+   (...)
+   34  	
+   35  	  delete pGeographyStudent;
+   36  	    
+-> 37  	  return 0;
+   38  	}
+(lldb) 
+```
+The command `step`, on the other hand, will step into
+the function. You can use command `finish` to get out of
+the function and back to the parent scope.
+```
+(lldb) next
+   (...)
+   32  	  // The instance of Student on the heap.
+   33  	  Student* pGeographyStudent = new Student("Terry Jones", 123555);
+   34  	
+-> 35  	  delete pGeographyStudent;
+   36  	    
+   37  	  return 0;
+   38  	}
+(lldb) step
+   (...)
+   14  	
+   15  	  // Destructor
+   16  	  ~Student()
+-> 17  	  {
+   18  	    studentID_ = 0;
+   19  	  }
+   20  	
+(lldb) finish
+   (...)
+   32  	  // The instance of Student on the heap.
+   33  	  Student* pGeographyStudent = new Student("Terry Jones", 123555);
+   34  	
+-> 35  	  delete pGeographyStudent;
+   36  	    
+   37  	  return 0;
+   38  	}
+(lldb) step
+   (...)
+   34  	
+   35  	  delete pGeographyStudent;
+   36  	    
+-> 37  	  return 0;
+   38  	}
+(lldb) 
+```
+Let us quickly summarize execution commands:
+
+- `run` -- launches the code execution.
+- `continue` -- continues code execution from the current position in the code.
+- `next` -- executes the current line of the code and moves to the next line.
+- `step` -- executes the current line of the code and steps into the function
+if the current line is a function call.
+- `finish` -- leaves current scope and moves to the next line in the parent scope.
+
+
+### Backtrace
+
+This is another quite useful debugging command. Sometimes,
+you will mess up your pointers and your code will crash
+with segmentation fault. One such example is given in
+`student2.cpp` file. This code crashes with a segmentation
+fault:
+```sh
+$ ./student2
+Segmentation fault: 11
+```
+We recompile the code with proper flags
+and launch it in the debugger.
+```
+(lldb) run
+Process 28588 launched: '/Users/peles/cme212/debugging/student2' (x86_64)
+Process 28588 stopped
+   (... lots of stuff ...)
+   1661	
+   1662	    _LIBCPP_INLINE_VISIBILITY
+   1663	    bool __is_long() const _NOEXCEPT
+-> 1664	        {return bool(__r_.first().__s.__size_ & __short_mask);}
+   1665	
+   1666	#if _LIBCPP_DEBUG_LEVEL >= 2
+   1667	
+(lldb)
+```
+This is not very helpful, so we use `backtrace`.
+```
+(lldb) thread backtrace
+   ( ... even more stuff ... )
+    frame #2: 0x0000000100001c07 student`std::__1::basic_string<char,
+    std::__1::char_traits<char>, std::__1::allocator<char> > std::__1::operator
+    +<char, std::__1::char_traits<char>, std::__1::allocator<char> >
+    (__lhs="", __rhs=" ") + 359 at string:3978
+    frame #3: 0x0000000100001462 student2`Name::getName(this=0x0000000000000000)
+    const + 50 at student2.cpp:25
+    frame #4: 0x000000010000117f student2`Student::getName(this=0x0000000100104b40)
+    const + 31 at student2.cpp:62
+    frame #5: 0x0000000100000ce8 student2`main + 456 at student2.cpp:77
+    frame #6: 0x00007fff970965c9 libdyld.dylib`start + 1
+(lldb)
+```
+We get even more mess than before, but here we can recognize some things.
+Reading the backtrace output from the bottom up, we first find that the
+problem started in function `main` on line 77 in file `student2.cpp`.
+We then find that the issue was in the call to `Student::getName` on
+line 62 and `Name::getName` on line 25. Since we now narrowed down the problem
+to accessing the student's name, we have much better chances of finding the actual
+bug on line 45, where we accidentally set pointer to `Name` class to `nullptr`
+value.
+
+## Reading
+
+* [Glossary of LLDB and GDB commands](https://lldb.llvm.org/lldb-gdb.html)
+* [LLDB Tutorial](https://lldb.llvm.org/tutorial.html)
+* [Debugging with GDB](https://www.gnu.org/software/gdb/)
+
