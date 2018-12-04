@@ -351,7 +351,8 @@ Nested iteration is as simple as using multiple generators (signified by \texttt
 \begin{verbatim}
 for (i <- 1 to 3; j <- 11 to 13) yield i*j
 res5: scala.collection.immutable.IndexedSeq[Int] = 
-  Vector(11, 12, 13, 22, 24, 26, 33, 36, 39) \end{verbatim} 
+  Vector(11, 12, 13, 22, 24, 26, 33, 36, 39) 
+\end{verbatim} 
 
 \subsection{Lists and Recursion}
 Lists in Scala are proper linked lists, and all operations on Lists can
@@ -454,6 +455,7 @@ to $O(n)$ work depending on how the standalone element compared to the remaining
 Another idea is to break our input list into two equally sized sub-pieces, sort each, and
 merge the sorted-lists together (quickly).
 
+{\small
 \begin{lstlisting}[language=Scala]
 def msort[T](less: (T, T) => Boolean)
   (xs: List[T]): List[T] = {
@@ -473,6 +475,7 @@ def msort[T](less: (T, T) => Boolean)
     }
   }  
 \end{lstlisting}
+}
 
 You'll notice that we wrote a curried version of \texttt{msort} which is agnostic to
 what comparator we supply as argument.
@@ -498,6 +501,121 @@ And of course we could define a reverse-sort function quite easily.
 val ReverseSort = msort( (x: Int, y: Int) => x > y) _ \end{lstlisting}
 Here, we've used the \texttt{\_} to represent a missing \emph{argument list}.
 
+\subsection{Monoids} 
+What's an introduction to functional programming without a mention of 
+\href{https://en.wikipedia.org/wiki/Monoid}{\emph{monoids}}.
+The term comes from 
+\href{https://en.wikipedia.org/wiki/Abstract_algebra}{Abstract algebra},
+and this can be a really fun branch of mathematics to learn about!
+A monoid is an algebraic structure which has a domain (or set of elements),
+a single associative binary operator, and an identity element.
+
+\paragraph{Formal Definition} If $S$ is a set, 
+$\circ$ is an associative binary operator with domain $S$,
+i.e. a mapping $S \times S \to S$, and we are given identity element
+$e$, then the triplet $(S, \circ, e)$ forms a monoid. By definition,
+such a structure satisfies the following axioms:
+\begin{itemize}   \item \emph{Associativity}: I.e. for any $a,b, c \in S$ we have that
+    \[
+      (a \circ b) \circ c = a \circ (b \circ c).
+    \]
+  \item \emph{Identity Element}: There exists an element $e \in S$ such
+    that for any $a \in S$, 
+    \[
+      e \circ a = a \circ e = a.
+    \] \end{itemize}
+
+How can we link this back to something familiar? See abstract algebra's 
+\href{https://en.wikipedia.org/wiki/Abstract_algebra#Basic_concepts}
+{basic concepts}.
+\[
+  \texttt{Sets} 
+  \overset{\texttt{binary op}}{\longrightarrow} \texttt{Magmas}
+  \overset{\texttt{associativity}}{\longrightarrow} \texttt{Semigroup}
+  \overset{\substack{\texttt{identity elem,} \\ \texttt{inverse}}}{\longrightarrow} \texttt{Group}
+  \overset{\texttt{> 1 operation...}}{\longrightarrow} 
+  \bigg\{\substack{\texttt{ring,} \\ \texttt{field,} \\ \texttt{vector space\}}}\bigg\}.
+\]
+
+\paragraph{Familiar Examples}
+See a listing of \href{https://en.wikipedia.org/wiki/Monoid#Examples}
+{(somewhat familiar) examples}. Some of the easiest to intuit are:
+\begin{itemize}   \item The set of naturals $\mathbb N$, alongside 
+    addition operator \texttt{+} and identity element zero.
+  \item The set of naturals $\mathbb N$, alongside 
+    multiplication operator $\cdot$ and unit-valued identity.
+  \item The set of all finite strings over any fixed alphabet
+    $\Sigma$, alongside the \texttt{string\_concatenate} operation
+    and an empty string as identity.
+  \item A set of \texttt{List}s paired with the concatenate operation
+    (\texttt{++}, in Scala) and an empty list (\texttt{List.empty}) 
+    identity element. \end{itemize}
+
+\subsubsection{Hands on Monoids}
+See 
+\href{http://blog.leifbattermann.de/2016/11/02/hands-on-monoids-in-scala/}
+{Hands on Monoids}, by Leif Battermann. Suppose we wish to aggregate a \texttt{List} of \texttt{Map}s.
+\begin{verbatim}
+List(  Map("a" -> 1, "b" -> 2),  Map("a" -> 2, "b" -> 0),  Map("c" -> 7) )
+\end{verbatim}
+
+Desired prototype:
+\texttt{def Aggregate(counts : List[Map[String, Int]]) = ???}.
+\newline And for the example input above, we should obtain as output
+\begin{verbatim} Map(("a" -> 3, "b" -> 2, "c" -> 7) \end{verbatim}
+
+One idea is to first ``flatten'' our list of \texttt{Map}s into 
+a single list of key-value pairs, where the \emph{key} is the 
+\texttt{String} and the \emph{value} is the 
+integer (or perhaps count); we can then aggregate (sum) values across like keys,
+and we're done! We can do this in a declarative way as follows:
+\begin{lstlisting}[language=Scala]
+counts.flatMap(_.toList),                          // List[(String, Int)].
+       groupBy{ case (k,v) => k }.                 // Map[Str, List[Str,Int]].
+       map{ case( k, v) => (k, v.map(_._2).sum) }  // Extract integers, sum. \end{lstlisting}
+
+The first function call to \texttt{flatMap} takes the contents of each
+\texttt{Map} (two different \texttt{Map}s) 
+and places them in a list, whereupon the lists are flattened/appended
+together to form an output. The second function call to \texttt{groupBy}
+allows us to store counts of similar keys adjacently. Finally,
+we use the \texttt{map} function to iterate over each key-value pair (here
+a \texttt{String} is the \texttt{key}, and the value is a 
+List of counts), and apply an aggregation function to we sum counts.
+
+Turns out that thanks to Monoids, the above expression is equivalent to the 
+following:
+{\small
+\begin{lstlisting}[language=Scala]
+import cats.implicits._
+counts.combineAll \end{lstlisting}
+}
+This works because the type \texttt{Map[A, B]} is used as part of a default
+type-class, and the same is true for the type \texttt{Int}. I.e. they
+can be defined to be part of a set of default monoids.
+
+\paragraph{Foray into Parallel Computing} For any binary associative operator,
+and given sufficient compute resources,
+we can actually apply our resources across an input of size $\Theta(n)$ elements
+with $\Theta(n)$ computational \emph{work}, and 
+\href{https://en.wikipedia.org/wiki/Makespan}{\emph{makespan}} 
+bounded by $\Theta(\log n)$.\footnote{
+  See for example CME 323: Distributed Algorithms, 
+  and my
+  \href{https://stanford.edu/~rezab/dao/notes/lecture01/cme323_lec1.pdf}
+  {Lecture 1 scribe}.}
+A sequential algorithm might initialize a counter
+variable and iterate over elements, updating the counter in turn in a way
+equivalent to the following mathematical expression is evaluated:
+\begin{equation*}   \bigg(\left((a_1 + a_2) + a_3\right) + \ldots + a_n\bigg) \end{equation*}
+
+However, we can also realize that we may \emph{pair} elements from our original
+input sequence and compute their individual sums independently from one another.
+Each time we do this, we half our input size (since each pairing takes two 
+values and combines them into a singleton). Whence we require $\Theta(\log_2 n)$
+recursive invocations of our recursive algorithm before ``bottoming out''
+to a base case where we are left with a single element (the sum of interest).
+This technique holds for any binary associative operator!
 
 % \subsubsection{Simple Examples of Function Composition}
 % \paragraph{Sum} Let's consider how we might sum the elements in a list.
