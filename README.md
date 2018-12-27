@@ -30,7 +30,7 @@ There will be 18 lectures this year.
 * [Lecture 15](lecture-15/): Boost MultiArray
 * [Lecture 16](lecture-16/): C++ object oriented programming part 1
 * [Lecture 17](lecture-17/): C++ object oriented programming part 2, memory management
-* [Lecture 18](lecture-18/): Programming in C, wrap up, and what is next
+* [Lecture 18](lecture-18/): Introduction to Functional Programming in Scala
 
 ## Acknowledgements
 We stand on the shoulders of giants: thanks to Patrick LeGresley and Nick Henderson for designing the structure of the course and the foundations for these notes.
