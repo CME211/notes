@@ -1,33 +1,32 @@
 week #,lecture #,date,day,section,topic,assignments
-1,1,25-Sep,M,course,course intro,"hw0 out, hw1 out"
-,2,27-Sep,W,py,"python, numbers, strings",
-,3,29-Sep,F,py,"file io, lists, control",hw0 due
-2,4,2-Oct,M,py,"dicts, sets, tuples",
-,5,4-Oct,W,py,functions,
-,6,6-Oct,F,py,complexity,"hw1 due, hw2 out"
-3,7,9-Oct,M,py,"data model, modules, exceptions",
-,8,11-Oct,W,py,oop intro,
-,9,13-Oct,F,py,"oop, data representation","hw2 due, hw3 out"
-4,10,16-Oct,M,py,numpy,
-,11,18-Oct,W,py,"scipy, matplotlib",
-,12,20-Oct,F,py,"pandas, jupyter notebook",hw3 due
-5,13,23-Oct,M,latex,,
-,exam,25-Oct,W,,Python exam,exam 1
-,14,27-Oct,F,C++,intro,hw4 out
-6,15,30-Oct,M,C++,"static arrays, looping",
-,16,1-Nov,W,C++,"conditionals, file io",
-,17,3-Nov,F,C++,more file io,"hw4 due, hw5 out"
-7,18,6-Nov,M,C++,"function, includes, preprocessor",
-,19,8-Nov,W,C++,containers,
-,20,10-Nov,F,C++,containers,"hw5 due, project pt 1 out"
-8,21,13-Nov,M,C++,boost multiarray,
-,22,15-Nov,W,C++,make,
-,23,17-Nov,F,C++,Cancelled,hw6 out
+1,1,25-Sep,Tue,py,"course intro, python as an extensible calculator",hw0 out
+ ,2,27-Sep,Thu,py,"python strings, file io, lists, control",
+ , ,28-Sep,Fri,,,"hw0 due, hw1 out"
+2,3,2-Oct,Tue,py,"data structures: dicts, sets, tuples",
+ ,4,4-Oct,Thu,py,intro to functions and complexity,
+ , ,5-Oct,Fri,,,"hw1 due, hw2 out"
+3,5,9-Oct,Tue,py,"object model, modules, debugger, exceptions",
+ ,6,11-Oct,Thu,py,"oop, data representation",
+ , ,12-Oct,Fri,,,"hw2 due, hw3 out"
+4,7,16-Oct,Tue,py,"numpy, scipy, matplotlib",
+ ,8,18-Oct,Thu,py,"pandas, jupyter notebook",
+ , ,19-Oct,Fri,,,hw3 due
+5,9,23-Oct,Tue,latex,Introduction to LaTeX,
+ ,exam,25-Oct,Thu,py,Python exam,exam 1
+ ,  ,26-Oct,Fri,,,hw4 out
+6,10,30-Oct,Tue,C++,"C++ intro, static arrays, looping",
+ ,11,1-Nov,Thu,C++,"dynamic arrays, conditionals, file io",
+ ,  ,2-Nov,F,,,"hw4 due, hw5 out"
+7,12,6-Nov,Tue,C++,"function, includes, preprocessor, intro to containers",
+ ,13,8-Nov,Thu,C++,containers,
+,,10-Nov,F,,,"hw5 due, project pt 1 out"
+8,14,13-Nov,Tue,C++,make,
+,15,15-Nov,Thu,C++,boost multiarray,
+,,17-Nov,F,,,hw6 out
 thanksgiving,,,,,,
-9,24,27-Nov,M,C++,oop 1,"project pt 1 due, project pt 2 out"
-,25,29-Nov,W,C++,oop 2,
-,q/a,1-Dec,F,C++,memory management, hw6 due
-10,q/a,4-Dec,M,C++,review question + answer,
-,exam,6-Dec,W,C++,C++ exam,exam 2
-,26,8-Dec,F,C++,"C, wrap up",
-project due,,11-Dec,M,,,project part 2 due @ 6:30pm
+9,16,27-Nov,Tue,C++,oop 1,"project pt 1 due, project pt 2 out"
+,17,29-Nov,Thu,C++,"oop 2, memory management ",
+,,1-Dec,F,,,hw6 due
+10,18 (q/a),4-Dec,Tue,C++,review question + answer,
+,exam,6-Dec,Thu,C++,C++ exam,exam 2
+,,,,,,

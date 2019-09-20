@@ -1,0 +1,644 @@
+\documentclass[12pt,letterpaper,twoside]{article}
+
+\usepackage{cme211}
+\usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
+\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
+
+\usepackage{listings}  % Merged from http://tihlde.org/~eivindw/latex-listings-for-scala/ and  % http://lampsvn.epfl.ch/trac/scala/export/26099/scala-tool-support/trunk/src/latex/scaladoc.sty % "define" Scala %Keyword list taken from the scaladoc definition. \lstdefinelanguage{Scala}{   morekeywords={%           abstract,case,catch,class,def,do,else,extends,%           false,final,finally,for,forSome,if,implicit,import,lazy,%           match,new,null,object,override,package,private,protected,%           return,sealed,super,this,throw,trait,true,try,type,%           val,var,while,with,yield},   otherkeywords={=>,<-,<\%,<:,>:,\#,@},   sensitive=true,   morecomment=[l]{//},   morecomment=[n]{/*}{*/},   morestring=[b]",   morestring=[b]',   morestring=[b]""" }[keywords,comments,strings]  % activate the language and predefine settings \lstset{language=Scala}
+
+\begin{document}
+
+\title{Lecture 18: Scala\vspace{-5ex}}
+\date{December 4th, 2018}
+\maketitle
+
+{\footnotesize
+\paragraph{Topics:} Scala, introduction to recursion.
+}
+\vspace{-3ex}
+
+\section{Language Paradigms}
+Programming languages can actually be classified into 
+\href{https://en.wikipedia.org/wiki/Programming_paradigm}{paradigms} 
+based on the features they provide. It's possible for languages to fit into
+multiple paradigms, as we will emphasize below. See: 
+\href{https://en.wikipedia.org/wiki/Comparison_of_programming_paradigms}
+{comparison of paradigms}.
+
+\subsection{Imperative: {\small ``an authoritative command''}}
+
+\paragraph{Statements and Expressions}
+An \href{https://en.wikipedia.org/wiki/Imperative_programming}{imperative program} 
+executes 
+\href{https://en.wikipedia.org/wiki/Statement_(computer_science)}{\emph{statements}},
+which themselves can be composed of
+\href{https://en.wikipedia.org/wiki/Expression_(computer_science)}{\emph{expressions}}
+to be evaluated. A 
+\href{https://en.wikipedia.org/wiki/Statement_(computer_science)#Simple_statements}
+{\emph{simple}} statement is something like an assignment, function call, or return,
+whereas a 
+\href{https://en.wikipedia.org/wiki/Statement_(computer_science)#Compound_statements}
+{\emph{compound}} statement could be a 
+\href{https://en.wikipedia.org/wiki/Control_flow}{control-flow} 
+structure such as an \texttt{if},
+or a \texttt{for}-loop. Note that \href{https://en.wikipedia.org/wiki/Statement_(computer_science)#Expressions}{in contrast}  to an expression, a statement doesn't return a result
+(it's simply executed for its 
+\href{https://en.wikipedia.org/wiki/Side_effect_(computer_science)}{side-effect});
+on the other hand, an expression \emph{always} returns a result and often doesn't
+have side-effects.
+
+\paragraph{Computer Architecture lends itself to being directed by an Imperative Language} We've mentioned in this class that
+fundamental operations in a computer may involve transferring data from 
+\href{https://en.wikipedia.org/wiki/Random-access_memory}{RAM} into 
+\href{https://en.wikipedia.org/wiki/Cache_(computing)}{Cache}
+and ultimately 
+\href{https://en.wikipedia.org/wiki/Processor_register}{processor registers} 
+so that data may be computed on by the 
+\href{https://en.wikipedia.org/wiki/Arithmetic_logic_unit}{ALU}.
+Low-level \href{https://en.wikipedia.org/wiki/Assembly_language}{assembler languages} 
+are \href{https://en.wikipedia.org/wiki/Imperative_programming#Rationale_and_foundations_of_imperative_programming}{imperative in nature}: they execute \emph{statements}
+such as moving data from one location to another or adding data from two registers 
+together.
+
+\paragraph{Development of higher-level languages, and ultimately OOP} 
+Although machine-code lends itself well to instructing
+a computer, its not amenable to abstraction and creating complex programs.
+In the 50's, FORTRAN was invented at IBM: it featured named variables and sub-routines,
+which are now considered essential features of an imperative language.  In the 80's,
+there started to emerge a growing interest in object-oriented programming 
+(C++ played  a fundamental role in this), wherein instructions are grouped with the
+data they operate on.
+
+\subsection{Declarative: {\small ``not imperative; referentially transparent''}} 
+Totally distinct from an imperative paradigm, in a 
+\href{https://en.wikipedia.org/wiki/Declarative_programming}{declarative language} 
+the programmer simply specifies properties of the desired result
+but \emph{not} how to compute it. SQL and HTML programs are declarative in flavor; other familiar examples
+include \href{http://cvxr.com/cvx/}{\texttt{CVX}}, 
+wherein the program specifies a set of (in)-equalities we wish to satisfy, and the
+program returns a set of variables consistent with the system.
+
+\paragraph{Functional} A subset
+of declarative programming includes the 
+\href{https://en.wikipedia.org/wiki/Functional_programming}{functional paradigm}.
+A famous early example is 
+\href{https://en.wikipedia.org/wiki/Lisp_(programming_language)}{Lisp}.\footnote{
+  Lisp is the second oldest high-level programming language (this title goes to Fortran, 
+  one year older); its name derives from ``LISt Processor'' and linked-lists are 
+  the fundamental data structure.}
+In a functional language, we specify computations via composition of 
+(\href{https://en.wikipedia.org/wiki/Pure_function}{mathematically pure}, 
+i.e. \href{https://en.wikipedia.org/wiki/Referential_transparency}{referentially transparent}) 
+functions and we forbid mutation of data.
+I.e. there shall be \emph{no statements} (which can depend on the
+state of local/global variables) but instead there shall \emph{only} be side-effect
+free functions: the result of a function shall depend only on its arguments
+and no other variables; 
+further, variables shall not be mutable, since this introduces a notion
+of state.
+
+\paragraph{Scala} The name is a portmanteau of Scalable Language, and its designed
+to be extensible to grow and support the changing needs of its users. Its design
+spawned in 2001 by Martin Odersky out of EPFL. There are other languages which are
+more purely functional, such as Haskell, however, Scala is a bit more friendly to learn
+as it also supports object oriented programming in addition to functional programming.
+It's also used to build Apache Spark, a powerful distributed computing system used widely
+in industry. In general, functional programming languages lend themselves well to
+parallel programming since expressions are independent from each other (since they
+do not depend on external state and have no side-effects) whence they may be evaluated
+in parallel. Scala is statically typed which makes it safer to build and reason about 
+the correctness of larger programs.
+
+\subsection{A Multi-Paradigm Reality}
+We mentioned in the introduction that 
+\href{https://en.wikipedia.org/wiki/Comparison_of_multi-paradigm_programming_languages#Language_overview}
+{languages often support multiple-paradigms}. This
+is certainly true: for example, a C++ program can be written in a procedural style
+(without embracing OOP), and it can also be written in a functional style. Some languages
+lend themselves more to certain paradigms than others, and other languages
+are quite restrictive in prohibiting multiple paradigms (e.g. Haskell will \emph{not} 
+support any notion of procedural programming). It's important to remember that 
+most languages (Python, C++, R) support multiple paradigms, and to not let ourselves
+get too distracted over the debate of which is better. After all, 
+Fortran and Lisp are distinctly different (imperative vs. declarative), ancient, and
+still well in use today; so clearly both paradigms contain merit.
+
+\section{Scala}
+We follow closely from Martin Odersky's text, ``Programming in Scala''.
+Within the \href{https://scala-lang.org/documentation/learn.html}{learning resources}
+listed on \texttt{Scala-lang.org}, the 
+\href{https://www.artima.com/pins1ed/}
+{first-edition is linked for free (legal) online reading}.
+
+\vspace{-3ex}
+\subsection{Characteristics of Scala}
+\paragraph{Scala is Object-Oriented}
+Everything value is an object, and every operation is actually a method call.
+I.e. \texttt{1 + 2} invokes the method named \texttt{+} defined in class \texttt{Int}.
+
+\vspace{-3ex}
+\paragraph{Scala is Functional} There are two main tenants behind functional programming.
+\begin{enumerate}   \item Functions are \emph{first-class values}: we can pass functions 
+    as arguments (like any
+    other type), and we can define functions within functions just like we can
+    define local objects.
+  \item Operations should map input values to output values, as opposed to mutating data
+    in place; i.e. functions shall have \emph{no side-effects}. Equivalently,
+    for any particular input, an invocation of a 
+    \href{https://en.wikipedia.org/wiki/Referential_transparency}
+    {\emph{referentially transparent}}
+    function can be replaced by its corresponding result without 
+    changing the behavior of the program. 
+\end{enumerate}
+
+\vspace{-1.5ex}
+In general, functional languages \emph{encourage} immutable data structures and 
+referential transparency. Scala is amenable in that it also allows imperative code. 
+Properties of Scala:
+
+\vspace{-1.5ex}
+\begin{enumerate}   
+  \item Built off the 
+    Java Virtual Machine (JVM), which effectively means we can interface Scala
+    with any Java program; types in Scala are ``dressed up'' analogues from Java.\footnote{A JVM exists to
+      mitigate issues of portability. Instead of writing C++ code that gets
+      translated/compiled into machine code directly, thus rendering the program tied to a particular architecture,
+      Java code is first byte-compiled where it can be run on a JVM, wherein the JVM takes care of finally translating
+      the byte-code into instructions for the particular architecture it resides on. The idea is ``write once, run anywere''.}
+\item  Concise, high-level language that allows us to manage
+complexity through abstraction.
+\item Statically typed, which means verifying properties of a program's abstractions
+  is easier. Concision (above) mitigates usual burdens of a statically
+  typed language.
+  \begin{enumerate}   \item \emph{Verifiable Properties:} the compiler can ensure things like 
+    booleans aren't added to integers,
+    or that private variables are never accessed from outside their class.
+  \item \emph{Safe Refactoring:} if we for example add an argument to a method and
+    recompile our program, the compiler will instantly alert to us (via errors)
+    of every invocation that must be amended. After this act, all relevant code has been changed.
+  \item \emph{Documentation:} declaring the type of each object can be viewed
+    as a form of documentation, which is in fact checked by the compiler for
+    correctness. In contrast with a comment which cannot be checked by a compiler,
+    a type annotation never ``goes stale'' and is always enforced.   \end{enumerate} \end{enumerate}
+
+\paragraph{Installation} Instructions can be found here:
+\url{https://www.scala-lang.org/download/}.
+
+\subsection{First Steps}
+Although Scala is a compiled language, it supports a REPL interpreter
+wherein each line of input is compiled separately and automatically via 
+\href{https://www.ibm.com/support/knowledgecenter/en/SSYKE2_8.0.0/com.ibm.java.vm.80.doc/docs/jit_overview.html}{JIT}. 
+To launch the
+interpreter, simply type \texttt{scala} from a shell.
+\begin{verbatim}
+$ scala
+Welcome to Scala version ...
+
+scala> \end{verbatim}
+
+We're now able to, for example evaluate the expression \texttt{1 + 2}.
+\begin{verbatim}
+scala> 1 + 2
+res0: Int = 3 \end{verbatim}
+The interpreter informs us that we've implicitly defined a name \texttt{res0}, itself
+an \texttt{Int} which takes on the value 3. We mentioned before that Scala is object-oriented. To see this explicitly, realize that we can almost always use binary operators
+either via infix notation or as methods.
+\begin{verbatim}
+scala> 1.`+`(2)
+res1: Int = 3 
+\end{verbatim}
+Note that in the code above, the back-ticks are not being displayed correctly, and we 
+emphasize that the \texttt{+} operator is being enclosed by back-ticks and 
+\emph{not} single-quotation markers.
+
+\subsection{Variables and Values}
+Scala supports immutable and mutable data types, via \texttt{val} and \texttt{var} 
+respectively. We must specify the type of variable (\texttt{val} or \texttt{var}), but
+it's fun to realize that Scala can infer the type of a variable automatically.
+
+\begin{verbatim}
+scala> val msg = "Hello, world!"
+msg: java.lang.String = Hello, world! \end{verbatim}
+I.e. the immutable variable \texttt{msg} is a \texttt{String} object.\footnote{Note that
+from Scala, the \texttt{java.lang} namespace is visible, so we can drop this prefix if we'd like.}
+We could more explicitly declare and initialize an object as follows:
+\begin{verbatim}
+scala> val msg1: String = "Another string"
+msg1: String = Another string 
+scala> val x: Int = 42 
+x: Int = 42 \end{verbatim}
+ 
+Once initialized, a \texttt{val} can never be reassigned or modified
+throughout its lifetime, whereas a \texttt{var} can be modified. Attempting to reassign
+to a \texttt{val} yields an error.
+
+\subsection{Functions} Let's start with a simple example.
+\begin{verbatim}
+scala> def max(x: Int, y: Int): Int = {
+  if (x > y) x else y
+}
+max: (Int,Int)Int \end{verbatim}
+
+Note that Scala can also deduce the return type of a non-recursive function. Further, we
+can omit braces if we have a simple statement as the sole contents of our 
+function definition.
+\begin{verbatim}
+scala> def max2(x: Int, y: Int) = if (x>y) x else y
+max2(Int,Int)Int \end{verbatim}
+
+\subsubsection{Function Literals and Composition} 
+Since functions are first class objects, we're allowed
+to create what are known as (unnamed) function literals. Just like the value 42 can
+appear anywhere in our code, unnamed, we can also drop in unnamed functions 
+``on the fly''. E.g. a simple addition function literal:
+\begin{lstlisting}[language=Scala]
+(x: Int, y: Int) => x + y 
+\end{lstlisting}
+We are allowed to drop a function literal in any place where a function 
+is expected to appear.
+
+\begin{lstlisting}[language=Scala]
+val vec = (1 to 10).toList                 // A list of 10 integers.
+vec.reduce( (x: Int, y: Int) => x + y )    // Returns 55, as expected.
+\end{lstlisting}
+
+Is equivalent to:
+\begin{lstlisting}[language=Scala]
+def add(x: Int, y: Int): Int = x + y
+vec.reduce(add) 
+\end{lstlisting}
+
+In fact, as syntactic sugar Scala even lets us use a 
+\emph{placeholder} 
+syntax via \texttt{\_} (which can be used in \href{https://stackoverflow.com/a/8001065}{many different, complex ways} in Scala)
+so that we can re-write our vector summation:
+\begin{lstlisting}[language=Scala]
+vec.reduce(_+_)
+\end{lstlisting}
+
+Another nice functional in which placeholder syntax appears commonly are
+\href{https://www.artima.com/pins1ed/functions-and-closures.html#8.5}{\texttt{filter}s}.
+\begin{lstlisting}[language=Scala]
+-5.to(5).filter(_ % 2 == 0) \end{lstlisting}
+
+\subsubsection{Foray into Basic Functional Utils}
+This is honestly pretty cool. If we want to perform element-wise addition on two
+Lists, we may start with a \href{https://www.scala-lang.org/api/2.12.0/scala/collection/immutable/List.html#zip[B](that:scala.collection.GenIterable[B]):List[(A,B)]}{\texttt{zip} method} to place corresponding elements
+next to each other in a List:
+\begin{verbatim}
+scala> vec zip vec
+res5: List[(Int, Int)] = List( (1,1), (2,2), ..., (10,10) ) 
+\end{verbatim}
+Once each corresponding element has been placed next to each other, we may apply the 
+addition operator across each element (itself a tuple of Ints) in the list, via 
+\href{https://www.scala-lang.org/api/2.12.0/scala/collection/immutable/List.html#map[B](f:A=%3EB):List[B]}{\texttt{map} method}:
+\begin{lstlisting}[language=Scala]
+def ListAdd(x: List[Int], y: List[Int]): List[Int] = {
+  (x zip y).map{ case(x,y) => x+y }
+}
+\end{lstlisting}
+And we can try adding \texttt{vec} to itself.
+\begin{verbatim}
+scala> Add(vec, vec)
+res4: List[Int] = List(2, 4, 6, 8, 10, 12, 14, 16, 18, 20) 
+\end{verbatim}
+
+Or, for example we could write a succinct inner-product operator, this time showing
+off the \href{https://www.scala-lang.org/api/2.12.0/scala/collection/immutable/List.html#reduce[A1%3E:A](op:(A1,A1)=%3EA1):A1}{\texttt{reduce} method}, which takes a List and a
+associative binary operator and \emph{reduces} the collection into (in this case) a
+scalar value. \footnote{
+  After working on our final project in C++, we can perhaps appreciate how succinct 
+  this 
+  one-liner utility is, when compared with e.g. a \texttt{for}-loop and a (mutable) 
+  variable
+  to track the running sum. C++ also supports
+  functionals like 
+  \href{https://en.cppreference.com/w/cpp/algorithm/transform}{\texttt{std::transform}}
+  and \href{https://en.cppreference.com/w/cpp/algorithm/reduce}{\texttt{std::reduce}}.}
+\begin{lstlisting}[language=Scala]
+def Dot(x: List[Int], y: List[Int]): Int = {
+  (x zip y).map{ case(a,b) => a*b }.reduce(_+_)
+} 
+\end{lstlisting}
+
+\subsection{Classes in Scala} We've mentioned that Scala is object-oriented.
+Defining a class is intuitive and concise; see \href{https://docs.scala-lang.org/tour/classes.html}{classes in Scala}.
+
+\begin{lstlisting}[language=Scala]
+class Point(var x: Int, var y: Int) {   // Constructor.
+  def move(dx: Int, dy: Int): Unit = {  // Move method. Eff. returns void.
+    x = x + dx
+    y = y + dy
+  }
+  override def toString: String = {     // Already exists a generic toString...
+    s"($x, $y)"
+  }
+}
+\end{lstlisting}
+Members are public by default, but of course there is a \texttt{private} access
+specifier to override this behavior.
+
+\subsection{Iteration in Scala} Scala does support \texttt{while} loops. However, we should hopefully recognize that this is an imperative style of programming.
+Instead of a traditional \texttt{for}-loop \emph{statement}, Scala provides
+\texttt{for}-expressions (or \texttt{for}-comprehensions) which actually
+\emph{return} a sequence of values. We can use \texttt{yield} to
+return a sequence of values, and we can add (semi-colon separated) filters.
+
+\begin{verbatim}
+val fizzbuzz = for (i <- 1 to 100 if i % 3 == 0 || i % 5 == 0) yield i \end{verbatim}
+
+Nested iteration is as simple as using multiple generators (signified by \texttt{<-}).
+\begin{verbatim}
+for (i <- 1 to 3; j <- 11 to 13) yield i*j
+res5: scala.collection.immutable.IndexedSeq[Int] = 
+  Vector(11, 12, 13, 22, 24, 26, 33, 36, 39) 
+\end{verbatim} 
+
+\subsection{Lists and Recursion}
+Lists in Scala are proper linked lists, and all operations on Lists can
+be described using the following expressions:
+\begin{itemize}   \item \texttt{head}: returns the first element of a list.
+  \item \texttt{tail}: returns a list consisting of all elements but the first.
+  \item \texttt{isEmpty}: returns \texttt{true} if the list is empty. \end{itemize}
+
+\paragraph{Insertion Sort} Suppose we have a list of numeric elements, and we 
+wish to sort into ascending order. Realize that if we have a list of elements,
+it suffices to simply take the first element and insert it appropriately into
+an already sorted list of the remaining elements. This recursive implementation makes
+sense because we have broken a larger problem into more manageable and smaller
+sub-problems: rather than \texttt{sort}ing a list of length $n$, we instead
+are tasked with inserting a single element into an already sorted list of length
+$n-1$. Further, this second task of inserting an element into a sorted list can be broken down into two simpler sub-problems: either we may simply prepend the element into the sorted list (since it is smaller than the leading element, and the list is sorted), 
+\emph{or} we can realize that our element belongs somewhere after the \texttt{head} of our sorted list. This yields the following algorithm(s):
+
+\begin{lstlisting}[language=Scala]
+def isort(xs: List[Int]): List[Int] =
+    if (xs.isEmpty) Nil
+    else insert(xs.head, isort(xs.tail))
+
+def insert(x: Int, xs: List[Int]): List[Int] = 
+    if (xs.isEmpty || x <= xs.head) x :: xs
+    else xs.head :: insert(x, xs.tail)  
+\end{lstlisting}
+
+We've used the \href{https://www.scala-lang.org/api/2.12.0/scala/collection/immutable/List.html#::(x:A):List[A]}{\texttt{::} method} to concatenate lists. Compare the above
+implementation with an \href{https://en.wikipedia.org/wiki/Insertion_sort#List_insertion_sort_code_in_C}{analogue implementation from C}; ours is much more concise!
+For an input
+sequence of $n$ items, we'll always end up calling \texttt{isort(xs.tail)}
+which means we invoke our recursive function $\Theta(n)$ times. In the best case,
+our input is already sorted an we may always fall into the first predicate
+in the sole-expression of \texttt{insert}. But in the worst case, \texttt{insert}
+may require comparing the head element with all $O(n)$ elements in the remaining 
+sub-list. I.e. our best-case
+work required is $\Omega(n)$, but our worst case is $O(n^2)$.
+
+\paragraph{Divide and Conquer, Pattern Matching} An important paradigm in recursive 
+programming is that of divide and conquer. In Scala, we may do this via pattern matching:
+we first divide an input problem into components (sub-problems) and then recursively solve
+each in-turn. They key is that the new sub-problems we've created are easier to solve
+when compared with our original. Consider appending two Lists together.
+\begin{lstlisting}[language=Scala]
+def append[T](xs: List[T], ys: List[T]): List[T] = 
+  xs match {
+    case List() => ys
+    case x :: xs1 => x :: append(xs1, ys)
+  } \end{lstlisting}
+Let's try another simple example, which demonstrates that calling \texttt{length} method
+on \texttt{List}s is actually an expensive operation.
+\begin{lstlisting}[language=Scala]
+def Length[T](xs: List[T]): Int = xs match { 
+  case List() => 0
+  case hd :: tl => 1 + Length(tl)
+} \end{lstlisting}
+I.e. testing \texttt{l.length == 0} and \texttt{l.isEmpty()} are equivalent, but the 
+latter is a constant time operation whereas the former requires work proportional to the
+number of items being stored.
+
+\subsection{Currying} A functional programming technique, 
+\href{https://en.wikipedia.org/wiki/Currying}{currying}, 
+which is the idea of transforming a single function accepting multiple
+arguments into an equivalent sequence of functions each accepting a single argument.
+
+\paragraph{Curried Sum} Consider a vanilla definition for summation.
+\begin{lstlisting}[language=Scala]
+def PlainSum(x: Int, y: Int): Int = x + y \end{lstlisting}
+We can analogously define a \href{https://www.artima.com/pins1ed/control-abstraction.html#9.3}{curried function}, which instead of accepting a single list
+of two input arguments, instead accepts two lists of singleton input arguments.
+
+\begin{lstlisting}[language=Scala] 
+def curriedSum(x: Int)(y: Int) = x + y 
+\end{lstlisting} 
+We could then invoke it via \texttt{curriedSum(1)(2)} to yield 3. A related idea
+is that of 
+\href{https://en.wikipedia.org/wiki/Partial_application}{partial function application}, 
+wherein we supply some (but not all)
+required function arguments, returning a new function which accepts an argument list
+of smaller arity; e.g. \texttt{curriedSum(5)\_}.
+
+\paragraph{Writing New Control Structures}
+We can use currying to define our own (arbitrary) control structures. Consider defining
+a functional which repeats an operation twice and returns the result.
+\begin{lstlisting}[language=Scala]
+def twice(op: Double >= Double, x: Double) = op(op(x))
+twice(_ + 1, 5)  // Returns Double = 7.0 
+\end{lstlisting}
+Here, the type of \texttt{op} is given by \texttt{Double => Double}, indicating that
+the \texttt{op} is a function which accepts a single \texttt{Double} as argument
+and returns a \texttt{Double} as output. The second argument to our functional is
+given an alias \texttt{x} and is itself another \texttt{Double}.
+
+\paragraph{Revisiting Sorting Routines: Merge Sort} 
+Above, we implemented Insertion Sort. It was concise,
+but in the worst-case it requires work that is proportional to the square of its input
+sequence. The pitfall lay in the fact that the \texttt{Insertion} step required up
+to $O(n)$ work depending on how the standalone element compared to the remaining sub-list.
+Another idea is to break our input list into two equally sized sub-pieces, sort each, and
+merge the sorted-lists together (quickly).
+
+{\small
+\begin{lstlisting}[language=Scala]
+def msort[T](less: (T, T) => Boolean)
+  (xs: List[T]): List[T] = {
+    def merge(xs: List[T], ys: List[T]): List[T] =
+      (xs, ys) match {
+        case (Nil, _) => ys
+        case (_, Nil) => xs
+        case (x :: xs1, y :: ys1) =>
+          if (less(x, y)) x :: merge(xs1, ys)
+          else            y :: merge(xs, ys1)
+      }
+    val n = xs.length / 2
+    if (n == 0) xs
+    else {
+      val (ys, zs) = xs splitAt n
+      merge(msort(less)(ys), msort(less)(zs))
+    }
+  }  
+\end{lstlisting}
+}
+
+You'll notice that we wrote a curried version of \texttt{msort} which is agnostic to
+what comparator we supply as argument.
+The \texttt{splitAt} method simply partitions a List into two-sublists at
+the location specified by input argument. With some thought, we can realize that
+our \texttt{merge} sub-routine which merges two sorted sub-lists requires 
+$\Theta(n)$  work since in each invocation we make a constant time comparison and
+reduce our problem size by a single element. Then, realize that if each invocation
+of \texttt{msort} creates two sub-problems each half as large, that in solving for
+$\left(\frac{n}{2}\right)^k = 1$ (to see how many times we must half our input size before
+reaching our base case of having only one element left, which is trivially sorted against
+itself) we see we require $k = \log_2(n)$ recursive calls. Since each recursive call
+invokes a call to \texttt{merge} (itself costing $\Theta(n)$) work, we see the total
+work required is $\Theta(n \log n)$.
+
+An example invocation of our function is given by
+\begin{lstlisting}[language=Scala]
+msort((x: Int, y: Int) => x < y)(List(5, 7, 1, 3)) \end{lstlisting}
+where we first provide the comparator (in this case a function literal) and then we provide
+an input list to sort.
+And of course we could define a reverse-sort function quite easily.
+\begin{lstlisting}[language=Scala]
+val ReverseSort = msort( (x: Int, y: Int) => x > y) _ \end{lstlisting}
+Here, we've used the \texttt{\_} to represent a missing \emph{argument list}.
+
+\subsection{Monoids} 
+What's an introduction to functional programming without a mention of 
+\href{https://en.wikipedia.org/wiki/Monoid}{\emph{monoids}}.
+The term comes from 
+\href{https://en.wikipedia.org/wiki/Abstract_algebra}{Abstract algebra},
+and this can be a really fun branch of mathematics to learn about!
+A monoid is an algebraic structure which has a domain (or set of elements),
+a single associative binary operator, and an identity element.
+
+\paragraph{Formal Definition} If $S$ is a set, 
+$\circ$ is an associative binary operator with domain $S$,
+i.e. a mapping $S \times S \to S$, and we are given identity element
+$e$, then the triplet $(S, \circ, e)$ forms a monoid. By definition,
+such a structure satisfies the following axioms:
+\begin{itemize}   \item \emph{Associativity}: I.e. for any $a,b, c \in S$ we have that
+    \[
+      (a \circ b) \circ c = a \circ (b \circ c).
+    \]
+  \item \emph{Identity Element}: There exists an element $e \in S$ such
+    that for any $a \in S$, 
+    \[
+      e \circ a = a \circ e = a.
+    \] \end{itemize}
+
+How can we link this back to something familiar? See abstract algebra's 
+\href{https://en.wikipedia.org/wiki/Abstract_algebra#Basic_concepts}
+{basic concepts}.
+\[
+  \texttt{Sets} 
+  \overset{\texttt{binary op}}{\longrightarrow} \texttt{Magmas}
+  \overset{\texttt{associativity}}{\longrightarrow} \texttt{Semigroup}
+  \overset{\substack{\texttt{identity elem,} \\ \texttt{inverse}}}{\longrightarrow} \texttt{Group}
+  \overset{\texttt{> 1 operation...}}{\longrightarrow} 
+  \bigg\{\substack{\texttt{ring,} \\ \texttt{field,} \\ \texttt{vector space\}}}\bigg\}.
+\]
+
+\paragraph{Familiar Examples}
+See a listing of \href{https://en.wikipedia.org/wiki/Monoid#Examples}
+{(somewhat familiar) examples}. Some of the easiest to intuit are:
+\begin{itemize}   \item The set of naturals $\mathbb N$, alongside 
+    addition operator \texttt{+} and identity element zero.
+  \item The set of naturals $\mathbb N$, alongside 
+    multiplication operator $\cdot$ and unit-valued identity.
+  \item The set of all finite strings over any fixed alphabet
+    $\Sigma$, alongside the \texttt{string\_concatenate} operation
+    and an empty string as identity.
+  \item A set of \texttt{List}s paired with the concatenate operation
+    (\texttt{++}, in Scala) and an empty list (\texttt{List.empty}) 
+    identity element. \end{itemize}
+
+\subsubsection{Hands on Monoids}
+See 
+\href{http://blog.leifbattermann.de/2016/11/02/hands-on-monoids-in-scala/}
+{Hands on Monoids}, by Leif Battermann. Suppose we wish to aggregate a \texttt{List} of \texttt{Map}s.
+\begin{verbatim}
+List(  Map("a" -> 1, "b" -> 2),  Map("a" -> 2, "b" -> 0),  Map("c" -> 7) )
+\end{verbatim}
+
+Desired prototype:
+\texttt{def Aggregate(counts : List[Map[String, Int]]) = ???}.
+\newline And for the example input above, we should obtain as output
+\begin{verbatim} Map(("a" -> 3, "b" -> 2, "c" -> 7) \end{verbatim}
+
+One idea is to first ``flatten'' our list of \texttt{Map}s into 
+a single list of key-value pairs, where the \emph{key} is the 
+\texttt{String} and the \emph{value} is the 
+integer (or perhaps count); we can then aggregate (sum) values across like keys,
+and we're done! We can do this in a declarative way as follows:
+\begin{lstlisting}[language=Scala]
+counts.flatMap(_.toList),                          // List[(String, Int)].
+       groupBy{ case (k,v) => k }.                 // Map[Str, List[Str,Int]].
+       map{ case( k, v) => (k, v.map(_._2).sum) }  // Extract integers, sum. \end{lstlisting}
+
+The first function call to \texttt{flatMap} takes the contents of each
+\texttt{Map} (two different \texttt{Map}s) 
+and places them in a list, whereupon the lists are flattened/appended
+together to form an output. The second function call to \texttt{groupBy}
+allows us to store counts of similar keys adjacently. Finally,
+we use the \texttt{map} function to iterate over each key-value pair (here
+a \texttt{String} is the \texttt{key}, and the value is a 
+List of counts), and apply an aggregation function to we sum counts.
+
+Turns out that thanks to Monoids, the above expression is equivalent to the 
+following:
+{\small
+\begin{lstlisting}[language=Scala]
+import cats.implicits._
+counts.combineAll \end{lstlisting}
+}
+This works because the type \texttt{Map[A, B]} is used as part of a default
+type-class, and the same is true for the type \texttt{Int}. I.e. they
+can be defined to be part of a set of default monoids.
+
+\paragraph{Foray into Parallel Computing} For any binary associative operator,
+and given sufficient compute resources,
+we can actually apply our resources across an input of size $\Theta(n)$ elements
+with $\Theta(n)$ computational \emph{work}, and 
+\href{https://en.wikipedia.org/wiki/Makespan}{\emph{makespan}} 
+bounded by $\Theta(\log n)$.\footnote{
+  See for example CME 323: Distributed Algorithms, 
+  and my
+  \href{https://stanford.edu/~rezab/dao/notes/lecture01/cme323_lec1.pdf}
+  {Lecture 1 scribe}.}
+A sequential algorithm might initialize a counter
+variable and iterate over elements, updating the counter in turn in a way
+equivalent to the following mathematical expression is evaluated:
+\begin{equation*}   \bigg(\left((a_1 + a_2) + a_3\right) + \ldots + a_n\bigg) \end{equation*}
+
+However, we can also realize that we may \emph{pair} elements from our original
+input sequence and compute their individual sums independently from one another.
+Each time we do this, we half our input size (since each pairing takes two 
+values and combines them into a singleton). Whence we require $\Theta(\log_2 n)$
+recursive invocations of our recursive algorithm before ``bottoming out''
+to a base case where we are left with a single element (the sum of interest).
+This technique holds for any binary associative operator!
+
+% \subsubsection{Simple Examples of Function Composition}
+% \paragraph{Sum} Let's consider how we might sum the elements in a list.
+% We can use a \texttt{reduce} method to apply a binary operator to successive elements
+% of a list, accumulating the result.
+% \begin{verbatim} % scala> val vector = (1 to 10).toList
+% res2: List[Int] = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+% scala> vector.reduce(case (x: Int, y: Int) => x+y)
+% res3: Int = 55 % \end{verbatim}
+
+% Reduce is actually a \emph{functional}, in that it accepts as argument a function.
+% Suppose we want to add two lists element-wise.
+% We can do this via a combination of a \texttt{zip} and \texttt{map}.
+
+% \begin{verbatim}
+% scala> val x = List(1, 2, 3)
+% scala> val y = List(4, 5, 6)
+% scala> x zip y
+% res1: List[(Int,Int)] = List((1,4), (2,5), (3,6))
+% scala> (x zip y).map{case (x,y) => x+1}
+% res2: List[Int] = List(5, 7, 9)
+% \end{verbatim}
+
+
+ \end{document}
+

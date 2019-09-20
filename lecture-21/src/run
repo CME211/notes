@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-printf "\$ "
-make $1
-echo \$ ./$1
-./$1

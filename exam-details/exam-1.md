@@ -1,21 +1,24 @@
 # CME 211 -- Exam 1 -- Python
+Updated on 2018-10-22.
 
-Updated on 2017-10-20.
+There are two announcements on Canvas that hold the ground truth for the Python midterm; the remaining details in this document are general guidelines, adapted from past years exam expectations.
+
+[Announcement 1](https://canvas.stanford.edu/courses/87822/discussion_topics/281648)
+
+[Announcement 2](https://canvas.stanford.edu/courses/87822/discussion_topics/280739)
 
 The exam will be conducted through Canvas. The exam will be available from the
-morning of Wednesday 10/25 to Friday 10/27 at 2pm. Students will have 2 hours to
-complete the exam once it is started. There will be several multiple choice
-questions and a series of coding questions. At the end of the exam, you will be
-asked to submit a single `*.py` file through Canvas. This is the file that we
-will execute and evaluate.
+morning of Thursday 10/25. Students will have approximately three
+hours to
+complete the exam once it is started. This year's exam will consist primarily of
+applied programming questions. The main submissions will be a single `.py` script alongside
+a `README` file containing responses to short-answer questions.
 
-Note: the exam will appear in the "Quizzes" section on Canvas.
-
-Sample quiz solutions from 2013, 2014, and 2015 are posted on Canvas.
+Note: We anticipate the exam will appear in the "Quizzes" section on Canvas.
 
 ## Details
 
-* Exam will be challenging -- I believe you all to be smart and hardworking
+* Exam should be challenging -- I believe you all to be smart and hardworking
   students no matter how you perform on the exam
 * I recommend attacking the problems in the given sequence
 * Make sure to use your time wisely
@@ -44,18 +47,16 @@ Sample quiz solutions from 2013, 2014, and 2015 are posted on Canvas.
 
 ## Communication
 
-* When the exam gets published on Canvas on the morning of Wednesday 10/25, it
+* When the exam gets published on Canvas on the morning of Thursday 10/25, it
   will be known as **The-Exam-Who-Must-Not-Be-Named**. That is, nobody is
-  allowed to discuss any aspect of the exam until Friday 10/27 at 2pm.
+  allowed to discuss any aspect of the exam until Friday 10/26.
 * The teaching staff will not answer any questions related to the exam until it
-  is over. I have tried to remove all ambiguity from the question statements.
+  is over. We have tried to remove all ambiguity from the question statements.
   The teaching staff will review the questions. If you feel something is
   ambiguous on the exam, please make a comment above your answer in the source
   code you submit. Indicate what you thought was ambiguous and the decision you
   made to resolve the ambiguity.
-* If Canvas stops working during your exam for some reason, please email the
-  required source code to <cme211-staff@lists.stanford.edu>. We will check the
-  time stamp of the email against the start time stamp on Canvas.
+* Your submission will take place through Git, as specified in the exam instructions.
 
 ## Topics
 
@@ -89,5 +90,4 @@ From *Learning Python*:
 ## Notes
 
 * If you want `sqrt()`, remember to `import math` and use `math.sqrt()`.
-* We won't test on Python exceptions
 * We won't test on Numpy, Scipy, or matplotlib

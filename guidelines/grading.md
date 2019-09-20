@@ -11,11 +11,19 @@ designed, well-decomposed, and commented appropriately.
 
 In each category, overall feedback will be summarized with:
 
-* `+`: exceptional work, rarely granted
-* `ok`: work meets specification and reasonable quality standards
-* `-`: work is lacking in at least one area
-* `--`: work is lacking in two or more areas
-* `0`: assignment missing or highly problematic
+* `++`: truly exceptional work, rarely granted,
+* `+`: work meets all expectations, without flaw(s),
+* `ok`: major functionality present, small details missed or an anticipated error was made,
+* `-`: functionality impeded by a fundamental correctness error, which requires multiple modifications to rectified,
+* `--`: multiple key components impeded by fundamental correctness errors, *each of which* requires *multiple* modifications to be rectified.
+
+Students who do not submit their assignment at all will earn an entirely separate 
+category of points, called "0". At the end of the quarter, 
+we will map categories to scalar values, e.g.
+
+`{"++" : 1.05, "+" : 0.95", "ok" : 0.85, "-" : 0.75, "--" : 0.6}`.
+
+E.g. your feedback from an assignment might be something like, `"Functionality" : "+", "code-quality" : "ok", "documentation" : "-"}` then if you were really eager to squash this multidimensional, rich feedback into a single scalar value you could compute `0.65 * 0.95 + 0.25 * 0.85 + 0.10 * 0.75 = 0.905`.
 
 ## Functionality
 

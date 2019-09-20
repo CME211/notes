@@ -9,3 +9,5 @@ students ready for work in CME211.
 * Editing text files
 * Remote computing with `ssh` & `scp`
 * Using `git` for version control
+* Introduction to Python
+* How to write a simple script

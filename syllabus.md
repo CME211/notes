@@ -1,10 +1,10 @@
-# CME 211 Syllabus (Fall 2017)
+# CME 211 Syllabus (Fall 2019)
 
-*(cross listed as Earth 211)*
+_(cross listed as Earth 211)_
 
 ## Software Development for Scientists and Engineers
 
-Basic usage of the Python and C/C++ programming languages are introduced and
+Basic usage of the Python and C++ programming languages are introduced and
 used to solve representative computational problems from various science and
 engineering disciplines. Software design principles including time and space
 complexity analysis, data structures, object-oriented design, decomposition,
@@ -21,10 +21,8 @@ equivalent to [CS 106A][cs106a] or instructor consent.
 
 - To become a productive user of unix-like and remote computing systems.
 - To become an effective user of tools for software development such as version
-  control (`git`), text editors, and build systems (`make`).
-- To be able to write Python programs of intermediate complexity for science
-  and engineering applications.
-- To be able to write C++ programs of intermediate complexity for science
+  control (`git`), text editors (vim, emacs), and build systems (`make`).
+- To be able to write Python and C++ programs of intermediate complexity for science
   and engineering applications.
 - Develop skill in [*computational thinking*][comp-think], that "is the thought
   processes involved in formulating a problem and expressing its solution(s) in
@@ -36,47 +34,32 @@ equivalent to [CS 106A][cs106a] or instructor consent.
 
 ### Linux
 
-- Remote login and file transfer using SSH, SCP, and SFTP
+- Remote login and file transfer using `ssh` and `scp`
 - Filesystem navigation (moving through and creating directories, finding files, etc.)
 - Creation and editing of code and data files
 
 ### Python
 
-- Variables, conditionals, file I/O, data structures (lists, tuples, dictionaries, sets),
+- Variables, conditionals, file I/O, data structures (lists, tuples, dictionaries, sets)
 - loops, functions, exceptions, and modules
 - Objects and references
 - Objected Oriented Programming (OOP) using classes
 - Numerical Python (NumPy) and Scientific Python (SciPy) extensions for scientific computing
 - matplotlib for visualization
 
-### C/C++
+### C++
 
-- Compiling and linking
-- Preprocessor
+- Creating C++ Programs: preprocessor, compiling, linking
 - Containers (vector, map, etc.)
 - Object oriented programming (classes and methods, etc.)
 - Pointers, addresses, and memory management
 - *Note that more advanced features of C++ (operator overloading, templates, etc.) will be covered in CME 212*
 
-### Building software
-
+### Software Development and Industry Practices
 - Creating and using a basic Makefile
-
-### Version control
-
-- Use of Git and Github for managing software projects
-
-### LaTeX
-
-- LaTeX markup (figures, tables, equations, references, etc.)
-- Managing a bibliography
-- Creating a ready to publish file in Adobe Acrobat (PDF) format
-
-## Time and location
-
-- Days: Mon, Wed, Fri
-- Time: 3:00 PM - 4:20 PM
-- Location: Bishop Auditorium
+- Version control: use of Git and Github for managing software projects
+- LaTeX markup (figures, tables, equations, references, managing a
+  bibliography, and publishing a PDF document)
 
 ## Communication
 
@@ -84,39 +67,36 @@ We will be using Canvas to send announcements and as a discussion board for the
 homework projects. Please use this if you have questions regarding course
 material.
 
-Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/70356>
+Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/87822>
 
 All other correspondence should be sent to <cme211-staff@lists.stanford.edu>.
 
-*Do not send questions related to course material to the staff mailing list or to
-individual staff emails (including the instructor).  We will not answer these.
+*Do not send questions related to course material to the staff mailing list or to individual staff emails (including the instructor).  We will not answer these.
 Questions may be posted to the Canvas discussion board or asked in-person during
 office hours.*
 
 ## Teaching staff
 
 Instructor: 
-  - Andreas Santucci (santucci at stanford)
-  - Slaven Peles
+  - [Andreas Santucci](https://asantucci.github.io/) (santucci at stanford)
 
 Teaching assistants: 
-  - Alex Tsaptsinos (alextsap at stanford)
-  - Noam Habot (nhabot at stanford)
-  - Vishal Subbiah (svishal at stanford)
-  - Kevin Chen (kchen42 at stanford)
+  - Teresa Dayrit (tedayrit at stanford)
+  - Fredric Lam (flam at stanford)
+  - Frederik Mellby (frederme at stanford)
+  - Lewis Warne (lwarne at stanford)
+  
+
+## Time and location
+
+- Days: Tues, Thurs
+- Time: 4:30 PM - 6:20 PM
+- Location: Hewlett 201
 
 ## Office hours
-All office hours, except for Slaven's, are held in Huang basement.
+Formal office hours will be announced *after* the first week of classes has finished. We will have an ad-hoc office hour during the first week of class to help answer any questions with HW 0.
 
-Mondays: 11am - 1pm (Alex), 4.30 - 6.30pm (Kevin)
-
-Tuesdays: 11am - 1pm (Vishal), 4.30 - 6.30pm (Noam)
-
-Wednesday: 11am - 1pm (Alex)
-
-Thursday: 11am - 1pm (Vishal), 3pm - 5pm (Noam), 4.30pm - 6.30pm (Kevin)
-
-Friday: 4.30pm - 6pm (Slaven, Huang 060 M09)
+(All office hours will be held in Huang basement, just outside ICME)
 
 ## Resources
 
@@ -132,12 +112,12 @@ collection.
 
 Other resources are listed in the [`CME211/notes`][cme211-notes] repository.
 
-[cme211-notes]: https://github.com/CME211/notes
+[cme211-notes]: https://github.com/CME211/notes#contents
 
 ## Grading
 
-Your overall course grade will be based on assignments (50%), two exams (12.5%
-each, 25% total), and a final project (25%).
+Your course grade will be based on assignments (50%), two exams (12.5%
+each, 25% total), and a project (25%).
 
 Course letter grades are at the discretion of the instructor. If at any time you
 have questions about your standing in the class, please contact the instructor.
@@ -147,13 +127,13 @@ progress in the class.
 ## Assignments
 
 There will be 7 graded assignments. Assignments will be posted on Friday
-afternoons and be due the following Friday at 2:30 pm via online submission.
-Late assignments will not be accepted.
+afternoons and be due the following Friday at 4:30 pm via online submission.
+Late assignments will **not** be accepted.
 
 Although students are expected to complete all assignments, the one assignment
 with the lowest score (by percentage) will automatically be dropped when
 computing your overall course grade. The policy of dropping the lowest score is
-in lieu of a late policy or providing extensions so please don’t ask for them.
+in lieu of a late policy or providing extensions so please don’t ask for them!
 
 ## Final Project
 
@@ -181,22 +161,29 @@ code violations.
 ### Guidelines
 
 - It’s great (and encouraged) to work with other people on high level ideas,
-  concepts, and methods.  But, you must write your code on your own. Please seek
-  help early if and when you encounter problems.
+  concepts, and methods.  
+  
+  But, you must write your code on your own. 
+
+  Please seek help early and often, if and when you encounter problems.
 - Keep your code closed and separate if you are helping another student with a
   debugging or technical issue in code.
 - Do not copy code from another student (current or previous).
 - Do not give your code to another student (current or future).
-- It is acceptable to copy small blocks (a few lines) of code from public sources,
+- It is acceptable to copy small blocks (a few lines) of code from public 
+  sources,
   such as [stackoverflow.com](http://stackoverflow.com/).  You must cite your
-  source and abide by any copyright and licensing restrictions.  You do not need
-  to cite course notes, example programs provided by CME211, reference information
-  from [`python.org` docs](https://docs.python.org/3/), or reference information
-  from [`cppreference.com`](http://en.cppreference.com/w/).
+  source and abide by any copyright and licensing restrictions.  You do 
+  not need
+  to cite course notes, example programs provided by CME211, reference 
+  information
+  from [python.org docs](https://docs.python.org/3/), or reference information
+  from [cppreference.com](http://en.cppreference.com/w/).
 - Do not use or reference work from previous students of CME211 or any solution
   files that may be out there.
 - Do not post homework PDFs or your solutions in a publicly available location.
-- Please let us know if you come across available solutions.  We will kindly ask
+- Please let us know if you come across available solutions.  
+  We will kindly ask
   the provider to remove the resource.
 
 ## Students with Documented Disabilities
@@ -207,5 +194,6 @@ disability must initiate the request with the Office of Accessible Education
 recommend reasonable accommodations, and prepare an Accommodation Letter for
 faculty dated in the current quarter in which the request is made. Students
 should contact the OAE as soon as possible since timely notice is needed to
-coordinate accommodations. The OAE is located at 563 Salvatierra Walk (Phone:
-723-1066, URL: <http://studentaffairs.stanford.edu/oae>).
+coordinate accommodations. The OAE is located at 563 Salvatierra Walk.
+
+(Phone: 723-1066, URL: <http://studentaffairs.stanford.edu/oae>).

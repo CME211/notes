@@ -1,0 +1,786 @@
+\documentclass[12pt,letterpaper,twoside]{article}
+\usepackage{cme211}
+
+\begin{document}
+
+\title{Lecture 3: Python Containers \vspace{-5ex}}
+\date{October 2nd, 2018}
+\maketitle
+
+\section{Containers}
+\paragraph{Background}
+For any given problem, there are an infinitude of ways to solve the problem.
+One of the \emph{types of decisions} we are faced with when writing a program is: \emph{how to (internally) store} or represent 
+our data in a way that lends itself to the problem at hand. 
+
+\paragraph{Motivation}
+The practical implications of choosing the right (or wrong) data structure
+may be a program that runs orders of magnitudes slower than it should; i.e. knowing the contents of this lecture can help us \emph{get 
+started} with understanding how to answer the question, ``why is my program so slow, and what can I do to make it faster?''.
+
+\paragraph{Definition} We provide a formal definition, and a few concrete examples.
+\begin{itemize}
+\item \href{https://en.wikipedia.org/wiki/Container_(abstract_data_type)}{\emph{Containers}} (Abstract Data Types) 
+  are objects that contain one or more other objects.
+
+  They are sometimes called ``collections'' or ``data structures''.
+\item Last lecture, we introduced the Python \texttt{list} container.
+  
+  Today we will see Dictionaries, Sets, and Tuples.
+\end{itemize}
+
+\subsection{Preview of Various Containers}
+\paragraph{\href{https://en.wikipedia.org/wiki/List_(abstract_data_type)}{Sequential containers}} 
+store data items in a specified order.
+Think elements of a vector, names in a list of people that you want to
+invite to your birthday party. The most fundamental Python data type for
+this is called a \href{https://docs.python.org/3/tutorial/datastructures.html#more-on-lists}{\texttt{list}}. 
+Later in the course we will learn about
+containers that are more appropriate (and faster) for numerical data
+that come from NumPy.
+
+We have seen lists in our prior lecture.
+\begin{python}
+my_list = [4, 8.95, 'list item', ["sub", "list"]]
+print(my_list)
+\end{python}
+
+Python has another built-in sequential container called a
+\href{https://docs.python.org/3/tutorial/datastructures.html#tuples-and-sequences}{\texttt{tuple}}. 
+Tuples are a lot like lists, but the elements cannot be modified after the tuple is created.
+
+\begin{python}
+my_tup = (1, 2, "str", 99.99)
+print(my_tup)
+print(my_tup[1]) # Prints the second item. Happens to be the integer value two.
+
+my_tup[1] = 42   # Error: 'tuple' object does not support item assignment.
+\end{python}
+
+Tuples are said to be immutable. We'll see why this is important later.
+
+\paragraph{\href{https://en.wikipedia.org/wiki/Associative_array}{Associative containers}}
+store data, organized by a unique
+\emph{key}. Think of a dictionary of word definitions. They unique
+\emph{key} is a word, the value associated with the key is the
+definition. In Python, this is represented with the built-in
+\href{https://docs.python.org/3/tutorial/datastructures.html#dictionaries}{\texttt{dict}} 
+or Dictionary type. You will soon learn the greatness of
+dictionaries in Python.
+
+\begin{python}
+emails = dict()
+emails['andreas'] = 'andreas@mail.com'
+emails['nick'] = 'nwh@stanford.net'
+print(emails)
+\end{python}
+
+Access a single element:
+\begin{python}
+emails['nick']
+\end{python}
+We'll learn what happens if we query a key which does not exist in our dictionary soon.
+
+\paragraph{\href{https://en.wikipedia.org/wiki/Set_(abstract_data_type)}{Set containers}} 
+store \emph{unique} data items. They are related to
+dictionaries, because dictionaries require the keys to be unique.
+
+\begin{python}
+dinos = set()
+dinos.add('triceratops')
+dinos.add('t-rex')
+dinos.add('raptor')
+print(dinos)
+dinos.add('pterodactyl')
+dinos.add('t-rex')         # Nothing actually gets added here...
+print(dinos)
+\end{python}
+
+\paragraph{So, What About Making My Program Faster?} Each of these data structures
+have different properties associated with them which make them amenable to certain
+operations. E.g., the fact that a \emph{tuple} is immutable means that the programmer
+may be able to place certain guarantees on the (existence of) contents; a \emph{list} is
+``fast'' to append to, which might be nice if you want a growing collection (whose final size is not known apriori); 
+a \emph{dictionary} allows us to not only associate keys with values, but to look them up ``quickly'' in the future.
+We'll learn precisely what the quoted terms mean as we progress through the quarter.
+
+\section{Dictionaries}
+Dictionaries are an \href{https://en.wikipedia.org/wiki/Collection_(abstract_data_type)#Associative_arrays}{\emph{associative container}}: 
+they map \emph{keys} to \emph{values}. 
+
+\vspace{-2ex}
+\paragraph{Use Case} You want to repeatedly ``look up'' values that are associated with identifiers. E.g. your contacts list, which might pair
+a name with a phone-number. Want to look up a friends phone number? Just type their name and you get the result \emph{instantly}.
+
+\vspace{-2ex}
+\paragraph{Python Syntax}
+They \emph{can} be denoted by curly braces.
+
+\begin{itemize}
+  \item
+    Create an empty dictionary: \texttt{empty\_dict\ =\ \{\}} or
+    \texttt{empty\_dict\ =\ dict()}
+  \item
+    Create a dictionary with some data:
+      $\texttt{ages} = \{ \texttt{"}\underbrace{\texttt{brad}}}_{\textrm{key}}\texttt{"} : \underbrace{51}_{\textrm{value}}, \texttt{"angelina"} : 40 \}$.
+\end{itemize}
+
+\vspace{-5ex}
+\paragraph{Values} can be \emph{any} python object. E.g. numbers, strings, lists, other dictionaries
+
+\vspace{-2ex}
+\paragraph{Keys} must be \emph{immutable}. 
+E.g. Numbers, strings, tuples (with \emph{only} immutable data).\footnote{If we try to use a tuple as key, where one of the elements of the tuple
+is a mutable type, e.g. a list, we will get a \texttt{TypeError: unhashable type}. By the way, this also informs us of the implementation of our associative container.}
+
+\vspace{-2ex}
+\paragraph{Access} values associated with a key with square brackets:
+\texttt{value\ =\ dictionary{[}key{]}}
+
+\paragraph{Essential Caveat: Unordered Collection}
+There is no sense of order in a python dictionary. E.g. when used in a loop, the key-value pairs may come out in any order.
+
+\vspace{-18pt}
+\subsection{Creation}
+
+\begin{python}
+simple_dict = {1 : "the number 1", "42" : 42, "a list" : [1,2,3]}
+print(simple_dict)
+\end{python}
+
+Here is a slightly more useful dictionary associating names with ages.
+We start with an empty dictionary and add to it.
+
+\begin{python}
+ages = {} # or ages = dict()
+ages['brad'] = 51
+ages['angelina'] = 40
+ages['leo'] = 40
+ages['bruce'] = 60
+ages['cameron'] = 44
+ages
+\end{python}
+
+We can get the size of the dictionary with \texttt{len}, i.e. query the number of keys.
+\begin{python}
+len(ages)
+\end{python}
+
+\subsection{Access}
+
+\paragraph{Retrieval} Given a key, we can fetch the corresponding values quickly.
+When the key does not exist, we get a \texttt{KeyError}.
+
+\begin{python}
+ages['leo']     # Corresponding value returned.
+ages['helen']   # KeyError: 'helen'
+\end{python}
+
+Or you can use the \texttt{get()} method:
+
+\begin{python}
+tmp = ages.get('brad')
+print(tmp)              # Prints the integer 51.
+tmp = ages.get('helen') # Returns None.
+print(tmp)              
+\end{python}
+
+\vspace{-12pt}
+\paragraph{Updating Values}
+We can change the value associated with a key.
+
+\begin{python}
+ages['brad'] = 52   # Perhaps Brad aged one year.
+print(ages)
+\end{python}
+
+\vspace{-12pt}
+\paragraph{Querying Existence of a Key}
+
+Suppose we want to ask if a key is presently contained?
+\begin{python}
+print(ages)  # Prints all key-value pairs; possibly overwhelming.
+\end{python}
+
+The \texttt{in} operator returns a Boolean indicating whether the key is already present.
+
+\begin{python}
+'nick' in ages  # Returns a corresponding boolean. E.g. False here.
+'leo'  in ages  # And True here.
+\end{python}
+
+\vspace{-12pt}
+\subsection{Iteration}
+\textbf{Iterate through the keys} as follows.
+
+\begin{python}
+for key in ages:                            # More explicitly: ages.keys().
+    print("{} = {}".format(key,ages[key]))
+\end{python}
+
+We can also \textbf{iterate over values}.
+
+\begin{python}
+for value in ages.values():
+    print(value)
+\end{python}
+
+Additionally, we can \textbf{iterate through key-value pairs} together.\footnote{
+The above syntax is more efficient in Python 3 compared
+with Python 2. To achieve equivalent performance in Python 2, it is best
+to ask for an \emph{iterator} over the key-value pairs via \text{dir.iteritems()}.
+In Python3, \texttt{dir.items()} returns an object that provides access to the data in a container
+in a sequential fashion \textbf{without} requiring the creation of a new
+data structure and copying of data. This is sort of like the
+\texttt{range()} function.}
+
+\begin{python}
+for k, v in ages.items():
+    print('{} is {} years old'.format(k,v))
+\end{python}
+
+\paragraph{Revisiting: Implications of an Unordered Collection}
+We emphasize that the order of iteration is \emph{not guaranteed} when using an associative
+data structure. E.g. if you observe a particular ordering when iterating over a fixed
+dictionary in a python interpreter, this ordering is not guaranteed to persist when
+the same dictionary is created in a new session.
+
+\subsection{Methods}
+See \texttt{help(dict)} to get a summary of all dictionary methods. \href{https://docs.python.org/3/tutorial/datastructures.html#dictionaries}{Py-doc for dictionaries.}
+
+{
+\footnotesize
+\begin{verbatim}
+clear(...)
+    D.clear() -> None.  Remove all items from D.
+
+copy(...)
+    D.copy() -> a shallow copy of D
+
+get(...)
+    D.get(k[,d]) -> D[k] if k in D, else d.  d defaults to None.
+
+items(...)
+    D.items() -> a set-like object providing a view on D's items
+
+keys(...)
+    D.keys() -> a set-like object providing a view on D's keys
+
+pop(...)
+    D.pop(k[,d]) -> v, remove specified key and return the corresponding value.
+    If key is not found, d is returned if given, otherwise KeyError is raised
+
+setdefault(...)
+    D.setdefault(k[,d]) -> D.get(k,d), also set D[k]=d if k not in D
+
+update(...)
+    D.update([E, ]**F) -> None.  Update D from dict/iterable E and F.
+    If E is present and has a .keys() method, then does:  for k in E: D[k] = E[k]
+    If E is present and lacks a .keys() method, then does:  for k, v in E: D[k] = v
+    In either case, this is followed by: for k in F:  D[k] = F[k]
+
+values(...)
+    D.values() -> an object providing a view on D's values
+\end{verbatim}
+}
+
+\section{Tuples}
+
+Tuples are essentially immutable lists, containing possibly heterogeneous elements.
+
+\paragraph{Use Case} You have a set of (possibly non-unique or heterogeneous) data that you
+wish to remain \emph{ordered} and \emph{immutable} for the lifetime of the object. E.g. we
+may expect that a person's name should be invariant over the course of a peron's lifetime,
+and therefore may choose to represent first and last names via a length-two tuple.\footnote{An alternative
+choice may be to hold two separate objects in memory, each a \texttt{list} of equal length; the first list
+could hold first names, and the second could hold last names; there is an assumed invariant
+that the indexing between first and last names is consistent, i.e. that each individual appears exactly once in each
+object and the index at which they appear is the same across both objects. While the assumed invariant is perhaps dicey,
+this may allow for slicing \emph{across} (first or last) names.}
+
+\paragraph{Syntax}
+They are denoted by parentheses: \texttt{tup\ =\ (1,2,3)}.
+
+\begin{itemize}
+  \item Create an empty tuple: \texttt{empty\_tup = ()}, or \texttt{empty\_tup = tuple()}.
+  \item Create a tuple with some data: \texttt{tup = (42, 3.14, "abc")}.
+\end{itemize}
+
+\paragraph{Values} themselves can be of \emph{any} type.
+\vspace{-12pt}
+\paragraph{Immutability} The number of items in a tuple, or what those fixed number of items reference, are not allowed to change
+after creation. Put differently, the \emph{size} and \emph{type signature} of a tuple are fixed at the time of creation.
+
+\paragraph{Ordered Collection} Since tuples are immutable, their elements are ordered. 
+We can therefore access items via \emph{indexing} and \emph{slicing}, similar to lists.
+
+
+\end{itemize}
+
+\paragraph{Similarities with Lists}
+Suppose we have a tuple of homogeneous data. There are some similarities in how
+we can access the elements relative to a \texttt{list}.
+\begin{python}
+my_tuple = (1, 2, 3, 4)
+print(my_tuple[1])   # Prints the second value, happens to be integer two.
+print(my_tuple[1:3]) # Print out second and third value, up to (but excl.) fourth.
+\end{python}
+
+This all feels quite similar to a \texttt{list}.
+We can even loop over values with \texttt{for}:
+
+\begin{python}
+for item in my_tuple:      # Identical to list-iteration.
+    print(item)
+\end{python}
+
+\subsection{Immutability}
+However, recall that while \texttt{list}s are mutable, tuples are not!
+\begin{python}
+my_list = ["I", "am", "a", "list"]
+my_list[0] = "I still"              # Modifying elements of a list is OK.
+print("my_list:", my_list)          # --> my_list: ["I still", "am", "a", "list"].
+
+my_tuple = ("I", "am", "a", "tuple")
+my_tuple[2] = "still a"  # TypeError: 'tuple' object does not support item assignment
+\end{python}
+
+
+\paragraph{Caveat}
+However, the underlying elements of a tuple which are mutable in nature may be modified. E.g. if one of the items of a tuple is a 
+list, and since lists are mutable, it's possible to change the \emph{contained} object.
+
+\begin{python}
+t = (42, 3.14, ['a', 'b', 'c'])      # Tuple of length 3: tuple<int, float, list>
+t[2] = ["another", "list", "of 3"]   # We cannot re-assign data.
+t[2].append('z')                     # Mutate third elem, itself a list, via 'append'.
+print(t)                             # 't' is "unchanged": tuple<int, float, list> ...
+                                     # ... but! underlying data are different.
+\end{python}
+
+Check out this type of behavior in the following
+\href{http://www.pythontutor.com/visualize.html\#code=my_tup\%20\%3D\%20(2,\%20'a\%20string',\%20\%5B1,3,8\%5D\%29\%0Amy_tup\%5B2\%5D\%5B0\%5D\%20\%3D\%20'new\%20data'\%0Aprint(my_tup\%29\%0A\&cumulative=false\&curInstr=0\&heapPrimitives=false\&mode=display\&origin=opt-frontend.js\&py=3\&rawInputLstJSON=\%5B\%5D\&textReferences=false}{Python
+Tutor} example, alongside a visual.
+
+\paragraph{References}
+Like all variables in Python, items in a tuple are actually references
+to objects in memory. Once a tuple has been created, its references to
+objects cannot be reassigned. Tuple items may reference an object that
+is mutable (say, a list). In this case the referenced mutable object may
+be changed in someway.
+
+\subsubsection{A note on (im)mutability}
+It is natural to wonder why have immutable objects at all. One answer to
+this is practical: in Python, only immutable objects are allowed as keys
+in a dictionary or items in a set.
+
+The more detailed answer requires knowledge of the underlying data
+structure behind Python dictionary and set objects. In the context of a
+Python dictionary, the memory location for a key-value pair is computed
+from a \emph{hash} of the key. If the key were modified, the \emph{hash}
+would change, likely requiring a move of the data in memory. Thus,
+Python requires immutable keys in dictionaries to prevent unnecessary
+movement of data.
+
+It is possible to associate a value with a new key with the following
+code:
+
+\begin{python}
+ages = {'cameron': 44, 'angelina': 40, 'bruce': 60, 'brad': 51, 'leo': 40}
+print(ages)
+ages['BRUCE'] = ages['bruce']
+print(ages)
+\end{python}
+
+\subsection{Tuple (Un)-Packing}
+
+Tuple packing and unpacking is very convenient Python syntax. In
+packing, a tuple is automatically created by combining values or
+variables with commas:
+
+\begin{python}
+t = 1, 2, 3
+print("type(t):", type(t))
+print("t:", t)
+\end{python}
+
+Tuple unpacking can store the elements of a tuple into multiple
+variables in one line of code.
+
+\begin{python}
+my_tuple = ("a string", 43, 99.9)
+my_str, my_int, my_flt = my_tuple
+
+### Equivalently:
+my_str = my_tuple[0]
+my_int = my_tuple[1]
+my_flt = my_tuple[2]
+\end{python}
+
+\subsubsection{Swapping Variables Via Tuple Unpacking}
+
+Tuple packing and unpacking allows swapping of variables without (syntactically)
+creating a temporary variable:
+
+\begin{python}
+x, y = 1001, 'random string'
+x, y = y, x
+print("x:", x)
+print("y:", y)
+\end{python}
+
+\vspace{-4ex}
+\section{Sets}
+\vspace{-2ex}
+In Python, a \href{https://docs.python.org/3/tutorial/datastructures.html#sets}{set} is an unordered, 
+mutable collection of unique items. 
+
+\vspace{-3ex}
+\paragraph{Use Case} We care about existence, and not duplicity; testing for existence is ``fast''.
+E.g. When a new-user signs up for a service, we want to check if their proposed username is available 
+\emph{instantly}, without scanning through existing users.\footnote{If we stored our usernames in a \texttt{list} instead,
+and still checked for existence with the \texttt{in} operator, then as our service becomes more popular it would
+take new users \emph{longer and longer} to sign-up! Ouch.}
+
+\vspace{-3ex}
+\paragraph{Syntax}
+They \emph{can} be denoted by braces.
+
+\vspace{-2ex}
+\begin{itemize}
+\item
+  Create a set with: \texttt{my\_set\ =\ set({[}1,\ 2,\ 3{]})}
+\item
+  Or create a set with: \texttt{my\_set\ =\ \{5,\ 8,\ "str",\ 49.2\}}
+\end{itemize}
+
+\paragraph{Values} of a set must be immutable (same reason keys in a
+  dictionary must be immutable).
+
+\subsection{Creation, Adding Elements}
+
+\begin{python}
+# create and update using add method
+myclasses = set()
+myclasses.add("math")
+myclasses.add("chemistry")
+myclasses.add("literature")
+
+# create using {} notation
+yourclasses = {"physics", "gym", "math"}
+\end{python}
+
+\subsection{Set Operations}
+Test for membership (or existence) with the \texttt{in} operator:
+
+\begin{python}
+"gym" in myclasses     # Returns False.
+"gym" in yourclasses   # Returns True.
+\end{python}
+
+Compute set intersections or unions.
+
+\begin{python}
+myclasses & yourclasses  # Returns only elements in both sets.
+myclasses | yourclasses  # Returns elements found in either myclasses OR yourclasses.
+\end{python}
+
+We remark that the output of a set operation is itself a new set.
+
+\subsection{Application: Finding Unique Items in a List}
+
+Let's create a list with non-unique elements.
+
+\begin{python}
+basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
+\end{python}
+
+Phone-screen: what are the unique elements?
+
+Answer: from this list, we can easily create a \texttt{set}, and this answers the very question posed.
+
+\begin{python}
+fruit = set(basket)
+print(fruit)
+\end{python}
+
+\subsection{Methods}
+
+For more information and examples see the \texttt{set} documentation in
+the official \href{https://docs.python.org/3/tutorial/datastructures.html\#sets}{Python
+Tutorial} and
+\href{https://docs.python.org/3/library/stdtypes.html\#set-types-set-frozenset}{Library
+Reference}.
+
+Also see \texttt{help(set)}:
+
+{
+\footnotesize
+\begin{verbatim}
+add(...)
+    Add an element to a set.
+
+    This has no effect if the element is already present.
+
+clear(...)
+    Remove all elements from this set.
+
+copy(...)
+    Return a shallow copy of a set.
+
+difference(...)
+    Return the difference of two or more sets as a new set.
+    (i.e. all elements that are in this set but not the others.)
+
+discard(...)
+    Remove an element from a set if it is a member.
+    If the element is not a member, do nothing.
+
+intersection(...)
+    Return the intersection of two sets as a new set.
+    (i.e. all elements that are in both sets.)
+
+isdisjoint(...)
+    Return True if two sets have a null intersection.
+
+issubset(...)
+    Report whether another set contains this set.
+
+issuperset(...)
+    Report whether this set contains another set.
+
+pop(...)
+    Remove and return an arbitrary set element.
+    Raises KeyError if the set is empty.
+
+remove(...)
+    Remove an element from a set; it must be a member.
+
+    If the element is not a member, raise a KeyError.
+
+symmetric_difference(...)
+    Return the symmetric difference of two sets as a new set.
+    (i.e. all elements that are in exactly one of the sets.)
+
+union(...)
+    Return the union of sets as a new set.
+    (i.e. all elements that are in either set.)
+
+\end{verbatim}
+}
+
+\section{List Comprehensions}
+It is a common programming task to produce a list whose elements are the
+result of a function applied to another list. For example.
+
+\begin{python}
+def square(x):
+    return x*x
+
+my_list = [1,2,3,4,5,6,7,8]
+
+new_list = []
+for x in my_list:
+    new_list.append(square(x))
+
+print(new_list)
+\end{python}
+
+This is so common that Python has special syntax to achieve the same
+thing.
+
+\begin{python}
+list_comp = [x*x for x in my_list]
+print(list_comp)
+\end{python}
+
+This is called a
+\href{https://docs.python.org/3/tutorial/datastructures.html\#list-comprehensions}{list
+comprehension}. It creates a new list by applying an operation to each
+item of another list.
+
+It is also possible to filter out elements of list in a comprehension:
+
+\begin{python}
+my_list = [1,2,3,4,5,6,7,8,9,10,11]
+odds = [x for x in my_list if x % 2 != 0]
+odds
+\end{python}
+
+Python also has
+\href{http://stackoverflow.com/documentation/python/196/comprehensions/745/set-comprehensions\#t=201609141607227980614}{set}
+and
+\href{http://stackoverflow.com/documentation/python/196/comprehensions/738/dictionary-comprehensions\#t=201609141607227980614}{dictionary}
+comprehensions. For further reference, see the 
+\href{https://docs.python.org/3/tutorial/datastructures.html\#list-comprehensions}{List Comprehensions in Python Tutorial}.
+
+\newpage
+
+\section{Exercises}
+
+\subsection{References, Tuples, and Mutable Objects}
+Execute and understand the following code in
+\href{http://www.pythontutor.com/visualize.html\#code=sub_list_1\%20\%3D\%20\%5B1,3,8\%5D\%0Asub_list_2\%20\%3D\%20\%5B'z','y','x'\%5D\%0Amy_list\%20\%3D\%20\%5B2,\%20'a\%20string',\%20sub_list_1\%5D\%0Amy_list\%5B2\%5D\%20\%3D\%20sub_list_2\%0Amy_list\%5B2\%5D\%5B0\%5D\%20\%3D\%20'new\%20string'\%0A\%0Amy_tup\%20\%3D\%20(2,\%20'a\%20string',\%20sub_list_1\%29\%0A\%0A\%23\%20cannot\%20modify\%20tuple\%20references\%0A\%23\%20my_tup\%5B2\%5D\%20\%3D\%20sub_list_2\%0A\%0A\%23\%20we\%20can\%20modify\%20a\%20mutable\%20object\%20referenced\%20by\%20a\%20tuple\%0Amy_tup\%5B2\%5D\%5B0\%5D\%20\%3D\%20'from\%20my_tup'\%0A\%0A\%23\%20can\%20can\%20look\%20at\%20object\%20ids\%0Aprint(id(sub_list_1\%29\%29\%0Aprint(id(my_tup\%5B2\%5D\%29\%29\&cumulative=false\&curInstr=0\&heapPrimitives=false\&mode=display\&origin=opt-frontend.js\&py=3\&rawInputLstJSON=\%5B\%5D\&textReferences=false}{Python
+Tutor}.
+
+\begin{python}
+sub_list_1 = [1,3,8]
+sub_list_2 = ['z','y','x']
+my_list = [2, 'a string', sub_list_1]
+my_list[2] = sub_list_2
+my_list[2][0] = 'new string'
+
+my_tup = (2, 'a string', sub_list_1)
+
+# cannot modify tuple references
+# my_tup[2] = sub_list_2
+
+# we can modify a mutable object referenced by a tuple
+my_tup[2][0] = 'from my_tup'
+
+# can can look at object ids
+print(id(sub_list_1))
+print(id(my_tup[2]))
+\end{python}
+
+
+\subsection{Applied Problems using Census Data}
+This problem will contrast the use of \texttt{set}s with \texttt{list}s.
+
+\paragraph{Goal:} write program to predict \emph{male} or \emph{female} given name.\footnote{Thanks to Patrick LeGresley for this example.}
+
+\paragraph{Data:} can be found here, 
+\href{http://www.census.gov/topics/population/genealogy/data/1990_census/1990_census_namefiles.html}{Frequently Occurring Surnames from Census 1990}
+
+\paragraph{Algorithm:} the following steps incorrectly bias the results to be skewed ``M'', but we will use it is a skeleton first pass implementation.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  If input name is in list of males, return \texttt{"M"}
+\item
+  Else if input name is in list of females, return \texttt{"F"}
+\item
+  Otherwise, return \texttt{"NA"}
+\end{enumerate}
+
+\paragraph{Understanding our Data} After obtaining our data, we inspect its format.
+\begin{lstlisting}[language=bash]
+pwd
+/Users/asantucci/cme211-notes/lecture-03
+
+ls -1 *.first
+dist.female.first
+dist.male.first
+
+head -n 5 dist.female.first
+MARY           2.629  2.629      1
+PATRICIA       1.073  3.702      2
+LINDA          1.035  4.736      3
+BARBARA        0.980  5.716      4
+ELIZABETH      0.937  6.653      5
+
+head -n 4 dist.male.first
+JAMES          3.318  3.318      1
+JOHN           3.271  6.589      2
+ROBERT         3.143  9.732      3
+MICHAEL        2.629 12.361      4
+\end{lstlisting}
+
+Notes:
+
+\begin{itemize}
+\tightlist
+\item
+  The unix \texttt{head} command prints out the first number lines of a
+  text file based on the number after the \texttt{-n} argument.
+\item
+  First column of the data file contains the name in uppercase.
+\item
+  Following columns contain frequency data and rank, which we won't use
+  in this lecture.
+\end{itemize}
+
+
+\subsubsection{Set Exercise}
+
+Write a Python script \texttt{names\_set.py} to implement the
+name to gender algorithm specified above using the Python \texttt{set}
+container. Also print out some information about the data sets.
+
+The program should take data filenames and test names from the command
+line. If no command line arguments are provided, the script should print
+out a helpful usage message.
+
+\begin{lstlisting}[language=bash]
+$ python3 names_set.py
+Usage:
+  $ python3 names_set.py FEMALE_DATA MALE_DATA [TEST NAMES]
+Example:
+  $ python3 names_set.py dist.female.first dist.male.first Nick
+\end{lstlisting}
+
+If data filenames and test names are provided, the script should behave
+as follows:
+
+\begin{lstlisting}[language=bash]
+$ python3 names_set.py dist.female.first dist.male.first Nick Sally Bicycle
+There are 4275 female names and 1219 male names.
+There are 331 names that appear in both sets.
+Nick: M
+Sally: F
+Bicycle: NA
+\end{lstlisting}
+
+The word \texttt{Bicycle} does not appear in either the male or female
+dataset, so \texttt{NA} is printed. 
+A solution can be found in our Github, \href{https://github.com/CME211/notes/blob/fall_18/lecture-03/names_set.py}{here}.
+
+\subsubsection{List Exercise}
+Write a Python script \texttt{names\_list.py} to implement the
+name to gender algorithm specified above using the Python \texttt{list}
+container. Also print out some information about the data sets.
+The script should behave the same as \texttt{names\_set.py}. A solution can
+be found \href{https://github.com/CME211/notes/blob/fall_18/lecture-03/names_list.py}{here}.
+
+\subsubsection{Dictionary Exercise}
+Some names appear in both \textbf{male} and \textbf{female} lists. Some
+names might not appear in either list. Let's write a new algorithm to
+handle this uncertainty:
+
+Given an input name: - return \texttt{0.0} if male - return \texttt{1.0}
+if female - return \texttt{0.5} if uncertain or name does not appear in
+dataset
+
+Exercise: write a Python script \texttt{names\_dict.py} to implement the
+name to gender algorithm specified above using the Python \texttt{dict}
+container. Also print out some information about the data sets. The
+behavior should follow:
+
+Usage message:
+
+\begin{lstlisting}[language=bash]
+$ python3 names_dict.py
+Usage:
+  $ python3 names_dict.py FEMALE_DATA MALE_DATA [TEST NAMES]
+Example:
+  $ python3 names_dict.py dist.female.first dist.male.first Nick
+\end{lstlisting}
+
+Let's examine \texttt{names\_dict.py} in action.
+
+\begin{lstlisting}[language=bash]
+$ python3 names_dict.py dist.female.first dist.male.first Nick Sally Billy
+There are 5163 names in our reference data.
+Nick: 0.0
+Sally: 1.0
+Billy: 0.5
+\end{lstlisting}
+
+The name ``Billy'' appears in both male and female datasets, so
+\texttt{0.5} is printed after the name to indicate uncertainty.
+\href{https://github.com/CME211/notes/blob/fall_18/lecture-03/names_dict.py}{Solution}.
+
+
+\end{document}
