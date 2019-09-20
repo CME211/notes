@@ -1,6 +1,6 @@
 # CME 211 Notes
 
-2018 CME 211 Canvas page: <https://canvas.stanford.edu/courses/87822>
+2019 CME 211 Canvas page: <https://canvas.stanford.edu/courses/104580>
 
 In each folder:
 
@@ -33,4 +33,4 @@ There will be 18 lectures this year.
 * [Lecture 18](lecture-18/): Introduction to Functional Programming in Scala
 
 ## Acknowledgements
-We stand on the shoulders of giants: thanks to Patrick LeGresley and Nick Henderson for designing the structure of the course and the foundations for these notes.
+Thanks to Patrick LeGresley and Nick Henderson for designing the structure of the course and the foundations for these notes.
