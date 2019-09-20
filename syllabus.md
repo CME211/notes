@@ -1,4 +1,4 @@
-# CME 211 Syllabus (Fall 2018)
+# CME 211 Syllabus (Fall 2019)
 
 _(cross listed as Earth 211)_
 
@@ -77,15 +77,14 @@ office hours.*
 
 ## Teaching staff
 
-Instructors: 
+Instructor: 
   - [Andreas Santucci](https://asantucci.github.io/) (santucci at stanford)
-  - Slaven Peles (peles at stanford)
 
 Teaching assistants: 
-  - Remmelt Ammerlaan (remmelt at stanford)
-  - Ruilin Li (ruilinli at stanford)
-  - Maxime Rivet (mrivet at stanford)
-  - Jessica Wetstone (wetstone at stanford)
+  - Teresa Dayrit (tedayrit at stanford)
+  - Fredric Lam (flam at stanford)
+  - Frederik Mellby (frederme at stanford)
+  - Lewis Warne (lwarne at stanford)
   
 
 ## Time and location
@@ -97,7 +96,7 @@ Teaching assistants:
 ## Office hours
 Formal office hours will be announced *after* the first week of classes has finished. We will have an ad-hoc office hour during the first week of class to help answer any questions with HW 0.
 
-(All office hours, except for Slaven's, will be held in Huang basement, just outside ICME)
+(All office hours will be held in Huang basement, just outside ICME)
 
 ## Resources
 
