@@ -67,7 +67,7 @@ We will be using Canvas to send announcements and as a discussion board for the
 homework projects. Please use this if you have questions regarding course
 material.
 
-Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/87822>
+Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/104580>
 
 All other correspondence should be sent to <cme211-staff@lists.stanford.edu>.
 
