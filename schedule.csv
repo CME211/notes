@@ -10,9 +10,9 @@ week #,lecture #,date,day,section,topic,assignments
  , ,11-Oct,Fri,,,"hw2 due, hw3 out"
 4,7,15-Oct,Tue,py,"numpy, scipy, matplotlib",
  ,8,17-Oct,Thu,py,"pandas, jupyter notebook",
- , ,18-Oct,Fri,,,"hw3 due, hw4 out"
+ , ,18-Oct,Fri,,,"hw3 due"
 5,9,22-Oct,Tue,latex,Introduction to LaTeX
- ,exam,24-Oct,py,Python exam,exam 1
+ ,exam,24-Oct,py,Python exam,exotuam 1
  ,  ,25-Oct,Fri,,,hw4 out
 6,10,29-Oct,Tue,C++,"C++ intro, static arrays, looping",
  ,11,31-Oct,Thu,C++,"dynamic arrays, conditionals, file io",
