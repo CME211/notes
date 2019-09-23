@@ -1,32 +1,33 @@
 week #,lecture #,date,day,section,topic,assignments
-1,1,25-Sep,Tue,py,"course intro, python as an extensible calculator",hw0 out
- ,2,27-Sep,Thu,py,"python strings, file io, lists, control",
- , ,28-Sep,Fri,,,"hw0 due, hw1 out"
-2,3,2-Oct,Tue,py,"data structures: dicts, sets, tuples",
- ,4,4-Oct,Thu,py,intro to functions and complexity,
- , ,5-Oct,Fri,,,"hw1 due, hw2 out"
-3,5,9-Oct,Tue,py,"object model, modules, debugger, exceptions",
- ,6,11-Oct,Thu,py,"oop, data representation",
- , ,12-Oct,Fri,,,"hw2 due, hw3 out"
-4,7,16-Oct,Tue,py,"numpy, scipy, matplotlib",
- ,8,18-Oct,Thu,py,"pandas, jupyter notebook",
- , ,19-Oct,Fri,,,hw3 due
-5,9,23-Oct,Tue,latex,Introduction to LaTeX,
- ,exam,25-Oct,Thu,py,Python exam,exam 1
- ,  ,26-Oct,Fri,,,hw4 out
-6,10,30-Oct,Tue,C++,"C++ intro, static arrays, looping",
- ,11,1-Nov,Thu,C++,"dynamic arrays, conditionals, file io",
- ,  ,2-Nov,F,,,"hw4 due, hw5 out"
-7,12,6-Nov,Tue,C++,"function, includes, preprocessor, intro to containers",
- ,13,8-Nov,Thu,C++,containers,
-,,10-Nov,F,,,"hw5 due, project pt 1 out"
-8,14,13-Nov,Tue,C++,make,
-,15,15-Nov,Thu,C++,boost multiarray,
-,,17-Nov,F,,,hw6 out
+1,1,24-Sep,Tue,py,"course intro, python as an extensible calculator",hw0 out
+ ,2,26-Sep,Thu,py,"python strings, file io, lists, control",
+ , ,27-Sep,Fri,,,"hw0 due, hw1 out"
+2,3,1-Oct,Tue,py,"data structures: dicts, sets, tuples",
+ ,4,3-Oct,Thu,py,intro to functions and complexity,
+ , ,4-Oct,Fri,,,"hw1 due, hw2 out"
+3,5,8-Oct,Tue,py,"object model, modules, debugger, exceptions",
+ ,6,10-Oct,Thu,py,"oop, data representation",
+ , ,11-Oct,Fri,,,"hw2 due, hw3 out"
+4,7,15-Oct,Tue,py,"numpy, scipy, matplotlib",
+ ,8,17-Oct,Thu,py,"pandas, jupyter notebook",
+ , ,18-Oct,Fri,,,hw3 due
+5,9,22-Oct,Tue,latex,Introduction to LaTeX,
+ ,exam,24-Oct,py,Python exam,exam 1
+ ,  ,25-Oct,Fri,,,hw4 out
+6,10,29-Oct,Tue,C++,"C++ intro, static arrays, looping",
+ ,11,31-Oct,Thu,C++,"dynamic arrays, conditionals, file io",
+ ,  ,1-Nov,F,,,"hw4 due, hw5 out"
+7,12,5-Nov,Tue,C++,"function, includes, preprocessor, intro to containers",
+ ,13,7-Nov,Thu,C++,containers,
+,,8-Nov,F,,,"hw5 due, project pt 1 out"
+8,14,12-Nov,Tue,C++,make,
+,15,14-Nov,Thu,C++,boost multiarray,
+,,15-Nov,F,,,hw6 out
 thanksgiving,,,,,,
-9,16,27-Nov,Tue,C++,oop 1,"project pt 1 due, project pt 2 out"
-,17,29-Nov,Thu,C++,"oop 2, memory management ",
-,,1-Dec,F,,,hw6 due
-10,18 (q/a),4-Dec,Tue,C++,review question + answer,
-,exam,6-Dec,Thu,C++,C++ exam,exam 2
+9,16,26-Nov,Tue,C++,oop 1,"project pt 1 due, project pt 2 out"
+,17,28-Nov,Thu,C++,"oop 2, memory management ",
+,,29-Nov,F,,,hw6 due
+10,18 (q/a),3-Dec,Tue,C++,review question + answer,
+,exam,5-Dec,Thu,C++,C++ exam,exam 2
 ,,,,,,
+
