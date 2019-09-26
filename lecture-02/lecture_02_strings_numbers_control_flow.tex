@@ -1,0 +1,1096 @@
+\documentclass[12pt]{article} \newif\ifsolution\solutiontrue %include solutions
+%\newif\ifsolution\solutionfalse % omit solutions
+ \usepackage{algorithm2e} \usepackage{amsmath} \usepackage{amsthm} \usepackage{amsfonts} \usepackage{bbm} \usepackage{cme211}
+\usepackage{color,soul} \usepackage{framed} \usepackage[margin=0.5in]{geometry} \usepackage{hyperref} \usepackage{mathtools} \usepackage{xcolor}  \newtheorem{theorem}{Theorem}[section] \newtheorem{lemma}[theorem]{Lemma} \newtheorem{proposition}[theorem]{Proposition} \newtheorem{corollary}[theorem]{Corollary}  \newcommand{\D}{\mathrm{d}} \SetKwInput{KwInput}{Input} \SetKwInput{KwOutput}{Output}  \begin{document}
+
+\section{Strings}
+Strings are a very important data type in all languages.  
+In Python, strings may be quoted several ways:
+
+\begin{python} inputfile = "data.txt"
+outputfule = 'output.txt'
+triplequotes = """woah!
+  split lines"""
+print(triplequotes) \end{python}
+
+
+This also works:
+
+\begin{python}
+triple_single_quotes = '''I am a string too.
+I can span multiple lines!'''
+print(triple_single_quotes)
+\end{python}
+
+\paragraph{Quotes in quotes}
+In Python, we can quote strings with either single (`'`) or double quotes (`"`). Sometimes we want to create a string that contains quotes.  This is easy to do! Strings quoted with `'` can contain `"`:
+
+\begin{python}
+'Bob said, "it is hot out there today".'
+\end{python}
+
+Strings quoted with `"` can contain `'`:
+
+\begin{python}
+"Python, it's a wonderful language"
+\end{python}
+
+Or we can escape the quote with `\`:
+
+\begin{python}
+'it\'s not Nick\'s birthday today'
+\end{python}
+
+\begin{python}
+"I don't always quote my strings, but when I do, I prefer \""
+\end{python}
+
+\subsection{Strings vs. Numbers}
+\begin{python}
+a = 5
+b = '5'
+a + b
+\end{python}
+
+\begin{python}
+print("type(a): ", type(a))
+print("type(b): ", type(b))
+\end{python}
+
+It is simple to convert between numbers and strings!
+
+\begin{python}
+# convert int to a string
+a = str(55)
+print(a)
+print(type(a))
+\end{python}
+
+\begin{python}
+# convert string to a float
+a = float("99.45")
+print(a)
+print(type(a))
+\end{python}
+
+\subsection{Slicing}
+
+\begin{python}
+quote = """That's all folks!"""
+print(quote[2])
+print(quote[7:10])
+print(quote[:4])
+print(quote[7:])
+print(quote[:-7])
+\end{python}
+
+One way to remember how slices work is to think of the indices as pointing
+between characters, with the left edge of the first character numbered `0`. Then
+the right edge of the last character of a string of `n` characters has index
+`n`, for example:
+
+\begin{python}
+word = 'Python'
+\end{python}
+
+\begin{verbatim}
++---+---+---+---+---+---+
+| P | y | t | h | o | n |
++---+---+---+---+---+---+
+0   1   2   3   4   5   6
+-6  -5  -4  -3  -2  -1
+\end{verbatim}
+
+\begin{python}
+word[-2:]
+\end{python}
+
+\subsection{Strings are immutable}
+
+We can access an individual character of a string:
+
+\begin{python}
+a = 'hello'
+a[0]
+\end{python}
+
+We cannot change any part of a string:
+
+\begin{python}
+a[0] = 'k'
+\end{python}
+
+\subsection{Concatenation}
+Concatenate (add together) strings with `+`:
+
+\begin{python}
+b = 'j' + a[1:]
+b
+\end{python}
+This creates a new string.
+
+\subsection{String functions / methods} 	
+\begin{python}
+name = 'Leland'
+len(name)
+name.lower()
+name.upper()
+name.find('lan')
+name.find('lan', 1, 4)
+\end{python}
+There are many \href{https://docs.python.org/3/library/stdtypes.html#string-methods}{string methods}
+
+\subsection{String formatting}
+
+It is often important to create strings formatted from a combination of strings,
+numbers, and other data.  In Python 3 this is best handled by the `format`
+string method.  Here is a simple example:
+
+\begin{python}
+name = "Nick"
+course = 'CME211'
+print("My name is {0}. I am the instructor for {1}.".format(name,course))
+\end{python}
+
+Format strings contain "replacement fields" surrounded by curly braces `{}`.
+Anything that is not contained in braces is considered literal text, which is
+copied unchanged to the output. If you need to include a brace character in the
+literal text, it can be escaped by doubling: `{{` and `}}`.  The number in the
+braces refers to the order of arguments passed to `format`.  Numbers don't need
+to be specified if the sequence of braces has the same order as arguments:
+
+\begin{python}
+program = 'CME'
+number = 211
+print("this course is: {}-{}".format(program,number))
+\end{python}
+
+String formatting is a good way to combine text and numeric data.
+
+String formatting is also how we control the output of floating point numbers:
+
+\begin{python}
+print("    {{:f}}: {:f}".format(42.42))
+print("    {{:g}}: {:g}".format(42.42))
+print("    {{:e}}: {:e}".format(42.42))
+print("  {{:.2e}}: {:.2e}".format(42.42))
+print("{{: 8.2e}}: {: 8.2e}".format(42.42))
+print("{{: 8.2e}}: {: 8.2e}".format(-1.0))
+\end{python}
+
+See the \href{https://docs.python.org/3/library/string.html#format-specification-mini-language}{Python Format Mini-Language docs} and more \href{https://docs.python.org/3/library/string.html#format-examples}{examples}
+
+
+\subsection{Numeric operations in
+Python}\label{numeric-operations-in-python}
+
+The following operations are defined for numeric types (i.e.
+\texttt{int} and \texttt{float}):
+
+\begin{itemize}
+\item
+  \texttt{x\ +\ y}: sum of \texttt{x} and \texttt{y}
+\item
+  \texttt{x\ -\ y}: difference of \texttt{x} and \texttt{y}
+\item
+  \texttt{x\ *\ y}: product of \texttt{x} and \texttt{y}
+\item
+  \texttt{x\ /\ y}: quotient of \texttt{x} and \texttt{y}
+\item
+  \texttt{x\ //\ y}: floored quotient of \texttt{x} and \texttt{y}
+\item
+  \texttt{x\ \%\ y}: remainder of \texttt{x} / \texttt{y}
+\item
+  \texttt{-x}: \texttt{x} negated
+\item
+  \texttt{+x}: \texttt{x} unchanged
+\item
+  \texttt{abs(x)}: absolute value or magnitude of \texttt{x}
+\item
+  \texttt{int(x)}: \texttt{x} converted to integer
+\item
+  \texttt{float(x)}: \texttt{x} converted to floating point
+\item
+  \texttt{x\ **\ y}: \texttt{x} to the power \texttt{y}
+\end{itemize}
+
+A complete list of operations and more detailed discussion can be found
+in the
+\href{https://docs.python.org/3/library/stdtypes.html\#numeric-types-int-float-complex}{Python
+documentation}.
+
+\subsubsection{Complex numbers}\label{complex-numbers}
+
+Python has built-in
+\href{https://docs.python.org/3/library/stdtypes.html\#typesnumeric}{complex
+numbers}:
+
+\begin{python}
+c = 3 + 6j
+print(c)
+print(type(c))
+\end{python}
+
+Access real and imaginary parts:
+
+\begin{python}
+print(c.real)
+print(c.imag)
+\end{python}
+
+The parts have type \texttt{float}:
+
+\begin{python}
+print(type(c.real))
+print(type(c.imag))
+\end{python}
+
+\subsubsection{Numeric conversions}\label{numeric-conversions}
+
+It is often useful to convert between integers and floating point
+numbers. Python fully supports mixed arithmetic: when a binary
+arithmetic operator (such as \texttt{+} or \texttt{*}) has operands of
+different numeric types, the operand with the ``narrower'' type is
+widened to that of the other, where integer is narrower than floating
+point. Comparisons between numbers of mixed type use the same rule. The
+constructors \texttt{int()} and \texttt{float()} can be used to produce
+numbers of a specific type.
+
+Let's see some examples:
+
+\begin{python}
+x = 1 + 2.0
+print(x)
+print(type(x))
+\end{python}
+
+In this case the integer \texttt{1} is ``widened'' or converted to the
+floating point number \texttt{1.0} before the addition.
+
+It is possible to manually convert from \texttt{int} to \texttt{float}:
+
+\begin{python}
+x = float(3)
+print(x)
+print(type(x))
+\end{python}
+
+It is also possible to convert from \texttt{float} to \texttt{int}:
+
+\begin{python}
+x = int(4.7) print(x) print(type(x))
+\end{python}
+
+Let's see what happens with negative numbers:
+
+\begin{python}
+x = int(-8.9) print(x) print(type(x))
+\end{python}
+
+The Python \texttt{int()} constructor rounds floating point numbers
+towards \texttt{0}.
+
+\subsubsection{Converting to and from
+strings}\label{converting-to-and-from-strings}
+
+Python makes it very easy to convert numbers to and from strings. This
+is a useful feature when trying to read numbers from a text file. Let's
+see it in action:
+
+\begin{python}
+my_num_str = "42" print(type(my_num_str))  my_num_int = int(my_num_str) my_num_float = float(my_num_str)  print(my_num_int) print(type(my_num_int))  print(my_num_float) print(type(my_num_float))
+\end{python}
+
+It also easy to convert from a numeric type back to a string:
+
+\begin{python}
+print("exam score:" + str(95) + "%")
+\end{python}
+
+An attempt to concatenate a string with a numeric type is an error:
+
+\begin{python}
+print("exam score:" + 95 + "%")
+\end{python}
+
+It is better to use string formatting for this:
+
+\begin{python}
+print("exam score: {}%".format(95))
+\end{python}
+
+
+\subsection{Lists}\label{lists}
+
+\textbf{Sequential containers} store data items in a specified order.
+Think elements of a vector, names in a list of people that you want to
+invite to your birthday party. The most fundamental Python data type for
+this is called a \texttt{list}. Later in the course we will learn about
+containers that are more appropriate (and faster) for numerical data
+that come from NumPy.
+
+\subsubsection{Creating lists}\label{creating-lists}
+
+In Python, lists are created by putting things inside of square brackets
+(\texttt{{[}{]}}).
+
+\begin{python}
+some_primes = [1,2,3,5,7,11] print(some_primes)
+\end{python}
+
+Lists can hold objects of any type:
+
+\begin{python}
+many_types = [1, 55.5, "Am I in a list?", True] print(many_types)
+\end{python}
+
+We can get the length of the list with the \texttt{len()} functions:
+
+\begin{python}
+len(many_types)
+\end{python}
+
+\subsubsection{Accessing Elements}\label{accessing-elements}
+
+Elements of a list are accessed using square brackets after a variable.
+
+\begin{python}
+myList = [5, 2.3, 'hello']
+\end{python}
+
+The first element of a list is at index \texttt{0}:
+
+\begin{python}
+mylist[0]
+\end{python}
+
+\begin{python}
+myList[2]
+\end{python}
+
+Attempting to access an element out of bounds will produce an error:
+
+\begin{python}
+mylist[3]
+\end{python}
+
+We can index to \texttt{-1} to get the object at the end of the list:
+
+\begin{python}
+myList[-1]
+\end{python}
+
+Likewise, we can index backwards using negative numbers:
+
+\begin{python}
+myList[-3]
+\end{python}
+
+\subsubsection{Slicing}\label{slicing}
+
+A sub-list may be accessed using slice syntax. Let's start with the
+list:
+
+\begin{python}
+many_types = [1, 55.5, "Am I in a list?", True, "the end"]
+\end{python}
+
+Let's look at a sub-list:
+
+\begin{python}
+many_types[2:4]
+\end{python}
+
+The \texttt{{[}2:4{]}} is called a slice and returns a list with
+elements at indices 2 and 3 from the original list.
+
+It is easy to slice from an index to the end:
+
+\begin{python}
+many_types[2:]
+\end{python}
+
+It is also easy to slice from the beginning to a specified index:
+
+\begin{python}
+many_types[:3]
+\end{python}
+
+\subsubsection{Adding and multiplying}\label{adding-and-multiplying}
+
+The \texttt{+} operator concatenates (or combines) lists:
+
+\begin{python}
+myList = [5, 2.3, 'hello'] mySecondList = ['a', '3'] concatList = myList + mySecondList print(concatList)
+\end{python}
+
+The \texttt{*} operator can be used to repeat lists:
+
+\begin{python}
+myList = ['hello', 'world'] print(myList * 2) print(2 * myList)
+\end{python}
+
+\subsubsection{Lists are mutable}\label{lists-are-mutable}
+
+Lists are mutable, this means that individual elements can be changed.
+
+\begin{python}
+# start with a list my_list = ['a', 43, 1.234] # assign a new value to index 0 my_list[0] = -3 # inspect the list print(my_list)
+\end{python}
+
+We can also assign to a slice
+
+\begin{python}
+x = 2 my_list[1:3] = [x, 2.3] print(my_list)
+\end{python}
+
+
+\subsubsection{Copying a list}\label{copying-a-list}
+
+Let's attempt to copy a list referenced by variable \texttt{a} to
+another variable \texttt{b}:
+
+\begin{python}
+a = ['a', 'b', 'c'] b = a # attempt to copy a to b b[1] = 1 # now we want to change an element in b print(b) print(a)
+\end{python}
+
+That's interesting! Modifying \texttt{b} caused \texttt{a} to change.
+
+Let's look at this example in
+\href{http://pythontutor.com/iframe-embed.html\#code=a+\%3D+\%5B'a',+'b',+'c'\%5D\%0Ab+\%3D+a+\%23+attempt+to+copy+a+to+b\%0Ab\%5B1\%5D+\%3D+1+\%23+now+we+want+to+change+an+element+in+b\%0Aprint(b\%29\%0Aprint(a\%29\%0A\&origin=opt-frontend.js\&cumulative=false\&heapPrimitives=false\&textReferences=false\&py=3\&rawInputLstJSON=\%5B\%5D\&curInstr=0\&codeDivWidth=350\&codeDivHeight=400}{Python
+Tutor}.
+
+Ok, let's try a different technique.
+
+\begin{python}
+ = ['a', 'b', 'c'] b = a       # first attempt to copy a to b c = list(a) # use the list constructor b[1] = 1    # now we want to change an element in b print("a: ", a) print("b: ", b) print("c: ", c) print("id(a): ", id(a)) print("id(b): ", id(b)) print("id(c): ", id(c))
+\end{python}
+
+Again, let's try this example in
+\href{http://pythontutor.com/iframe-embed.html\#code=a+\%3D+\%5B'a',+'b',+'c'\%5D\%0Ab+\%3D+a+++++++\%23+first+attempt+to+copy+a+to+b\%0Ac+\%3D+list(a\%29+\%23+use+the+list+constructor\%0Ab\%5B1\%5D+\%3D+1++++\%23+now+we+want+to+change+an+element+in+b\&origin=opt-frontend.js\&cumulative=false\&heapPrimitives=false\&textReferences=false\&py=3\&rawInputLstJSON=\%5B\%5D\&curInstr=0\&codeDivWidth=350\&codeDivHeight=400}{Python
+Tutor}.
+
+A list can be copied with \texttt{b\ =\ list(a)} or
+\texttt{b\ =\ a{[}:{]}}. The second option is a slice including all
+elements.
+
+\subsubsection{Python's data model}\label{pythons-data-model}
+
+Variables in Python are actually a reference to an object in memory.
+Assignment with the \texttt{=} operator sets the variable to refer to an
+object. Here is a simple example to demonstrate this property:
+
+\begin{python}
+a = [1,2,3,4] b = a b[1] = 55 print(b) print(a)
+\end{python}
+
+In this example, we assigned \texttt{a} to \texttt{b} via
+\texttt{b\ =\ a}. This did not copy the data, it only copied the
+reference to the list object in memory. Thus modifying the list through
+\texttt{b} also changes the data that you will see when accessing from
+\texttt{a}. You can inspect object ids in Python with:
+
+\begin{python}
+print("id(a): ", id(a)) print("id(b): ", id(b))
+\end{python}
+
+Those numbers refer to memory addresses.
+
+\subsubsection{Copying data (more
+generally)}\label{copying-data-more-generally}
+
+The \texttt{copy} function in the \texttt{copy} module is a more generic
+way to copy a list:
+
+\begin{python}
+import copy a = [5,2,7,0,'abc'] b = copy.copy(a) b[4] = 'xyz' print(b) print(a)
+\end{python}
+
+Note that elements in a list are also references to memory location. For
+example if your list contains a list, this will happen when using
+\texttt{copy.copy()}:
+
+\begin{python}
+a = [2, 'string', [1,2,3]] b = copy.copy(a) b[2][0] = 55 print(b) print(a)
+\end{python}
+
+Here, the element for the sub-list \texttt{{[}55,\ 2,\ 3{]}} is actually
+a memory reference. So, when we copy the outer list, only references for
+the contained objects are copied. Thus in this case modifying the copy
+(\texttt{b}) modifies the original (\texttt{a}). Thus, we may need the
+function \texttt{copy.deepcopy()}:
+
+\begin{python}
+a = [2, 'string', [1,2,3]]
+b = copy.deepcopy(a)
+b[2][0] = 99
+print(b)
+print(a)
+\end{python}
+
+\subsubsection{Sorting lists}\label{sorting-lists}
+
+Sorting Python lists is very easy. Let's randomly shuffle a list and
+then sort it.
+
+\begin{python}
+import random my_list = list(range(10)) print(my_list) random.shuffle(my_list) print(my_list)
+\end{python}
+
+Note that the \texttt{random.shuffle()} function shuffles the list
+in-place. It does not create a new list.
+
+We can use the \texttt{sorted()} function to return a new sorted list:
+
+\begin{python}
+sorted_list = sorted(my_list) print("my_list:", my_list) print("sorted_list:", sorted_list)
+\end{python}
+
+The list \texttt{sort()} method sorts the list in place:
+
+\begin{python}
+my_list.sort() print("my_list:", my_list)
+\end{python}
+
+\subsubsection{List operations}\label{list-operations}
+
+In the following summary, \texttt{s} is a list and \texttt{x} is an
+element.
+
+\begin{itemize}
+\item
+  \texttt{x\ in\ s}: \texttt{True} if an item of \texttt{s} is equal to
+  \texttt{x}, else \texttt{False}
+\item
+  \texttt{x\ not\ in\ s}: \texttt{False} if an item of \texttt{s} is
+  equal to \texttt{x}, else \texttt{True}
+\item
+  \texttt{s\ +\ t}: the concatenation of \texttt{s} and \texttt{t}
+\item
+  \texttt{s\ *\ n} or \texttt{n\ *\ s}: equivalent to adding \texttt{s}
+  to itself \texttt{n} times
+\item
+  \texttt{s{[}i{]}}: \texttt{i}th item of \texttt{s}, origin \texttt{0}
+\item
+  \texttt{s{[}i:j{]}}: slice of \texttt{s} from \texttt{i} to \texttt{j}
+\item
+  \texttt{s{[}i:j:k{]}}: slice of s from \texttt{i} to \texttt{j} with
+  step \texttt{k}
+\item
+  \texttt{len(s)}: length of \texttt{s}
+\item
+  \texttt{min(s)}: smallest item of \texttt{s}
+\item
+  \texttt{max(s)}: largest item of \texttt{s}
+\item
+  \texttt{s.index(x)}: index of the first occurrence of \texttt{x} in
+  \texttt{s}
+\item
+  \texttt{s.count(x)}: total number of occurrences of \texttt{x} in
+  \texttt{s}
+\item
+  \texttt{s{[}i{]}\ =\ x}: item \texttt{i} of \texttt{s} is replaced by
+  \texttt{x}
+\item
+  \texttt{s{[}i:j{]}\ =\ t}: slice of \texttt{s} from \texttt{i} to
+  \texttt{j} is replaced by the contents of the \texttt{t}
+\item
+  \texttt{del\ s{[}i:j{]}}: same as \texttt{s{[}i:j{]}\ =\ {[}{]}}
+\item
+  \texttt{s{[}i:j:k{]}\ =\ t}: the elements of \texttt{s{[}i:j:k{]}} are
+  replaced by those of \texttt{t}
+\item
+  \texttt{del\ s{[}i:j:k{]}}: removes the elements of
+  \texttt{s{[}i:j:k{]}} from the list
+\item
+  \texttt{s.append(x)}: appends \texttt{x} to the end of the sequence
+  (same as \texttt{s{[}len(s):len(s){]}\ =\ {[}x{]}})
+\item
+  \texttt{s.clear()}: removes all items from \texttt{s} (same as
+  \texttt{del\ s{[}:{]}})
+\item
+  \texttt{s.copy()}: creates a shallow copy of \texttt{s} (same as
+  \texttt{s{[}:{]}})
+\item
+  \texttt{s.extend(t)\ or\ s\ +=\ t}: extends \texttt{s} with the
+  contents of \texttt{t} (for the most part the same as
+  \texttt{s{[}len(s):len(s){]}\ =\ t})
+\item
+  \texttt{s\ *=\ n}: updates \texttt{s} with its contents repeated
+  \texttt{n} times
+\item
+  \texttt{s.insert(i,\ x)}: inserts \texttt{x} into \texttt{s} at the
+  index given by \texttt{i} (same as \texttt{s{[}i:i{]}\ =\ {[}x{]}})
+\item
+  \texttt{s.pop({[}i{]})}: retrieves the item at \texttt{i} and also
+  removes it from \texttt{s}
+\item
+  \texttt{s.remove(x)}: remove the first item from \texttt{s} where
+  \texttt{s{[}i{]}\ ==\ x}
+\item
+  \texttt{s.reverse()}: reverses the items of \texttt{s} in place
+\item
+  \texttt{s.sort()}: sorts the items of \texttt{s} in place
+\end{itemize}
+
+Also have a look at \texttt{help(list)}.
+
+\subsubsection{Resources}\label{resources}
+
+\begin{itemize}
+\item
+  Python tutorial section on
+  \href{https://docs.python.org/3/tutorial/introduction.html\#lists}{\texttt{list}}
+\item
+  Python reference section on
+  \href{https://docs.python.org/3/library/stdtypes.html\#sequence-types-list-tuple-range}{sequences}
+\end{itemize}
+
+
+\subsection{\texorpdfstring{Looping with \texttt{for} and
+\texttt{while}}{Looping with for and while}}\label{looping-with-for-and-while}
+
+Very often, one wants to repeat some action. This can be achieved with
+\texttt{for} and \texttt{while} statements.
+
+\subsubsection{\texorpdfstring{\texttt{for}
+loops}{for loops}}\label{for-loops}
+
+A \texttt{for} loop is typically used when we want to repeat an action a
+given number of times.
+
+\begin{python}
+for i in range(5):     print(i**2, end=', ') print() # print a new line at the end
+\end{python}
+
+Here, \texttt{for\ i\ in\ range(n):} will execute the loop body
+\texttt{n} times with \texttt{i\ =\ 0,\ 1,\ 2,\ ...,\ n\ -\ 1} in
+succession.
+
+\subsubsection{Note on Python syntax}\label{note-on-python-syntax}
+
+Python uses syntatic indenting. This means that indenting code has a
+meaning in the programming language. In languages like C, C++, and Java,
+loop bodies are enclosed in braces, but good coding style suggests that
+statements in a loop or conditional body are indented:
+
+\begin{verbatim}
+for (int i = 0; i < 10; i++) {     printf("i = %d\n",i); }
+\end{verbatim}
+
+Python takes this a step further and requires the indenting of loop and
+conditional bodies. We recommend that you use 4 spaces to indent python
+code
+(\href{https://www.python.org/dev/peps/pep-0008/\#tabs-or-spaces}{so
+does the python community}{]}). Please tell your text editors to insert
+spaces instead of tab characters when you hit the tab key on the
+keyboard.
+
+\subsubsection{\texorpdfstring{The \texttt{range()}
+function}{The range() function}}\label{the-range-function}
+
+The \texttt{range()} function can be used in a few different ways. We
+can convert a range object to a python list with the \texttt{list()}
+function:
+
+\begin{python}
+# get range 0,...,6 print(list(range(7))) # get range 4,...,10 print(list(range(4,11))) # get range [4,16) with step of 3 print(list(range(4,16,3)))
+\end{python}
+
+See \texttt{help(range)} for more info.
+
+Note that \texttt{range} differs in Python 2 and 3. In Python 2,
+\texttt{range()} returns a list. In Python 3, \texttt{range()} returns
+an object that produces a sequence of integers in the context of a
+\texttt{for} loop, which is more efficient, because memory for a new
+list need not be allocated.
+
+\subsubsection{\texorpdfstring{\texttt{for} and
+lists}{for and lists}}\label{for-and-lists}
+
+We can use a \texttt{for} loop to iterate over items in a list:
+
+\begin{python}
+my_list = [1, 45.99, True, "str item", ["sub", "list"]] for item in my_list:     print(item)
+\end{python}
+
+It is often handy to get access to both the list item and index in a
+\texttt{for} loop. This can be achieved with the \texttt{enumerate()}
+function:
+
+\begin{python}
+my_list = [1, 45.99, True, "str item", ["sub", "list"]] for index, item in enumerate(my_list):     print("{}: {}".format(index, item))
+\end{python}
+
+\subsubsection{Example adding numbers}\label{example-adding-numbers}
+
+\begin{python}
+summation = 0 for n in range(1,101):     summation += n print(summation)
+\end{python}
+
+Also achievable in Python via \texttt{sum}:
+
+\begin{python}
+sum(range(1,101))
+\end{python}
+
+\subsubsection{\texorpdfstring{\texttt{while}
+loops}{while loops}}\label{while-loops}
+
+When we do not know how many iterations are needed, we can use
+\texttt{while}.
+
+\begin{python}
+i = 2 while i < 100:     # loop body only execute if conditional statement is True     print(i**2,end=", ")     i = i**2 print() # print a new line at the end
+\end{python}
+
+\subsubsection{Infinite loops}\label{infinite-loops}
+
+\begin{python}
+while True:     print("hah!")
+\end{python}
+
+\begin{itemize}
+\item
+  In Jupyter Notebook, select ``Interrupt'' from the Kernel menu
+\item
+  Use \texttt{ctrl-c} to interrupt the interpreter
+\end{itemize}
+
+\subsubsection{Nesting loops}\label{nesting-loops}
+
+A \emph{nested loop} is a loop in the body of a loop.
+
+\begin{python}
+for i in range(8):     for j in range(i):         print(j, end=' ')     print()
+\end{python}
+
+\subsubsection{\texorpdfstring{\texttt{continue}}{continue}}\label{continue}
+
+\texttt{continue} continues with the next iteration of the smallest
+enclosing loop:
+
+\begin{python}
+\begin{Highlighting}[]
+\ControlFlowTok{for} \NormalTok{num }\OperatorTok{in} \BuiltInTok{range}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{):}
+    \ControlFlowTok{if} \NormalTok{num }\OperatorTok{%} \DecValTok{2} \OperatorTok{==} \DecValTok{0}\NormalTok{:}
+        \BuiltInTok{print}\NormalTok{(}\StringTok{"Found an even number:"}\NormalTok{, num)}
+        \ControlFlowTok{continue}
+    \BuiltInTok{print}\NormalTok{(}\StringTok{"Found an odd number:"}\NormalTok{, num)}
+for num in range(2, 10):     if num % 2 == 0:         print("Found an even number:", num)         continue     print("Found an odd number:", num)
+\end{python}
+
+Here, \texttt{num\ in\ range(2,10)} sets up a loop where
+\texttt{num\ =\ 2,\ 3,\ ...,\ 9}.
+
+\subsubsection{\texorpdfstring{\texttt{break}}{break}}\label{break}
+
+The \texttt{break} statement allows us to jump out of the smallest
+enclosing \texttt{for} or \texttt{while} loop.
+
+Finding prime numbers:
+
+\begin{python}
+max_n = 10 for n in range(2, max_n):     for x in range(2, n):         if n % x == 0: # n divisible by x             print(n, 'equals', x, '*', n/x)             break     else: # executed if no break in for loop         # loop fell through without finding a factor         print(n, 'is a prime number')
+\end{python}
+
+\subsubsection{\texorpdfstring{\texttt{pass}}{pass}}\label{pass}
+
+The \texttt{pass} statement does nothing, which can come in handy when
+you are working on something and want to implement some part of your
+code later.
+
+\begin{python}
+traffic_light = 'green' if traffic_light == 'green':     pass # to implement later else:     print('whatever you do, stop the car!')
+\end{python}
+
+\subsubsection{\texorpdfstring{Loop
+\texttt{else}}{Loop else}}\label{loop-else}
+
+\begin{itemize}
+\item
+  An \texttt{else} can be used with a \texttt{for} or \texttt{while}
+  loop
+\item
+  The \texttt{else} is only executed if the loop runs to completion, not
+  when a \texttt{break} statement is executed
+\end{itemize}
+
+\begin{python}
+for i in range(4):     print(i) else:     print("all done")  for i in range(7):     print(i)     if i > 3:         break else:     print("all done")
+\end{python}
+
+\subsubsection{A note on Python
+variables}\label{a-note-on-python-variables}
+
+It is bad practice to define a variable inside of a conditional or loop
+body and then reference it outside:
+
+\begin{python}
+name = "Nick" if name == "Nick":     age = 45 # newly created variable  print("Nick's age is {}".format(age))
+\end{python}
+
+Here is what happens when a variable is not created:
+
+\begin{python}
+name = "Bob" if name == "Nick":     id_number = 45 # also newly created variable  print("{}'s id number is {}".format(name, id_number))
+\end{python}
+
+Good practice to define/initialize variables at the same level they will
+be used:
+
+\begin{python}
+name = "Bob" age = 55 if name == "Nick":     age = 45  print("{}'s age is {}".format(name,age))
+\end{python}
+
+
+\subsection{Python File IO
+(Input-Output)}\label{python-file-io-input-output}
+
+Python makes it very easy to read and write files to disk.
+
+Keep in mind that it is almost always better to use a Python module for
+specific formats. For example, use the
+\href{https://docs.python.org/3/library/json.html}{\texttt{json}} module
+for JSON files or the
+\href{https://docs.python.org/3/library/csv.html}{\texttt{csv}} module
+for \texttt{.csv} files. Better yet, use
+\href{http://pandas.pydata.org/}{Pandas} for table-like data.
+
+\subsubsection{What is a file?}\label{what-is-a-file}
+
+A \emph{file} is a segment of data, typically associated with a
+filename, that exists in a computer's persistent storage. This means
+that the data remains when the computer is turned off.
+
+There are two main kinds of files: \emph{text} and \emph{binary}.
+
+Text files are typically easier for humans to read and write.
+
+Binary files (images, music files, etc.) are more efficient in terms of
+storage.
+
+Python scripts are text files and by convention have a \texttt{.py}
+extension. On unix systems we can dump a text file to the terminal with:
+
+\begin{verbatim}
+$ cat hello.py
+# run me from the command line with
+# $ python3 hello.py
+
+print("hello sweet world!")
+\end{verbatim}
+
+For fun, try dumping a binary file to the terminal with
+\texttt{\$\ cat\ /bin/ls}. What happens?
+
+In Python it is very easy to open, read from, and write to a text file.
+Let's see how it works.
+
+See Chapter 9 in \textbf{Learning Python} for information on accessing
+files with Python. The relevant information starts on page 282.
+
+\subsubsection{The file object}\label{the-file-object}
+
+\begin{itemize}
+\item
+  Interaction with the file system is pretty straightforward in Python.
+\item
+  Done using \emph{file objects}
+\item
+  We can instantiate a file object using \texttt{open} or \texttt{file}
+\end{itemize}
+
+\subsubsection{Opening a file}\label{opening-a-file}
+
+\begin{python}
+f = open(filename, option)
+\end{python}
+
+\begin{itemize}
+\item
+  \texttt{filename}: path to file on disk
+\item
+  \texttt{option}: mode to open file (passed as a string)
+\item
+  \texttt{\textquotesingle{}r\textquotesingle{}}: read file
+\item
+  \texttt{\textquotesingle{}w\textquotesingle{}}: write to file
+  (overwrites existing file)
+\item
+  \texttt{\textquotesingle{}a\textquotesingle{}}: append to file
+\item
+  We need to close a file after we are done: \texttt{f.close()}
+\end{itemize}
+
+Open a file:
+
+\begin{python}
+f = open("humpty-dumpty.txt","r") f
+\end{python}
+
+We can test if the file is closed:
+
+\begin{python}
+f.closed
+\end{python}
+
+We can close the file:
+
+\begin{python}
+f.close() f.closed
+\end{python}
+
+Closing a file flushes any buffered data to disk and frees up operating
+system resources. If using a file in this manner, it is important to
+close files. \emph{We will take off points if you neglect to do this.}
+
+\subsubsection{\texorpdfstring{\texttt{with\ open()\ as\ f:}}{with open() as f:}}\label{with-open-as-f}
+
+It is good practice to use the \texttt{with} keyword when dealing with
+file objects. This has the advantage that the file is properly closed
+after its suite finishes, even if an exception is raised on the way.
+
+\begin{python}
+with open('humpty-dumpty.txt', 'r') as f:     print(f.read())
+f.closed
+\end{python}
+
+\subsubsection{If a file does not exist}\label{if-a-file-does-not-exist}
+
+\begin{python}
+bad_file = open("no-file.txt","r")
+\end{python}
+
+\subsubsection{Reading data from a file}\label{reading-data-from-a-file}
+
+File object methods:
+
+\begin{itemize}
+\item
+  \texttt{read()}: Read entire file (or first \texttt{n} characters, if
+  supplied)
+\item
+  \texttt{readline()}: Reads a single line per call
+\item
+  \texttt{readlines()}: Returns a list with lines (splits at newline)
+\end{itemize}
+
+\subsubsection{\texorpdfstring{\texttt{readline()}}{readline()}}\label{readline}
+
+Use the \texttt{readline()} method to read lines from a file:
+
+\begin{python}
+f = open("humpty-dumpty.txt","r") print(f.readline()) print(f.readline()) f.close()
+\end{python}
+
+\subsubsection{\texorpdfstring{\texttt{read()}}{read()}}\label{read}
+
+You can read an entire file at once with the \texttt{read()} method:
+
+\begin{python}
+f = open("humpty-dumpty.txt","r") poem = f.read() print(poem) f.close()
+\end{python}
+
+\subsubsection{Iterate over lines}\label{iterate-over-lines}
+
+You can very easily iterate over lines in a file with:
+
+\begin{python}
+f = open("humpty-dumpty.txt","r") for line in f:     print(line) f.close()
+\end{python}
+
+\subsubsection{\texorpdfstring{An example with
+\texttt{with}}{An example with with}}\label{an-example-with-with}
+
+\begin{python}
+with open('humpty-dumpty.txt', 'r') as f:     for i, line in enumerate(f):         print("line {}: {}".format(i,line))
+\end{python}
+
+Note the extra lines between each line of text. You can do this by
+specifying the \texttt{end} keyword parameter for the \texttt{print}
+function to be an empty string (\texttt{""}):
+\texttt{print(line,\ end=\textquotesingle{}\textquotesingle{})} or
+slicing \texttt{line} with \texttt{print(line{[}:-1{]})}.
+
+\subsubsection{Iterate over words!}\label{iterate-over-words}
+
+The string
+\href{https://docs.python.org/3/library/stdtypes.html\#str.split}{\texttt{split}}
+method partitions a string into a list based on a delimiter. Space is
+the default delimiter. The
+\href{https://docs.python.org/3/library/stdtypes.html\#str.strip}{\texttt{strip}}
+method removes leading and trailing whitespace from a string.
+
+\begin{python}
+f = open("humpty-dumpty.txt","r") for line in f:     for word in line.split():         # use strip() method to remove extra newline characters         print(word.strip()) f.close()
+\end{python}
+
+\subsubsection{Writing to file}\label{writing-to-file}
+
+Use the \texttt{write()} method to write to a file. Make sure to open
+the file in write mode with
+\texttt{\textquotesingle{}w\textquotesingle{}} as the second argument to
+\texttt{open()}.
+
+\begin{python}
+name = "Python learner" with open('hello.txt', 'w') as f:     f.write("Hello, {}!\n".format(name))
+\end{python}
+
+\begin{verbatim}
+cat hello.txt}
+\end{verbatim}
+
+\subsubsection{More writing examples}\label{more-writing-examples}
+
+Write elements of list to file:
+
+\begin{python}
+xs = ["i", "am", 'a', 'fancy', 'list', 42] with open('from_list.txt', 'w') as f:     for x in xs:         f.write('{}\n'.format(x))
+\end{python}
+
+\begin{python}
+\OperatorTok{%}\NormalTok{cat from_list.txt}
+\end{python}
+
+
+To write multiple lines to a file at once, use the \texttt{writelines}
+method:
+
+\begin{python}
+f = open("writelines.txt","w") f.writelines(["a mighty fine day\n","ends with a great big party\n","thank you, its friday\n"]) f.close()
+\end{python}
+
+\begin{python}
+\OperatorTok{%}\NormalTok{cat writelines.txt}
+\end{python}
+
+
+Note that the \texttt{write} and \texttt{writelines} methods will not
+insert newline characters. To get a new line, you must add
+\texttt{\textquotesingle{}\textbackslash{}n\textquotesingle{}} to the
+strings.
+
+\subsubsection{Buffering}\label{buffering}
+
+For efficiency, the \texttt{file} object will temporarily store data
+from \texttt{write} or \texttt{writelines} methods in memory before
+actually writing to disk. This is known as buffering. It turns out that
+writing larger chunks of data to disk in fewer transactions is more
+efficient than many transactions of small chunks. If you attempt to open
+a text file created by Python and not closed, you may not see the data.
+Calling the \texttt{close()} method flushes all data to disk.
+
+\begin{python}
+f = open('foo.txt','w') f.write("this is some text\n")
+\end{python}
+
+
+(On my system \texttt{foo.txt} is empty at this point. Behavior may be
+different on your system.)
+
+\begin{python}
+f.close()
+\end{python}
+
+ \end{document}
