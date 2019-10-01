@@ -99,9 +99,9 @@ All office hours are held in the Huang basement just outside of the ICME.
 
 Mondays: 12:00 PM - 2:00 PM (Lewis)
 
-Tuesdays: 11:00 PM - 1:00 PM (Fred M) and 2:30 PM - 4:30 PM (Teresa)
+Tuesdays: 2:30 PM - 4:30 PM (Teresa) and 6:30 PM - 8:30 PM (Fred M)
 
-Wednesdays: 3:00 PM - 5:00 PM (Lewis) and 6:00 PM - 8:00 PM (Fred M)
+Wednesdays: 11:00 AM - 1:00 PM (Fred M) and 3:00 PM - 5:00 PM (Lewis)
 
 Thursdays: 1:00 PM - 3:00 PM (Teresa) and 6:30 PM - 8:30 PM (Fred L)
 
