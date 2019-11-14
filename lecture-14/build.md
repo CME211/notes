@@ -707,6 +707,9 @@ main.cpp  makefile  sum.cpp  sum.hpp
 ```
 
 ### Individual compilation of object files
+Make has automatic variables such as `\$\@` and `\$\<`, where the former
+specifies the name of the target of the rule, and the latter specifies the name
+of the first pre-requisite.
 
 `src/ex3/makefile`:
 
