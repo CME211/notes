@@ -25,8 +25,8 @@ week #,lecture #,date,day,section,topic,assignments
 ,,15-Nov,F,,,hw6 out
 9,16,19-Nov,Tue,C++,oop 1,"project pt 1 due, project pt 2 out"
 ,17,21-Nov,Thu,C++,"oop 2, memory management ",
-,,22-Nov,F,,,hw6 due
-,,26-Nov,Tue,,Scala and functional programming,
+,,22-Nov,F,,,
+,,26-Nov,Tue,,Scala and functional programming, hw6 due
 thanksgiving,,,,,,
 10,18 (q/a),3-Dec,Tue,C++,review question + answer ,
 ,exam,5-Dec,Thu,C++,C++ exam,exam 2
