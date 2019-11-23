@@ -350,7 +350,10 @@ This leads us to the principle of **Inheritance**.
 
 
 ```c++
+#include <algorithm>
 #include <iostream>
+#include <numeric>
+#include <vector>
 ```
 
 
@@ -459,6 +462,7 @@ remote_student.get_location()
 ```c++
 // What about methods defined in a sibling class?
 local.get_location()
+// error: ‘class Local_Student’ has no member named ‘get_location’
 ```
 
 #### Virtual methods
@@ -554,6 +558,7 @@ The concept that a different version of a method can be called based on the inhe
 
 ```c++
 #include <iostream>
+#include <vector>
 ```
 
 
