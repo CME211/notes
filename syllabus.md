@@ -30,7 +30,7 @@ equivalent to [CS 106A][cs106a] or instructor consent.
 
 [comp-think]: http://socialissues.cs.toronto.edu/index.html%3Fp=279.html
 
-## Topics
+## Topics Covered
 
 ### Linux
 
@@ -95,7 +95,9 @@ Zoom meeting details are on Canvas.
 
 ## Office hours
 
-All office hours will be held remotely, details TBD.
+All office hours will be held remotely, timing TBD.
+
+Join the Zoom meeting during office hour times using the links provided in Canvas. Feel free to join even if you don’t have any questions. You can listen in on the conversation (which might spark a question for you) or we can use the time to get to know each other!
 
 ## Resources
 
@@ -129,6 +131,8 @@ quarter and it will be based on your knowledge of Python.
 Note that students *must pass* the exam in order to earn a passing 
 grade in the course.
 
+You will have two hours to complete the exam, but you will have a window of 24 hours in which you can open the exam and complete it within two hours. The two hours start when you open the exam in Canvas. If you foresee or encounter extenuating circumstances that would not allow you to complete the exam within the two hour limit or before the deadline, please contact the teaching staff as soon as possible.
+
 ## Assignments
 
 There will be 7 assignments (although the first is required, 
@@ -137,13 +141,13 @@ In general, assignments will be posted on Friday
 afternoons and be due the following Friday at 4:30 pm via online submission.
 
 This year, students are expected to complete *all* assignments. Across all
-assignments, students are permitted a total of 2 late days, which can be used
+assignments, students are permitted a total of 3 late days, which can be used
 one day at a time. I.e., each late day used grants up to a 24-hour extension,
 and a late day cannot be used partially (e.g. if you hand in an assignment 2
 hours after the deadline, you will have used up an entire late day). Usage
-of *additional* late days (beyond 2) 
+of *additional* late days (beyond 3) 
 will be penalized at the end of the quarter,
-by an amount subject to the discretion of the staff!
+by an amount subject to the discretion of the staff! E.g. with one *additional* late day, we might choose to penalize 25% of allowable marks, and with two *additional* late days, we might choose to penalize 50% of allowable marks, and with three *additional* late days, we might choose to penalize 75% of allowable marks.
 
 Note that failure to submit even a single assignment corresponds to 
 *at least* a full final letter grade deduction.
@@ -157,6 +161,11 @@ quarter.
 Note that students *must pass* the final project in order to earn a passing
 grade in the course.
 
+## Course Privacy Statement
+As noted in the University’s [recording and broadcasting courses policy][recording-policy], students may not audio or video record class meetings without permission from the instructor (and guest speakers, when applicable). If the instructor grants permission or if the teaching team posts videos themselves, students may keep recordings only for personal use and may not post recordings on the Internet, or otherwise distribute them. These policies protect the privacy rights of instructors and students, and the intellectual property and other rights of the university. Students who need lectures recorded for the purposes of an academic accommodation should contact the Office of Accessible Education. 
+
+[recording-policy]: https://library.stanford.edu/using/copyright-reminder/common-situations/recording-broadcasting-courses
+
 ## Honor Code
 
 All students are expected to abide by the [Stanford Honor Code][honor-code]. The
@@ -168,7 +177,8 @@ courses involving significant amounts of computer programming. In particular, fo
  - "In all cases, it is not permissible for students to enter exam questions into any software, apps, or websites. Accessing resources that directly explain how to answer questions from the actual assignment or exam is a violation of the Honor Code."
  - "Answers to assignment or exam questions must be written in the student’s own words, or else be cited, otherwise it is plagiarism. Use of all sources, including internet resources, must be cited. Similarly, consulting or collaborating with other people is not permitted and does not fall within the definition of an open-book or informational resource..."
 
-Students are expected to read the three resources on ([honor-code], [cs-code], and [remote-guidance]) in full, as there are serious consequences for not abiding by the honor code!
+Students are expected to read the three resources on ([honor-code], [cs-code], and [remote-guidance]) in full, as there are serious consequences for not abiding by the honor code! Compromising your academic integrity may lead to serious consequences, including (but not limited to) one or more of the following: failure of the assignment, failure of the course, disciplinary probation, suspension from the university, or dismissal from the university.
+
 
 Note that at various times we may use special computer software called
 [MOSS][moss] to assist us in detecting plagiarism.  If you are having difficulty
