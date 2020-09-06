@@ -1,4 +1,4 @@
-# CME 211 Syllabus (Fall 2019)
+# CME 211 Syllabus (Fall 2020)
 
 _(cross listed as Earth 211)_
 
@@ -67,45 +67,35 @@ We will be using Canvas to send announcements and as a discussion board for the
 homework projects. Please use this if you have questions regarding course
 material.
 
-Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/104580>
+Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/123262>
 
 All other correspondence should be sent to <cme211-staff@lists.stanford.edu>.
 
 *Do not send questions related to course material to the staff mailing list or to individual staff emails (including the instructor).  We will not answer these.
-Questions may be posted to the Canvas discussion board or asked in-person during
-office hours.*
+Questions may be posted to the Canvas discussion board or asked during office hours.*
 
 ## Teaching staff
 
 Instructor: 
   - [Andreas Santucci](https://asantucci.github.io/) (santucci at stanford)
 
-Teaching assistants: 
-  - Teresa Dayrit (tedayrit at stanford)
-  - Fredric Lam (flam at stanford)
-  - Frederik Mellby (frederme at stanford)
-  - Lewis Warne (lwarne at stanford)
-  
+Teaching assistants:
+  - Carolyn Kao (chkao831 at stanford)
+  - Guillermo Bescos (gbescos at stanford) 
+  - Maoguo Shi (smgyl at stanford)
+  - Tom Morvan (tommrvn at stanford)
 
 ## Time and location
 
 - Days: Tues, Thurs
-- Time: 4:30 PM - 6:20 PM
-- Location: Hewlett 201
+- Time: 6:30 PM - 7:50 PM
+- Location: Remote
+
+Zoom meeting details are on Canvas.
 
 ## Office hours
 
-All office hours are held in the Huang basement just outside of the ICME. 
-
-Mondays: 12:00 PM - 2:00 PM (Lewis)
-
-Tuesdays: 2:30 PM - 4:30 PM (Teresa) and 6:30 PM - 8:30 PM (Fred M)
-
-Wednesdays: 11:00 AM - 1:00 PM (Fred M) and 3:00 PM - 5:00 PM (Lewis)
-
-Thursdays: 1:00 PM - 3:00 PM (Teresa) and 6:30 PM - 8:30 PM (Fred L)
-
-Fridays: 10:00 AM - 12:00 PM (Fred L)
+All office hours will be held remotely, details TBD.
 
 ## Resources
 
@@ -124,53 +114,77 @@ Other resources are listed in the [`CME211/notes`][cme211-notes] repository.
 [cme211-notes]: https://github.com/CME211/notes#contents
 
 ## Grading
-
-Your course grade will be based on assignments (50%), two exams (12.5%
-each, 25% total), and a project (25%).
+This year, your course grade will be based on assignments (60%), 
+one exam Python (12.5%), and a final project (27.5%).
 
 Course letter grades are at the discretion of the instructor. If at any time you
 have questions about your standing in the class, please contact the instructor.
 Please don’t wait until after the course is over if you have concerns about your
 progress in the class.
 
+## Exam
+This year there will only be one examination; it will occur midway through the
+quarter and it will be based on your knowledge of Python. 
+
+Note that students *must pass* the exam in order to earn a passing 
+grade in the course.
+
 ## Assignments
 
-There will be 7 graded assignments. Assignments will be posted on Friday
+There will be 7 assignments (although the first is required, 
+it is not graded in the same way as subsequent assignments).
+In general, assignments will be posted on Friday
 afternoons and be due the following Friday at 4:30 pm via online submission.
-Late assignments will **not** be accepted.
 
-Although students are expected to complete all assignments, the one assignment
-with the lowest score (by percentage) will automatically be dropped when
-computing your overall course grade. The policy of dropping the lowest score is
-in lieu of a late policy or providing extensions so please don’t ask for them!
+This year, students are expected to complete *all* assignments. Across all
+assignments, students are permitted a total of 2 late days, which can be used
+one day at a time. I.e., each late day used grants up to a 24-hour extension,
+and a late day cannot be used partially (e.g. if you hand in an assignment 2
+hours after the deadline, you will have used up an entire late day). Usage
+of *additional* late days (beyond 2) 
+will be penalized at the end of the quarter,
+by an amount subject to the discretion of the staff!
+
+Note that failure to submit even a single assignment corresponds to 
+*at least* a full final letter grade deduction.
 
 ## Final Project
-
-In place of an exam during finals week there will be a final project due on the
-scheduled day of the final exam. More details will be provided later in the
+This year we will not do a second C++ exam as we usually do. Instead, we are
+placing more weight on the final project which allows students to showcase what
+they've learned cumulatively throughout the course. More details will be provided later in the
 quarter.
+
+Note that students *must pass* the final project in order to earn a passing
+grade in the course.
 
 ## Honor Code
 
 All students are expected to abide by the [Stanford Honor Code][honor-code]. The
 work you submit to us for grading must be your own.  The [computer science
 website][cs-code] has a good explanation of the honor code as it relates to
-courses involving significant amounts of computer programming.
+courses involving significant amounts of computer programming. In particular, for remote examinations, the Office of Community standards has provided [guidance][remote-guidance] for remote teaching and learning. Some takeaways from the remote-teaching resources:
+
+ - "Permitted informational resources only includes material a reasonable student would have found to be helpful when trying to understand class material or preparing for an assignment or exam. This does not include material that becomes useful once the assignment or exam begins and questions are known."
+ - "In all cases, it is not permissible for students to enter exam questions into any software, apps, or websites. Accessing resources that directly explain how to answer questions from the actual assignment or exam is a violation of the Honor Code."
+ - "Answers to assignment or exam questions must be written in the student’s own words, or else be cited, otherwise it is plagiarism. Use of all sources, including internet resources, must be cited. Similarly, consulting or collaborating with other people is not permitted and does not fall within the definition of an open-book or informational resource..."
+
+Students are expected to read the three resources on ([honor-code], [cs-code], and [remote-guidance]) in full, as there are serious consequences for not abiding by the honor code!
 
 Note that at various times we may use special computer software called
 [MOSS][moss] to assist us in detecting plagiarism.  If you are having difficulty
-completing an assignment please contact a TA or the instructor so that we may
-help you. We would much rather spend time helping you than dealing with honor
-code violations.
+completing an *assignment* please contact a TA or the instructor so that we may
+help you (for exams, we cannot offer any assistance). We would much rather spend time helping you than dealing with honor
+code violations!
 
 [honor-code]: http://studentaffairs.stanford.edu/judicialaffairs/policy/honor-code
 [cs-code]: http://csmajor.stanford.edu/HonorCode.shtml
 [moss]: http://theory.stanford.edu/\~aiken/moss/
+[remote-guidance]: https://communitystandards.stanford.edu/bja-guidance-remote-teaching-and-learning-environment
 
-### Guidelines
+### Guidelines for *Assignments*
 
 - It’s great (and encouraged) to work with other people on high level ideas,
-  concepts, and methods.  
+  concepts, and methods.
   
   But, you must write your code on your own. 
 
@@ -191,7 +205,7 @@ code violations.
 - Do not use or reference work from previous students of CME211 or any solution
   files that may be out there.
 - Do not post homework PDFs or your solutions in a publicly available location.
-- Please let us know if you come across available solutions.  
+- Please let us know if you come across available solutions.
   We will kindly ask
   the provider to remove the resource.
 
@@ -206,3 +220,10 @@ should contact the OAE as soon as possible since timely notice is needed to
 coordinate accommodations. The OAE is located at 563 Salvatierra Walk.
 
 (Phone: 723-1066, URL: <http://studentaffairs.stanford.edu/oae>).
+
+
+
+
+
+
+
