@@ -1,6 +1,6 @@
 # CME 211 Notes
 
-2019 CME 211 Canvas page: <https://canvas.stanford.edu/courses/104580>
+2020 CME 211 Canvas page: <https://canvas.stanford.edu/courses/123262>
 
 In each folder:
 
@@ -11,7 +11,7 @@ In each folder:
 [jupyter]: http://jupyter.org/
 
 ## Contents
-There will be 18 lectures this year.
+There will be 17 lectures this year; due to the 10-week quarter schedule we will not cover the bonus lecture material on Scala.
 
 * [Lecture  0](lecture-00/): Getting started
 * [Lecture  2](lecture-02/): Introduction to Python
