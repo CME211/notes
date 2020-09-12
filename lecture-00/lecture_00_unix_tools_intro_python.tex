@@ -2,7 +2,7 @@
 
 \newif\ifsolution\solutiontrue %include solutions
 %\newif\ifsolution\solutionfalse % omit solutions
-\usepackage{cme211}
+\usepackage{../cme211}
 \usepackage{multicol}
 
 \begin{document}
@@ -123,7 +123,7 @@ $ cd my docs
 -bash: cd: my: No such file or directory
 \end{lstlisting}
 
-To make this work, we can either quote the directory name:
+To make this work, we can either quote the directory name (note the ``funny looking'' underscore in the below text, and in these notes, is actually syntactically denoting a space):
 
 \begin{lstlisting}[language=bash]
 $ cd "my docs"
@@ -137,10 +137,10 @@ $ cd my\ docs
 
 \subsection{Looking at things}
 \begin{itemize}
-\item \texttt{ls} - list files in directory
-\item \texttt{cat} - dump a file to terminal
-\item \texttt{less} - open file in a ``pager'' (hit `q' to quit)
-\item \texttt{file} - inspect file type
+\item \texttt{ls} - list files (and folders) in a directory
+\item \texttt{cat} - dump file contents to terminal output
+\item \texttt{less} - open file in a ``pager'' (hit `q' to quit!)
+\item \texttt{file} - inspect file type and print helpful information about file
 \end{itemize}
 
 \subsection{Manipulating files}
@@ -156,8 +156,8 @@ $ cd my\ docs
 \subsection{Inspecting commands}
 
 \begin{itemize}
-\item \texttt{type} - Display information about command type
-\item \texttt{which} - Locate a command
+\item \texttt{type} - Display information about the command type (useful for aliased commands)
+\item \texttt{which} - Locate a command (i.e. find where the executable is located)
 \item \texttt{help} - Display reference page for shell builtin
 \item \texttt{man} - Display an on-line command reference (hit `q` to quit)
 \end{itemize}
@@ -726,7 +726,7 @@ About Python modules:
 
 \subsubsection{Printing}
 
-The Python interpreter (and Jupyter Notebook) 
+The Python interpreter 
 will echo the output of the last (non-assignment)
 statement in a code block:
 
@@ -772,10 +772,12 @@ The default separator is a space. This can be changed by setting the
 \texttt{sep} keyword parameter:
 
 \begin{python}
-print("apple", "bananna", "orange", sep = ", ")  # Add a comma in addition to a space.
+# Add a comma in addition to a space.
+print("apple", "bananna", "orange", sep = ", ")  
 \end{python}
 
 Python strings can be ``formatted'' with the \texttt{format} method:
+
 
 \begin{python}
 r = 10
@@ -979,110 +981,113 @@ L = P \frac{(1+c)^n-1}{c(1+c)^n}
 \]
 
 \section{Reading}
-From \textbf{The Linux Command Line} by William Shotts: *
-\url{http://linuxcommand.org/lc3_learning_the_shell.php\#contents} *
-Read section 1, 2, 3, 5, and 6 * Skip sections 4, 7 and above unless
-interested
-
-\section{Appendix: Jupyter Notebooks (Not Part of CME211)}
-Jupyter Notebooks are great for teaching and interactive work. From the
-\href{http://jupyter.org/}{jupyter.org} website:
-
-\begin{quote}
-The Jupyter Notebook is a web application that allows you to create and
-share documents that contain live code, equations, visualizations and
-explanatory text. Uses include: data cleaning and transformation,
-numerical simulation, statistical modeling, machine learning and much
-more.
-\end{quote}
-
-\subsection{Jupyter notebook}
-In Jupyter Notebook, code is typed into code blocks:
-
-\begin{python}
-print("hello from a code block!")
-\end{python}
-
-Code blocks can be re-executed with ease!
-
-You can test Jupyter Notebook in your browser via
-\url{https://try.jupyter.org/}. Note that any work you do here will not
-be saved.
-
-If you want to install Jupyter Notebook on your computer, I recommend
-\href{https://www.continuum.io/downloads}{Anaconda Python} or using 
-\href{https://brew.sh/}{brew} if you're on a Mac OS. Make sure to
-install the correct version corresponding to Python 3.x.
+From \textbf{The Linux Command Line} by William Shotts: 
 
 \begin{itemize}
-\item
-  We do not formally support Jupyter Notebook in this class. We show it to the class
-  because it is a very useful tool. If you want to look into it,
-  there's some great tutorials online.
-\item
-  The teaching staff is not responsible for helping you set up Jupyter
-  Notebook on your computer. Python 3 on \texttt{rice.stanford.edu} is
-  the supported computing environment!
-\item
-  All Python work for CME211 must be submitted as Python scripts
-  (\texttt{.py} files) that can be executed via the command line. We
-  will not accept notebook format (\texttt{.ipynb}).
+\item \url{http://linuxcommand.org/lc3_learning_the_shell.php\#contents}
+\item Read section 1, 2, 3, 5, and 6 (skip sections 4, 7 and above unless
+interested)
 \end{itemize}
 
-\paragraph{Jupyter Notebook can render math}
+% \section{Appendix: Jupyter Notebooks (Not Part of CME211)}
+% Jupyter Notebooks are great for teaching and interactive work. From the
+% \href{http://jupyter.org/}{jupyter.org} website:
 
-Here is a simple indefinite integral:
+% \begin{quote}
+% The Jupyter Notebook is a web application that allows you to create and
+% share documents that contain live code, equations, visualizations and
+% explanatory text. Uses include: data cleaning and transformation,
+% numerical simulation, statistical modeling, machine learning and much
+% more.
+% \end{quote}
 
-\[
-\int x\ dx = \frac{1}{2} x^2 + C
-\]
+% \subsection{Jupyter notebook}
+% In Jupyter Notebook, code is typed into code blocks:
 
-Here is an inline equation \(e^{ix} = \cos x + i \sin x\) for any real
-number \(x\).
+% \begin{python}
+% print("hello from a code block!")
+% \end{python}
 
-\subsection{Looking ahead with Jupyter Notebooks}
+% Code blocks can be re-executed with ease!
 
-Jupyter notebook is a very useful tool for scientific computing. If you
-have a background with Matlab, the following may help you get started
-working with Python and NumPy.
+% You can test Jupyter Notebook in your browser via
+% \url{https://try.jupyter.org/}. Note that any work you do here will not
+% be saved.
 
-Start by importing modules:
+% If you want to install Jupyter Notebook on your computer, I recommend
+% \href{https://www.continuum.io/downloads}{Anaconda Python} or using 
+% \href{https://brew.sh/}{brew} if you're on a Mac OS. Make sure to
+% install the correct version corresponding to Python 3.x.
 
-\begin{python}
-# for 2d plotting
-import matplotlib.pyplot as plt
-# for numerical computing
-import numpy as np
-\end{python}
+% \begin{itemize}
+% \item
+%   We do not formally support Jupyter Notebook in this class. We show it to the % class
+%   because it is a very useful tool. If you want to look into it,
+%   there's some great tutorials online.
+% \item
+%   The teaching staff is not responsible for helping you set up Jupyter
+%   Notebook on your computer. Python 3 on \texttt{rice.stanford.edu} is
+%   the supported computing environment!
+% \item
+%   All Python work for CME211 must be submitted as Python scripts
+%   (\texttt{.py} files) that can be executed via the command line. We
+%   will not accept notebook format (\texttt{.ipynb}).
+% \end{itemize}
 
-Configure plotting for notebook:
+% \paragraph{Jupyter Notebook can render math}
 
-\begin{python}
-# tell matplotlib to use the notebook for figures
-%matplotlib inline
-# tell matplotlib to use svg (they look better than png)
-#%config InlineBackend.figure_format = 'svg'
-\end{python}
+% Here is a simple indefinite integral:
 
-Note: in Jupyter notebook, statements that start with \texttt{\%} are
-known as
-\href{http://ipython.readthedocs.io/en/stable/interactive/magics.html}{magic
-commands}.
+% \[
+% \int x\ dx = \frac{1}{2} x^2 + C
+% \]
 
-A simple plot of 100 random sampled data points:
+% Here is an inline equation \(e^{ix} = \cos x + i \sin x\) for any real
+% number \(x\).
 
-\begin{python}
-plt.plot(np.random.rand(100))
-\end{python}
+% \subsection{Looking ahead with Jupyter Notebooks}
 
-Have a look at the
-\href{http://mathesaurus.sourceforge.net/matlab-numpy.html}{``NumPy for
-MATLAB Users''} reference. Note that you will have to prefix NumPy
-function calls from the reference with \texttt{np.} based on the import
-statements above.
+% Jupyter notebook is a very useful tool for scientific computing. If you
+% have a background with Matlab, the following may help you get started
+% working with Python and NumPy.
 
-It may also be a good idea to skim the following to see what you can
-do (not required, simply a foreshadowing)
-  \href{http://docs.scipy.org/doc/numpy/reference/}{NumPy reference}, and
-  \href{http://docs.scipy.org/doc/scipy/reference/}{SciPy reference}.
+% Start by importing modules:
+
+% \begin{python}
+% # for 2d plotting
+% import matplotlib.pyplot as plt
+% # for numerical computing
+% import numpy as np
+% \end{python}
+
+% Configure plotting for notebook:
+
+% \begin{python}
+% # tell matplotlib to use the notebook for figures
+% %matplotlib inline
+% # tell matplotlib to use svg (they look better than png)
+% #%config InlineBackend.figure_format = 'svg'
+% \end{python}
+
+% Note: in Jupyter notebook, statements that start with \texttt{\%} are
+% known as
+% \href{http://ipython.readthedocs.io/en/stable/interactive/magics.html}{magic
+% commands}.
+
+% A simple plot of 100 random sampled data points:
+
+% \begin{python}
+% plt.plot(np.random.rand(100))
+% \end{python}
+
+% Have a look at the
+% \href{http://mathesaurus.sourceforge.net/matlab-numpy.html}{``NumPy for
+% MATLAB Users''} reference. Note that you will have to prefix NumPy
+% function calls from the reference with \texttt{np.} based on the import
+% statements above.
+
+% It may also be a good idea to skim the following to see what you can
+% do (not required, simply a foreshadowing)
+%   \href{http://docs.scipy.org/doc/numpy/reference/}{NumPy reference}, and
+%   \href{http://docs.scipy.org/doc/scipy/reference/}{SciPy reference}.
  \end{document}
