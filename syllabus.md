@@ -219,6 +219,10 @@ code violations!
   We will kindly ask
   the provider to remove the resource.
 
+## Grading and End of Quarter Policies
+ - *Cr/NC Grading policies*: by University policy (https://registrar.stanford.edu/students/definition-grades), `Cr` is earned for `C-` work or better. 
+ - *Coursework Deadline*: by University policy (https://registrar.stanford.edu/coursework-deadline-2020-21), “all coursework is due by the last day of the last week of instruction in each quarter.''
+
 ## Students with Documented Disabilities
 
 Students who may need an academic accommodation based on the impact of a
