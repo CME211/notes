@@ -2,7 +2,7 @@
 
 2020 CME 211 Canvas page: <https://canvas.stanford.edu/courses/123262>
 
-In each folder, there is a `*.pdf` file that contains the lecture notes; you can ignore the `*.tex` file. Sometimes, there will be other stand-alone code examples as well.
+In each folder, there will be either a `*.pdf` or a `*.ipynb` file that contains the lecture notes; you can ignore the `*.tex` or the `.md` files. Sometimes, there will be other stand-alone code examples as well, these all end in `*.py`.
 
 ## Contents
 There will be 18 lectures this year.
