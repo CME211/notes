@@ -2,13 +2,7 @@
 
 2020 CME 211 Canvas page: <https://canvas.stanford.edu/courses/123262>
 
-In each folder:
-
-* `.md` files contain the notes with input code
-* `.ipynb` files are [Jupyter notebooks][jupyter] with output from code
-* `.pdf` files are generated from `.md` files and don't have output from code
-
-[jupyter]: http://jupyter.org/
+In each folder, there is a `*.pdf` file that contains the lecture notes; you can ignore the `*.tex` file. Sometimes, there will be other stand-alone code examples as well.
 
 ## Contents
 There will be 18 lectures this year.
