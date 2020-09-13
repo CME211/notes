@@ -1,8 +1,11 @@
 \documentclass[12pt]{article} \newif\ifsolution\solutiontrue %include solutions
 %\newif\ifsolution\solutionfalse % omit solutions
- \usepackage{algorithm2e} \usepackage{amsmath} \usepackage{amsthm} \usepackage{amsfonts} \usepackage{bbm} \usepackage{../cme211}
+\usepackage{algorithm2e} \usepackage{amsmath} \usepackage{amsthm}
+\usepackage{amsfonts} \usepackage{bbm} \usepackage{../cme211}
 \usepackage{color,soul} \usepackage{framed}
-\usepackage{hyperref} \usepackage{mathtools} \usepackage{xcolor}  \newtheorem{theorem}{Theorem}[section] \newtheorem{lemma}[theorem]{Lemma} \newtheorem{proposition}[theorem]{Proposition} \newtheorem{corollary}[theorem]{Corollary}  \newcommand{\D}{\mathrm{d}} \SetKwInput{KwInput}{Input} \SetKwInput{KwOutput}{Output}  \begin{document}
+\usepackage{hyperref} \usepackage{mathtools}
+\usepackage{multicol}
+\usepackage{xcolor}  \newtheorem{theorem}{Theorem}[section] \newtheorem{lemma}[theorem]{Lemma} \newtheorem{proposition}[theorem]{Proposition} \newtheorem{corollary}[theorem]{Corollary}  \newcommand{\D}{\mathrm{d}} \SetKwInput{KwInput}{Input} \SetKwInput{KwOutput}{Output}  \begin{document}
 
 \section{Strings}
 Strings are a very important data type in all languages.  
@@ -12,7 +15,8 @@ In Python, strings may be quoted several ways:
 outputfule = 'output.txt'
 triplequotes = """woah!
   split lines"""
-print(triplequotes) \end{python}
+print(triplequotes)  # Split onto multiple lines; newline char embedded.
+\end{python}
 
 
 This also works:
@@ -24,19 +28,19 @@ print(triple_single_quotes)
 \end{python}
 
 \paragraph{Quotes in quotes}
-In Python, we can quote strings with either single (`'`) or double quotes (`"`). Sometimes we want to create a string that contains quotes.  This is easy to do! Strings quoted with `'` can contain `"`:
+In Python, we can quote strings with either single quotes (i.e. a \texttt{'}) or double quotes (i.e. a \texttt{"}). But sometimes we want to create a string that contains quotes. Naively throwing in a quote won't work, since the interpreter will think it signifies the end of the string. But if we mix and match quote-types, it can easily be accomplished! Strings quoted with single-quotes can themselves contains double-quote characters:
 
 \begin{python}
 'Bob said, "it is hot out there today".'
 \end{python}
 
-Strings quoted with `"` can contain `'`:
+Strings quoted with a double-qoute can contains single quote characters:
 
 \begin{python}
 "Python, it's a wonderful language"
 \end{python}
 
-Or we can escape the quote with `\`:
+Or we can escape the quote with a backslash, i.e. a \textbackslash:
 
 \begin{python}
 'it\'s not Nick\'s birthday today'
@@ -51,11 +55,12 @@ Or we can escape the quote with `\`:
 a = 5
 b = '5'
 a + b
+# TypeError: unsupported operand type(s) for +: 'int' and 'str'
 \end{python}
 
 \begin{python}
-print("type(a): ", type(a))
-print("type(b): ", type(b))
+print("type(a): ", type(a))  # <class 'int'>
+print("type(b): ", type(b))  # <class 'str'>
 \end{python}
 
 It is simple to convert between numbers and strings!
@@ -64,31 +69,35 @@ It is simple to convert between numbers and strings!
 # convert int to a string
 a = str(55)
 print(a)
-print(type(a))
+print(type(a))  # Now it's a string!
 \end{python}
 
 \begin{python}
 # convert string to a float
 a = float("99.45")
 print(a)
-print(type(a))
+print(type(a))  # Python knows how to parse strings to floats.
 \end{python}
 
 \subsection{Slicing}
 
+Python is zero indexed!
+
 \begin{python}
 quote = """That's all folks!"""
-print(quote[2])
-print(quote[7:10])
-print(quote[:4])
-print(quote[7:])
-print(quote[:-7])
+# Indices: 0123456789...
+# Reversed:       ...7654321
+print(quote[2])     # Extract the third character 'a' (Python is zero indexed)
+print(quote[7:10])  # Extract sequence of chars, zero indexed 7,8,9 (excluding 10).
+print(quote[:4])    # Take everything up to (but excluding) the fifth character.
+print(quote[7:])    # Start from the eighth char, go all the way to the end.
+print(quote[:-7])   # Go up to (but excluding) 7th char from end.
 \end{python}
 
 One way to remember how slices work is to think of the indices as pointing
-between characters, with the left edge of the first character numbered `0`. Then
-the right edge of the last character of a string of `n` characters has index
-`n`, for example:
+between characters, with the left edge of the first character numbered \texttt{0}. Then
+the right edge of the last character of a string of \texttt{n} characters has index
+\texttt{n}, for example:
 
 \begin{python}
 word = 'Python'
@@ -98,12 +107,12 @@ word = 'Python'
 +---+---+---+---+---+---+
 | P | y | t | h | o | n |
 +---+---+---+---+---+---+
-0   1   2   3   4   5   6
--6  -5  -4  -3  -2  -1
+  0   1   2   3   4   5
+ -6  -5  -4  -3  -2  -1
 \end{verbatim}
 
 \begin{python}
-word[-2:]
+word[-2:]  # Prints 'on'.
 \end{python}
 
 \subsection{Strings are immutable}
@@ -112,52 +121,57 @@ We can access an individual character of a string:
 
 \begin{python}
 a = 'hello'
-a[0]
+a[0]  # Prints 'h'
 \end{python}
 
-We cannot change any part of a string:
+We \emph{cannot} change any part of a string:
 
 \begin{python}
-a[0] = 'k'
+a[0] = 'k'  # Error: 'str' does not support item assignment.
 \end{python}
 
 \subsection{Concatenation}
 Concatenate (add together) strings with `+`:
 
 \begin{python}
-b = 'j' + a[1:]
-b
+b = 'j' + a[1:]  # Variable `b` now contains string "jello".
 \end{python}
-This creates a new string.
+Here, we've created a new string variable.
 
-\subsection{String functions / methods} 	
+\subsection{String functions / methods}
+
 \begin{python}
 name = 'Leland'
 len(name)
-name.lower()
-name.upper()
-name.find('lan')
-name.find('lan', 1, 4)
+name.lower()  # Converts all chars to lowercase.
+name.upper()  # Converts all chars to uppercase.
+
+# Find the index of the first instance of 'lan' in the string.
+name.find('lan')        # Returns 2 indicating that's where the match starts.
+# Search for 'lan' within name[1:4], which contains substring 'ela'.
+name.find('lan', 1, 4)  # Returns -1 indicating no match.
 \end{python}
-There are many \href{https://docs.python.org/3/library/stdtypes.html#string-methods}{string methods}
+
+There are many \href{https://docs.python.org/3/library/stdtypes.html#string-methods}{string methods}.
 
 \subsection{String formatting}
 
 It is often important to create strings formatted from a combination of strings,
-numbers, and other data.  In Python 3 this is best handled by the `format`
-string method.  Here is a simple example:
+numbers, and other data.  In Python 3 this is best handled by the \texttt{format}
+string method.  E.g.:
 
 \begin{python}
-name = "Nick"
-course = 'CME211'
+name = "Andreas"
+course = "CME211"
+# Prints: My name is Andreas. I am the instructor for CME211.
 print("My name is {0}. I am the instructor for {1}.".format(name,course))
 \end{python}
 
-Format strings contain "replacement fields" surrounded by curly braces `{}`.
+Format strings contain ``replacement fields'' surrounded by curly braces \texttt{\{\}}.
 Anything that is not contained in braces is considered literal text, which is
 copied unchanged to the output. If you need to include a brace character in the
-literal text, it can be escaped by doubling: `{{` and `}}`.  The number in the
-braces refers to the order of arguments passed to `format`.  Numbers don't need
+literal text, it can be escaped by doubling the braces: i.e. use  \texttt{\{\{} and \texttt{\}\}}.  The number in the
+braces refers to the order of arguments passed to \texttt{format}.  Numbers don't need
 to be specified if the sequence of braces has the same order as arguments:
 
 \begin{python}
@@ -166,17 +180,22 @@ number = 211
 print("this course is: {}-{}".format(program,number))
 \end{python}
 
-String formatting is a good way to combine text and numeric data.
-
-String formatting is also how we control the output of floating point numbers:
+Realize that string formatting is a good way to combine text and numeric data. It's also how we control the output of floating point numbers:
 
 \begin{python}
-print("    {{:f}}: {:f}".format(42.42))
-print("    {{:g}}: {:g}".format(42.42))
-print("    {{:e}}: {:e}".format(42.42))
-print("  {{:.2e}}: {:.2e}".format(42.42))
-print("{{: 8.2e}}: {: 8.2e}".format(42.42))
-print("{{: 8.2e}}: {: 8.2e}".format(-1.0))
+# Fixed point precision (always uses six significant decimal digits).
+print("    {{:f}}: {:f}".format(42.42))  # Prints 42.40000
+# General format (knows how to drop trailing zeros in decimals).
+print("    {{:g}}: {:g}".format(42.42))  # Prints 42.42
+# Exponent (scientific) notation.
+print("    {{:e}}: {:e}".format(42.42))  # Prints 4.242000e+01
+
+# We can also specify how many digits of precision we want.
+print("  {{:.2e}}: {:.2e}".format(42.42))    # Prints 4.24e+01.
+
+# Or we can specify the width of our output (excluding +/- signs).
+print("{{: 8.2e}}: {: 8.2e}".format(42.42))  # Prints total of 8 chars: 4.24e+01
+print("{{: 8.2e}}: {: 8.2e}".format(-1.0))   # Prints -1.00e+00
 \end{python}
 
 See the \href{https://docs.python.org/3/library/string.html#format-specification-mini-language}{Python Format Mini-Language docs} and more \href{https://docs.python.org/3/library/string.html#format-examples}{examples}
@@ -188,6 +207,7 @@ Python}\label{numeric-operations-in-python}
 The following operations are defined for numeric types (i.e.
 \texttt{int} and \texttt{float}):
 
+{\begin{multicols}{2}
 \begin{itemize}
 \item
   \texttt{x\ +\ y}: sum of \texttt{x} and \texttt{y}
@@ -206,7 +226,7 @@ The following operations are defined for numeric types (i.e.
 \item
   \texttt{+x}: \texttt{x} unchanged
 \item
-  \texttt{abs(x)}: absolute value or magnitude of \texttt{x}
+  \texttt{abs(x)}: absolute value (i.e. magnitude)
 \item
   \texttt{int(x)}: \texttt{x} converted to integer
 \item
@@ -214,6 +234,8 @@ The following operations are defined for numeric types (i.e.
 \item
   \texttt{x\ **\ y}: \texttt{x} to the power \texttt{y}
 \end{itemize}
+\end{multicols}
+}
 
 A complete list of operations and more detailed discussion can be found
 in the
@@ -228,26 +250,27 @@ numbers}:
 
 \begin{python}
 c = 3 + 6j
-print(c)
-print(type(c))
+print(c)        # (3+6j)
+print(type(c))  # <class 'complex'>
 \end{python}
 
 Access real and imaginary parts:
 
 \begin{python}
-print(c.real)
-print(c.imag)
+print(c.real)  # 3.0
+print(c.imag)  # 6.0
 \end{python}
 
-The parts have type \texttt{float}:
+The parts themselves have type \texttt{float}:
 
 \begin{python}
-print(type(c.real))
-print(type(c.imag))
+print(type(c.real))  # <class 'float'>
+print(type(c.imag))  # <class 'float'>
 \end{python}
 
 \subsubsection{Numeric conversions}\label{numeric-conversions}
 
+\paragraph{``Widening''}
 It is often useful to convert between integers and floating point
 numbers. Python fully supports mixed arithmetic: when a binary
 arithmetic operator (such as \texttt{+} or \texttt{*}) has operands of
@@ -261,35 +284,38 @@ Let's see some examples:
 
 \begin{python}
 x = 1 + 2.0
-print(x)
-print(type(x))
+print(x)        # 3.0
+print(type(x))  # <class 'float'>
 \end{python}
 
 In this case the integer \texttt{1} is ``widened'' or converted to the
 floating point number \texttt{1.0} before the addition.
-
 It is possible to manually convert from \texttt{int} to \texttt{float}:
 
 \begin{python}
 x = float(3)
-print(x)
-print(type(x))
+print(x)        # 3.0
+print(type(x))  # <class 'float'>
 \end{python}
 
 It is also possible to convert from \texttt{float} to \texttt{int}:
 
 \begin{python}
-x = int(4.7) print(x) print(type(x))
+x = int(4.7)
+print(x)        # Note we get decimal truncation. Prints 4.
+print(type(x))  # <class 'int'>
 \end{python}
 
 Let's see what happens with negative numbers:
 
 \begin{python}
-x = int(-8.9) print(x) print(type(x))
+x = int(-8.9)
+print(x)        # -8
+print(type(x))  # <class 'int'>
 \end{python}
 
-The Python \texttt{int()} constructor rounds floating point numbers
-towards \texttt{0}.
+The Python \emph{\texttt{int()} constructor} rounds floating point numbers
+\emph{towards} \texttt{0}.
 
 \subsubsection{Converting to and from
 strings}\label{converting-to-and-from-strings}
@@ -299,7 +325,14 @@ is a useful feature when trying to read numbers from a text file. Let's
 see it in action:
 
 \begin{python}
-my_num_str = "42" print(type(my_num_str))  my_num_int = int(my_num_str) my_num_float = float(my_num_str)  print(my_num_int) print(type(my_num_int))  print(my_num_float) print(type(my_num_float))
+my_num_str = "42"
+print(type(my_num_str))           # <class 'str'>
+my_num_int = int(my_num_str)
+my_num_float = float(my_num_str)
+print(my_num_int)                 # 42
+print(type(my_num_int))           # <class 'int'>
+print(my_num_float)               # 42.0
+print(type(my_num_float))         # <class 'float'>
 \end{python}
 
 It also easy to convert from a numeric type back to a string:
@@ -320,11 +353,10 @@ It is better to use string formatting for this:
 print("exam score: {}%".format(95))
 \end{python}
 
-
 \subsection{Lists}\label{lists}
 
 \textbf{Sequential containers} store data items in a specified order.
-Think elements of a vector, names in a list of people that you want to
+Think elements of a matematical vector, ordered sequence of namesof people that you want to
 invite to your birthday party. The most fundamental Python data type for
 this is called a \texttt{list}. Later in the course we will learn about
 containers that are more appropriate (and faster) for numerical data
@@ -336,19 +368,19 @@ In Python, lists are created by putting things inside of square brackets
 (\texttt{{[}{]}}).
 
 \begin{python}
-some_primes = [1,2,3,5,7,11] print(some_primes)
+some_primes = [1,2,3,5,7,11]
 \end{python}
 
 Lists can hold objects of any type:
 
 \begin{python}
-many_types = [1, 55.5, "Am I in a list?", True] print(many_types)
+many_types = [1, 55.5, "Am I in a list?", True]
 \end{python}
 
 We can get the length of the list with the \texttt{len()} functions:
 
 \begin{python}
-len(many_types)
+len(many_types)  # Prints 4, the number of elements in the list.
 \end{python}
 
 \subsubsection{Accessing Elements}\label{accessing-elements}
@@ -362,29 +394,26 @@ myList = [5, 2.3, 'hello']
 The first element of a list is at index \texttt{0}:
 
 \begin{python}
-mylist[0]
-\end{python}
-
-\begin{python}
-myList[2]
+mylist[0]  # Prints 5.
+myList[2]  # Prints 'hello'.
 \end{python}
 
 Attempting to access an element out of bounds will produce an error:
 
 \begin{python}
-mylist[3]
+mylist[3]  # Remember, Python is zero-indexed!
 \end{python}
 
-We can index to \texttt{-1} to get the object at the end of the list:
+We can index to \texttt{-1} to get the object at the very end of the list:
 
 \begin{python}
-myList[-1]
+myList[-1]  # Get the first element from the end, i.e. 'hello'.
 \end{python}
 
 Likewise, we can index backwards using negative numbers:
 
 \begin{python}
-myList[-3]
+myList[-3]  # Get the third elemenet from the end.
 \end{python}
 
 \subsubsection{Slicing}\label{slicing}
@@ -399,22 +428,21 @@ many_types = [1, 55.5, "Am I in a list?", True, "the end"]
 Let's look at a sub-list:
 
 \begin{python}
-many_types[2:4]
+many_types[2:4]  # Still zero indexed elements 2 and 3 (excludes index 4)
 \end{python}
 
-The \texttt{{[}2:4{]}} is called a slice and returns a list with
+The \texttt{{[}2:4{]}} is called a \emph{slice} and returns a list with
 elements at indices 2 and 3 from the original list.
-
 It is easy to slice from an index to the end:
 
 \begin{python}
-many_types[2:]
+many_types[2:]  # Start with third element, go to end.
 \end{python}
 
 It is also easy to slice from the beginning to a specified index:
 
 \begin{python}
-many_types[:3]
+many_types[:3]  # Extract elements indexed at positions 0, 1, and 2.
 \end{python}
 
 \subsubsection{Adding and multiplying}\label{adding-and-multiplying}
@@ -422,13 +450,18 @@ many_types[:3]
 The \texttt{+} operator concatenates (or combines) lists:
 
 \begin{python}
-myList = [5, 2.3, 'hello'] mySecondList = ['a', '3'] concatList = myList + mySecondList print(concatList)
+myList = [5, 2.3, 'hello']
+mySecondList = ['a', '3']
+concatList = myList + mySecondList
+print(concatList)  # Prints: [5, 2.3, 'hello', 'a', '3']
 \end{python}
 
 The \texttt{*} operator can be used to repeat lists:
 
 \begin{python}
-myList = ['hello', 'world'] print(myList * 2) print(2 * myList)
+myList = ['hello', 'world']
+print(myList * 2)  # These two results...
+print(2 * myList)  # ...both print the list 2x.
 \end{python}
 
 \subsubsection{Lists are mutable}\label{lists-are-mutable}
@@ -436,15 +469,21 @@ myList = ['hello', 'world'] print(myList * 2) print(2 * myList)
 Lists are mutable, this means that individual elements can be changed.
 
 \begin{python}
-# start with a list my_list = ['a', 43, 1.234] # assign a new value to index 0 my_list[0] = -3 # inspect the list print(my_list)
+# start with a list
+my_list = ['a', 43, 1.234]
+# assign a new value to index 0, i.e. replace char 'a' with int -3.
+my_list[0] = -3
+# inspect the list
+print(my_list)
 \end{python}
 
 We can also assign to a slice
 
 \begin{python}
-x = 2 my_list[1:3] = [x, 2.3] print(my_list)
+x = 2
+my_list[1:3] = [x, 2.3]
+print(my_list)
 \end{python}
-
 
 \subsubsection{Copying a list}\label{copying-a-list}
 
@@ -452,37 +491,54 @@ Let's attempt to copy a list referenced by variable \texttt{a} to
 another variable \texttt{b}:
 
 \begin{python}
-a = ['a', 'b', 'c'] b = a # attempt to copy a to b b[1] = 1 # now we want to change an element in b print(b) print(a)
+a = ['a', 'b', 'c']
+b = a     # attempt to copy a to b
+b[1] = 1  # now we want to change an element in b
+print(b)  # Here we see we did swap second element in b...
+print(a)  # ...but oops! We also modified second element in a.
 \end{python}
 
 That's interesting! Modifying \texttt{b} caused \texttt{a} to change.
 
 Let's look at this example in
 \href{http://pythontutor.com/iframe-embed.html\#code=a+\%3D+\%5B'a',+'b',+'c'\%5D\%0Ab+\%3D+a+\%23+attempt+to+copy+a+to+b\%0Ab\%5B1\%5D+\%3D+1+\%23+now+we+want+to+change+an+element+in+b\%0Aprint(b\%29\%0Aprint(a\%29\%0A\&origin=opt-frontend.js\&cumulative=false\&heapPrimitives=false\&textReferences=false\&py=3\&rawInputLstJSON=\%5B\%5D\&curInstr=0\&codeDivWidth=350\&codeDivHeight=400}{Python
-Tutor}.
-
-Ok, let's try a different technique.
+Tutor}. How about a different technique?
 
 \begin{python}
- = ['a', 'b', 'c'] b = a       # first attempt to copy a to b c = list(a) # use the list constructor b[1] = 1    # now we want to change an element in b print("a: ", a) print("b: ", b) print("c: ", c) print("id(a): ", id(a)) print("id(b): ", id(b)) print("id(c): ", id(c))
+a = ['a', 'b', 'c']
+b = a       # first attempt to copy a to b
+c = list(a) # use the list constructor
+b[1] = 1    # now we want to change an element in b
+print("a: ", a)  # list 'a' got modified (unintentionally).
+print("b: ", b)  # list 'b' of course got modified (intentionally).
+print("c: ", c)  # list 'c' got preserved, success!
+
+# The 'id' function prints out the memory address of an object.
+print("id(a): ", id(a))  # Note that list 'a'...
+print("id(b): ", id(b))  # ...and list 'b' have same id.
+print("id(c): ", id(c))  # List 'c' has its own id.
 \end{python}
 
 Again, let's try this example in
 \href{http://pythontutor.com/iframe-embed.html\#code=a+\%3D+\%5B'a',+'b',+'c'\%5D\%0Ab+\%3D+a+++++++\%23+first+attempt+to+copy+a+to+b\%0Ac+\%3D+list(a\%29+\%23+use+the+list+constructor\%0Ab\%5B1\%5D+\%3D+1++++\%23+now+we+want+to+change+an+element+in+b\&origin=opt-frontend.js\&cumulative=false\&heapPrimitives=false\&textReferences=false\&py=3\&rawInputLstJSON=\%5B\%5D\&curInstr=0\&codeDivWidth=350\&codeDivHeight=400}{Python
 Tutor}.
-
 A list can be copied with \texttt{b\ =\ list(a)} or
 \texttt{b\ =\ a{[}:{]}}. The second option is a slice including all
-elements.
+elements!
 
+\vspace{-10pt}
 \subsubsection{Python's data model}\label{pythons-data-model}
 
 Variables in Python are actually a reference to an object in memory.
 Assignment with the \texttt{=} operator sets the variable to refer to an
-object. Here is a simple example to demonstrate this property:
+object. Here is a simple example:
 
 \begin{python}
-a = [1,2,3,4] b = a b[1] = 55 print(b) print(a)
+a = [1,2,3,4]
+b = a          # Create a reference to the object 'a'.
+b[1] = 55      # Overwrite the second elem in the obj. referenced by 'a' and 'b'.
+print(b)       # Notice of course that both variables...
+print(a)       # ...contain the same data.
 \end{python}
 
 In this example, we assigned \texttt{a} to \texttt{b} via
@@ -492,7 +548,8 @@ reference to the list object in memory. Thus modifying the list through
 \texttt{a}. You can inspect object ids in Python with:
 
 \begin{python}
-print("id(a): ", id(a)) print("id(b): ", id(b))
+print("id(a): ", id(a))   # These two variables...
+print("id(b): ", id(b))   # ...both refer to the same object.
 \end{python}
 
 Those numbers refer to memory addresses.
