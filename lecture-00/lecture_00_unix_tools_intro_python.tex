@@ -632,16 +632,16 @@ Numbers \texttt{F(0)} to \texttt{F(n)} can be computed with the
 following Python code:
 
 \begin{python}
-n = 10
+n = 10                  # We wish to calculate up to Fib(10).
 
 if n >= 0:
-    fn2 = 0
+    fn2 = 0             # Initialize f(n-2).
     print(fn2,end=',')
 if n >= 1:
-    fn1 = 1
+    fn1 = 1             # Initialize f(n-1).
     print(fn1,end=',')
 for i in range(2,n+1):
-    fn = fn1 + fn2
+    fn = fn1 + fn2      # Recurrence relation: f(n) = f(n-1) + f(n-2).
     print(fn,end=',')
     fn2 = fn1
     fn1 = fn
@@ -948,7 +948,7 @@ Here are the parameters:
   360 months)
 \end{itemize}
 
-The formula to compute the fixed monthly payment is:
+The formula to compute the fixed monthly payment is, the derivation of which can be found here \href{https://en.wikipedia.org/wiki/Mortgage_calculator#Monthly_payment_formula}{here}.
 
 \[
 P = L \frac{c(1+c)^n}{(1+c)^n-1}
@@ -962,7 +962,7 @@ L = 100000
 # yearly interest rate of 4%
 r = .04
 c = r / 12
-# duration of mortgage in months
+# duration of mortgage in months (30 years * 12 months)
 n = 360
 P = L * (c*(1+c)**n) / ((1+c)**n-1)
 print("P = " + str(P))
