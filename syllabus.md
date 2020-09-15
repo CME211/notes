@@ -124,6 +124,10 @@ have questions about your standing in the class, please contact the instructor.
 Please don’t wait until after the course is over if you have concerns about your
 progress in the class.
 
+It's critical that you read through the [grading guidelines][grading-guidelines] that are posted in the `guidelines` folder on the course-notes Github page.
+
+[grading-guidelines]: https://github.com/CME211/notes/tree/master/guidelines
+
 ## Exam
 This year there will only be one examination; it will occur midway through the
 quarter and it will be based on your knowledge of Python. 
