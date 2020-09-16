@@ -69,6 +69,8 @@ material.
 
 Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/123262>
 
+We're also using Piazza this year. If you'd like to, sign up at: piazza.com/stanford/fall2020/cme211
+
 All other correspondence should be sent to <cme211-staff@lists.stanford.edu>.
 
 *Do not send questions related to course material to the staff mailing list or to individual staff emails (including the instructor).  We will not answer these.
