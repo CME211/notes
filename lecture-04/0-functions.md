@@ -3,18 +3,18 @@
 ## Python functions
 
 * Code we have seen so far has been executed in linear fashion from top to
-  bottom, sometimes repeating one or more lines in a loop body
+  bottom, sometimes repeating one or more lines in a loop body.
 
 * Functions allow us to:
 
   * Replace duplicated code with one centralized implementation within a single
-    program
+    program,
 
-  * Reuse code across different programs
+  * Reuse code across different programs,
 
-  * Easily use code developed by others
+  * Easily use code developed by others, and
 
-  * Develop, test, debug code in isolation from other code
+  * Develop, test, debug code in isolation from other code.
 
 * Analogous to mathematical functions
 
@@ -45,7 +45,7 @@ print_hello("CME211")
 ```python
 def function_name(input_argument):
     # function body
-    print("you guys rock")
+    print("you all rock!")
 ```
 
 1. start with `def` keyword
@@ -130,6 +130,8 @@ print("total:", total)
 ```
 
 ```python
+# Here, we expect an error (we can't access the loop variable outside the
+function)
 print("n:", n)
 ```
 
@@ -152,10 +154,14 @@ def summation(a, b):
 a = summation(1, 100)
 ```
 
+You might wonder why we're not able to access the "global" variable `total` in
+the "parent" score: we'll see in a moment how it's possible to modify a global
+variable within a function, but we don't recommend this.
+
 ### Variable scope examples
 
-It is possible to use a variable from a higher scope.  This is generally
-considered bad practice:
+It is possible to access a variable from a higher scope.  
+This is generally considered bad practice:
 
 ```python
 a = ['hi', 'bye']
@@ -196,7 +202,7 @@ case you run into it.
 ```python
 total = 0
 def summation(a,b):
-    global total
+    global total  # Required to modify a global variable within a function.
     for n in range(a, b+1):
         total += n
 
@@ -314,7 +320,8 @@ print(1,2,3,4,5,6,7)
 print(1,2,3,4,5,6,7, sep=", ")
 ```
 
-It is simple to use this feature when defining functions:
+How can we get default arguments with our own custom defined functions? It's
+quite straightforward and intuitive, it turns out:
 
 ```python
 def func(x, a = 1):
@@ -436,7 +443,7 @@ mapped values. If we want to create a list with mapped values, we
 pass the iterator as the input argument of the list constructor:
 
 ```python
-list(map(square,[1,2,3,4,5,6]))
+list(map(square, [1,2,3,4,5,6]))
 ```
 
 
@@ -453,7 +460,7 @@ def isodd(x):
 ```
 
 ```python
-list(filter(isodd,[1,2,3,4,5,6,7]))
+list(filter(isodd, [1,2,3,4,5,6,7]))
 ```
 
 Note: In Python 2.x, `map` and `filter` functions return containers with mapped
@@ -481,7 +488,7 @@ list(map(lambda x: x*x*x, [1,2,3,4,5,6,7,8,9]))
 
 ```python
 def add(a, b):
-    # I wrote this function because Nick
+    # I wrote this function because Andreas
     # is mean and is making us write three functions in a homework
     return a + b
 ```
