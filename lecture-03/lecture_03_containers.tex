@@ -1,15 +1,16 @@
 \documentclass[12pt,letterpaper,twoside]{article}
-\usepackage{cme211}
+\usepackage{../cme211}
 
 \begin{document}
 
-\title{Lecture 3: Python Containers \vspace{-5ex}}
-\date{October 2nd, 2018}
+\title{Lecture 3: Python Containers
+\date{}
+\vspace{-5ex}}
 \maketitle
 
 \section{Containers}
 \paragraph{Background}
-For any given problem, there are an infinitude of ways to solve the problem.
+For any given problem, there are an infinitude of ways to solve the it programatically.
 One of the \emph{types of decisions} we are faced with when writing a program is: \emph{how to (internally) store} or represent 
 our data in a way that lends itself to the problem at hand. 
 
@@ -50,7 +51,7 @@ Python has another built-in sequential container called a
 Tuples are a lot like lists, but the elements cannot be modified after the tuple is created.
 
 \begin{python}
-my_tup = (1, 2, "str", 99.99)
+my_tup = (1, 2, "str", 99.99)  # Notice we're using parentheses to denote a tuple.z
 print(my_tup)
 print(my_tup[1]) # Prints the second item. Happens to be the integer value two.
 
@@ -83,7 +84,7 @@ We'll learn what happens if we query a key which does not exist in our dictionar
 
 \paragraph{\href{https://en.wikipedia.org/wiki/Set_(abstract_data_type)}{Set containers}} 
 store \emph{unique} data items. They are related to
-dictionaries, because dictionaries require the keys to be unique.
+dictionaries in so far as dictionaries require the \emph{keys} to be unique.
 
 \begin{python}
 dinos = set()
@@ -109,7 +110,7 @@ Dictionaries are an \href{https://en.wikipedia.org/wiki/Collection_(abstract_dat
 they map \emph{keys} to \emph{values}. 
 
 \vspace{-2ex}
-\paragraph{Use Case} You want to repeatedly ``look up'' values that are associated with identifiers. E.g. your contacts list, which might pair
+\paragraph{Use Case: Phone Book} You want to repeatedly ``look up'' values that are associated with identifiers. E.g. your contacts list, which might pair
 a name with a phone-number. Want to look up a friends phone number? Just type their name and you get the result \emph{instantly}.
 
 \vspace{-2ex}
@@ -122,7 +123,7 @@ They \emph{can} be denoted by curly braces.
     \texttt{empty\_dict\ =\ dict()}
   \item
     Create a dictionary with some data:
-      $\texttt{ages} = \{ \texttt{"}\underbrace{\texttt{brad}}}_{\textrm{key}}\texttt{"} : \underbrace{51}_{\textrm{value}}, \texttt{"angelina"} : 40 \}$.
+      $\texttt{ages} = \{ \texttt{"}\underbrace{\texttt{brad}}_{\textrm{key}}\texttt{"} : \underbrace{51}_{\textrm{value}}, \texttt{"angelina"} : 40 \}$.
 \end{itemize}
 
 \vspace{-5ex}
@@ -209,6 +210,8 @@ The \texttt{in} operator returns a Boolean indicating whether the key is already
 'leo'  in ages  # And True here.
 \end{python}
 
+Note that using this operator on a \texttt{dict} is significantly faster than with a \texttt{list}!
+
 \vspace{-12pt}
 \subsection{Iteration}
 \textbf{Iterate through the keys} as follows.
@@ -245,6 +248,7 @@ data structure. E.g. if you observe a particular ordering when iterating over a 
 dictionary in a python interpreter, this ordering is not guaranteed to persist when
 the same dictionary is created in a new session.
 
+\vspace{-10pt}
 \subsection{Methods}
 See \texttt{help(dict)} to get a summary of all dictionary methods. \href{https://docs.python.org/3/tutorial/datastructures.html#dictionaries}{Py-doc for dictionaries.}
 
@@ -352,8 +356,8 @@ list, and since lists are mutable, it's possible to change the \emph{contained} 
 
 \begin{python}
 t = (42, 3.14, ['a', 'b', 'c'])      # Tuple of length 3: tuple<int, float, list>
-t[2] = ["another", "list", "of 3"]   # We cannot re-assign data.
-t[2].append('z')                     # Mutate third elem, itself a list, via 'append'.
+t[2] = ["another", "list", "of 3"]   # Error! We cannot re-assign data.
+t[2].append('z')                     # OK: change third elem, itself a mutable list.
 print(t)                             # 't' is "unchanged": tuple<int, float, list> ...
                                      # ... but! underlying data are different.
 \end{python}
@@ -362,6 +366,7 @@ Check out this type of behavior in the following
 \href{http://www.pythontutor.com/visualize.html\#code=my_tup\%20\%3D\%20(2,\%20'a\%20string',\%20\%5B1,3,8\%5D\%29\%0Amy_tup\%5B2\%5D\%5B0\%5D\%20\%3D\%20'new\%20data'\%0Aprint(my_tup\%29\%0A\&cumulative=false\&curInstr=0\&heapPrimitives=false\&mode=display\&origin=opt-frontend.js\&py=3\&rawInputLstJSON=\%5B\%5D\&textReferences=false}{Python
 Tutor} example, alongside a visual.
 
+\vspace{-5pt}
 \paragraph{References}
 Like all variables in Python, items in a tuple are actually references
 to objects in memory. Once a tuple has been created, its references to
@@ -369,6 +374,7 @@ objects cannot be reassigned. Tuple items may reference an object that
 is mutable (say, a list). In this case the referenced mutable object may
 be changed in someway.
 
+\vspace{-5pt}
 \subsubsection{A note on (im)mutability}
 It is natural to wonder why have immutable objects at all. One answer to
 this is practical: in Python, only immutable objects are allowed as keys
@@ -388,6 +394,7 @@ code:
 \begin{python}
 ages = {'cameron': 44, 'angelina': 40, 'bruce': 60, 'brad': 51, 'leo': 40}
 print(ages)
+# Looks confusing, but create new *key* 'BRUCE' using value associated with 'bruce'.
 ages['BRUCE'] = ages['bruce']
 print(ages)
 \end{python}
@@ -436,9 +443,9 @@ In Python, a \href{https://docs.python.org/3/tutorial/datastructures.html#sets}{
 mutable collection of unique items. 
 
 \vspace{-3ex}
-\paragraph{Use Case} We care about existence, and not duplicity; testing for existence is ``fast''.
+\paragraph{Use Case: Checking for Existence of Usernames} We care about existence, and not duplicity; testing for existence is ``fast''.
 E.g. When a new-user signs up for a service, we want to check if their proposed username is available 
-\emph{instantly}, without scanning through existing users.\footnote{If we stored our usernames in a \texttt{list} instead,
+\emph{instantly}.\footnote{If we stored our usernames in a \texttt{list} instead,
 and still checked for existence with the \texttt{in} operator, then as our service becomes more popular it would
 take new users \emph{longer and longer} to sign-up! Ouch.}
 
@@ -495,7 +502,8 @@ Let's create a list with non-unique elements.
 basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
 \end{python}
 
-Phone-screen: what are the unique elements?
+\vspace{-8pt}
+\paragraph{Phone-screen Interview Question} Find the unique elements of a very large fruit \texttt{basket}
 
 Answer: from this list, we can easily create a \texttt{set}, and this answers the very question posed.
 
@@ -511,7 +519,6 @@ the official \href{https://docs.python.org/3/tutorial/datastructures.html\#sets}
 Tutorial} and
 \href{https://docs.python.org/3/library/stdtypes.html\#set-types-set-frozenset}{Library
 Reference}.
-
 Also see \texttt{help(set)}:
 
 {
@@ -608,10 +615,19 @@ odds
 \end{python}
 
 Python also has
-\href{http://stackoverflow.com/documentation/python/196/comprehensions/745/set-comprehensions\#t=201609141607227980614}{set}
+\href{https://docs.python.org/3/tutorial/datastructures.html#sets}{set}
 and
-\href{http://stackoverflow.com/documentation/python/196/comprehensions/738/dictionary-comprehensions\#t=201609141607227980614}{dictionary}
-comprehensions. For further reference, see the 
+\href{https://docs.python.org/3/tutorial/datastructures.html#dictionaries}{dictionary}
+comprehensions.
+
+\begin{python}
+{x for x in 'abracadabra' if x not in 'abc'}  # Set comprehension
+# {'r', 'd'}
+{x: x**2 for x in (2, 4, 6)}                  # Dictionary comprehension
+# {2: 4, 4: 16, 6: 36}
+\end{python}
+
+For further reference, see the 
 \href{https://docs.python.org/3/tutorial/datastructures.html\#list-comprehensions}{List Comprehensions in Python Tutorial}.
 
 \newpage
@@ -652,7 +668,7 @@ This problem will contrast the use of \texttt{set}s with \texttt{list}s.
 \paragraph{Data:} can be found here, 
 \href{http://www.census.gov/topics/population/genealogy/data/1990_census/1990_census_namefiles.html}{Frequently Occurring Surnames from Census 1990}
 
-\paragraph{Algorithm:} the following steps incorrectly bias the results to be skewed ``M'', but we will use it is a skeleton first pass implementation.
+\paragraph{(Biased!) Algorithm:} the following steps incorrectly bias the results to be skewed ``M'', but we will use it is a skeleton first pass implementation.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
