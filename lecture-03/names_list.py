@@ -38,7 +38,7 @@ for name in female:
 
 print("There are {} names that appear in both sets.".format(nboth))
 
-# Try our algorithm
+# Try our algorithm: note that it is biased!
 for name in test_names:
     if name.upper() in male:
         ret = "M"
