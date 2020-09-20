@@ -67,22 +67,6 @@ $ python3 listsort.py 16000000
 Sorting 16000000 values took 23.6 seconds.
 ```
 
-### IPython `%timeit` magic command
-
-IPython has a [magic][ipy-timeit] command called [`%timeit`][ipy-timeit] to help
-benchmark Python statements.
-
-```python
-# use %timeit to benchmark sorted function
-# Setup a list of random values and record the time required to sort it
-n = 10000
-v = random.sample(range(n), n)
-%timeit sorted_v = sorted(v)
-```
-
-[ipy-magic]: http://ipython.readthedocs.io/en/stable/interactive/magics.html
-[ipy-timeit]: http://ipython.readthedocs.io/en/stable/interactive/magics.html#magic-timeit
-
 ### Problems with empirical measurement
 
 Empirical performance testing is an important endeavor.  It is an aspect of
@@ -111,9 +95,9 @@ testing has some drawbacks, namely:
   * number of nodes in a graph or network structure (sometimes the number of
     edges is also important)
 
-* Typically characterized in terms of Big O notation, e.g. an algorithm is
+* Typically characterized in terms of [big oh notation](https://en.wikipedia.org/wiki/Big_O_notation#Formal_definition), e.g. an algorithm is
   $O(n \log n)$ or $O(n^2)$.
-
+  
 ```
 | order notation | in English          |
 |----------------+---------------------|
@@ -536,7 +520,7 @@ TGTAGAATCACTTGAAAGGCGCGCAGTCTGGGGCGCTAGTCGTGGT
 
   * $O(mn)$ for a naive implementation
 
-  * $O(m)$ for typical algorithms
+  * $O(m)$ for typical algorithms (we'll learn how indirectly in 212)
 
   * $O(n)$ for a search that uses the Burrows-Wheeler transform
 
@@ -619,9 +603,7 @@ Let's test:
 'LELAND' in names_set
 ```
 
-Which container is better for insertion and existence testing?
-
-Exercise: use IPython's `%timeit` magic command.
+Which container is better for adding new elements? What about testing for existence?
 
 ## Documentation
 
