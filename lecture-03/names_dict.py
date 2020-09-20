@@ -21,6 +21,9 @@ for line in f:
     names[line.split()[0]] = 1.
 f.close()
 
+# Add female names to the dictionary.
+# Watch for the case that we've already added the name
+# as a 'male' name.
 f = open(male_data)
 for line in f:
     name = line.split()[0]
