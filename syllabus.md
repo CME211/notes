@@ -97,7 +97,8 @@ Zoom meeting details are on Canvas.
 
 ## Office hours
 
-All office hours will be held remotely, timing TBD.
+All office hours will be held remotely. TA office hours are posted on Canvas.
+Andreas will hold office hours after each class, from 7:55 P.M. to 8:45 P.M.
 
 Join the Zoom meeting during office hour times using the links provided in Canvas. Feel free to join even if you don’t have any questions. You can listen in on the conversation (which might spark a question for you) or we can use the time to get to know each other!
 
