@@ -628,10 +628,9 @@ comprehensions.
 \end{python}
 
 For further reference, see the 
-\href{https://docs.python.org/3/tutorial/datastructures.html\#list-comprehensions}{List Comprehensions in Python Tutorial}.
+\href{https://docs.python.org/3/tutorial/datastructures.html\#list-comprehensions}{List   Comprehensions in Python Tutorial}.
 
 \newpage
-
 \section{Exercises}
 
 \subsection{References, Tuples, and Mutable Objects}
@@ -797,6 +796,29 @@ Billy: 0.5
 The name ``Billy'' appears in both male and female datasets, so
 \texttt{0.5} is printed after the name to indicate uncertainty.
 \href{https://github.com/CME211/notes/blob/fall_18/lecture-03/names_dict.py}{Solution}.
+
+
+\section{Python Debugger} Making mistakes is part of programming. Ideally, we use tools to facilitate 
+catching errors before deploying code into production. One such tool is the \href{https://docs.python.org/3/library/pdb.html#debugger-commands}{Python Debugger}, or \texttt{pdb} for short. This allows us to interactively step through our programs, set (conditional) breakpoints, and inspect objects as they are created and modified during the course of a program's execution.
+
+\paragraph{Usage} To use the debugger, we simply import the \texttt{pdb} \textbf{m}odule as a command line argument when executing our program that needs to be debugged. E.g.
+
+\begin{shell}
+\$ python3 -m pdb names\_list.py
+\end{shell}
+
+We will now be placed into a debugging environment, which starts execution based
+on the first line of \texttt{names\_list.py}. We can use \href{https://docs.python.org/3/library/pdb.html#debugger-commands}{debugger commands} to step through our code. Essentials:
+
+\begin{itemize}
+  \item \textbf{n}(ext): continue execution until the next line in the current function.
+  \item \textbf{s}(tep): execute the current line but stop as soon as possible (possibly within a function invoked on the same line).
+  \item \textbf{c}(ontinue): execute until the next breakpoint is encountered.
+  \item \textbf{b}(reak): if given a \texttt{line number}, a breakpoint is set at that specified line number in the current file; if given a \texttt{function} as argument, a breakpoint is set at the first executable statement within the function.
+  \item \textbf{r}(eturn): continue execution until the current function returns.
+\end{itemize} 
+
+These commands may be invoked using their complete name or the corresponding one-character short-hands. I highly recommend learning to become proficient in the debugger. It is far more extensible and effective when compared with sprinkling \texttt{print()} statements throughout your program.
 
 
 \end{document}
