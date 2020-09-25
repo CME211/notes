@@ -581,8 +581,8 @@ def load_list(filename):
 ```
 
 ```python
-names_list = load_list('../lecture-04/dist.female.first')
-names_set = load_set('../lecture-04/dist.female.first')
+names_list = load_list('../lecture-03/dist.female.first')
+names_set = load_set('../lecture-03/dist.female.first')
 ```
 
 Let's test:
