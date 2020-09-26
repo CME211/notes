@@ -1,18 +1,17 @@
 \documentclass[12pt,letterpaper,twoside]{article}
-\usepackage{cme211}
+\usepackage{../cme211}
 
-\usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
-\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
+% \usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
+% \AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
 
 \begin{document}
 \title{Lecture 5: Objects, Modules, and Exceptions\vspace{-5ex}}
-\date{October 9th, 2018}
+\date{Fall 2020}
 \maketitle
 
 {\footnotesize
 \paragraph{Topics Introduced:} Python object model, 
-modules, and exceptions.
-}
+modules, and exceptions.}
 \vspace{-3ex}
 \section{Python Object Model}
 Let's review and elaborate on Python's object model. Key things to
@@ -23,10 +22,10 @@ always keep in mind:
 \item
   Everything in Python is an \textbf{object}.
 
-  An object is a location in memory associated with both a type and a value.
+  An object is a location in memory associated with both a \emph{type and a value}.
 \item
   Variables in Python are \textbf{references} to objects.
-\end{itemize}
+\end{enumerate}
 
 \vspace{-3ex}
 \paragraph{Simple List Example} What happens when we create a list, 
@@ -58,11 +57,12 @@ set to \texttt{{[}42,\ 19,\ 73{]}}. The variable \texttt{b} also
 references the same list.
 
 \paragraph{References: Analogies}   This room is like an object.
+\vspace{-10pt}
 \begin{itemize}
 \item
-  ``Hewlett Auditorium (ii)'' is an identifier that references this room.
+  ``Huang Engineering Center'' is an identifier that references where ICME is located.
 \item
-  ``Hewlett-201'' is also an identifier that references this same room.
+  ``475 Via Ortega Way, Stanford CA'' is also an identifier for the same building.
 \end{itemize}
 
 Or perhaps more familiar, we assign identifiers to family members based on their relation
@@ -81,11 +81,11 @@ Note that both are still considered \emph{typed} languages.\footnote{In an untyp
 nor the data which they point to are associated with a type. E.g. the programming language \href{https://en.wikipedia.org/wiki/B_(programming_language)#History}{B} is untyped: every variable refers to a \href{https://en.wikipedia.org/wiki/Word_(computer_architecture)}{\emph{word}} of memory. Depending on the \emph{context}
 in which the variables appear, the data will be treated differently, either as an integer value, a string, or a pointer which is to be dereferenced.}
 
-\paragraph{Statically Typed} languages attempt to resolve errors and find potential bugs at \emph{compile time}.
-If the compiler knows exactly the type of each variable, then the generated machine code can be optimized, resulting in code which potentially executes faster
+\paragraph{Statically Typed $\leadsto$ Compiler Safeguards} These languages attempt to resolve errors and find potential bugs at \emph{compile time}.
+If the compiler knows exactly the type of each variable, then the generated machine code can be optimized, resulting in more performant code which potentially executes faster
 at run time. 
 
-\paragraph{Dynamically Typed} languages, on the other hand, 
+\paragraph{Dynamically Typed $\leadsto$ Runtime Errors} languages, on the other hand, 
 will delay inspecting the underlying data types that appear in an expression until \emph{run time}. Note that this means that when source code is modified,
 the interpreter is permitted to dynamically load new code without checking for fool-proof compatibility with all other parts of the program.
 
@@ -100,7 +100,7 @@ a = 'hi'
 \end{python}
 
 \vspace{-3ex}
-\paragraph{Strongly Typed} Python is also
+\paragraph{Strongly Typed $\leadsto$ Implicit Conversions Disallowed} Python is also
 \href{https://en.wikipedia.org/wiki/Strong_and_weak_typing#Definitions_of_%22strong%22_or_%22weak%22}{\textbf{strongly typed}}.
 The Python interpreter will inspect types at runtime, as they are being
 executed (since it is dynamically typed), \emph{but} certain classes or errors are precluded from happening (since it is strongly typed):
@@ -110,7 +110,8 @@ E.g. you can't add a number and a string in base Python, because the language ru
 
 \subsection{Assignment: Setting Up a Reference}
 \vspace{-1ex}
-We restate that everything in Python is an object: numbers, strings, functions, etc. are all objects;
+\paragraph{Everything in Python is an Object} This includes
+numbers, strings, functions, etc.;
 an object is simply a location in memory associated with a type and a value.
 The assignment operation, \texttt{=}, can be interpreted as setting up a
 reference. E.g.
@@ -131,7 +132,7 @@ We may pedagogically interpret this as a two part operation.
 \end{enumerate}
 
 Illustrations and more examples may help.
-\vspace{-1ex}
+
 \begin{figure}[h]
 \centering
 \includegraphics[scale=0.35]{fig/references-example.png}
@@ -139,11 +140,11 @@ Illustrations and more examples may help.
 The location in the diagram which a value appears corresponds to the location in memory in which the object is stored. Here, we leave types implicit.}
 \end{figure}
 
-% We remark that we even must (implicitly) create temporary objects for intermediary values used in expressions.
+We even implicitly create temporary objects for intermediary values within expressions.
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.35]{fig/references-example-2.png}
+\includegraphics[scale=0.3]{fig/references-example-2.png}
 \caption{\small Integers are also objects and must be created in memory. E.g. in order to ``add 5'' to an object, 
 we first have to define a reference to the integer value 5, then use this data as part of an input to an \texttt{add} operation.}
 \end{figure}
@@ -160,7 +161,7 @@ returns the position in memory where the object is stored.
 \begin{python}
 a = [42, 19, 73]
 b = a
-print(a is b)
+print(a is b)  # Returns True.
 \end{python}
 
 In memory we may visualize the following schematic.
@@ -315,10 +316,10 @@ results that at first surprise us.
 a = [19, {'grade':92}]
 b = copy.copy(a)
 
-a[0] = 42             # Modifies first element of 'a' only.
-print(b)              # First element of 'b' still refers to integer 19.
-a[1]['grade'] = 97    # Here, we modify the dictionary referred to by both 'a' and 'b'.
-print(b)              # Accessing 'b["grade"]' returns integer value 97.
+a[0] = 42           # Modifies first element of 'a' only.
+print(b)            # First element of 'b' still refers to integer 19.
+a[1]['grade'] = 97  # We modify the dictionary referred to by both 'a' and 'b'!
+print(b)            # Accessing 'b["grade"]' returns integer value 97.
 \end{python}
 
 \begin{figure}[h]
@@ -711,30 +712,6 @@ FILE
 { \small
   Chapters 22 and 23 in Learning Python; Modules: The Big Picture, and Module Coding Basics
 }
-
-\section{Python Debugger} Making mistakes is part of programming. Ideally, we use tools to facilitate 
-catching errors before deploying code into production. One such tool is the \href{https://docs.python.org/3/library/pdb.html#debugger-commands}{Python Debugger}, or \texttt{pdb} for short. This allows us to interactively step through our programs, set (conditional) breakpoints, and inspect objects as they are created and modified during the course of a program's execution.
-
-\paragraph{Usage} To use the debugger, we simply import the \texttt{pdb} \textbf{m}odule as a command line argument when executing our program that needs to be debugged. E.g.
-
-\begin{shell}
-\$ python3 -m pdb mymodule5.py
-\end{shell}
-
-We will now be placed into a debugging environment, which starts execution based
-on the first line of \texttt{mymodule5.py}. We can use \href{https://docs.python.org/3/library/pdb.html#debugger-commands}{debugger commands} to step through our code. Essentials:
-
-\begin{itemize}
-  \item \textbf{n}(ext): continue execution until the next line in the current function.
-  \item \textbf{s}(tep): execute the current line but stop as soon as possible (possibly within a function invoked on the same line).
-  \item \textbf{c}(ontinue): execute until the next breakpoint is encountered.
-  \item \textbf{b}(reak): if given a \texttt{line number}, a breakpoint is set at that specified line number in the current file; if given a \texttt{function} as argument, a breakpoint is set at the first executable statement within the function.
-  \item \textbf{r}(eturn): continue execution until the current function returns.
-\end{itemize} 
-
-These commands may be invoked using their complete name or the corresponding one-character short-hands. I highly recommend learning to become proficient in the debugger. It is far more extensible and effective when compared with sprinkling \texttt{print()} statements throughout your program.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 
 
 \section{Python Error Handling}
