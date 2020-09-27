@@ -1,8 +1,7 @@
 # CME 211: Lecture 6
-October 11, 2018
+Fall 2020
 
 ## Introduction to Object Oriented Programming
-
 
 ### Procedural programming
 
@@ -48,7 +47,7 @@ object methods.
   standardization of C++, and faster computers that mitigated the overhead of the
   abstractions
 
-* Abstraction, modularity, and reusability are some of the most commonly cited
+* **Abstraction, modularity, and reusability** are some of the most commonly cited
   reasons for using object oriented programming
 
 * Almost all new software development uses some degree of object oriented programming (for better or worse)
@@ -59,7 +58,7 @@ object methods.
 
 ### Why not object oriented programming?
 
-* Proper object oriented programming design is hard.  There is a cottage industry of tools and books.
+* Proper object oriented programming design is **hard**.  There is a cottage industry of tools and books.
 
 * Programmers tend to abuse object oriented programming features leading to code bases that are *extremely*
   difficult to work with.  (This might also mean **job security**)
@@ -138,7 +137,7 @@ open(file, mode='r', buffering=-1, encoding=None, errors=None, newline=None, clo
 
 [text omitted]
 
-open() returns a file object whose type depends on the mode, and
+open() returns a **file object** whose type depends on the mode, and
 through which the standard file operations such as reading and writing
 are performed. When open() is used to open a file in a text mode ('w',
 'r', 'wt', 'rt', etc.), it returns a TextIOWrapper. When used to open
@@ -150,21 +149,18 @@ a BufferedRandom.
 [text omitted]
 ```
 
-Now let's look at the file object with `help(f)`:
-
 The structure of file input-output objects has changed quite a bit between
 Python 2 and Python 3.  For basic uses, the behavior is the same and simple file
-IO code should be the same.  
+IO code should be the same.
 
 ### Modularity and reusability
 
-* High level languages like Python, Java, C++, etc. include classes for working
-  with files, holding data (lists and dictionaries), etc.
+* **High level languages** like Python, Java, C++, etc. **include classes for working with files**, holding data (lists and dictionaries), etc.
 
 * So you do not have to design and create your own classes if someone else has
   already done the work for you
 
-* But you might want to create classes that are specialized to the needs of your
+* But you _might_ want to create classes that are specialized to the needs of your
   applications, so they can be used (and reused) by yourself and others
 
 ### Object oriented programming in Python
@@ -305,16 +301,14 @@ s = Student(7)
 
 ### Interfaces
 
-* Interfaces protect the user of the class from internal implementation details
+* Interfaces **protect** the user of the class from **internal implementation details.**
 
-* Found a better way to implement the internal representation of the data? No
-  problem.  In the interface is the same, internal changes to data representation
+* Found a **better way to implement the internal representation** of the data? **No problem.**  In the interface is the same, internal changes to data representation
   won't affect anything that uses the object.
 
-* New algorithm for the internal processing of that data? No problem
+* **New algorithm** for the internal processing of that data? **No problem.**
 
-* Screwed up your interface and now need to make changes to the interface?
-  Problem
+* **Screwed up your interface** and now need to make changes to the interface? **Problem**
 
 ### Defining a regular method
 
@@ -369,7 +363,7 @@ print("s.get_id() = {}".format(s.get_id()))
 ```
 
 The `id` attribute is accessible and can be assigned to just like any Python
-variable.  This may not be desirable behavior.
+variable.  This may not be desirable behavior. We can visualize all of the above in [Python Tutor](http://www.pythontutor.com/visualize.html#code=class%20Student%3A%0A%20%20%20%20def%20__init__%28self,%20id%29%3A%0A%20%20%20%20%20%20%20%20self.id%20%3D%20id%0A%20%20%20%20%20%20%20%20self.courses%20%3D%20%7B%7D%0A%20%20%20%20def%20get_id%28self%29%3A%0A%20%20%20%20%20%20%20%20return%20self.id%0A%20%20%20%20%20%20%20%20%0As%20%3D%20Student%287%29%0Aprint%28s%29%0Aid%20%3D%20s.get_id%28%29%0Aprint%28%22id%20%3D%20%7B%7D%22.format%28id%29%29%0Aid%20%3D%2042%0Aprint%28%22id%20%3D%20%7B%7D%22.format%28id%29%29%0Aprint%28%22s.get_id%28%29%20%3D%20%7B%7D%22.format%28s.get_id%28%29%29%29%0A%0As.id%20%3D%20%22I%20have%20changed%20the%20id%20to%20a%20string,%20probably%20not%20good%22%0Aprint%28%22s.get_id%28%29%20%3D%20%7B%7D%22.format%28s.get_id%28%29%29%29%0A&cumulative=false&curInstr=19&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false).
 
 ### Adding classes / grades
 
@@ -418,8 +412,7 @@ print("GPA = {}".format(s.get_gpa()))
 print("courses = {}".format(s.get_courses()))
 ```
 
-If a method returns a reference to a mutable object, then changing that object
-"outside" of the class will change the data "inside" of the class.
+**If a method returns a reference to a mutable object, then changing that object "outside" of the class will change the data "inside" of the class.**
 
 ```python
 class Student:
@@ -534,8 +527,8 @@ s = Student(7)
 s.add_class("gym", 4)
 s.add_class("math", 3)
 courses = s.get_courses()
-courses["english"] = 4
-print("GPA = {}".format(s.get_gpa()))
+courses["english"] = 4                         # Modify the copy of our dict.
+print("GPA = {}".format(s.get_gpa()))          # Notice that GPA in our class object preserved.
 print("courses = {}".format(s.get_courses()))
 ```
 
