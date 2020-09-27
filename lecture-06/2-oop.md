@@ -24,7 +24,7 @@ class NameClassifier:
         for line in f:
             name = line.split()[0]
             if name in self.namedata:
-                # Probability the name is female
+                # The next three lines compute the probability the name is female
                 weightm = float(line.split()[1])
                 weightf = self.weights[name]
                 self.namedata[name] = weightf/(weightf + weightm)
@@ -48,6 +48,8 @@ classifier = NameClassifier('dist.female.first', 'dist.male.first')
 testdata = ['JOHN', 'TERRY', 'GRAHAM', 'CONNIE', 'MICHAEL', 'ERIC']
 
 # Invoke the classify_name() method
+# Note that we can call classify_name() multiple times without reprocessing our
+input data.
 for name in testdata:
     prob_f = float(classifier.classify_name(name))*100
     print('{}: {:5.2f}%'.format(name, prob_f))
@@ -55,7 +57,7 @@ for name in testdata:
 
 ### Student example
 
-Let's inspect review the `Student` object example from lecture 8:
+Let's inspect review the `Student` object example from the last section:
 
 ```python
 import copy
