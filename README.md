@@ -13,8 +13,8 @@ There will be 18 lectures this year.
 * [Lecture  4](lecture-04/): Python functions and complexity analysis
 * [Lecture  5](lecture-05/): Python object model, modules, exceptions
 * [Lecture  6](lecture-06/): Python object oriented programming
-* [Lecture  7](lecture-07/): SciPy, NumPy, and matplotlib
-* [Lecture  8](lecture-08/): Introduction to Pandas
+* [Lecture  7](lecture-07/): Data representation and NumPy
+* [Lecture  8](lecture-08/): Pandas, SciPy, Matplotlib
 * [Lecture  9](lecture-09/): Introduction to LaTeX
 * [Lecture 10](lecture-10/): Introduction to C++, static arrays, variable scope, looping
 * [Lecture 11](lecture-11/): C++ conditionals, file IO, dynamic memory
