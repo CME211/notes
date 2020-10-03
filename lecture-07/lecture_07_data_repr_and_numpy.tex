@@ -1,12 +1,12 @@
 \documentclass[12pt,letterpaper,twoside]{article}
-\usepackage{cme211}
+\usepackage{../cme211}
 
 \usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
 \AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
 
 \begin{document}
 \title{Lecture 7: Data Representation, Numerical Python\vspace{-5ex}}
-\date{October 16th, 2018}
+\date{Fall 2020}
 \maketitle
 
 {\footnotesize
@@ -390,7 +390,7 @@ divide by zero, etc.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[scale=0.45]{fig/IEEE_754}
+  \includegraphics[scale=0.1]{fig/IEEE_754}
   \caption{\footnotesize A visual layout of the 64 bit representation used to store
     a floating point value. We have 1 sign bit, 52 mantissa
 (significand, fractional) bits, and 11 exponent bits. Source: \href{https://en.wikipedia.org/wiki/Double-precision_floating-point_format}{Wikipeda}.}
