@@ -105,9 +105,9 @@ long-term storage (e.g. hard-disk), medium-term storage (RAM), and
 short-term storage (cache). We present a simplified computer
 architecture below, which does not picture long-term storage.
 
-\begin{figure}[h]
+\begin{figure}[!h]
 \centering
-\includegraphics[scale=0.45]{fig/model-computer.png}
+\includegraphics[scale=0.25]{fig/model-computer.png}
 \caption{\footnotesize We take a simplified view of a computer architecture. In
   particular, we show the relationship between
   \href{https://en.wikipedia.org/wiki/Computer_data_storage\#Primary_storage}{primary
@@ -151,7 +151,7 @@ representations of numbers. I.e. although we may use a variable length
 representation, writing $4_{10} = 100_2$, or $73_{10} = 1001001_2$,
 computers often use a fixed width storage for numeric types.
 
-\begin{figure}
+\begin{figure}[!h]
 \centering
 \includegraphics[scale=0.35]{fig/bits.png}
 \caption{\footnotesize We can think of a (fixed-width) sequence of bits as a panel
@@ -421,6 +421,8 @@ Floating-Point Arithmetic'' by Goldberg
 Floating point numbers in Python are double precision (64-bit).
 Additionally, \texttt{numpy} has support for 16-bit and 32-bit
 floating point formats.
+
+\paragraph{Floating Point Comparisons: what you \emph{need} to know}
 For now, perhaps one essential reminder is that you should never
 directly compare floating point data-types for exact equality using
 the \texttt{==} operator. Instead, consider using
