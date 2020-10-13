@@ -1,45 +1,32 @@
 # CME 211 -- Exam 1 -- Python
-Updated on 2018-10-22.
+Updated on 2020-10-12.
 
-There are two announcements on Canvas that hold the ground truth for the Python midterm; the remaining details in this document are general guidelines, adapted from past years exam expectations.
-
-[Announcement 1](https://canvas.stanford.edu/courses/87822/discussion_topics/281648)
-
-[Announcement 2](https://canvas.stanford.edu/courses/87822/discussion_topics/280739)
-
-The exam will be conducted through Canvas. The exam will be available from the
-morning of Thursday 10/25. Students will have approximately three
-hours to
-complete the exam once it is started. This year's exam will consist primarily of
-applied programming questions. The main submissions will be a single `.py` script alongside
+The exam will be accessible through Canvas, starting from Thursday October 15th at 12:00 A.M. through the same day at 11:59 P.M.; once the exam has been opened, students will have 1.5 hours to
+complete the exam. The content of the exam will cover material from the start of chte course through Data Representation in lecture 7. There will be some short answer questions on data types and data structures, as well as programming problem(s).
+The main submissions will be a single `.py` script alongside
 a `README` file containing responses to short-answer questions.
-
-Note: We anticipate the exam will appear in the "Quizzes" section on Canvas.
 
 ## Details
 
-* Exam should be challenging -- I believe you all to be smart and hardworking
-  students no matter how you perform on the exam
-* I recommend attacking the problems in the given sequence
-* Make sure to use your time wisely
-* In terms of grading: correctness > performance (complexity) > style
-* Remember, this exam is only worth 12.5% of your grade
+* The exam should be challenging -- I believe you all to be smart and hardworking
+  students no matter how you perform on the exam!
+* Make sure to use your time wisely.
+* In terms of grading: correctness > performance (complexity) > style.
+* Remember, this exam is only worth a small part of your grade.
 
 ## Rules
 
 * Open book
 * Open note
-* Open computer (restricted internet use)
+* Open computer
   * you may use Python 3 interpreter
-  * you may use Jupyter Notebook
   * your may use computer to access notes at <https://github.com/CME211/notes>
   * your may use computer to access Learning Python book
   * your may use computer to access Python documentation
     @ [python.org](https://docs.python.org/3/index.html)
   * You may use the search bar on the Python docs page.
   * **You may not use Google or any other search method to try and find
-    answers**
-  * **Stackoverflow.com and similar QA sites are not allowed**
+    answers to specific questions asked on the exam, as per the honor code**
 * Code must be Python 3
 * You may use any functionality from
   the [Python Standard Library](https://docs.python.org/3/library/index.html)
@@ -47,16 +34,16 @@ Note: We anticipate the exam will appear in the "Quizzes" section on Canvas.
 
 ## Communication
 
-* When the exam gets published on Canvas on the morning of Thursday 10/25, it
+* When the exam gets published on Canvas on the morning of Thursday 10/15, it
   will be known as **The-Exam-Who-Must-Not-Be-Named**. That is, nobody is
-  allowed to discuss any aspect of the exam until Friday 10/26.
+  allowed to discuss any aspect of the exam until Friday 10/16.
 * The teaching staff will not answer any questions related to the exam until it
   is over. We have tried to remove all ambiguity from the question statements.
   The teaching staff will review the questions. If you feel something is
   ambiguous on the exam, please make a comment above your answer in the source
   code you submit. Indicate what you thought was ambiguous and the decision you
   made to resolve the ambiguity.
-* Your submission will take place through Git, as specified in the exam instructions.
+* Your submission will take place through Git, as specified in the exam instructions. The submission medium is the same as how you've been submitting your homeworks, so there should be no surprises.
 
 ## Topics
 
