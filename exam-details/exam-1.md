@@ -25,8 +25,10 @@ a `README` file containing responses to short-answer questions.
   * your may use computer to access Python documentation
     @ [python.org](https://docs.python.org/3/index.html)
   * You may use the search bar on the Python docs page.
-  * **You may not use Google or any other search method to try and find
-    answers to specific questions asked on the exam, as per the honor code**
+  * "Permitted informational resources only includes material a reasonable student would have found to be helpful when trying to understand class material or preparing for an assignment or exam. This does not include material that becomes useful once the assignment or exam begins and questions are known."
+  * "In all cases, it is not permissible for students to enter exam questions into any software, apps, or websites. Accessing resources that directly explain how to answer questions from the actual assignment or exam is a violation of the Honor Code."
+  * "Answers to assignment or exam questions must be written in the student’s own words, or else be cited, otherwise it is plagiarism. Use of all sources, including internet resources, must be cited. Similarly, consulting or collaborating with other people is not permitted and does not fall within the definition of an open-book or informational resource..."
+
 * Code must be Python 3
 * You may use any functionality from
   the [Python Standard Library](https://docs.python.org/3/library/index.html)
