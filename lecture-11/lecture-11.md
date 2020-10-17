@@ -1,3 +1,10 @@
+---
+title: "Lecture 11"
+date: Fall 2020
+geometry: margin=2cm
+output: pdf_document
+---
+
 # CME 211: Lecture 11
 
 ## Topics
@@ -7,8 +14,6 @@
 * `const` types
 * Dynamic arrays
 * Basic file operations in C++
-
-
 
 ## Conditional statements in C++
 
@@ -278,11 +283,21 @@ b is true
 a & b is false
 ```
 
+Why is the last statement `false`? It comes from examining the bit patterns of
+our integers. For simplicity let's examine the least most significant four bits.
+
+```
+a: 0001
+b: 0010
+&: ----
+=: 0000
+```
+
 ### `switch`
 
 * `if`, `else if`, `else`, etc. gets verbose if you have many paths of execution
 
-* Can use a switch statement instead:
+* Can use a switch statement instead; this will be handy in your first C++ programming assignment!
 
 ```c++
 if (choice == `C')
