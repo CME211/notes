@@ -1,14 +1,13 @@
 \documentclass[12pt,letterpaper,twoside]{article}
-\usepackage{cme211}
+\usepackage{../cme211}
 \usepackage{algorithm2e}
 
 \def\D{\mathrm{d}}
 \usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
-\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
 
 \begin{document}
-\title{Lecture 12: Functions and File IOin C++, \\ Preprocessor Step of Compilation\vspace{-5ex}}
-\date{November 5th, 2018}
+\title{Lecture 12: Functions and File IO in C++, \\ Preprocessor Step of Compilation\vspace{-5ex}}
+\date{Fall 2020}
 \maketitle
 
 {\footnotesize
@@ -1082,9 +1081,11 @@ if (f.is_open()) {
       std::cerr << "ERROR: Unknown shape '" << shape << "'" << std::endl;
       return 1;
     }
-  float val[6];
-  for (int n = 0; n < nval; n++)    // Read appropriate number of values
-    f >> val[n];
+    float val[6];
+    for (int n = 0; n < nval; n++)    // Read appropriate number of values
+      f >> val[n];
+  }
+}  
 \end{cpp}
 }
 
