@@ -1,4 +1,10 @@
-# CME 211: Lecture 13
+---
+title: "Lecture 13 part 1"
+date: Fall 2020
+geometry: margin=2cm
+output: pdf_document
+---
+# CME 211: Lecture 13(a)
 
 Topics:
 
@@ -12,9 +18,9 @@ Topics:
 
 ## C++ containers
 
-* Static arrays are created on stack and can hold limited amount of data.
+* Static arrays are created on stack and can hold limited amount of data; their size must be known at compile time.
 
-* You could use dynamic arrays to build your own data structures like lists, dictionaries, etc.
+* You could use dynamic arrays to build your own data structures like lists, dictionaries, etc. from scratch!
 
 * But, the C++ standard library includes many containers that are similar to what
 you have already seen in Python.
@@ -28,7 +34,7 @@ you have already seen in Python.
 * Vectors are objects, so they have methods associated with them.
 
 * Just like the Python list, a vector can change in size to accommodate the
-addition or removal of items.
+addition or removal of items. They support constant-time append and extraction methods.
 
 * Unlike Python lists, the vector is restricted to containing homogeneous data, i.e. all vector elements
 must be of the same type.
@@ -45,13 +51,15 @@ int main()
 {
   std::vector<int> v;
 
+  // The call to .size() is a call to a library method.
   std::cout << "v.size() = " << v.size() << std::endl;
-
+  // The same is true for .empty()
   if (v.empty())
     std::cout << "v is empty" << std::endl;
   else
     std::cout << "v is not empty" << std::endl;
 
+  // We can append an element in O(1) time.
   v.push_back(42);
 
   std::cout << "v.size() = " << v.size() << std::endl;
@@ -79,7 +87,7 @@ $
 
 ### Printing a vector
 
-C++ does not have a built-in facility to print out a `vector`.
+C++ does not have a built-in facility to print out a `vector`; attempting to naively print out a vector results in an _error_:
 
 `src/vector2.cpp`:
 
@@ -139,6 +147,9 @@ int main()
 }
 ```
 
+When we access an element using the extraction operator `[]`, we can retrieve
+the element in constant time.
+
 Output:
 
 ```
@@ -156,7 +167,7 @@ On C++ containers, like `vector`, the square brakets `[]` are called
 For now, we just need to use them for `vector`s.
 
 Valid `vector` indices for a vector named `v` are in the range
-`[0,v.size())`.  Attempting to access element outside of those bounds leads to undefined behavior.
+`[0,v.size())`.  Attempting to access element outside of those bounds leads to *undefined* behavior.
 
 `src/vector4a.cpp`:
 
@@ -171,6 +182,7 @@ int main()
   v[1] = -7;
   v[2] = 19;
 
+  // -1 is clearly OOB, and so is 3 if we recall that we are 0-indexed.
   std::cout << "v[-1] = " << v[-1] << std::endl;
   std::cout << "v[3] = " << v[3] << std::endl;
 
@@ -178,7 +190,7 @@ int main()
 }
 ```
 
-Output:
+Output (non-deterministic, unreliable, and in general relies on undefined behavior):
 
 ```
 $ g++ -std=c++11 -Wall -Wextra -Wconversion    vector4a.cpp   -o vector4a
@@ -189,7 +201,7 @@ v[3] = 0
 
 Hmm, nothing bad happened yet!  It is hard to track down these bugs.
 
-### `operator[]`
+### Address Sanitizer
 
 Let's explore this a little bit further.  In the file `src/vector4b.cpp` we are
 only going to attempt accessing `v[-1]` and use the `-fsanitize=address`
@@ -208,14 +220,17 @@ $ g++ -std=c++11 -Wall -Wextra -Wconversion -g -fsanitize=address    vector4b.cp
 $ ./vector4b
 =================================================================
 ==7470==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60200000efac at pc 0x40131c bp 0x7ffc8700eb50 sp 0x7ffc8700eb40
-READ of size 4 at 0x60200000efac thread T0
-    #0 0x40131b in main /home/nwh/Dropbox/courses/2015-Q4-cme211/lecture-prep/lecture-19-work/src/vector4b.cpp:11
+READ of size 4 at 0x60200000efac thread T0       <-- First key line!
+    #0 0x40131b in main /home/nwh/Dropbox/courses/2015-Q4-cme211/lecture-prep/lecture-19-work/src/vector4b.cpp:11  <-- Second key line!
     #1 0x7f77d9383fdf in __libc_start_main (/lib64/libc.so.6+0x1ffdf)
     #2 0x401118 (/home/nwh/Dropbox/courses/2015-Q4-cme211/lecture-prep/lecture-19-work/src/vector4b+0x401118)
 ...
 ```
 
-Ok, that told us something.  Now, in the file `src/vector4c.cpp` we are going to
+Notice that address sanitizer is saying we are making an invalid read of size 4
+bytes
+(the size of an integer, what we are storing in the vector) starting on line 11
+of `vector4b.cpp`. Now, in the file `src/vector4c.cpp` we are going to
 attempt accessing `v[3]` with `-fsanitize=address` and see what happens.
 
 Part of `src/vector4c.cpp`
@@ -267,7 +282,7 @@ What happened here:
 ### `at()`
 
 The `at()` method for a vector performs bounds checking.  As a result `at()` is
-slower than `operator[]`.
+slower than `operator[]`, but also safer to use.
 
 `src/vector5.cpp`:
 
@@ -298,11 +313,12 @@ v.at(1) = -7
 libc++abi.dylib: terminating with uncaught exception of type std::out_of_range: vector
 ```
 
-(I am at home writing these notes on my Mac.  You will see `clang++` as the
-compiler.  For the context of this class consider this to be equivalent to `g++`.)
+Note that in some places you will see `clang++` as the
+compiler.  For the context of this class consider this to be equivalent to `g++`.
 
 
 ### Modifying an element
+Basically: this works as you would expect.
 
 `src/vector6.cpp`:
 
@@ -337,6 +353,7 @@ v[2] = 19
 ```
 
 ### Insert
+Costs linear time, and requires use of *iterators*!
 
 `src/vector7.cpp`:
 
@@ -374,9 +391,9 @@ vector7.cpp:11:5: error: no matching member function for call to 'insert'
              ^
 ```
 
-C++ `vector` does not allow insertion at an integer index.
+C++ `vector` does *not allow* insertion at an integer index!
 
-### Iterator
+#### Iterators
 
 We have to us an **iterator** for this.
 
@@ -527,6 +544,7 @@ sum = 127
 ```
 
 ### Copy or reference?
+What happens when we use the assignment operator on a vector? We get a *copy*!
 
 `src/vector10.cpp`:
 
@@ -563,7 +581,7 @@ v2[0] = 42
 v2[1] = 73
 v2[2] = 19
 ```
-Assignment operator `=` creates a deep copy of the vector.
+Assignment operator `=` creates a **deep** copy of the vector.
 
 
 ### Function that returns a vector
@@ -611,7 +629,11 @@ v[2] = -5
 v[3] = 73
 ```
 
+Notice that here we are creating the vector inside the function stack-frame and
+returning it; this wouldn't be safe to do with a static array!
+
 ### Copy or reference?
+When we pass vectors to functions, they get copied.
 
 `src/vector12.cpp`:
 
@@ -656,6 +678,9 @@ v[2] = 19
 ```
 
 ### Pass by reference
+If we want to pass by reference, we can do so using by declaring the input
+argument to be a reference; this is done using the `&` character, but should not
+be confused with obtaining the memory address of an object!
 
 `src/passing.cpp`:
 
@@ -678,6 +703,10 @@ int main()
   return 0;
 }
 ```
+Notice that we declared `increment(int& a)`, i.e. to accept an integer as
+reference; when we call the function, we simply pass an integer as argument!
+We'll learn more about nuanced differences between references and pointers in
+212.
 
 Output:
 
@@ -688,7 +717,10 @@ a = 3
 $ 
 ```
 
-### Pass by reference
+### Pass by reference and `const`
+For functions that don't intend to modify the data, it's more efficient to pass
+by reference but we can also be clear to the compiler (and reader of the
+program) that we aren't mutating the underlying data.
 
 `src/vector13.cpp`:
 
@@ -706,6 +738,7 @@ void increment(std::vector<int>& v)
 
 void print(const std::vector<int>& v) 
 {
+  // Trying to mutate 'v' inside this function would result in a compiler error.
   for (unsigned int n = 0; n < v.size(); n++) {
     std::cout << "v[" << n << "] = " << v[n] << std::endl;
   }
@@ -736,15 +769,16 @@ v[0] = 43
 v[1] = -6
 v[2] = 20
 ```
-Only reference to `std::vector` is passed to functions `increment()`
-and `print()`. If the vector is passed to a function by constant reference
-the function cannot modify the vector.
+
+Only a reference to `std::vector` is passed to functions `increment()`
+and `print()`, so it's not as expensive as copying the entirety of the container. If the vector is passed to a function by constant reference
+the function cannot modify the vector, as in the case for `print()`.
 
 ## Tuple
 
 * A tuple is another sequence object available in C++.
 
-* Tuples have fixed size established at the time of creation.
+* Tuples have fixed size established at the time of creation. The data-types are also fixed at the time of creation, since C++ is statically typed.
 
 * Elements in the tuple can be modified.
 
@@ -777,6 +811,13 @@ int main()
   return 0;
 }
 ```
+
+It may seem unfortunate that we can't use the subscript operator with a tuple,
+but this is because of advanced technical reasons that relate to determining the
+return type and how this must be done at compile time...`get<0>(t)` and
+`get<1>(t)` turn out to be different *functions* defined at compile time. This
+is in contrast to `operator[]` which can return a value of a fixed type at
+run-time.
 
 Output:
 
@@ -824,6 +865,10 @@ int main() {
   return 0;
 }
 ```
+
+We'll talk more about `emplace_back` vs. `push_back` in 212, but for now just
+understand that `emplace_back` constructs the object we're inserting into the
+container on the fly.
 
 Output:
 
