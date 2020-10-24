@@ -11,7 +11,8 @@ void increment(std::vector<int>& v)
 
 void print(std::vector<int> const& v) 
 {
-  v[0] = 12;
+  // Item assignment not supported for a const object!
+  // v[0] = 12;
   for (unsigned int n = 0; n < v.size(); n++) {
     std::cout << "v[" << n << "] = " << v[n] << std::endl;
   }
@@ -29,3 +30,5 @@ int main()
 
   return 0;
 }
+
+
