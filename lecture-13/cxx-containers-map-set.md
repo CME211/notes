@@ -1,7 +1,13 @@
-
+---
+title: "Lecture 13 part 2"
+date: Fall 2020
+geometry: margin=2cm
+output: pdf_document
+---
 ## Container iteration
 
 ### Container iteration example 1
+We can use C++11 for-loop style syntax.
 
 `src/iter1.cpp`:
 
@@ -40,6 +46,7 @@ $ ./src/iter1
 ```
 
 ### Container iteration example 2
+We can also iterate over references to the underlying data.
 
 `src/iter2.cpp`:
 
@@ -82,8 +89,7 @@ $ ./src/iter2
 
 * A C++ map is analogous to a dictionary in Python.
 
-* Need to specify data type for both the key and the value when instance is
-declared.
+* However, since C++ is statitcally typed we need to specify data type for both the key and the value when instance is declared!
 
 ### Our first map
 
@@ -119,6 +125,10 @@ dir[A] = south
 ```
 
 ### Map iteration
+Iterating over a `map` using C++11 syntax results in obtaining a copy
+of a key-value
+pair each iteration. In the second for-loop below, we show how to obtain a
+*reference* to the key-value pair.
 
 `src/map2.cpp`:
 
@@ -170,6 +180,8 @@ d[D] = west
 ```
 
 ### Older style iteration
+It's also possible to use *iterators*, although this is more verbose and more
+old-school in terms of iteration paradigms.
 
 `src/map3.cpp`:
 
@@ -240,17 +252,23 @@ int main()
 }
 ```
 
+What happens when we look up the key that isn't present, is that a new key-value
+pair is stored in our container, where the value chosen is that of a "default".
+Since this map associates characters with strings, and `string`s have a default
+constructor, namely one that creates an empty string, we get that `dir['G']`
+takes on an empty string value.
 Output:
 
 ```
 $ clang++ -std=c++11 -Wall -Wextra -Wconversion src/map4.cpp -o src/map4
 $ ./src/map4
 dir.size() = 4
-dir[5] =
+dir[G] =
 dir.size() = 5
 ```
 
 ### Method `at()` and `map` container
+If we want looking up an unknown key to result in an error, we can use `at`.
 
 `src/map5.cpp`:
 
@@ -289,6 +307,9 @@ map::at:  key not found
 ```
 
 ### Testing for a key
+It's a bit funny, but we use the method `count` to test for existence of a key
+in a dictionary. Note that keys are unique, and so `count` can only return at
+most 1.
 
 `src/map6.cpp`:
 
@@ -311,7 +332,7 @@ int main()
   return 0;
 }
 ```
-Since keys are unique, the output of `count` can be either zero (key not found)
+Again, to emphasize: since keys are unique, the output of `count` can be either zero (key not found)
 or one (key found). Sample output of `src/map6.cpp` is:
 
 ```
@@ -322,6 +343,7 @@ dir.count(G) = 0
 ```
 
 ### Testing for a key
+We can also use iterators! (They're quite handy, as you can see)
 
 `src/map7.cpp`:
 
@@ -338,7 +360,7 @@ int main() {
   dir['D'] = std::string("west");
 
   char key = 'C';
-  auto iter = dir.find(key);
+  auto iter = dir.find(key);  // Returns std::map<char, std::string>::iterator, but shorter to just use auto.
   if (iter == dir.end()) {
     std::cout << "key " << key << " is not present" << std::endl;
   }
@@ -361,6 +383,10 @@ value is south
 ```
 
 ### Key order
+A `map` in C++ is by default an *ordered* collection (there is an unordered
+analogue). The consequence of this is that looking up an element costs
+logarithmic time with respect to the container size, as opposed to a constant
+time lookup afforded to us with an unordered container.
 
 `src/map8.cpp`:
 
@@ -398,6 +424,7 @@ D
 ```
 
 ### Map and tuples
+We can map strings to tuples. Going back to our census name data files:
 
 `src/map9.cpp`:
 
@@ -430,6 +457,8 @@ int main() {
   // Read from the map and print on std output
   // Method std::get<0>() gets 0th element of the tuple
   // The template parameter <0> must be a literal!
+  // The reason is that we must be able to determine at compile time
+  // which getter method to use.
   for(const auto& data : names) {
     std::cout << data.first << " " << std::get<2>(data.second) << std::endl;
   }
@@ -437,6 +466,9 @@ int main() {
   return 0;
 }
 ```
+
+Here again we emphasize that when we use `std::get<i>`, the argument `i` must be
+a literal capable of being determined at compile time.
 
 File `dist.female.first`:
 
@@ -472,6 +504,9 @@ TERRY 8
 
 
 ### Using functions
+We can decompose our functions into prototypes (header-files) and definitions
+(source-code files). Note the header guard that's used to protect us from
+re-declarding the same prototype.
 
 `src/readnames.hpp`:
 
@@ -517,7 +552,7 @@ std::map<std::string,std::tuple<double,double,int>> ReadNames(std::string filena
 }
 ```
 
-`#pragma once`: only include this file once (not standard)
+Alternative to a header guard, you could use `#pragma once`: which means to only include this file once (not standard)
 
 `src/testname.hpp`:
 
@@ -609,6 +644,8 @@ DOROTHY 10
 ```
 
 ### Sets
+This is also an *ordered* collection by default in C++ (which means logarithmic
+time lookups with respect to the input container size).
 
 `src/set.cpp`:
 
@@ -650,25 +687,25 @@ std::set<std::string> ReadNames(std::string filename)
 int main()
 {
   // Create set of female names
-  auto fnames = ReadNames("../dist.female.first");
+  std::set<std::string> fnames = ReadNames("../dist.female.first");
   // Create set of male names
-  auto mnames = ReadNames("../dist.male.first");
+  std::set<std::string> mnames = ReadNames("../dist.male.first");
 
   // Create set of strings 'common' to store the intersection
   std::set<std::string> common; // Default set constructor
 
   // For more algorithms see http://en.cppreference.com/w/cpp/algorithm
-  // Here we use set intersection algorithm:
+  // Here we use set intersection algorithm...
+  // std::inserter(c, i) function template is used to inserts an element
+  // into container c at the iterator position i.
+  // Returns std::insert_iterator
+  // See: http://en.cppreference.com/w/cpp/iterator/inserter
   std::set_intersection(fnames.begin(), 
                         fnames.end(), 
                         mnames.begin(), 
                         mnames.end(),
                         std::inserter(common, common.begin()));
 
-  // std::inserter(c, i) function template is used to inserts an element
-  // into container c at the iterator position i.
-  // Returns std::insert_iterator
-  // See: http://en.cppreference.com/w/cpp/iterator/inserter
 
   std::cout << fnames.size() << " female names" << std::endl;
   std::cout << mnames.size() << " male names"   << std::endl;
@@ -716,7 +753,14 @@ $ ./src/set
 
 * `std::unordered_set` (C++ 2011)
 
+Note that `unordered_map` and `unordered_set` require the key to be hashable but
+in return we get constant time look-ups. On the other hand, the ordered
+analogues require a comparator operator to be defined for the key...more on this
+in 212!
+
 ### Array example
+Separate from a `vector`, there is also an `array` that is basically like a
+static array with methods. It's type and size is fixed at compile time.
 
 `src/array.cpp`:
 
@@ -737,7 +781,7 @@ int main()
   return 0;
 }
 ```
-
+Notice that we've used the `fill` method to initialize our container with ones.
 Output:
 
 ```
@@ -754,11 +798,11 @@ $ ./src/array
 * Ordered data sequence similar to a C++ vector or Python list, but data is not
 stored contiguously.
 
-* The access to individual list elements is maintained by links.
+* The access to individual list elements is maintained by links. Traversing to the `i`th element requires linear time work.
 
 * There is additional storage overhead for the links.
 
-* But this allows for insertion and removal operations in constant time
+* But this allows for insertion and removal operations in constant time, subject to having a pointer to the position/element we wish to insert into (or delete).
 
 ![fig](fig/linked-list.png)
 
@@ -789,6 +833,7 @@ int main()
   auto it = lst.begin();
 
   // Advance list iterator to the third element of the list and erase it.
+  // See: https://en.cppreference.com/w/cpp/iterator/advance
   // (remember 0-based indexing).
   advance(it, 2);
   std::cout << "Erasing element " << *it << " ... \n"; 
@@ -823,9 +868,9 @@ Elements of the list:
 9
 ```
 
+### Recap: difference between (unordered) maps and sets
 
-
-### Maps and sets
+#### Maps and sets
 
 * Python dictionaries and sets are internally implemented by using hashing.
 
@@ -839,7 +884,7 @@ data structure.
 
 * Reference: <http://www.cplusplus.com/reference/map/map/operator[]/>.
 
-### Unordered maps and sets
+#### Unordered maps and sets
 
 * In the C++ 2011 standard the `std::unordered_map` and `set::unordered_set`
 were added.
