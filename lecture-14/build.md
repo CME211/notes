@@ -205,18 +205,18 @@ main:
 	movl	-12(%rbp), %eax
 	movl	%edx, %esi
 	movl	%eax, %edi
-	call	_Z3addii
+	call	_Z3addii         <-- Invoke add operator.
 	movl	%eax, -4(%rbp)
 	movl	-4(%rbp), %eax
 	movl	%eax, %esi
     ...
-	movl	$0, %eax
+	movl	$0, %eax         <-- Return 0 from main function.
 ```
 
 ### Assembly
 
-* This step translates the text representation of the assembly instructions into
-  the binary machine code in a `.o` file
+This step translates the human-readable assembly into
+ binary machine code in a `.o` file.
 
 * `.o` files are called object files
 
@@ -232,39 +232,18 @@ Output:
 
 ```
 $ nm ./src/hello1.o
-0000000000000cac s GCC_except_table2
-0000000000000cec s GCC_except_table3
-0000000000000d9c s GCC_except_table5
-                 U __Unwind_Resume
-                 U __ZNKSt3__16locale9use_facetERNS0_2idE
-                 U __ZNKSt3__18ios_base6getlocEv
-0000000000000c80 S __ZNSt3__111char_traitsIcE11eq_int_typeEii
-0000000000000ca0 S __ZNSt3__111char_traitsIcE3eofEv
-00000000000005d0 S __ZNSt3__111char_traitsIcE6lengthEPKc
-                 U __ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__initEmc
+...  <-- Output omitted
+__ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__initEmc
                  U __ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev
                  U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE3putEc
                  U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE5flushEv
-                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE6sentryC1ERS3_
-                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE6sentryD1Ev
-00000000000005f0 S __ZNSt3__116__pad_and_outputIcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_
-00000000000001a0 S __ZNSt3__124__put_character_sequenceIcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m
-                 U __ZNSt3__14coutE
-00000000000000a0 S __ZNSt3__14endlIcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_
-                 U __ZNSt3__15ctypeIcE2idE
-                 U __ZNSt3__16localeD1Ev
-                 U __ZNSt3__18ios_base33__set_badbit_and_consider_rethrowEv
-                 U __ZNSt3__18ios_base5clearEj
-0000000000000050 S __ZNSt3__1lsINS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_PKc
-                 U __ZSt9terminatev
-0000000000000c70 S ___clang_call_terminate
-                 U ___cxa_begin_catch
-                 U ___cxa_end_catch
-                 U ___gxx_personality_v0
+...  <-- Output omitted
 0000000000000000 T _main
                  U _memset
                  U _strlen
 ```
+
+Here is some [documentation](https://www.mkssoftware.com/docs/man1/nm.1.asp). The notable aspects are that there is a symbol associated with each subroutine. E.g. the `T _main` indicates that `main()` is a global text symbol, whereas `U _memset` indicates that this function call currently contains an unresolved reference (to be resolved by the linker in the subsequent step).
 
 ### Linking
 
@@ -327,33 +306,11 @@ Inspect the files:
 Output:
 
 ```
-$ ls src
-bar.cpp
-bar.o
-ex1
-ex2
-ex3
-ex4
-foo.cpp
-foo.o
-foobar.hpp
-hello1
-hello1.cpp
-hello1.i
-hello1.o
-hello1.s
-hw6
-hw6.cpp
-hw6.hpp
-main
-main.cpp
-main.o
-stanford.jpg
-test.jpg
+$ ls src/foo* src/bar* src/foobar* src/main*
+src/bar.cpp  src/foobar.hpp  src/foobar.hpp  src/foo.cpp src/main.cpp
 ```
 
 Compile and assemble source files, but don't link:
-
 Output:
 
 ```
@@ -363,12 +320,11 @@ $ g++ -c src/main.cpp -o src/main.o
 ```
 
 Let's inspect the output:
-
 Output:
 
 ```
 $ ls src/*.o
-ls: src/*.o: No such file or directory
+src/bar.o  src/foo.o  src/main.o
 ```
 
 What symbols are present in the object files?
@@ -377,16 +333,7 @@ Output:
 
 ```
 $ nm src/foo.o
-0000000000000d2c s GCC_except_table2
-0000000000000d6c s GCC_except_table3
-0000000000000e1c s GCC_except_table5
-                 U __Unwind_Resume
-0000000000000000 T __Z3foov
-                 U __ZNKSt3__16locale9use_facetERNS0_2idE
-                 U __ZNKSt3__18ios_base6getlocEv
-0000000000000d00 S __ZNSt3__111char_traitsIcE11eq_int_typeEii
-0000000000000d20 S __ZNSt3__111char_traitsIcE3eofEv
-0000000000000610 S __ZNSt3__111char_traitsIcE6lengthEPKc
+...  <-- Output omitted
                  U __ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__initEmc
                  U __ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev
                  U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE3putEc
@@ -397,49 +344,14 @@ $ nm src/foo.o
 00000000000001a0 S __ZNSt3__124__put_character_sequenceIcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m
                  U __ZNSt3__14coutE
 0000000000000090 S __ZNSt3__14endlIcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_
-                 U __ZNSt3__15ctypeIcE2idE
-                 U __ZNSt3__16localeD1Ev
-                 U __ZNSt3__18ios_base33__set_badbit_and_consider_rethrowEv
-                 U __ZNSt3__18ios_base5clearEj
-0000000000000040 S __ZNSt3__1lsINS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_PKc
-                 U __ZSt9terminatev
-0000000000000cf0 S ___clang_call_terminate
-                 U ___cxa_begin_catch
-                 U ___cxa_end_catch
-                 U ___gxx_personality_v0
+...  <-- Output omitted.
                  U _memset
                  U _strlen
 $ nm src/bar.o
-0000000000000d2c s GCC_except_table2
-0000000000000d6c s GCC_except_table3
-0000000000000e1c s GCC_except_table5
-                 U __Unwind_Resume
-0000000000000000 T __Z3barv
-                 U __ZNKSt3__16locale9use_facetERNS0_2idE
-                 U __ZNKSt3__18ios_base6getlocEv
-0000000000000d00 S __ZNSt3__111char_traitsIcE11eq_int_typeEii
-0000000000000d20 S __ZNSt3__111char_traitsIcE3eofEv
-0000000000000610 S __ZNSt3__111char_traitsIcE6lengthEPKc
-                 U __ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEE6__initEmc
-                 U __ZNSt3__112basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEED1Ev
+...  <-- Output omitted.
                  U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE3putEc
                  U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE5flushEv
-                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE6sentryC1ERS3_
-                 U __ZNSt3__113basic_ostreamIcNS_11char_traitsIcEEE6sentryD1Ev
-0000000000000630 S __ZNSt3__116__pad_and_outputIcNS_11char_traitsIcEEEENS_19ostreambuf_iteratorIT_T0_EES6_PKS4_S8_S8_RNS_8ios_baseES4_
-00000000000001a0 S __ZNSt3__124__put_character_sequenceIcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_m
-                 U __ZNSt3__14coutE
-0000000000000090 S __ZNSt3__14endlIcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_
-                 U __ZNSt3__15ctypeIcE2idE
-                 U __ZNSt3__16localeD1Ev
-                 U __ZNSt3__18ios_base33__set_badbit_and_consider_rethrowEv
-                 U __ZNSt3__18ios_base5clearEj
-0000000000000040 S __ZNSt3__1lsINS_11char_traitsIcEEEERNS_13basic_ostreamIcT_EES6_PKc
-                 U __ZSt9terminatev
-0000000000000cf0 S ___clang_call_terminate
-                 U ___cxa_begin_catch
-                 U ___cxa_end_catch
-                 U ___gxx_personality_v0
+...  <-- Output omitted.
                  U _memset
                  U _strlen
 $ nm src/main.o
@@ -448,6 +360,8 @@ $ nm src/main.o
 0000000000000000 T _main
 ```
 
+Notice that in the last step we still have undefined references to `foo` and
+`bar`.
 What happens if we try to link `main.o` into an executable with out pointing to
 the other object files?
 
@@ -464,8 +378,7 @@ ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
 ```
 
-Ahhh, linker errors!  Let's do it right:
-
+Ahhh, linker errors!  Let's do it right, by giving all of the information that the main program needs in order to execute on the instructions.
 Output:
 
 ```
@@ -540,33 +453,7 @@ $ g++ -std=c++11 -Wall -Wextra -Wconversion src/hw6.cpp -o src/hw6
 Undefined symbols for architecture x86_64:
   "_jpeg_CreateCompress", referenced from:
       WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
-  "_jpeg_CreateDecompress", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
-  "_jpeg_destroy_decompress", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
-  "_jpeg_finish_compress", referenced from:
-      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
-  "_jpeg_finish_decompress", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
-  "_jpeg_read_header", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
-  "_jpeg_read_scanlines", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
-  "_jpeg_set_defaults", referenced from:
-      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
-  "_jpeg_set_quality", referenced from:
-      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
-  "_jpeg_start_compress", referenced from:
-      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
-  "_jpeg_start_decompress", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
-  "_jpeg_std_error", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
-      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
-  "_jpeg_stdio_dest", referenced from:
-      WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
-  "_jpeg_stdio_src", referenced from:
-      ReadGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
+...  <-- Output omitted.
   "_jpeg_write_scanlines", referenced from:
       WriteGrayscaleJPEG(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >, boost::multi_array<unsigned char, 2ul, std::__1::allocator<unsigned char> >&) in hw6-07005c.o
   "_main", referenced from:
@@ -586,12 +473,9 @@ Output:
 ```
 $ locate jpeglib.h
 /usr/local/Cellar/jpeg/8d/include/jpeglib.h
-/usr/local/include/jpeglib.h
+/usr/local/include/jpeglib.h          <-- We're going to link to this file.
 ```
-
-Let's find `libjpeg`:
-
-Output:
+Let's find `libjpeg`, it's the library that actually contains the `jpeglib.h` header file.
 
 ```
 $ locate libjpeg
@@ -602,7 +486,7 @@ $ locate libjpeg
 /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Aliases/libjpeg
 /usr/local/Homebrew/Library/Taps/homebrew/homebrew-core/Aliases/libjpeg-turbo
 /usr/local/lib/libjpeg.8.dylib
-/usr/local/lib/libjpeg.a
+/usr/local/lib/libjpeg.a              <-- We're going to link to this file.
 /usr/local/lib/libjpeg.dylib
 /usr/local/lib/python3.5/site-packages/PIL/.dylibs/libjpeg.9.dylib
 ```
@@ -614,7 +498,8 @@ Now let's compile:
 Output:
 
 ```
-$ g++ -std=c++11 -Wall -Wextra -Wconversion src/hw6.cpp -o src/hw6 -DDEBUG -I/usr/local/include -L/usr/local/lib -ljpeg
+$ g++ -std=c++11 -Wall -Wextra -Wconversion src/hw6.cpp -o src/hw6 -DDEBUG \ 
+  -I/usr/local/include -L/usr/local/lib -ljpeg
 $ ./src/hw6
 ```
 
@@ -702,7 +587,7 @@ target: dependencies
 
 ### Let's run the example
 
-Let's run make!
+Let's run make! From `src/ex1/`:
 
 ```sh
 $ ls
@@ -719,7 +604,7 @@ $
 ### File changes
 
 Make looks at time stamps on files to know when changes have been made and will
-recompile accordingly (from `src/ex1` directory):
+recompile accordingly:
 
 ```sh
 $ make
@@ -742,11 +627,12 @@ make: 'main' is up to date.
 # this is a makefile variable, note := for direct assignment
 CXX := g++
 
-# this is a makefile comment
+# This line and the next two are makefile comments.
 #CXXFLAGS := -Wall -Wextra -Wconversion
-#CXXFLAGS := -Wall -Wextra -Wconversion -g Commented out
+#CXXFLAGS := -Wall -Wextra -Wconversion -g
 CXXFLAGS := -Wall -Wextra -Wconversion -fsanitize=address
 
+# We use $(VAR) to enable parameter expansion.
 main: main.cpp sum.cpp sum.hpp
 	$(CXX) $(CXXFLAGS) -o main main.cpp sum.cpp
 
@@ -756,6 +642,7 @@ clean:
 	$(RM) main
 ```
 
+The last target is a `PHONY` one because it doesn't produce any files.
 Output (from `src/ex2` directory):
 
 ```sh
@@ -887,338 +774,4 @@ hw6  hw6.cpp  hw6.hpp  hw6.o  makefile	stanford.jpg  test.jpg
   recommended. You should consider using configuration tools
   such as [CMake](https://cmake.org/).
 
-
-## Debugging with command line debuggers
-
-Command line debuggers such as GDB and LLDB come without graphical
-bells and whistles, but can be as effective when you get some
-experience with them. Once you learn how to use a console-based
-debugger, it will be fairly straightforward to learn almost any
-graphics-based one.
-
-Let's use this simple C++ code in file [student.cpp](src/student.cpp)
-to introduce LLDB basics:
-```c++
-#include <string>
-
-
-// Definition of the class Student
-class Student
-{
-public:
-  // Constructor
-  Student(std::string name, int studentID)
-  {
-    name_      = name; // set break point here
-    studentID_ = studentID;
-  }
-
-  // Destructor
-  ~Student()
-  {
-    studentID_ = 0;
-  }
-
-private:
-  std::string name_; // Student's name
-  int studentID_;    // Student's ID number
-};
-
-
-int main()
-{
-  // The instance of Student on the stack.
-  Student icmeStudent("Terry Gilliam", 123444);
-
-  // The instance of Student on the heap.
-  Student* pGeographyStudent = new Student("Terry Jones", 123555);
-
-  delete pGeographyStudent;
-    
-  return 0;
-}
-```
-
-### Compiling code for debugging
-
-In order to enable debugging, we need to compile the code with `-g` flag to
-tell compiler to enable debugging symbols in the executable. It is also
-highly desirable to turn off optimization with flag `-O0`, so that the debugger
-can keep track of what line in the source code is being executed. We can
-build our code by
-```
-clang++ -g -O0 -o student student.cpp
-```
-This code produces no output, so to see what is going on inside we need
-to use debugger.
-
-### Starting debugger
-
-To start debugger simply enter `lldb` followed by the executable name
-on the command line:
-```
-$ lldb student
-(lldb) target create "student"
-Current executable set to 'student' (x86_64).
-(lldb)
-```
-To run the executable, enter `run` at the debugger command prompt.
-```
-(lldb) run
-Process 27818 launched: '/Users/peles/lectures/classes/debug' (x86_64)
-Process 27818 exited with status = 0 (0x00000000) 
-(lldb)
-```
-This tells us that the code ran without any errors. By the way, most difficult
-bugs to find are those when your code produces believable results and
-returns no errors. These are situations when you need a debugger the most.
-
-### Setting break points
-
-Running the code in a debugger by itself does not give you much information.
-You typically want to pause at certain places in the code and review what
-is going on there. You can set up break points (i.e. places for quiet reflection)
-in your code by using debugger `breakpoint` command. We want to set a breakpoint
-inside the constructor of the Student class at line 11:
-```
-(lldb) breakpoint set --file student.cpp --line 11
-Breakpoint 1: where = student`Student::Student(std::__1::basic_string<char,
-std::__1::char_traits<char>, std::__1::allocator<char> >, int) + 158 at
-student.cpp:11, address = 0x0000000100000d0e
-(lldb) 
-```
-Note that GDB command for setting the break point is different: `break student.cpp:11`.
-Now, when we run the code, we stop at the break points we set. The first is the
-constructor for `icmeStudent` instance of class `Student`.
-```
-(lldb) run
-Process 27952 launched: '/Users/peles/lectures/classes/debug' (x86_64)
-Process 27952 stopped
-* thread #1: tid = 0x29cb6f, 0x0000000100000cfe student`Student::Student(this=
-0x00007fff5fbffa58, name="Terry Gilliam", studentID=123444) + 158 at student.cpp:11,
-queue = 'com.apple.main-thread',
-stop reason = breakpoint 1.1
-    frame #0: 0x0000000100000cfe student`Student::Student(this=0x00007fff5fbffa58,
-    name="Terry Gilliam", studentID=123444) + 158 at student.cpp:11
-   8   	  // Constructor
-   9   	  Student(std::string name, int studentID)
-   10  	  {
--> 11  	    name_      = name; // set break point here
-   12  	    studentID_ = studentID;
-   13  	  }
-   14  	
-(lldb)
-```
-Now that we stopped the code execution at the place we wanted,
-we would like to inspect variable values there. 
-You can view the variables in the curret scope by typing
-```
-(lldb) frame variable
-(Student *) this = 0x00007fff5fbffa58
-(std::__1::string) name = "Terry Gilliam"
-(int) studentID = 123444
-(lldb)
-```
-In `gdb` there are separate commands for local arguments in the frame
-`info args` and local variables in the frame `info locals`.
-To continue execution of the code simply type `continue` or `c` at the
-debugger command prompt. That gets us to the next break point inside
-the constructor for the Georgraphy student instance of the class `Student`
-(who happens to be Terry Jones).
-```
-(lldb) continue
-Process 27952 resuming
-Process 27952 stopped
-* thread #1: tid = 0x29cb6f, 0x0000000100000cfe student`Student::Student(
-this=0x0000000100104b40, name="Terry Jones", studentID=123555) + 158
-at student.cpp:11, queue = 'com.apple.main-thread', stop reason =
-breakpoint 1.1
-    frame #0: 0x0000000100000cfe student`Student::Student(
-    this=0x0000000100104b40, name="Terry Jones", studentID=123555)
-    + 158 at student.cpp:11
-   8   	  // Constructor
-   9   	  Student(std::string name, int studentID)
-   10  	  {
--> 11  	    name_      = name; // set break point here
-   12  	    studentID_ = studentID;
-   13  	  }
-   14  	
-(lldb) 
-```
-We can take a look at the varibales again:
-```
-(lldb) frame variable name
-(std::__1::string) name = "Terry Jones"
-(lldb) frame variable name_
-(std::__1::string) name_ = ""
-(lldb)
-```
-At this point in the code execution,
-the constructor argument `name` is set to `Terry Jones`,
-while `Student` member variable `name_` has been initialized
-to an empty string, but it has not yet been assigned the value
-passed to the constructor.
-
-### Navigating through the code
-
-We saw that command `continue` resumes the code execution
-and gets us to the next break point. Command `next` will execute
-the current and stop at the next line of the code. 
-In this situation, the command `step` will do the same.
-```
-(lldb) next
-   ...
-   (some cryptic stuff)
-   ...
-   9   	  Student(std::string name, int studentID)
-   10  	  {
-   11  	    name_      = name; // set break point here
--> 12  	    studentID_ = studentID;
-   13  	  }
-   14  	
-   15  	  // Destructor
-(lldb) frame variable name_
-(std::__1::string) name_ = "Terry Jones"
-(lldb) step
-   ...
-   (some cryptic stuff)
-   ...
-   9   	  Student(std::string name, int studentID)
-   10  	  {
-   11  	    name_      = name; // set break point here
-   12  	    studentID_ = studentID;
--> 13  	  }
-   14  	
-   15  	  // Destructor
-(lldb)
-```
-The difference between commands `next` and `step` is if the next line
-of the code is a function the command `next` will call the function and
-stop at the next line of the code.
-```
-(lldb) next
-   (...)
-   32  	  // The instance of Student on the heap.
-   33  	  Student* pGeographyStudent = new Student("Terry Jones", 123555);
-   34  	
--> 35  	  delete pGeographyStudent;
-   36  	    
-   37  	  return 0;
-   38  	}
-(lldb) next
-   (...)
-   34  	
-   35  	  delete pGeographyStudent;
-   36  	    
--> 37  	  return 0;
-   38  	}
-(lldb) 
-```
-The command `step`, on the other hand, will step into
-the function. You can use command `finish` to get out of
-the function and back to the parent scope.
-```
-(lldb) next
-   (...)
-   32  	  // The instance of Student on the heap.
-   33  	  Student* pGeographyStudent = new Student("Terry Jones", 123555);
-   34  	
--> 35  	  delete pGeographyStudent;
-   36  	    
-   37  	  return 0;
-   38  	}
-(lldb) step
-   (...)
-   14  	
-   15  	  // Destructor
-   16  	  ~Student()
--> 17  	  {
-   18  	    studentID_ = 0;
-   19  	  }
-   20  	
-(lldb) finish
-   (...)
-   32  	  // The instance of Student on the heap.
-   33  	  Student* pGeographyStudent = new Student("Terry Jones", 123555);
-   34  	
--> 35  	  delete pGeographyStudent;
-   36  	    
-   37  	  return 0;
-   38  	}
-(lldb) step
-   (...)
-   34  	
-   35  	  delete pGeographyStudent;
-   36  	    
--> 37  	  return 0;
-   38  	}
-(lldb) 
-```
-Let us quickly summarize execution commands:
-
-- `run` -- launches the code execution.
-- `continue` -- continues code execution from the current position in the code.
-- `next` -- executes the current line of the code and moves to the next line.
-- `step` -- executes the current line of the code and steps into the function
-if the current line is a function call.
-- `finish` -- leaves current scope and moves to the next line in the parent scope.
-
-
-### Backtrace
-
-This is another quite useful debugging command. Sometimes,
-you will mess up your pointers and your code will crash
-with segmentation fault. One such example is given in
-`student2.cpp` file. This code crashes with a segmentation
-fault:
-```sh
-$ ./student2
-Segmentation fault: 11
-```
-We recompile the code with proper flags
-and launch it in the debugger.
-```
-(lldb) run
-Process 28588 launched: '/Users/peles/cme212/debugging/student2' (x86_64)
-Process 28588 stopped
-   (... lots of stuff ...)
-   1661	
-   1662	    _LIBCPP_INLINE_VISIBILITY
-   1663	    bool __is_long() const _NOEXCEPT
--> 1664	        {return bool(__r_.first().__s.__size_ & __short_mask);}
-   1665	
-   1666	#if _LIBCPP_DEBUG_LEVEL >= 2
-   1667	
-(lldb)
-```
-This is not very helpful, so we use `backtrace`.
-```
-(lldb) thread backtrace
-   ( ... even more stuff ... )
-    frame #2: 0x0000000100001c07 student`std::__1::basic_string<char,
-    std::__1::char_traits<char>, std::__1::allocator<char> > std::__1::operator
-    +<char, std::__1::char_traits<char>, std::__1::allocator<char> >
-    (__lhs="", __rhs=" ") + 359 at string:3978
-    frame #3: 0x0000000100001462 student2`Name::getName(this=0x0000000000000000)
-    const + 50 at student2.cpp:25
-    frame #4: 0x000000010000117f student2`Student::getName(this=0x0000000100104b40)
-    const + 31 at student2.cpp:62
-    frame #5: 0x0000000100000ce8 student2`main + 456 at student2.cpp:77
-    frame #6: 0x00007fff970965c9 libdyld.dylib`start + 1
-(lldb)
-```
-We get even more mess than before, but here we can recognize some things.
-Reading the backtrace output from the bottom up, we first find that the
-problem started in function `main` on line 77 in file `student2.cpp`.
-We then find that the issue was in the call to `Student::getName` on
-line 62 and `Name::getName` on line 25. Since we now narrowed down the problem
-to accessing the student's name, we have much better chances of finding the actual
-bug on line 45, where we accidentally set pointer to `Name` class to `nullptr`
-value.
-
-## Reading
-
-* [Glossary of LLDB and GDB commands](https://lldb.llvm.org/lldb-gdb.html)
-* [LLDB Tutorial](https://lldb.llvm.org/tutorial.html)
-* [Debugging with GDB](https://www.gnu.org/software/gdb/)
 
