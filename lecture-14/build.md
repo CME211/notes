@@ -1,5 +1,10 @@
+---
+title: "Lecture 14"
+date: Fall 2020
+geometry: margin=2cm
+output: pdf_document
+---
 # CME 211: Lecture 14
-
 
 Topics:
 
@@ -9,8 +14,7 @@ Topics:
 
 ## Compilation
 
-* Although you can go from source code to an executable in one command, the
-  process is actually made up of 4 steps
+Although you can go from source code to an executable in one command, the process is actually made up of 4 steps
 
   * Preprocessing
   
@@ -20,11 +24,11 @@ Topics:
   
   * Linking
 
-* `g++` and `clang++` (and `gcc` or `clang` for C code) are driver programs that
-  invoke the appropriate tools to perform these steps
-
-* This is a high level overview.  The compilation process also includes
-  optimization phases during compilation and linking.
+`g++` (and `gcc` for C code) are driver programs that
+  invoke the appropriate tools to perform these steps. 
+  
+  This is a high level overview.  The compilation process also includes
+  optimization phases during compilation and linking, and we'll have a lecture   on this in CME212.
 
 ### Behind the scenes
 
@@ -84,14 +88,14 @@ Hello, CME 211!
 
 ### Preprocessing
 
-* The preprocessor handles the lines that start with `#`
+The preprocessor handles the lines that start with `#`:
 
   * `#include`
   * `#define`
   * `#if`
   * etc.
 
-* You can invoke the preprocessor with the `cpp` command
+You can invoke the preprocessor with the `cpp` command.
 
 ### Preprocessed file
 
@@ -101,51 +105,112 @@ From `src/hello1.i`:
 # 1 "hello1.cpp"
 # 1 "<command-line>"
 # 1 "/usr/include/stdc-predef.h" 1 3 4
-# 30 "/usr/include/stdc-predef.h" 3 4
-# 1 "/usr/include/x86_64-linux-gnu/bits/predefs.h" 1 3 4
 # 31 "/usr/include/stdc-predef.h" 2 3 4
-# 1 "<command-line>" 2
-# 1 "hello1.cpp"
-# 1 "/usr/include/c++/4.8/iostream" 1 3
-# 36 "/usr/include/c++/4.8/iostream" 3
+// ... a bunch of ommitted lines
+namespace std {
+  // We'll learn what the following lines mean in 212.
+  typedef long unsigned int size_t;
+  typedef long int ptrdiff_t;
 
-// approximately 17,500 lines omitted!
+  typedef decltype(nullptr) nullptr_t;
+}
 
-int main()
-{
-std::cout << "Hello" << std::endl;
-return 0;
+// approximately 17,500 more lines omitted!
+
+int main() {
+  std::cout << "Hello" << std::endl;
+  return 0;
 }
 ```
 
-### Compilation
-
-* Compilation is the process of translating source code to assembly commands
-
-* The assembly commands are still human readable text (if the human knows assembly)
-
-From `src/hello.s`:
+If you're curious about what the first few lines beginning with # signs
+represent, see the
+documentation:
+[https://gcc.gnu.org/onlinedocs/gcc-4.8.5/cpp/Preprocessor-Output.html](https://gcc.gnu.org/onlinedocs/gcc-4.8.5/cpp/Preprocessor-Output.html). "Source file name and line number information is conveyed by lines of the form
 
 ```
-main:
-.LFB1020:
+# linenum filename flags
+```
+These are called linemarkers...They mean that the following line originated in file filename at line `linenum`...
+After the file name comes zero or more flags, which are ‘1’, ‘2’, ‘3’, or ‘4’. If there are multiple flags, spaces separate them. Here is what the flags mean..."
+
+### Compilation
+
+* Compilation is the process of translating source code (i.e. the C++ code  you wrote) into assembly.
+
+* The assembly commands are still human readable text (if the human knows assembly)!
+
+Note that we could look at `src/hello.s`, but because we are using a library `iostream` the assembly commands become a bit harder to interpret (you can look at them on your own if you wish). Instead we'll turn to a simple addition function file: `src/add.cpp`.
+
+```
+#include <iostream>
+
+int add(int a, int b) {
+  return a + b;
+}
+
+int main(int argc, char* argv[]) {
+  int a, b;
+  a = atoi(argv[1]);
+  b = atoi(argv[2]);
+  int c = add(a, b);
+  std::cout << c << std::endl;
+  return 0;
+}
+```
+
+We can run compilation up through assembly by invoking `g++ -S -o src/add.s
+src/add.cpp`, and we can inspect a few key snippets. Let's first look at the
+addition procedure, i.e. our `add` function:
+
+```
+_Z3addii:
+.LFB1493:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	movl	$.LC0, %esi
-	movl	$_ZSt4cout, %edi
-	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
-	movl	$_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, %esi
-	movq	%rax, %rdi
-	call	_ZNSolsEPFRSoS_E
-	movl	$0, %eax
+	movl	%edi, -4(%rbp)
+	movl	%esi, -8(%rbp)
+	movl	-4(%rbp), %edx
+	movl	-8(%rbp), %eax
+	addl	%edx, %eax
 	popq	%rbp
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
+```
+
+Next let's see how our function gets invoked; we'll skip most of the output but
+print a few key lines:
+
+```
+main:
+.LFB1494:
+	.cfi_startproc
+	pushq	%rbp
+    ...
+	movq	-32(%rbp), %rax  <-- Here we read the first argument from command line.
+	addq	$8, %rax         <-- We have an offset from our char* array.
+	movq	(%rax), %rax
+	movq	%rax, %rdi
+	call	atoi@PLT
+	movl	%eax, -12(%rbp)
+	movq	-32(%rbp), %rax  <-- Here we read the second argument from command line.
+	addq	$16, %rax        <-- Note the different offset.
+	movq	(%rax), %rax
+	movq	%rax, %rdi
+	call	atoi@PLT
+	movl	%eax, -8(%rbp)   <-- Here we set up our call to add.
+	movl	-8(%rbp), %edx
+	movl	-12(%rbp), %eax
+	movl	%edx, %esi
+	movl	%eax, %edi
+	call	_Z3addii
+	movl	%eax, -4(%rbp)
+	movl	-4(%rbp), %eax
+	movl	%eax, %esi
+    ...
+	movl	$0, %eax
 ```
 
 ### Assembly
