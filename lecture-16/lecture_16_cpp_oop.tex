@@ -1,14 +1,13 @@
 \documentclass[12pt,letterpaper,twoside]{article}
-\usepackage{cme211}
+\usepackage{../cme211}
 \usepackage{algorithm2e}
 
 \def\D{\mathrm{d}}
 \usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
-\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
 
 \begin{document}
 \title{Lecture 16: C++ OOP\vspace{-5ex}}
-\date{November 27th, 2018}
+\date{Fall 2020}
 \maketitle
 
 {\footnotesize
@@ -519,10 +518,11 @@ can be uniquely found given a well-written constructor call.
 
 \paragraph{Example: Default Constructor}
 Here, we define a non-default constructor.
-\begin{cpp} class user {
+\begin{cpp}
+class user {
   int id;
  public:
-  user() { this->id = 43; }   // This is a default-Constructor.
+  user() { this->id = 42; }   // This is a default-Constructor.
   int getId(void) { return id; }
 };
 \end{cpp}
