@@ -1,15 +1,13 @@
 \documentclass[12pt,letterpaper,twoside]{article}
 
-\usepackage{cme211}
+\usepackage{../cme211}
 \usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
-\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
 
 \usepackage{listings}  % Merged from http://tihlde.org/~eivindw/latex-listings-for-scala/ and  % http://lampsvn.epfl.ch/trac/scala/export/26099/scala-tool-support/trunk/src/latex/scaladoc.sty % "define" Scala %Keyword list taken from the scaladoc definition. \lstdefinelanguage{Scala}{   morekeywords={%           abstract,case,catch,class,def,do,else,extends,%           false,final,finally,for,forSome,if,implicit,import,lazy,%           match,new,null,object,override,package,private,protected,%           return,sealed,super,this,throw,trait,true,try,type,%           val,var,while,with,yield},   otherkeywords={=>,<-,<\%,<:,>:,\#,@},   sensitive=true,   morecomment=[l]{//},   morecomment=[n]{/*}{*/},   morestring=[b]",   morestring=[b]',   morestring=[b]""" }[keywords,comments,strings]  % activate the language and predefine settings \lstset{language=Scala}
 
 \begin{document}
 
 \title{Lecture 18: Scala\vspace{-5ex}}
-\date{December 4th, 2018}
 \maketitle
 
 {\footnotesize
@@ -439,7 +437,7 @@ of smaller arity; e.g. \texttt{curriedSum(5)\_}.
 We can use currying to define our own (arbitrary) control structures. Consider defining
 a functional which repeats an operation twice and returns the result.
 \begin{lstlisting}[language=Scala]
-def twice(op: Double >= Double, x: Double) = op(op(x))
+def twice(op: Double => Double, x: Double) = op(op(x))
 twice(_ + 1, 5)  // Returns Double = 7.0 
 \end{lstlisting}
 Here, the type of \texttt{op} is given by \texttt{Double => Double}, indicating that
