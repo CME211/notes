@@ -242,6 +242,9 @@ coordinate accommodations. The OAE is located at 563 Salvatierra Walk.
 
 (Phone: 723-1066, URL: <http://studentaffairs.stanford.edu/oae>).
 
+# Saving Code
+Note that at the end of each year, we must purge student repositories from the Github virtual classroom we use and to that end, if you wish to retain a copy of your codes you should make a **private** backup repository (outside of the Github 212 classroom, and within your own personal set of repositories) at the end of the quarter. Note that the repo must be private else it will be a violation of the honor code.
+
 
 
 
