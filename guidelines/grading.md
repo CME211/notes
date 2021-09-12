@@ -18,12 +18,21 @@ In each category, overall feedback will be summarized with:
 * `--`: multiple key components impeded by fundamental correctness errors, *each of which* requires *multiple* modifications to be rectified.
 
 Students who do not submit their assignment at all will earn an entirely separate 
-category of points, called "0". At the end of the quarter, 
-we will map categories to scalar values, e.g.
+category of points, called "0", which in fact maps to zero. At the end of the quarter, we will map remaining categories to scalar values, e.g.
 
 `{"++" : 1.05, "+" : 0.95", "ok" : 0.85, "-" : 0.75, "--" : 0.6}`.
 
 E.g. your feedback from an assignment might be something like, `"Functionality" : "+", "code-quality" : "ok", "documentation" : "-"}` then if you were really eager to squash this multidimensional, rich feedback into a single scalar value you could compute `0.65 * 0.95 + 0.25 * 0.85 + 0.10 * 0.75 = 0.905`.
+
+### Why do we use a coarser grading schema?
+By using a more coarsely grained schema, we encourage students to focus on
+salient learning goals rather than spending time justifying each point earned.
+Our top-priority is to channel feedback from the experienced teaching staff
+through to students in a way that can maximize the learning experience;
+we've found through experience that this facilitates a more pedagogical
+experience.
+
+Disputes about homework grading must be submitted to the course staff within 1 week of receiving your grade. For more information about the assignment grading process, please see our page on how assignments are graded.
 
 ## Functionality
 
