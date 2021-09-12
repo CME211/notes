@@ -166,6 +166,9 @@ by an amount subject to the discretion of the staff! E.g. with one *additional* 
 Note that *failure to submit* a single assignment corresponds to 
 *at least* a full final letter grade deduction, simply by virtue of the fact that there are six full graded assignments each worth 10% of your final letter grade.
 
+### Re-grade requests
+Each student is granted 3 non-valid regrade requests. Unused regrade requests will be translated to a small amount of bonus points at the end of the quarter. A regrade request is only counted as used if the points were not awarded to the student. Regrade requests are made by submitting a GitHub issue in the homework submission repository and tagging or assigning the TA who graded the homework (not to be confused with the TA who pushed the homework feedback); you can find the TA who graded your feedback at the bottom of your homework feedback file.
+
 ## Final Project
 We allow students to showcase what
 they've learned cumulatively throughout the course via a final project, which will use a little bit of Python but will mostly be done in C++; the instructions for the final project will be given to you, i.e. you will not be free to choose your own final project. More details will be provided later in the
@@ -244,6 +247,9 @@ should contact the OAE as soon as possible since timely notice is needed to
 coordinate accommodations. The OAE is located at 563 Salvatierra Walk.
 
 (Phone: 723-1066, URL: <http://studentaffairs.stanford.edu/oae>).
+
+## What do I do if I have an Emergency that requires an Accommodation?
+If you have an emergency that requires both medical attention and a course accommodation, please get in touch with the Office of Accessible Education as soon as possible to request a formal accommodation. If there is an emergency within your family that requires your attention and a course accommodation, please get in touch with the Graduate Life Office as soon as possible to establish documentation. While pursuing these steps, please also get in touch with me (Andreas) as soon as possible; I aim to be compassionate and wish to work with you to facilitate a healthy learning experience. Although not all situations can be accommodated, many students have had success using these avenues in the past.
 
 # Saving Code(s) from the Course
 Note that at the end of each year, we must purge student repositories from the Github virtual classroom we use and to that end, if you wish to retain a copy of your codes you should make a **private** backup repository (outside of the Github 211 classroom, and within your own personal set of repositories) at the end of the quarter. Note that the repo must be private else it will be a violation of the honor code.
