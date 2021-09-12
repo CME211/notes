@@ -1,4 +1,4 @@
-# CME 211 Syllabus (Fall 2020)
+# CME 211 Syllabus (Fall 2021)
 
 _(cross listed as Earth 211)_
 
@@ -67,9 +67,7 @@ We will be using Canvas to send announcements and as a discussion board for the
 homework projects. Please use this if you have questions regarding course
 material.
 
-Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/123262>
-
-We're also using Piazza this year. If you'd like to, sign up at: https://piazza.com/class/kf5txwmjbc676e
+Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/142634>
 
 All other correspondence should be sent to <cme211-staff@lists.stanford.edu>.
 
@@ -82,25 +80,26 @@ Instructor:
   - [Andreas Santucci](https://asantucci.github.io/) (santucci at stanford)
 
 Teaching assistants:
-  - Carolyn Kao (chkao831 at stanford)
-  - Guillermo Bescos (gbescos at stanford) 
-  - Maoguo Shi (smgyl at stanford)
-  - Tom Morvan (tommrvn at stanford)
+  - Aasavari Kakne (adkakne at stanford)
+  - Frederic Ladouceur (ladouceu at stanford)
+  - Trevor Maxfield (maxfit at stanford)
+  - Samuel Randall (samuellr at stanford) 
 
 ## Time and location
 
 - Days: Tues, Thurs
-- Time: 6:30 PM - 7:50 PM
-- Location: Remote
-
-Zoom meeting details are on Canvas.
+- Time: 7:15 PM - 8:45 PM
+- Location: [STLC 114](http://campus-map.stanford.edu/?srch=STLC114)
 
 ## Office hours
 
-All office hours will be held remotely. TA office hours are posted on Canvas.
-Andreas will hold office hours after each class, from 7:55 P.M. to 8:45 P.M.
+All office hours will commence during week 2 of the quarter.
 
-Join the Zoom meeting during office hour times using the links provided in Canvas. Feel free to join even if you don’t have any questions. You can listen in on the conversation (which might spark a question for you) or we can use the time to get to know each other!
+Andreas will hold office hours after each class 
+from 8:55 P.M. to 9:45 P.M.
+
+The TA's will announce their weekly Office Hour schedule by the end of the first
+week of the quarter.
 
 ## Resources
 
@@ -120,7 +119,7 @@ Other resources are listed in the [`CME211/notes`][cme211-notes] repository.
 
 ## Grading
 This year, your course grade will be based on assignments (60%), 
-one exam Python (12.5%), and a final project (27.5%).
+one Python exam (12.5%), one C++ exam (12.5%), and a final project (15%).
 
 Course letter grades are at the discretion of the instructor. If at any time you
 have questions about your standing in the class, please contact the instructor.
@@ -131,42 +130,46 @@ It's critical that you read through the [grading guidelines][grading-guidelines]
 
 [grading-guidelines]: https://github.com/CME211/notes/tree/master/guidelines
 
+**Important note regarding minimium thresholds for passing the course** 
+Students _must pass_ the homework section of the course in order to pass the
+class overall. Additionally,
+students _must pass_
+the exams (when considered in union) in order to pass the class overall. Lastly,
+students
+_must pass_ the final project in order to earn a passing grade in the course
+overall. We put these guardrails in place to ensure that students are putting
+consistent effort into the course.
+
+Should you choose to take the course CR/NC, your final grade must be
+satisfactory or better -- i.e. you'll need to earn at least a C- or better to
+get a CR.
+
 ## Exam
-This year there will only be one examination; it will occur midway through the
-quarter and it will be based on your knowledge of Python. 
-
-Note that students *must pass* the exam in order to earn a passing 
-grade in the course.
-
-You will have two hours to complete the exam, but you will have a window of 24 hours in which you can open the exam and complete it within two hours. The two hours start when you open the exam in Canvas. If you foresee or encounter extenuating circumstances that would not allow you to complete the exam within the two hour limit or before the deadline, please contact the teaching staff as soon as possible.
+This year, we will administer the exams in person during regularly scheduled
+class times. You will have 85 minutes to complete the exam, i.e. we will reserve the entire lecture for the exam on the relevant days. If you foresee or encounter extenuating circumstances that would not allow you to be present for the in-person examinations, please contact the teaching staff as soon as possible.
 
 ## Assignments
-
 There will be 7 assignments (although the first is required, 
 it is not graded in the same way as subsequent assignments).
 In general, assignments will be posted on Friday
-afternoons and be due the following Friday at 4:30 pm via online submission.
+afternoons and be due the following Friday at 4:30 pm via online submission, through GitHub.
 
-This year, students are expected to complete *all* assignments. Across all
+Students are expected to complete *all* assignments. Across all
 assignments, students are permitted a total of 3 late days, which can be used
 one day at a time. I.e., each late day used grants up to a 24-hour extension,
 and a late day cannot be used partially (e.g. if you hand in an assignment 2
 hours after the deadline, you will have used up an entire late day). Usage
 of *additional* late days (beyond 3) 
 will be penalized at the end of the quarter,
-by an amount subject to the discretion of the staff! E.g. with one *additional* late day, we might choose to penalize 25% of allowable marks, and with two *additional* late days, we might choose to penalize 50% of allowable marks, and with three *additional* late days, we might choose to penalize 75% of allowable marks.
+by an amount subject to the discretion of the staff! E.g. with one *additional* late day, we might choose to penalize 25% of allowable marks on the relevant assignment which uses an unsanctioned late day, and with two *additional* late days, we might choose to penalize 50% of allowable marks on the relevant assignments which use unsanctioned late days, etc.
 
-Note that failure to submit even a single assignment corresponds to 
-*at least* a full final letter grade deduction.
+Note that *failure to submit* a single assignment corresponds to 
+*at least* a full final letter grade deduction, simply by virtue of the fact that there are six full graded assignments each worth 10% of your final letter grade.
 
 ## Final Project
-This year we will not do a second C++ exam as we usually do. Instead, we are
-placing more weight on the final project which allows students to showcase what
-they've learned cumulatively throughout the course. More details will be provided later in the
+We allow students to showcase what
+they've learned cumulatively throughout the course via a final project, which will use a little bit of Python but will mostly be done in C++; the instructions for the final project will be given to you, i.e. you will not be free to choose your own final project. More details will be provided later in the
 quarter.
-
-Note that students *must pass* the final project in order to earn a passing
-grade in the course.
 
 ## Course Privacy Statement
 As noted in the University’s [recording and broadcasting courses policy][recording-policy], students may not audio or video record class meetings without permission from the instructor (and guest speakers, when applicable). If the instructor grants permission or if the teaching team posts videos themselves, students may keep recordings only for personal use and may not post recordings on the Internet, or otherwise distribute them. These policies protect the privacy rights of instructors and students, and the intellectual property and other rights of the university. Students who need lectures recorded for the purposes of an academic accommodation should contact the Office of Accessible Education. 
@@ -178,7 +181,7 @@ As noted in the University’s [recording and broadcasting courses policy][recor
 All students are expected to abide by the [Stanford Honor Code][honor-code]. The
 work you submit to us for grading must be your own.  The [computer science
 website][cs-code] has a good explanation of the honor code as it relates to
-courses involving significant amounts of computer programming. In particular, for remote examinations, the Office of Community standards has provided [guidance][remote-guidance] for remote teaching and learning. Some takeaways from the remote-teaching resources:
+courses involving significant amounts of computer programming. In particular, for any examinations, the Office of Community standards has provided [guidance][remote-guidance] for (remote) teaching and learning. Some takeaways from the remote-teaching resources:
 
  - "Permitted informational resources only includes material a reasonable student would have found to be helpful when trying to understand class material or preparing for an assignment or exam. This does not include material that becomes useful once the assignment or exam begins and questions are known."
  - "In all cases, it is not permissible for students to enter exam questions into any software, apps, or websites. Accessing resources that directly explain how to answer questions from the actual assignment or exam is a violation of the Honor Code."
@@ -242,12 +245,5 @@ coordinate accommodations. The OAE is located at 563 Salvatierra Walk.
 
 (Phone: 723-1066, URL: <http://studentaffairs.stanford.edu/oae>).
 
-# Saving Code
-Note that at the end of each year, we must purge student repositories from the Github virtual classroom we use and to that end, if you wish to retain a copy of your codes you should make a **private** backup repository (outside of the Github 212 classroom, and within your own personal set of repositories) at the end of the quarter. Note that the repo must be private else it will be a violation of the honor code.
-
-
-
-
-
-
-
+# Saving Code(s) from the Course
+Note that at the end of each year, we must purge student repositories from the Github virtual classroom we use and to that end, if you wish to retain a copy of your codes you should make a **private** backup repository (outside of the Github 211 classroom, and within your own personal set of repositories) at the end of the quarter. Note that the repo must be private else it will be a violation of the honor code.
