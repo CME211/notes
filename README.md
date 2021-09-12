@@ -1,8 +1,8 @@
 # CME 211 Notes
 
-2020 CME 211 Canvas page: <https://canvas.stanford.edu/courses/123262>
+2021 CME 211 Canvas page: <https://canvas.stanford.edu/courses/142634>
 
-In each folder, there will be either a `*.pdf` or a `*.ipynb` file that contains the lecture notes; you can ignore the `*.tex` or the `.md` files. Sometimes, there will be other stand-alone code examples as well, these all end in `*.py`.
+In each folder in the lecture directory contents page on GitHub (i.e. this page), there will be either a `*.pdf` or a `*.ipynb` file that contains the lecture notes; you can ignore the `*.tex` or the `.md` files. Sometimes, there will be other stand-alone code examples as well, these all end in `*.py`.
 
 ## Contents
 There will be 18 lectures this year.
@@ -25,6 +25,3 @@ There will be 18 lectures this year.
 * [Lecture 16](lecture-16/): C++ object oriented programming part 1
 * [Lecture 17](lecture-17/): C++ object oriented programming part 2, memory management
 * [Lecture 18](lecture-18/): Introduction to Functional Programming in Scala
-
-## Acknowledgements
-Thanks to Patrick LeGresley and Nick Henderson for designing the structure of the course and the foundations for these notes.
