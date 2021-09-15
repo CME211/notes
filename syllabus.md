@@ -63,8 +63,8 @@ equivalent to [CS 106A][cs106a] or instructor consent.
 
 ## Communication
 
-We will be using Canvas to send announcements and as a discussion board for the
-homework projects. Please use this if you have questions regarding course
+We will be using Canvas to send announcements and Piazza as a discussion board for the
+homework projects. Please use Piazza if you have questions regarding course
 material.
 
 Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/142634>
@@ -74,7 +74,7 @@ Please visit the CME211 discussion board: <https://piazza.com/configure-classes/
 All other correspondence should be sent to <cme211-staff@lists.stanford.edu>.
 
 *Do not send questions related to course material to the staff mailing list or to individual staff emails (including the instructor).  We will not answer these.
-Questions may be posted to the Canvas discussion board or asked during office hours.*
+Questions may be posted to the Piazza discussion board or asked during office hours.*
 
 ## Teaching staff
 
