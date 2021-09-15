@@ -69,6 +69,8 @@ material.
 
 Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/142634>
 
+Please visit the CME211 discussion board: <https://piazza.com/configure-classes/fall2021/cme211>
+
 All other correspondence should be sent to <cme211-staff@lists.stanford.edu>.
 
 *Do not send questions related to course material to the staff mailing list or to individual staff emails (including the instructor).  We will not answer these.
