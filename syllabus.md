@@ -30,7 +30,7 @@ equivalent to [CS 106A][cs106a] or instructor consent.
   
 [comp-think]: http://socialissues.cs.toronto.edu/index.html%3Fp=279.html
 
-* Notice that two of the goals relate to _software development tools_, and two
+Notice that two of the goals relate to _software development tools_, and two
 of the goals relate to _software development itself_. This is not an accident:
 we want to emphasize that you learn tooling around programming in order to
 enable you to become a better programmer.
@@ -39,10 +39,15 @@ enable you to become a better programmer.
 ## Topics Covered
 
 ### Linux
-
 - Remote login and file transfer using `ssh` and `scp`
 - Filesystem navigation (moving through and creating directories, finding files, etc.)
 - Creation and editing of code and data files
+
+### Software Development and Industry Practices
+- Creating and using a basic Makefile
+- Version control: use of Git and Github for managing software projects
+- LaTeX markup (figures, tables, equations, references, managing a
+  bibliography, and publishing a PDF document)
 
 ### Python
 
@@ -60,12 +65,6 @@ enable you to become a better programmer.
 - Object oriented programming (classes and methods, etc.)
 - Pointers, addresses, and memory management
 - *Note that more advanced features of C++ (operator overloading, templates, etc.) will be covered in CME 212*
-
-### Software Development and Industry Practices
-- Creating and using a basic Makefile
-- Version control: use of Git and Github for managing software projects
-- LaTeX markup (figures, tables, equations, references, managing a
-  bibliography, and publishing a PDF document)
 
 ## Communication
 
@@ -104,16 +103,16 @@ Teaching assistants:
 All office hours will commence during week 2 of the quarter.
 
 Andreas will hold office hours after each class 
-from 8:55 P.M. to 9:45 P.M.
+from 8:55 P.M. to 9:45 P.M., in a room TBD within Huang Engineering Building.
 
 The TA's will announce their weekly Office Hour schedule by the end of the first
-week of the quarter.
+week of the quarter via a Canvas (*or Piazza) announcement (or post). All TA office hours are to be held in the Huang Engineering Building _basement_, outside of the ICME.
 
 ## Resources
 
 Recommended readings come from the following books, which are available online
 to Stanford students through the library.  These are great books to have in your
-collection.
+collection; however, the course notes are entirely sufficient to learn the material required to ace the course.
 
 - **Learning Python**, 5th Edition by *Mark Lutz* ([link][learning-python])
 - **C++ Primer**, 5th Edition by *Lippman, Kajoie, and Moo* ([link][c++-primer])
@@ -142,7 +141,7 @@ It's critical that you read through the [grading guidelines][grading-guidelines]
 Students _must pass_ the homework section of the course in order to pass the
 class overall. Additionally,
 students _must pass_
-the exams (when considered in union) in order to pass the class overall. Lastly,
+each exam in order to pass the class overall. Lastly,
 students
 _must pass_ the final project in order to earn a passing grade in the course
 overall. We put these guardrails in place to ensure that students are putting
@@ -154,7 +153,7 @@ get a CR.
 
 ## Exam
 This year, we will administer the exams in person during regularly scheduled
-class times. You will have 85 minutes to complete the exam, i.e. we will reserve the entire lecture for the exam on the relevant days. If you foresee or encounter extenuating circumstances that would not allow you to be present for the in-person examinations, please contact the teaching staff as soon as possible.
+class times. You will have 85 minutes to complete the exam, i.e. we will reserve the entire lecture for the exam on the relevant days. If you foresee or encounter extenuating circumstances that would not allow you to be present for the in-person examinations, please contact the teaching staff as soon as possible so that we may arrange for alternative methods of proctoring the examination.
 
 ## Assignments
 There will be 7 assignments (although the first is required, 
@@ -169,7 +168,7 @@ and a late day cannot be used partially (e.g. if you hand in an assignment 2
 hours after the deadline, you will have used up an entire late day). Usage
 of *additional* late days (beyond 3) 
 will be penalized at the end of the quarter,
-by an amount subject to the discretion of the staff! E.g. with one *additional* late day, we might choose to penalize 25% of allowable marks on the relevant assignment which uses an unsanctioned late day, and with two *additional* late days, we might choose to penalize 50% of allowable marks on the relevant assignments which use unsanctioned late days, etc.
+by an amount subject to the discretion of the staff! E.g. with one *additional* late day, we might choose to penalize 25% of allowable marks on the relevant assignment which uses an unsanctioned late day, and with two *additional* late days, we might choose to penalize 50% of allowable marks on the relevant assignments which use unsanctioned late days, etc. Note that *late days include weekend days*.
 
 Note that *failure to submit* a single assignment corresponds to 
 *at least* a full final letter grade deduction, simply by virtue of the fact that there are six full graded assignments each worth 10% of your final letter grade.
@@ -180,7 +179,7 @@ Each student is granted 3 non-valid regrade requests. Unused regrade requests wi
 ## Final Project
 We allow students to showcase what
 they've learned cumulatively throughout the course via a final project, which will use a little bit of Python but will mostly be done in C++; the instructions for the final project will be given to you, i.e. you will not be free to choose your own final project. More details will be provided later in the
-quarter.
+quarter on the nature of the project and expectations.
 
 ## Course Privacy Statement
 As noted in the University’s [recording and broadcasting courses policy][recording-policy], students may not audio or video record class meetings without permission from the instructor (and guest speakers, when applicable). If the instructor grants permission or if the teaching team posts videos themselves, students may keep recordings only for personal use and may not post recordings on the Internet, or otherwise distribute them. These policies protect the privacy rights of instructors and students, and the intellectual property and other rights of the university. Students who need lectures recorded for the purposes of an academic accommodation should contact the Office of Accessible Education. 
@@ -261,3 +260,15 @@ If you have an emergency that requires both medical attention and a course accom
 
 # Saving Code(s) from the Course
 Note that at the end of each year, we must purge student repositories from the Github virtual classroom we use and to that end, if you wish to retain a copy of your codes you should make a **private** backup repository (outside of the Github 211 classroom, and within your own personal set of repositories) at the end of the quarter. Note that the repo must be private else it will be a violation of the honor code.
+
+
+
+
+
+
+
+
+
+
+
+
