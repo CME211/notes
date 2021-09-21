@@ -27,8 +27,14 @@ equivalent to [CS 106A][cs106a] or instructor consent.
 - Develop skill in [*computational thinking*][comp-think], that "is the thought
   processes involved in formulating a problem and expressing its solution(s) in
   such a way that a computer, human or machine, can effectively carry out."
-
+  
 [comp-think]: http://socialissues.cs.toronto.edu/index.html%3Fp=279.html
+
+* Notice that two of the goals relate to _software development tools_, and two
+of the goals relate to _software development itself_. This is not an accident:
+we want to emphasize that you learn tooling around programming in order to
+enable you to become a better programmer.
+
 
 ## Topics Covered
 
