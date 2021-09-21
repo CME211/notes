@@ -278,6 +278,11 @@ afs-home
 doggo.txt
 \end{lstlisting}
 
+Going the other way is simple as well, i.e. copying a file from Rice to your local computer; we simply execute the following command \emph{from} our local machine to download a file:
+\begin{lstlisting}
+scp santucci@rice.stanford.edu:~/doggo.txt .
+\end{lstlisting}
+
 \subsection{Farmshare user directory}
 
 The Farmshare remote computing resource offers another location for users to
@@ -640,11 +645,11 @@ if n >= 0:
 if n >= 1:
     fn1 = 1             # Initialize f(n-1).
     print(fn1,end=',')
-for i in range(2,n+1):
-    fn = fn1 + fn2      # Recurrence relation: f(n) = f(n-1) + f(n-2).
+for i in range(2,n+1):  # Here is where we iterate from 2:n.
+    fn = fn1 + fn2      # Recurrence relation is f(n) = f(n-1) + f(n-2).
     print(fn,end=',')
-    fn2 = fn1
-    fn1 = fn
+    fn2 = fn1           # Update our values...
+    fn1 = fn            # ...for both f(n-2) and f(n-1).
 print()
 \end{python}
 
@@ -667,23 +672,22 @@ import sys
 n = int(sys.argv[1])
 \end{python}
 
-This will instruct the script to obtain the value of \texttt{n} from the
-command line:
+This is done in the script \texttt{fib\_extensible.py}, and it instructs the script to obtain the value of \texttt{n} from the command line:
 
 \begin{lstlisting}[language=bash]
-$ python3 fib.py 0
+$ python3 fib_extensible.py 0
 0,
 
-$ python3 fib.py 5
+$ python3 fib_extensible.py 5
 0,1,1,2,3,5,
 
-$ python3 fib.py 21
+$ python3 fib_extensible.py 21
 0,1,1,2,3,5,8,13,21,34,55,89,144,233,377,610,987,1597,2584,4181,6765,10946,
 \end{lstlisting}
 
 We have increased the utility of our program by making it simple to run
 from the command line with different input arguments. CME211 homeworks
-will work like this.
+will work like this; in fact, in HW0 we will outline a simple script which will serve as a basis for which you can build more complex scripts which accept arguments from the command line. This allows your program(s) to be tested on unseen test cases!
 
 \subsubsection{Python modules}
 If you are familiar with MATLAB or R, you may come to Python and be confused
@@ -948,7 +952,7 @@ Here are the parameters:
   360 months)
 \end{itemize}
 
-The formula to compute the fixed monthly payment is, the derivation of which can be found here \href{https://en.wikipedia.org/wiki/Mortgage_calculator#Monthly_payment_formula}{here}.
+The formula to compute the fixed monthly payment is, the derivation of which can be found \href{https://en.wikipedia.org/wiki/Mortgage_calculator#Monthly_payment_formula}{here}.
 
 \[
 P = L \frac{c(1+c)^n}{(1+c)^n-1}
