@@ -992,10 +992,10 @@ We remark that the compiled program will use more memory and run slower!
 Let's enable this with \texttt{g++}:
 
 \begin{verbatim}
-$ g++ -Wall -Wconversion -Wextra -g -fsanitize=address array.cpp -o array
+$ g++ -O0 -Wall -Wconversion -Wextra -g -fsanitize=address array.cpp -o array
 \end{verbatim}
 Here, the \texttt{-g} flag adds debugging symbols to the output
-executable. This is required for \texttt{address sanitizer}.
+executable, and the \texttt{-O0} says to compile \emph{without} compiler optimizations. These are required for \texttt{address sanitizer} to work (effectively).
 The \texttt{-fsanitize=address} enables the address sanitizer itself.
 
 \subsection{Testing Address Sanitizer}
