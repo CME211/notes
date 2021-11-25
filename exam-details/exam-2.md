@@ -1,6 +1,7 @@
 # CME 211 Exam 2 Details
+(*Last updated: November 2021*)
 
-The exam will be held in person at the lecture hall during the usual class time. 
+The exam will be held in person at the lecture hall during the usual class time on December 2nd, from 7:15 P.M. through 8:45 P.M. 
 Students will have 85 minutes to write their solutions to the exam once it starts.
 
 ## Details
