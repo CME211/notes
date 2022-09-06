@@ -68,8 +68,8 @@ enable you to become a better programmer.
 
 ## Communication
 
-We will be using Canvas to send announcements and Piazza as a discussion board for the
-homework projects. Please use Piazza if you have questions regarding course
+We will be using Canvas to send announcements and Ed as a discussion board for the
+homework projects. Please use Ed if you have questions regarding course
 material.
 
 Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/158790>
@@ -79,7 +79,7 @@ Please visit the CME211 discussion board: <To-be-Posted>
 All other correspondence should be sent to <cme211-staff@lists.stanford.edu>.
 
 *Do not send questions related to course material to the staff mailing list or to individual staff emails (including the instructor).  We will not answer these.
-Questions may be posted to the Piazza discussion board or asked during office hours.*
+Questions may be posted to the Ed discussion board or asked during office hours.*
 
 ## Teaching staff
 
@@ -106,7 +106,7 @@ Andreas will hold office hours after class on Tuesdays only,
 from 7:30 P.M. - 8:20 P.M., in <Location TBD>. Additional office hours are absolutely available by appointment!
 
 The TA's will announce their weekly Office Hour schedule by the end of the first
-week of the quarter via a Canvas (*or Piazza) announcement (or post). All TA office hours are to be held in the Huang Engineering Building _basement_, outside of the ICME.
+week of the quarter via a Canvas (*or Ed) announcement (or post). All TA office hours are to be held in the Huang Engineering Building _basement_, outside of the ICME.
 
 ## Resources
 
