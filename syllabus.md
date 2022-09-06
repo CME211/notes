@@ -1,4 +1,4 @@
-# CME 211 Syllabus (Fall 2021)
+# CME 211 Syllabus (Fall 2022)
 
 _(cross listed as Earth 211)_
 
@@ -72,9 +72,9 @@ We will be using Canvas to send announcements and Piazza as a discussion board f
 homework projects. Please use Piazza if you have questions regarding course
 material.
 
-Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/142634>
+Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/158790>
 
-Please visit the CME211 discussion board: <https://piazza.com/stanford/fall2021/cme211>
+Please visit the CME211 discussion board: <To-be-Posted>
 
 All other correspondence should be sent to <cme211-staff@lists.stanford.edu>.
 
@@ -87,15 +87,15 @@ Instructor:
   - [Andreas Santucci](https://asantucci.github.io/) (santucci at stanford)
 
 Teaching assistants:
-  - Aasavari Kakne (adkakne at stanford)
-  - Frederic Ladouceur (ladouceu at stanford)
-  - Trevor Maxfield (maxfit at stanford)
-  - Samuel Randall (samuellr at stanford) 
+  - Aajeya Jajoo (jajoo98 at stanford)
+  - Axel Peytavin (peytavin at stanford)
+  - Rishu Garg (rishu at stanford)
+  - Tomas Bosschieter (tomasbos at stanford)
 
 ## Time and location
 
 - Days: Tues, Thurs
-- Time: 7:15 PM - 8:45 PM
+- Time: 6 P.M. - 7:20 P.M.
 - Location: [STLC 114](http://campus-map.stanford.edu/?srch=STLC114)
 
 ## Office hours
@@ -103,7 +103,7 @@ Teaching assistants:
 All office hours will commence during week 2 of the quarter.
 
 Andreas will hold office hours after class on Tuesdays only, 
-from 8:55 P.M. to 10 P.M., in Huang Engineering Center Room 305. Additional office hours are absolutely available by appointment!
+from 7:30 P.M. - 8:20 P.M., in <Location TBD>. Additional office hours are absolutely available by appointment!
 
 The TA's will announce their weekly Office Hour schedule by the end of the first
 week of the quarter via a Canvas (*or Piazza) announcement (or post). All TA office hours are to be held in the Huang Engineering Building _basement_, outside of the ICME.
