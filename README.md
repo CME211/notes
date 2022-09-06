@@ -1,6 +1,6 @@
 # CME 211 Notes
 
-2021 CME 211 Canvas page: <https://canvas.stanford.edu/courses/142634>
+2022 CME 211 Canvas page: <https://canvas.stanford.edu/courses/158790>
 
 In each folder in the lecture directory contents page on GitHub (i.e. this page), there will be either a `*.pdf` or a `*.ipynb` file that contains the lecture notes; you can ignore the `*.tex` or the `.md` files. Sometimes, there will be other stand-alone code examples as well, these all end in `*.py`.
 
