@@ -24,10 +24,10 @@ equivalent to [CS 106A][cs106a] or instructor consent.
   control (`git`), text editors (vim, emacs), and build systems (`make`).
 - To be able to write Python and C++ programs of intermediate complexity for science
   and engineering applications.
-- Develop skill in [*computational thinking*][comp-think], that "is the thought
+- Develop skill in [_computational thinking_][comp-think], that "is the thought
   processes involved in formulating a problem and expressing its solution(s) in
   such a way that a computer, human or machine, can effectively carry out."
-  
+
 [comp-think]: http://socialissues.cs.toronto.edu/index.html%3Fp=279.html
 
 Notice that two of the goals relate to _software development tools_, and two
@@ -35,15 +35,16 @@ of the goals relate to _software development itself_. This is not an accident:
 we want to emphasize that you learn tooling around programming in order to
 enable you to become a better programmer.
 
-
 ## Topics Covered
 
 ### Linux
+
 - Remote login and file transfer using `ssh` and `scp`
 - Filesystem navigation (moving through and creating directories, finding files, etc.)
 - Creation and editing of code and data files
 
 ### Software Development and Industry Practices
+
 - Creating and using a basic Makefile
 - Version control: use of Git and Github for managing software projects
 - LaTeX markup (figures, tables, equations, references, managing a
@@ -64,7 +65,7 @@ enable you to become a better programmer.
 - Containers (vector, map, etc.)
 - Object oriented programming (classes and methods, etc.)
 - Pointers, addresses, and memory management
-- *Note that more advanced features of C++ (operator overloading, templates, etc.) will be covered in CME 212*
+- _Note that more advanced features of C++ (operator overloading, templates, etc.) will be covered in CME 212_
 
 ## Communication
 
@@ -76,21 +77,25 @@ Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/158790
 
 Please visit the CME211 discussion board: <To-be-Posted>
 
-All other correspondence should be sent to <cme211-staff@lists.stanford.edu>.
+For any logistic related issues, contact Rishu (rishu at stanford). Rishu will be your point of contact for any logistic requests. These can range from extension requests due to unforseeable circumstances, accommodation requests, or any other matter that you’d like the staff to look at.
 
-*Do not send questions related to course material to the staff mailing list or to individual staff emails (including the instructor).  We will not answer these.
-Questions may be posted to the Ed discussion board or asked during office hours.*
+Alternatively, you can send correspondence to <cme211-staff@lists.stanford.edu>.
+
+_Do not send questions related to course material to the staff mailing list or to individual staff emails (including the instructor). We will not answer these.
+Questions may be posted to the Ed discussion board or asked during office hours._
 
 ## Teaching staff
 
-Instructor: 
-  - [Andreas Santucci](https://asantucci.github.io/) (santucci at stanford)
+Instructor:
+
+- [Andreas Santucci](https://asantucci.github.io/) (santucci at stanford)
 
 Teaching assistants:
-  - Aajeya Jajoo (jajoo98 at stanford)
-  - Axel Peytavin (peytavin at stanford)
-  - Rishu Garg (rishu at stanford)
-  - Tomas Bosschieter (tomasbos at stanford)
+
+- Aajeya Jajoo (jajoo98 at stanford)
+- Axel Peytavin (peytavin at stanford)
+- Rishu Garg (rishu at stanford)
+- Tomas Bosschieter (tomasbos at stanford)
 
 ## Time and location
 
@@ -102,20 +107,20 @@ Teaching assistants:
 
 All office hours will commence during week 2 of the quarter.
 
-Andreas will hold office hours after class on Tuesdays only, 
+Andreas will hold office hours after class on Tuesdays only,
 from 7:30 P.M. - 8:20 P.M., in <Location TBD>. Additional office hours are absolutely available by appointment!
 
 The TA's will announce their weekly Office Hour schedule by the end of the first
-week of the quarter via a Canvas (*or Ed) announcement (or post). All TA office hours are to be held in the Huang Engineering Building _basement_, outside of the ICME.
+week of the quarter via a Canvas (\*or Ed) announcement (or post). All TA office hours are to be held in the Huang Engineering Building _basement_, outside of the ICME.
 
 ## Resources
 
 Recommended readings come from the following books, which are available online
-to Stanford students through the library.  These are great books to have in your
+to Stanford students through the library. These are great books to have in your
 collection; however, the course notes are entirely sufficient to learn the material required to ace the course.
 
-- **Learning Python**, 5th Edition by *Mark Lutz* ([link][learning-python])
-- **C++ Primer**, 5th Edition by *Lippman, Kajoie, and Moo* ([link][c++-primer])
+- **Learning Python**, 5th Edition by _Mark Lutz_ ([link][learning-python])
+- **C++ Primer**, 5th Edition by _Lippman, Kajoie, and Moo_ ([link][c++-primer])
 
 [learning-python]: http://proquest.safaribooksonline.com/book/programming/python/9781449355722
 [c++-primer]: http://proquest.safaribooksonline.com/9780133053043?uicode=stanford
@@ -125,7 +130,8 @@ Other resources are listed in the [`CME211/notes`][cme211-notes] repository.
 [cme211-notes]: https://github.com/CME211/notes#contents
 
 ## Grading
-This year, your course grade will be based on assignments (60%), 
+
+This year, your course grade will be based on assignments (60%),
 one Python exam (12.5%), one C++ exam (12.5%), and a final project (15%).
 
 Course letter grades are at the discretion of the instructor. If at any time you
@@ -137,7 +143,7 @@ It's critical that you read through the [grading guidelines][grading-guidelines]
 
 [grading-guidelines]: https://github.com/CME211/notes/tree/master/guidelines
 
-**Important note regarding minimium thresholds for passing the course** 
+**Important note regarding minimium thresholds for passing the course**
 Students _must pass_ the homework section of the course in order to pass the
 class overall. Additionally,
 students _must pass_
@@ -152,83 +158,88 @@ satisfactory or better -- i.e. you'll need to earn at least a C- or better to
 get a CR.
 
 ## Exam
+
 This year, we will administer the exams in person during regularly scheduled
 class times. You will have 85 minutes to complete the exam, i.e. we will reserve the entire lecture for the exam on the relevant days. If you foresee or encounter extenuating circumstances that would not allow you to be present for the in-person examinations, please contact the teaching staff as soon as possible so that we may arrange for alternative methods of proctoring the examination.
 
 ## Assignments
-There will be 7 assignments (although the first is required, 
+
+There will be 7 assignments (although the first is required,
 it is not graded in the same way as subsequent assignments).
 In general, assignments will be posted on Friday
 afternoons and be due the following Friday at 4:30 pm via online submission, through GitHub.
 
-Students are expected to complete *all* assignments. Across all
+Students are expected to complete _all_ assignments. Across all
 assignments, students are permitted a total of 3 late days, which can be used
 one day at a time. I.e., each late day used grants up to a 24-hour extension,
 and a late day cannot be used partially (e.g. if you hand in an assignment 2
 hours after the deadline, you will have used up an entire late day). Usage
-of *additional* late days (beyond 3) 
+of _additional_ late days (beyond 3)
 will be penalized at the end of the quarter,
-by an amount subject to the discretion of the staff! E.g. with one *additional* late day, we might choose to penalize 25% of allowable marks on the relevant assignment which uses an unsanctioned late day, and with two *additional* late days, we might choose to penalize 50% of allowable marks on the relevant assignments which use unsanctioned late days, etc. Note that *late days include weekend days*.
+by an amount subject to the discretion of the staff! E.g. with one _additional_ late day, we might choose to penalize 25% of allowable marks on the relevant assignment which uses an unsanctioned late day, and with two _additional_ late days, we might choose to penalize 50% of allowable marks on the relevant assignments which use unsanctioned late days, etc. Note that _late days include weekend days_.
 
-Note that *failure to submit* a single assignment corresponds to 
-*at least* a full final letter grade deduction, simply by virtue of the fact that there are six full graded assignments each worth 10% of your final letter grade.
+Note that _failure to submit_ a single assignment corresponds to
+_at least_ a full final letter grade deduction, simply by virtue of the fact that there are six full graded assignments each worth 10% of your final letter grade.
 
 ### Re-grade requests
+
 Each student is granted 3 non-valid regrade requests. Unused regrade requests will be translated to a small amount of bonus points at the end of the quarter. A regrade request is only counted as used if the points were not awarded to the student. Regrade requests are made by submitting a GitHub issue in the homework submission repository and tagging or assigning the TA who graded the homework (not to be confused with the TA who pushed the homework feedback); you can find the TA who graded your feedback at the bottom of your homework feedback file.
 
 ## Final Project
+
 We allow students to showcase what
 they've learned cumulatively throughout the course via a final project, which will use a little bit of Python but will mostly be done in C++; the instructions for the final project will be given to you, i.e. you will not be free to choose your own final project. More details will be provided later in the
 quarter on the nature of the project and expectations.
 
 ## Course Privacy Statement
-As noted in the University’s [recording and broadcasting courses policy][recording-policy], students may not audio or video record class meetings without permission from the instructor (and guest speakers, when applicable). If the instructor grants permission or if the teaching team posts videos themselves, students may keep recordings only for personal use and may not post recordings on the Internet, or otherwise distribute them. These policies protect the privacy rights of instructors and students, and the intellectual property and other rights of the university. Students who need lectures recorded for the purposes of an academic accommodation should contact the Office of Accessible Education. 
+
+As noted in the University’s [recording and broadcasting courses policy][recording-policy], students may not audio or video record class meetings without permission from the instructor (and guest speakers, when applicable). If the instructor grants permission or if the teaching team posts videos themselves, students may keep recordings only for personal use and may not post recordings on the Internet, or otherwise distribute them. These policies protect the privacy rights of instructors and students, and the intellectual property and other rights of the university. Students who need lectures recorded for the purposes of an academic accommodation should contact the Office of Accessible Education.
 
 [recording-policy]: https://library.stanford.edu/using/copyright-reminder/common-situations/recording-broadcasting-courses
 
 ## Honor Code
 
 All students are expected to abide by the [Stanford Honor Code][honor-code]. The
-work you submit to us for grading must be your own.  The [computer science
+work you submit to us for grading must be your own. The [computer science
 website][cs-code] has a good explanation of the honor code as it relates to
 courses involving significant amounts of computer programming. In particular, for any examinations, the Office of Community standards has provided [guidance][remote-guidance] for (remote) teaching and learning. Some takeaways from the remote-teaching resources:
 
- - "Permitted informational resources only includes material a reasonable student would have found to be helpful when trying to understand class material or preparing for an assignment or exam. This does not include material that becomes useful once the assignment or exam begins and questions are known."
- - "In all cases, it is not permissible for students to enter exam questions into any software, apps, or websites. Accessing resources that directly explain how to answer questions from the actual assignment or exam is a violation of the Honor Code."
- - "Answers to assignment or exam questions must be written in the student’s own words, or else be cited, otherwise it is plagiarism. Use of all sources, including internet resources, must be cited. Similarly, consulting or collaborating with other people is not permitted and does not fall within the definition of an open-book or informational resource..."
+- "Permitted informational resources only includes material a reasonable student would have found to be helpful when trying to understand class material or preparing for an assignment or exam. This does not include material that becomes useful once the assignment or exam begins and questions are known."
+- "In all cases, it is not permissible for students to enter exam questions into any software, apps, or websites. Accessing resources that directly explain how to answer questions from the actual assignment or exam is a violation of the Honor Code."
+- "Answers to assignment or exam questions must be written in the student’s own words, or else be cited, otherwise it is plagiarism. Use of all sources, including internet resources, must be cited. Similarly, consulting or collaborating with other people is not permitted and does not fall within the definition of an open-book or informational resource..."
 
 Students are expected to read the three resources on ([honor-code], [cs-code], and [remote-guidance]) in full, as there are serious consequences for not abiding by the honor code! Compromising your academic integrity may lead to serious consequences, including (but not limited to) one or more of the following: failure of the assignment, failure of the course, disciplinary probation, suspension from the university, or dismissal from the university.
 
-
 Note that at various times we may use special computer software called
-[MOSS][moss] to assist us in detecting plagiarism.  If you are having difficulty
-completing an *assignment* please contact a TA or the instructor so that we may
+[MOSS][moss] to assist us in detecting plagiarism. If you are having difficulty
+completing an _assignment_ please contact a TA or the instructor so that we may
 help you (for exams, we cannot offer any assistance). We would much rather spend time helping you than dealing with honor
 code violations!
 
 [honor-code]: http://studentaffairs.stanford.edu/judicialaffairs/policy/honor-code
 [cs-code]: http://csmajor.stanford.edu/HonorCode.shtml
-[moss]: http://theory.stanford.edu/\~aiken/moss/
+[moss]: http://theory.stanford.edu/~aiken/moss/
 [remote-guidance]: https://communitystandards.stanford.edu/bja-guidance-remote-teaching-and-learning-environment
 
-### Guidelines for *Assignments*
+### Guidelines for _Assignments_
 
 - It’s great (and encouraged) to work with other people on high level ideas,
   concepts, and methods.
-  
-  But, you must write your code on your own. 
+
+  But, you must write your code on your own.
 
   Please seek help early and often, if and when you encounter problems.
+
 - Keep your code closed and separate if you are helping another student with a
   debugging or technical issue in code.
 - Do not copy code from another student (current or previous).
 - Do not give your code to another student (current or future).
-- It is acceptable to copy small blocks (a few lines) of code from public 
+- It is acceptable to copy small blocks (a few lines) of code from public
   sources,
-  such as [stackoverflow.com](http://stackoverflow.com/).  You must cite your
-  source and abide by any copyright and licensing restrictions.  You do 
+  such as [stackoverflow.com](http://stackoverflow.com/). You must cite your
+  source and abide by any copyright and licensing restrictions. You do
   not need
-  to cite course notes, example programs provided by CME211, reference 
+  to cite course notes, example programs provided by CME211, reference
   information
   from [python.org docs](https://docs.python.org/3/), or reference information
   from [cppreference.com](http://en.cppreference.com/w/).
@@ -240,8 +251,9 @@ code violations!
   the provider to remove the resource.
 
 ## Grading and End of Quarter Policies
- - *Cr/NC Grading policies*: by University policy (https://registrar.stanford.edu/students/definition-grades), `Cr` is earned for `C-` work or better. 
- - *Coursework Deadline*: by University policy (https://registrar.stanford.edu/coursework-deadline-2020-21), “all coursework is due by the last day of the last week of instruction in each quarter.''
+
+- _Cr/NC Grading policies_: by University policy (https://registrar.stanford.edu/students/definition-grades), `Cr` is earned for `C-` work or better.
+- _Coursework Deadline_: by University policy (https://registrar.stanford.edu/coursework-deadline-2020-21), “all coursework is due by the last day of the last week of instruction in each quarter.''
 
 ## Students with Documented Disabilities
 
@@ -256,19 +268,9 @@ coordinate accommodations. The OAE is located at 563 Salvatierra Walk.
 (Phone: 723-1066, URL: <http://studentaffairs.stanford.edu/oae>).
 
 ## What do I do if I have an Emergency that requires an Accommodation?
-If you have an emergency that requires both medical attention and a course accommodation, please get in touch with the Office of Accessible Education as soon as possible to request a formal accommodation. If there is an emergency within your family that requires your attention and a course accommodation, please get in touch with the Graduate Life Office as soon as possible to establish documentation. While pursuing these steps, please also get in touch with me (Andreas) as soon as possible; I aim to be compassionate and wish to work with you to facilitate a healthy learning experience. Although not all situations can be accommodated, many students have had success using these avenues in the past.
+
+If you have an emergency that requires both medical attention and a course accommodation, please get in touch with the Office of Accessible Education as soon as possible to request a formal accommodation. If there is an emergency within your family that requires your attention and a course accommodation, please get in touch with the Graduate Life Office as soon as possible to establish documentation. While pursuing these steps, please also get in touch with Rishu or me (Andreas) as soon as possible; I aim to be compassionate and wish to work with you to facilitate a healthy learning experience. Although not all situations can be accommodated, many students have had success using these avenues in the past.
 
 # Saving Code(s) from the Course
+
 Note that at the end of each year, we must purge student repositories from the Github virtual classroom we use and to that end, if you wish to retain a copy of your codes you should make a **private** backup repository (outside of the Github 211 classroom, and within your own personal set of repositories) at the end of the quarter. Note that the repo must be private else it will be a violation of the honor code.
-
-
-
-
-
-
-
-
-
-
-
-
