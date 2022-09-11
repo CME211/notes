@@ -75,7 +75,7 @@ material.
 
 Please visit the CME211 Canvas page: <https://canvas.stanford.edu/courses/158790>
 
-Please visit the CME211 discussion board: <To-be-Posted>
+Please visit the CME211 discussion board: [Ed](https://edstem.org/us/courses/28618)
 
 For any logistic related issues, contact Rishu (rishu at stanford). Rishu will be your point of contact for any logistic requests. These can range from extension requests due to unforseeable circumstances, accommodation requests, or any other matter that you’d like the staff to look at.
 
