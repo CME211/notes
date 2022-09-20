@@ -1,40 +1,50 @@
 # CME 211 Frequently Asked Questions
 
 ## Development Environments
+
 ### Why learn to develop within a terminal?
-When you go into industry, or even if you stay in academia, chances are that you will be computing on data sets that are so large 
+
+When you go into industry, or even if you stay in academia, chances are that you will be computing on data sets that are so large
 they cannot fit within or be processed on your local machine. In such cases, you'll need to `SSH` into a remote machine with
 sufficient compute resources. E.g. at Google, I don't have access to a majority of the tooling available to Engineers unless
 I utilize the command line; if I embrace an editor like `emacs`, I get a lot of freebies buil-in that enable a more efficient workflow.
 
 Some of these benefits include
-  - Being able to send code from an editor to a console within the same `emacs` session.
-  - Being able to interface with other tools such as [`git` within the editor](https://alexott.net/en/writings/emacs-vcs/EmacsGit.html), 
-    or even [`gdb` within emacs](https://kb.iu.edu/d/aqsy).
-  - [Keyboard shortcuts](https://www.gnu.org/software/emacs/refcards/pdf/refcard.pdf) which enable programmer productivity, e.g. have you
-    ever wanted to be able to capitalize an entire word at a time? This is trivial in `emacs`!
-    
+
+- Being able to send code from an editor to a console within the same `emacs` session.
+- Being able to interface with other tools such as [`git` within the editor](https://alexott.net/en/writings/emacs-vcs/EmacsGit.html),
+  or even [`gdb` within emacs](https://kb.iu.edu/d/aqsy).
+- [Keyboard shortcuts](https://www.gnu.org/software/emacs/refcards/pdf/refcard.pdf) which enable programmer productivity, e.g. have you
+  ever wanted to be able to capitalize an entire word at a time? This is trivial in `emacs`!
+
 #### Setting up Emacs on Rice
+
 The cool thing is that on most `unix` environments, `emacs` is already installed; this is true on `Rice`. So, all you have to do is _configure_
 the program to your liking / use-cases. We'll be using Python, so let's start there.
 
 ##### `.emacs` file
+
 Each editor typically has a standalone file (which can of course be edited using your favorite editor, e.g. `emacs`) containing settings
 for your editor. For `emacs` this file is labeled as `~/.emacs` in your root directory. You can open it using the following command from terminal:
+
 ```
 emacs ~/.emacs
 ```
 
 ###### Setting up a package installer
+
 Now, once your inside, you can add the following code to your configuration file, by copy-pasting:
+
 ```
 (require 'package)
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/"))
 ```
+
 To copy from this markdown document is trivial, but to paste it into your editor you'll need to type `Ctrl-Shift V`, i.e. hold down control and shift buttons at the same time, then simultaneously type the character `V`. This should paste the contents into your `.emacs` configuration. You can then _save_ the file using the keystroke `C-x C-s`, i.e. hold Control then press `x`, and then release both keys; then hold Control and press `s` and release both keys. That's how you save a file in `emacs`!
 
 ###### Installing `elpy` to obtain `python-mode`
+
 Now, go ahead and close `emacs` and restart it; the way you close an `emacs` session is by using the keystroke: `C-x C-c`, i.e. hold Control then press `x` and then release both keys; then hold Control and press `c` and release both keys. You may see a prompt at the bottom of the screen that asks if you really with to exit `emacs`: go ahead and type `yes` then hit `Enter` to confirm your decision.
 
 Now, open up `emacs` once more and type `M-x package-install RET elpy RET`, i.e. hold `Alt` followed by pressing `x` and then release both keys. Then type in `package-install` and hit `Enter` (or `RET` for short), then go ahead and type `elpy` and hit `Enter` again. This will install the `elpy` package for you. You'll see in the lower-pane that `emacs` is running through some steps. (If you notice it gets to a step and hangs for several minutes, try and refresh the pane(s) by typing a command that normally switches panes, e.g. `C-x o`.)
@@ -42,6 +52,7 @@ Now, open up `emacs` once more and type `M-x package-install RET elpy RET`, i.e.
 After the package is done installing, add the following to your `~/.emacs` file, perhaps by typing: `C-x C-f` (to instruct `emacs` that you wish to open a file), followed by typing `~/.emacs` followed by `RET` (to tell it that you wish to open your config file specifically).
 
 ###### Using `python-mode`
+
 Now that you've installed `elpy` and configured your `emacs`, please close them using `C-x C-c`. Go ahead and open up a new file to play around with, call it e.g. `hello_world.py` via the command line: `emacs hello_world.py`. Now, go ahead and type some Python into the editor
 
 ```
@@ -95,10 +106,7 @@ the pace of CME 211.
 A background of using MATLAB and/or Python as a
 part of (non-programming focused) science and engineering coursework is
 typically not sufficient for success in CME 211.
-<<<<<<< HEAD
 
 ### Recordings
 
 This course is offered in-person and so won't be recorded. We generally try to stick very close to the notes in the lectures so that anyone missing the lecture do not feel lost.
-=======
->>>>>>> bb2547f25eff0e8feb575c7a047ec0a30eb3bde8
