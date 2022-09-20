@@ -1,6 +1,7 @@
 # CME 211 Frequently Asked Questions
 
 ## Resources
+
 - Staff mailing list: <cme211-staff@lists.stanford.edu>
 
 ## Questions
@@ -18,7 +19,7 @@ add/drop deadline.
 - If you are on the registrar wait list, you must have room in your schedule to
   be added to CME211.
 - If you experience any technical issues while registering, you must submit a
-  HelpSU request.  Feel free to ask questions on Canvas.  Keep in mind that the
+  HelpSU request. Feel free to ask questions on Canvas. Keep in mind that the
   teaching staff has no control over registration.
 
 ### Course prerequisites
@@ -33,28 +34,12 @@ loops, data structures, file input/output, encapsulation, and modularity
 (in some programming language). We review these concepts for both Python
 and C++. However, we have found that students without at least one
 formal undergraduate computing course quickly become overwhelmed with
-the pace of CME 211. 
+the pace of CME 211.
 
 A background of using MATLAB and/or Python as a
 part of (non-programming focused) science and engineering coursework is
 typically not sufficient for success in CME 211.
 
+### Recordings
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+This course is offered in-person and so won't be recorded. We generally try to stick very close to the notes in the lectures so that anyone missing the lecture do not feel lost.
