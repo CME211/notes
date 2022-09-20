@@ -1,34 +1,33 @@
 week #,lecture #,date,day,section,topic,assignments
-1,1,21-Sep,Tue,py,"course intro, python as an extensible calculator",hw0 out
- ,2,23-Sep,Thu,py,"python strings, file io, lists, control",
- , ,24-Sep,Fri,,,"hw0 due, hw1 out"
-2,3,28-Sep,Tue,py,"data structures: dicts, sets, tuples",
- ,4,30-Oct,Thu,py,intro to functions and complexity,
- , ,01-Oct,Fri,,,"hw1 due, hw2 out"
-3,5,05-Oct,Tue,py,"object model, modules, debugger, exceptions",
- ,6,07-Oct,Thu,py,"oop, data representation",
- , ,08-Oct,Fri,,,"hw2 due, hw3 out"
-4,7,12-Oct,Tue,py,"numpy, scipy, matplotlib",
- ,8,14-Oct,Thu,py,pandas,
- , ,15-Oct,Fri,,,hw3 due
-5,9,19-Oct,Tue,latex,Introduction to LaTeX,
- ,exam,21-Oct,Thu,py,Python exam,exam 1
- ,  ,22-Oct,Fri,,,hw4 out
-6,10,26-Oct,Tue,C++,"C++ intro, static arrays, looping",
- ,11,28-Oct,Thu,C++,"dynamic arrays, conditionals, (file io)",
- ,  ,29-Oct,F,,,"hw4 due, hw5 out"
-7,12,02-Nov,Tue,C++,"functions, includes, preprocessor",
- ,13,04-Nov,Thu,C++,intro to containers,
-,,05-Nov,F,,,"hw5 due, project pt 1 out"
-8,14,09-Nov,Tue,C++,"compilation, makefiles",
-,15,11-Nov,Thu,C++,boost multiarray,
-,,12-Nov,F,,,hw6 out
-9,16,16-Nov,Tue,C++,oop 1,"project pt 1 due, project pt 2 out"
-,17,18-Nov,Thu,C++,"oop 2,memory management",
-,,19-Nov,F,,,
-,,23-Nov,Tue, Thanksgiving recess, No lecture,
-,,25-Nov,Thu, Thanksgiving recess, No lecture,
-10,18,30-Nov,Tue,C++,Review,hw6 due
-,,02-Dec,Thu,C++,Exam,
-,,03-Dec,F,,,
-Finals Week,,07-Dec,Tue,py and C++,,Final Project due by 10:00 P.M. P.S.T.
+1,1,27-Sep,Tue,py,"course intro, python as an extensible calculator",hw0 out
+,2,29-Sep,Thu,py,"python strings, file io, lists, control",
+,,30-Sep,Fri,,,"hw0 due, hw1 out"
+2,3,04-Oct,Tue,py,"data structures: dicts, sets, tuples",
+,4,06-Oct,Thu,py,intro to functions and complexity,
+,,07-Oct,Fri,,,"hw1 due, hw2 out"
+3,5,11-Oct,Tue,py,"object model, modules, debugger, exceptions",
+,6,13-Oct,Thu,py,"oop, data representation",
+,,14-Oct,Fri,,,"hw2 due, hw3 out"
+4,7,18-Oct,Tue,py,"numpy, scipy, matplotlib",
+,8,20-Oct,Thu,py,pandas,
+,,21-Oct,Fri,,,hw3 due
+5,9,25-Oct,Tue,latex,Introduction to LaTeX,
+,exam,27-Oct,Thu,py,Python exam,exam 1
+,,28-Oct,Fri,,,hw4 out
+6,10,01-Nov,Tue,C++,"C++ intro, static arrays, looping",
+,11,03-Nov,Thu,C++,"dynamic arrays, conditionals, (file io)",
+,,04-Nov,F,,,"hw4 due, hw5 out"
+7,12,08-Nov,Tue,C++,"functions, includes, preprocessor",
+,13,10-Nov,Thu,C++,intro to containers,
+,,11-Nov,F,,,"hw5 due, project pt 1 out"
+8,14,15-Nov,Tue,C++,"compilation, makefiles",
+,15,17-Nov,Thu,C++,boost multiarray,
+,,18-Nov,F,,,"project pt 1 due, hw6 out"
+,,23-Nov,Tue,Thanksgiving recess,No lecture,
+,,24-Nov,Thu,Thanksgiving recess,No lecture,
+9,16,29-Nov,Tue,C++,"oop 1, project pt 2 out",
+,17,01-Dec,Thu,C++,"oop 2,memory management",
+10,,06-Dec,Tue,C++,C++ Review,**hw6 due**
+,,08-Dec,Thu,C++ Exam,,
+,,09-Dec,F,,,
+Finals Week,,Date/Time TBD by Registrar,Final Project due by HH:MM P.S.T.,,,
