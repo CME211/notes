@@ -1,6 +1,19 @@
 # CME 211 Frequently Asked Questions
 
-## Development Environments
+- [CME 211 Frequently Asked Questions](#cme-211-frequently-asked-questions)
+    - [Why learn to develop within a terminal?](#why-learn-to-develop-within-a-terminal)
+      - [Setting up Emacs on Rice](#setting-up-emacs-on-rice)
+        - [`.emacs` file](#emacs-file)
+          - [Setting up a package installer](#setting-up-a-package-installer)
+          - [Installing `elpy` to obtain `python-mode`](#installing-elpy-to-obtain-python-mode)
+          - [Using `python-mode`](#using-python-mode)
+    - [Setting up VIM for Python development](#setting-up-vim-for-python-development)
+  - [Resources](#resources)
+  - [Questions](#questions)
+    - [Course registration](#course-registration)
+    - [Course prerequisites](#course-prerequisites)
+    - [Recordings](#recordings)
+    - [How to ask a question on Ed?](#how-to-ask-a-question-on-ed)
 
 ### Why learn to develop within a terminal?
 
@@ -68,6 +81,7 @@ To run this code, simply type `C-c C-c` i.e. hold Control and then press `c`, th
 Now let's view our evaluated expression. Type `C-x 3` to split your window pane vertically (you could use `C-x 2` if you want a horizontal split). Type `C-x o` to switch to the _other_ buffer. Then, type `C-x b` to choose which _buffer_ you'd like to view: hit the down arrow key several times until you see something like: `Switch to buffer: *Python[/home/<SUNET>/hellow_world.py` then hit `RET`. You should see the output of your evaluated expression within the console!
 
 ### Setting up VIM for Python development
+
 For instructions on setting up VIM, see the [following link](https://realpython.com/vim-and-python-a-match-made-in-heaven/). In particular, I would start at [this section](https://realpython.com/vim-and-python-a-match-made-in-heaven/#vundle) since VIM and Python are already installed on our compute environment.
 
 ## Resources
@@ -122,40 +136,43 @@ But we all know that everyone's super busy :( and so it'll be better if we don't
 
 So, we would recommend you to adhere to the following style while asking questions to your peers/Teaching Staff.
 
-- Search for similar question:
+- **Search for similar question:**
 
   Often your question has already been asked by a different person. Please make sure to do an exhaustive search for similar question. If the question has indeed been asked, but doesn't address your issue, then add a follow-up question to the thread.
 
-- Title:
+- **Title:**
 
   Keep your title very specific and to the point.
 
-  Bad:
+  **Bad:**
 
   - Help!! Code is not working
   - Getting Runtime error :(
 
-  Good:
+  **Good:**
 
   - why does $\frac{2}{3}$ giving $0$ istead of $0.66$ in python?
   - I'm getting a segmentation fault while accessing the time list for function Time()
 
-- Body:
+- **Body:**
 
   Briefly summarize your problem in words by giving the readers some context. Add code snippets/template if needed. Please avoid including your entire code. This could lead to Honor Code Violations and also, inadvertant addition of irrelevant details.
 
-- What have you tried?:
+- **What have you tried?:**
 
   It's always good to let the readers know what workarounds you have already tried. Include the links of the sites where you found those workarounds (Maybe you implemented it wrong?)
 
-- Intermediate results:
-
+- **Intermediate results:**
   Say you coded everything beautifully, but you initialized the variables incorrectly! This could lead to hours of debugging. It's better to put intermediate results in your post so that one can know how much of your code is working as expected.
 
-- Proofread:
+- **Proofread:**
 
   This is often ignored in haste, but always proofread whatever you post.
 
-- Feedback:
+- **Feedback:**
 
   If you've got an error, others will get it too! Always make sure to reply to posts to let others know whether the solution worked for you or not.
+
+- **Reference:**
+
+  Here's a great reference on how to ask question from [stackoverflow](https://stackoverflow.com/help/how-to-ask)
