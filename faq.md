@@ -110,3 +110,49 @@ typically not sufficient for success in CME 211.
 ### Recordings
 
 This course is offered in-person and so won't be recorded. We generally try to stick very close to the notes in the lectures so that anyone missing the lecture do not feel lost.
+
+### How to ask a question on Ed?
+
+As this is a programming class, you're bound to run into errors. Asking for help from your colleagues is one of the best ways to quickly tackle it, and move on.
+
+But we all know that everyone's super busy :( and so it'll be better if we don't 'waste' their time.
+
+So, we would recommend you to adhere to the following style while asking questions to your peers/Teaching Staff.
+
+- Search for similar question:
+
+  Often your question has already been asked by a different person. Please make sure to do an exhaustive search for similar question. If the question has indeed been asked, but doesn't address your issue, then add a follow-up question to the thread.
+
+- Title:
+
+  Keep your title very specific and to the point.
+
+  Bad:
+
+  - Help!! Code is not working
+  - Getting Runtime error :(
+
+  Good:
+
+  - why does $\frac{2}{3}$ giving $0$ istead of $0.66$ in python?
+  - I'm getting a segmentation fault while accessing the time list for function Time()
+
+- Body:
+
+  Briefly summarize your problem in words by giving the readers some context. Add code snippets/template if needed. Please avoid including your entire code. This could lead to Honor Code Violations and also, inadvertant addition of irrelevant details.
+
+- What have you tried?:
+
+  It's always good to let the readers know what workarounds you have already tried. Include the links of the sites where you found those workarounds (Maybe you implemented it wrong?)
+
+- Intermediate results:
+
+  Say you coded everything beautifully, but you initialized the variables incorrectly! This could lead to hours of debugging. It's better to put intermediate results in your post so that one can know how much of your code is working as expected.
+
+- Proofread:
+
+  This is often ignored in haste, but always proofread whatever you post.
+
+- Feedback:
+
+  If you've got an error, others will get it too! Always make sure to reply to posts to let others know whether the solution worked for you or not.
