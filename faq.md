@@ -67,6 +67,9 @@ To run this code, simply type `C-c C-c` i.e. hold Control and then press `c`, th
 
 Now let's view our evaluated expression. Type `C-x 3` to split your window pane vertically (you could use `C-x 2` if you want a horizontal split). Type `C-x o` to switch to the _other_ buffer. Then, type `C-x b` to choose which _buffer_ you'd like to view: hit the down arrow key several times until you see something like: `Switch to buffer: *Python[/home/<SUNET>/hellow_world.py` then hit `RET`. You should see the output of your evaluated expression within the console!
 
+### Setting up VIM for Python development
+For instructions on setting up VIM, see the [following link](https://realpython.com/vim-and-python-a-match-made-in-heaven/). In particular, I would start at [this section](https://realpython.com/vim-and-python-a-match-made-in-heaven/#vundle) since VIM and Python are already installed on our compute environment.
+
 ## Resources
 
 - Staff mailing list: <cme211-staff@lists.stanford.edu>
