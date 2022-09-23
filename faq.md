@@ -132,9 +132,7 @@ This course is offered in-person and so won't be recorded. We generally try to s
 
 As this is a programming class, you're bound to run into errors. Asking for help from your colleagues is one of the best ways to quickly tackle it, and move on.
 
-But we all know that everyone's super busy :( and so it'll be better if we don't 'waste' their time.
-
-So, we would recommend you to adhere to the following style while asking questions to your peers/Teaching Staff.
+But we all know that everyone's super busy, and so for efficiency reasons we ask that you adhere to the following style while asking questions to your peers/Teaching Staff.
 
 - **Search for similar question:**
 
