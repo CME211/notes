@@ -108,7 +108,7 @@ Teaching assistants:
 All office hours will commence during week 2 of the quarter.
 
 Andreas will hold office hours after class on Tuesdays only,
-from 7:30 P.M. - 8:20 P.M., in <Location TBD>. Additional office hours are absolutely available by appointment!
+from 7:30 P.M. - 8:20 P.M., in Huang 203. Additional office hours are absolutely available by appointment!
 
 The TA's will announce their weekly Office Hour schedule by the end of the first
 week of the quarter via a Canvas (\*or Ed) announcement (or post). All TA office hours are to be held in the Huang Engineering Building _basement_, outside of the ICME.
