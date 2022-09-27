@@ -1,21 +1,22 @@
 # CME 211 Frequently Asked Questions
 
 - [CME 211 Frequently Asked Questions](#cme-211-frequently-asked-questions)
-    - [Why learn to develop within a terminal?](#why-learn-to-develop-within-a-terminal)
-      - [Setting up Emacs on Rice](#setting-up-emacs-on-rice)
-        - [`.emacs` file](#emacs-file)
-          - [Setting up a package installer](#setting-up-a-package-installer)
-          - [Installing `elpy` to obtain `python-mode`](#installing-elpy-to-obtain-python-mode)
-          - [Using `python-mode`](#using-python-mode)
-    - [Setting up VIM for Python development](#setting-up-vim-for-python-development)
-  - [Resources](#resources)
-  - [Questions](#questions)
-    - [Course registration](#course-registration)
-    - [Course prerequisites](#course-prerequisites)
-    - [Recordings](#recordings)
-    - [How to ask a question on Ed?](#how-to-ask-a-question-on-ed)
+  - [Why learn to develop within a terminal?](#why-learn-to-develop-within-a-terminal)
+    - [Setting up Emacs on Rice](#setting-up-emacs-on-rice)
+      - [`.emacs` file](#emacs-file)
+        - [Setting up a package installer](#setting-up-a-package-installer)
+        - [Installing `elpy` to obtain `python-mode`](#installing-elpy-to-obtain-python-mode)
+        - [Using `python-mode`](#using-python-mode)
+  - [Setting up VIM for Python development](#setting-up-vim-for-python-development)
+  - [Setting up vscode](#coding-with-vscode)
+- [Resources](#resources)
+- [Questions](#questions)
+  - [Course registration](#course-registration)
+  - [Course prerequisites](#course-prerequisites)
+  - [Recordings](#recordings)
+  - [How to ask a question on Ed?](#how-to-ask-a-question-on-ed)
 
-### Why learn to develop within a terminal?
+## Why learn to develop within a terminal?
 
 When you go into industry, or even if you stay in academia, chances are that you will be computing on data sets that are so large
 they cannot fit within or be processed on your local machine. In such cases, you'll need to `SSH` into a remote machine with
@@ -30,12 +31,12 @@ Some of these benefits include
 - [Keyboard shortcuts](https://www.gnu.org/software/emacs/refcards/pdf/refcard.pdf) which enable programmer productivity, e.g. have you
   ever wanted to be able to capitalize an entire word at a time? This is trivial in `emacs`!
 
-#### Setting up Emacs on Rice
+### Setting up Emacs on Rice
 
 The cool thing is that on most `unix` environments, `emacs` is already installed; this is true on `Rice`. So, all you have to do is _configure_
 the program to your liking / use-cases. We'll be using Python, so let's start there.
 
-##### `.emacs` file
+#### `.emacs` file
 
 Each editor typically has a standalone file (which can of course be edited using your favorite editor, e.g. `emacs`) containing settings
 for your editor. For `emacs` this file is labeled as `~/.emacs` in your root directory. You can open it using the following command from terminal:
@@ -44,7 +45,7 @@ for your editor. For `emacs` this file is labeled as `~/.emacs` in your root dir
 emacs ~/.emacs
 ```
 
-###### Setting up a package installer
+##### Setting up a package installer
 
 Now, once your inside, you can add the following code to your configuration file, by copy-pasting:
 
@@ -56,7 +57,7 @@ Now, once your inside, you can add the following code to your configuration file
 
 To copy from this markdown document is trivial, but to paste it into your editor you'll need to type `Ctrl-Shift V`, i.e. hold down control and shift buttons at the same time, then simultaneously type the character `V`. This should paste the contents into your `.emacs` configuration. You can then _save_ the file using the keystroke `C-x C-s`, i.e. hold Control then press `x`, and then release both keys; then hold Control and press `s` and release both keys. That's how you save a file in `emacs`!
 
-###### Installing `elpy` to obtain `python-mode`
+##### Installing `elpy` to obtain `python-mode`
 
 Now, go ahead and close `emacs` and restart it; the way you close an `emacs` session is by using the keystroke: `C-x C-c`, i.e. hold Control then press `x` and then release both keys; then hold Control and press `c` and release both keys. You may see a prompt at the bottom of the screen that asks if you really with to exit `emacs`: go ahead and type `yes` then hit `Enter` to confirm your decision.
 
@@ -64,7 +65,7 @@ Now, open up `emacs` once more and type `M-x package-install RET elpy RET`, i.e.
 
 After the package is done installing, add the following to your `~/.emacs` file, perhaps by typing: `C-x C-f` (to instruct `emacs` that you wish to open a file), followed by typing `~/.emacs` followed by `RET` (to tell it that you wish to open your config file specifically).
 
-###### Using `python-mode`
+##### Using `python-mode`
 
 Now that you've installed `elpy` and configured your `emacs`, please close them using `C-x C-c`. Go ahead and open up a new file to play around with, call it e.g. `hello_world.py` via the command line: `emacs hello_world.py`. Now, go ahead and type some Python into the editor
 
@@ -80,17 +81,35 @@ To run this code, simply type `C-c C-c` i.e. hold Control and then press `c`, th
 
 Now let's view our evaluated expression. Type `C-x 3` to split your window pane vertically (you could use `C-x 2` if you want a horizontal split). Type `C-x o` to switch to the _other_ buffer. Then, type `C-x b` to choose which _buffer_ you'd like to view: hit the down arrow key several times until you see something like: `Switch to buffer: *Python[/home/<SUNET>/hellow_world.py` then hit `RET`. You should see the output of your evaluated expression within the console!
 
-### Setting up VIM for Python development
+## Setting up VIM for Python development
 
 For instructions on setting up VIM, see the [following link](https://realpython.com/vim-and-python-a-match-made-in-heaven/). In particular, I would start at [this section](https://realpython.com/vim-and-python-a-match-made-in-heaven/#vundle) since VIM and Python are already installed on our compute environment.
 
-## Resources
+## Setting up vscode
+
+Are you sick of coding in nano or not understanding vim / emacs ?
+
+VSCode, or Visual Studio Code, has become an extremely popular Graphical UI EDI these past few years. It is lightweight, highly customizable, has good support for most languages, and has a big library of plugins that will make your software engineering learning and professional experience much easier. Using it instead of emacs, vim or nano is your choice. But knowing how to use it and configure it is also a great, valuable experience. And one could argue that it is way easier to code within it than within a terminal.
+
+That being said, when it comes to working on rice, setting it up requires just a bit of work. The following steps will show how to use vscode installed on your computer to edit and start remote files on rice.
+
+- A first, recommended thing you should do if you are on MacOS or Linux, is enable SSH multiplexing so that you avoid having vscode disconnecting from time to time, which would force you to redo the 2-factor authentication. You can follow the [tutorial here (Section Two Step Authentication)](https://web.stanford.edu/group/farmshare/cgi-bin/wiki/index.php/Advanced_Connection_Options#Two-step_Authentication).
+
+- Next, install vscode on your computer by downloading it [on its website](https://code.visualstudio.com/).
+
+- Once installed, in the left menu, go to the extensions marketplace and install "Remote Development" and "Remote - SSH".
+
+- Once they are installed, you should have a new icon in the side menu, which will lead you to your remote explorer. Add an SSH target with "ssh your_sunet_id@rice.stanford.edu" and run it. Just like with normal SSH, you will be asked your password and then to login with Duo 2FA.
+
+- Once it's done, you should have a new VS Code window open and be able to explore your remote environment within vscode, run commands in the terminal, and edit the files with your mouse and keyboard directly, with all the cool things from vscode.
+
+# Resources
 
 - Staff mailing list: <cme211-staff@lists.stanford.edu>
 
-## Questions
+# Questions
 
-### Course registration
+## Course registration
 
 We usually reach capacity each year for course enrollment. Students who know
 they do not wish to take the course should drop as soon as possible to make room
@@ -106,7 +125,7 @@ add/drop deadline.
   HelpSU request. Feel free to ask questions on Canvas. Keep in mind that the
   teaching staff has no control over registration.
 
-### Course prerequisites
+## Course prerequisites
 
 The prerequisite for CME 211 in the bulletin is stated as "introductory
 programming course equivalent to CS 106A or instructor consent". CME 211
@@ -124,11 +143,11 @@ A background of using MATLAB and/or Python as a
 part of (non-programming focused) science and engineering coursework is
 typically not sufficient for success in CME 211.
 
-### Recordings
+## Recordings
 
 This course is offered in-person and so won't be recorded. We generally try to stick very close to the notes in the lectures so that anyone missing the lecture do not feel lost.
 
-### How to ask a question on Ed?
+## How to ask a question on Ed?
 
 As this is a programming class, you're bound to run into errors. Asking for help from your colleagues is one of the best ways to quickly tackle it, and move on.
 
