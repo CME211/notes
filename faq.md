@@ -89,9 +89,11 @@ For instructions on setting up VIM, see the [following link](https://realpython.
 
 Are you sick of coding in nano or not understanding vim / emacs ?
 
-VSCode, or Visual Studio Code, has become an extremely popular Graphical UI EDI these past few years. It is lightweight, highly customizable, has good support for most languages, and has a big library of plugins that will make your software engineering learning and professional experience much easier. Using it instead of emacs, vim or nano is your choice. But knowing how to use it and configure it is also a great, valuable experience. And one could argue that it is way easier to code within it than within a terminal.
+VSCode, or Visual Studio Code, has become an extremely popular Graphical UI EDI these past few years. It is free, lightweight, highly customizable, has good support for most languages, and has a big library of plugins that will make your software engineering learning and professional experience much easier. Using it instead of emacs, vim or nano is your choice. But knowing how to use it and configure it is also a great, valuable experience. And one could argue that it is way easier to code within it than within a terminal.
 
-That being said, when it comes to working on rice, setting it up requires just a bit of work. The following steps will show how to use vscode installed on your computer to edit and start remote files on rice.
+When it comes to working on rice, setting it up requires just a bit of work. It will look like you're using vscode on your computer, but it will actually perform all the running and saving actions on rice (and that's the beauty of it).
+
+The following steps will show how to use vscode installed on your computer to edit and start remote files on rice.
 
 - A first, recommended thing you should do if you are on MacOS or Linux, is enable SSH multiplexing so that you avoid having vscode disconnecting from time to time, which would force you to redo the 2-factor authentication. You can follow the [tutorial here (Section Two Step Authentication)](https://web.stanford.edu/group/farmshare/cgi-bin/wiki/index.php/Advanced_Connection_Options#Two-step_Authentication).
 
