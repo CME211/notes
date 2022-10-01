@@ -15,6 +15,7 @@
   - [Course prerequisites](#course-prerequisites)
   - [Recordings](#recordings)
   - [How to ask a question on Ed?](#how-to-ask-a-question-on-ed)
+- [Git](#git)
 
 ## Why learn to develop within a terminal?
 
@@ -195,3 +196,6 @@ But we all know that everyone's super busy, and so for efficiency reasons we ask
 - **Reference:**
 
   Here's a great reference on how to ask question from [stackoverflow](https://stackoverflow.com/help/how-to-ask)
+
+# Git
+For a helpful interactive tutorial on Git, please see: https://learngitbranching.js.org/.
