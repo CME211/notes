@@ -199,3 +199,36 @@ But we all know that everyone's super busy, and so for efficiency reasons we ask
 
 # Git
 For a helpful interactive tutorial on Git, please see: https://learngitbranching.js.org/.
+
+## Basic idea of GitHub
+
+GitHub helps you organize your files and keep them in one central location (i.e. GitHub), which is very useful when collaborating with others, as you no longer need to email each other files and manually track everyone's updates. It also helps with keeping track of which update was made when, allows you to go back to old code if needed, is easy for sharing with the general public as well as private groups, and so on. Every tech company uses GitHub!
+
+There are 3 basic 'locations' you'll be working on: your local machine, your local GitHub repository, and the remote GitHub repository. After logging into Rice, Rice is now your 'local' computer (i.e. the one you're working on).
+
+### Pipeline
+
+To get from updating files to getting them on the remote GitHub page, the 'pipeline' is as follows:
+
+#### Add and commit
+After changing a file locally (on Rice),  you can add this updated file to your 'local GitHub (repo)' by doing `git add [filename]` (which adds the file to your local GitHub) and `git commit -m "[message]"`, which adds a message to the git add-update you've just done. This allows you to track progess and makes it easier for other collaborators, too, to see a one-line summary of the work that's been added since they've last looked at it. The -m "flag" means you're doing to add a message afterwards.
+
+#### Pushing
+Once you've done the add and commit, it's time to push your local changes to a remote "branch": there could be spin-offs on projects, called "branches", and you could push to any. For now, you'll just have the "main" branch. This pushing is done by writing `git push <remote> <branch>` , which amounts to `git push` or `git push origin main` for y'all (both should work). The `<remote>` part refers to which GitHub project/page you want to push to, as you might be working on many projects at once on GitHub. When you start a new project (like everyone just has), origin will refer to that new project, so instead of referring specifically to the location of your CME211 remote repository, you can just write origin! :-). Lastly, each project within the remote repo you referred to in the previous word (i.e. origin for y'all) might have many branches -- to which branch (or "spin-off") do you want to contribute and add your file? In our case, you'll just push to the main branch, hence the main at the end.
+
+#### Tagging
+If 100 people work on 1 project, you might get many commits (every day), and if you need to go back to the version of 2 days ago, which one is it??? To keep track of versions, you can 'tag' them -- this is typically done after a big update, or some particular point in time. After ensuring your local GitHub repo contains the same as the remote repo, you can add a tag on your local GitHub repo, and then push it! The command `git tag -am "HW1 Submission" hw1` in the homework is equivalent to doing `git tag -m "HW1 Submission" -a hw1` . Basically, the `-a` means you're going to give this tag a name (you're doing to annotate it), e.g. hw1, while the `-m` means you're going to add a brief message about it (just like with the git commits!) 
+
+#### Pulling
+Now, sometimes your local repo is not up to date with the remote repo (e.g. because other people have contributed). If you and person X don't have each other's updates but each try to push your new local files, which file should GitHub go with? For instance, suppose us two (yeah, you and me) had a file containing "A", and I update it to "AB" locally, and you update it to "AC" locally, and we both try to upload these new files to the remote GitHub repo, what should the shared, common new file be? That's not clear, right? So to prevent this, GitHub demands that you first 'pull' in or 'fetch' the updates made to the remote repo before pushing your local files.
+
+In other words, if you get an error like
+```
+! [rejected]     main -> main (fetch first)
+error: failed to push some refs to '[github link]'
+hint: Updates were rejected because the remote repo contains work that you do
+hint: not have locally. This is ...[more text here]
+```
+that means there have been made some updates to the remote repository (i.e. the one you see on the website) that you don't have yet. And to prevent said clashes, you need to pull in these updates first. This is done by writing git pull , which rakes the GitHub remote repo (updates), without overwriting your local changes (GitHub is smart -- it'll let you know if git pull is hard without overwriting local changes). After the git pull, your local github should be the same version as the remote one, allowing you to update!
+
+TL;DR: if shown the error in code snippet above when trying to push, do a git pull and then a git push. You need to grab the updates from the remote repo :-).
