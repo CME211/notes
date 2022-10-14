@@ -8,7 +8,7 @@
         - [Installing `elpy` to obtain `python-mode`](#installing-elpy-to-obtain-python-mode)
         - [Using `python-mode`](#using-python-mode)
   - [Setting up VIM for Python development](#setting-up-vim-for-python-development)
-  - [Setting up vscode](#coding-with-vscode)
+  - [Setting up vscode](#setting-up-vscode)
 - [Resources](#resources)
 - [Questions](#questions)
   - [Course registration](#course-registration)
@@ -94,9 +94,11 @@ VSCode, or Visual Studio Code, has become an extremely popular Graphical UI EDI 
 
 When it comes to working on rice, setting it up requires just a bit of work. It will look like you're using vscode on your computer, but it will actually perform all the running and saving actions on rice (and that's the beauty of it).
 
-The following steps will show how to use vscode installed on your computer to edit and start remote files on rice.
+### Method for MacOS & Linux users
 
-- A first, recommended thing you should do if you are on MacOS or Linux, is enable SSH multiplexing so that you avoid having vscode disconnecting from time to time, which would force you to redo the 2-factor authentication. You can follow the [tutorial here (Section Two Step Authentication)](https://web.stanford.edu/group/farmshare/cgi-bin/wiki/index.php/Advanced_Connection_Options#Two-step_Authentication).
+The following steps will show how to use vscode installed on your computer to edit and start remote files on rice. THIS GUIDE IS SUITED FOR MACOS / LINUX USERS. If you have Windows, we recommend the method further below.
+
+- A first, recommended thing you should do when you are on MacOS or Linux, is enable SSH multiplexing so that you avoid having vscode disconnecting from time to time, which would force you to redo the 2-factor authentication. You can follow the [tutorial here (Section Two Step Authentication)](https://web.stanford.edu/group/farmshare/cgi-bin/wiki/index.php/Advanced_Connection_Options#Two-step_Authentication). It's what will help not having the connection drop every few minutes and ask you to login again. On Windows, this is not possible.
 
 - Next, install vscode on your computer by downloading it [on its website](https://code.visualstudio.com/).
 
@@ -105,6 +107,12 @@ The following steps will show how to use vscode installed on your computer to ed
 - Once they are installed, you should have a new icon in the side menu, which will lead you to your remote explorer. Add an SSH target with "ssh your_sunet_id@rice.stanford.edu" and run it. Just like with normal SSH, you will be asked your password and then to login with Duo 2FA.
 
 - Once it's done, you should have a new VS Code window open and be able to explore your remote environment within vscode, run commands in the terminal, and edit the files with your mouse and keyboard directly, with all the cool things from vscode.
+
+### Method for Windows users
+
+Carlos, who took the class in Fall 2022, made a great guide to setup VSCode with Rice on Windows in a stable way.
+
+You can follow [his guide](resources/Set_Up_and_Using_SSH_FS_on_VSCode.pdf).
 
 # Resources
 
