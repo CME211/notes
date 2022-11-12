@@ -26,8 +26,8 @@ week #,lecture #,date,day,section,topic,assignments
 ,,23-Nov,Tue,Thanksgiving recess,No lecture,
 ,,24-Nov,Thu,Thanksgiving recess,No lecture,
 9,16,29-Nov,Tue,C++,"boost multiarray, project pt 2 out"
-,17,01-Dec,Thu,C++,"Intro to OOP",memory management",
-10,,06-Dec,Tue,C++,"OOP Wrap-up (and possibly a C++ Review)",**hw6 due**
+,17,01-Dec,Thu,C++,"Intro to OOP"
+10,,06-Dec,Tue,C++,"OOP Wrap-up, touch on memory management",**hw6 due**
 ,,08-Dec,Thu,C++ Exam,,
 ,,09-Dec,F,,,
 Finals Week,,December 15,Final Project due by 10 P.M. P.S.T.,,,
