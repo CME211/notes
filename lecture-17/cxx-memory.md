@@ -34,6 +34,8 @@ the *heap*
 
 ### Static array example
 
+The code below is trying to book stack memory with a variable that is too big:
+
 `src/stack4.cpp`:
 
 ```c++
@@ -86,7 +88,7 @@ $ ulimit -s 4096
 $
 ```
 
-* On `corn` we cannot make the stack size larger, but we can make it smaller!
+* On `rice` we cannot make the stack size larger, but we can make it smaller!
 
 ### Stack size
 
@@ -371,6 +373,12 @@ $ ./src/func
 
 * `b` is a **double**
 
+### Common mistake: Use of the ampersand (&)
+
+`double* b = &a;`: &a is the *address* of a. b is a pointer.
+
+`void function(double &a) {}`: a is defined as a *reference* because the & is used in a var definition.
+
 ### Many uses of `*`
 
 `src/pointer3.cpp`:
@@ -530,6 +538,8 @@ Step 3:
 
 ### Out of bounds access
 
+The following code tries to access unitialized parts of the memory, see why:
+
 `src/new2.cpp`:
 
 ```c++
@@ -570,6 +580,8 @@ a = 0x7f8bf1c0b010
 a = 0x7f8bf1c0b010
 Segmentation fault (core dumped)
 ```
+
+Interestingly, we can still access a[0] and a[1] even if we deleted it. This should be fixed, but first let's see what valgrind shows us:
 
 ### Use valgrind
 
@@ -636,6 +648,8 @@ a[3] = 6
 
 ### Suggestion
 
+Now we use nullptr after delete[], and our program will crash straight but at least won't do weird things.
+
 `src/new3.cpp`:
 
 ```c++
@@ -668,6 +682,8 @@ Segmentation fault (core dumped)
 ```
 
 ### Memory allocation in a function
+
+Memory can leak if you allocate things in functions and don't delete properly.
 
 `src/new4.cpp`:
 
