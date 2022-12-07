@@ -24,7 +24,7 @@ Students will have 85 minutes to write their solutions to the exam once it start
 * **You may not use any external package (e.g. Boost)**
 
 ## Material covered
-Everything covered up through Lecture 17 (but not including Boost, and not including the "memory" portion of lecture 17).
+Everything covered up through Lecture 17 (but not including Boost).
 
 ## What can I expect of the exam format?
 You should expect something similar to what you saw for the 211 Python midterm. E.g. this can include portions such as:
